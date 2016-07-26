@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Timeseries
+Bundle-SymbolicName: gov.noaa.nws.ncep.viz.rsc.ghcd;singleton:=true
+Eclipse-RegisterBuddy: gov.noaa.nws.ncep.viz.resources, com.raytheon.viz.core, com.raytheon.viz.ui, com.raytheon.edex.common, com.raytheon.uf.common.serialization
+Eclipse-BuddyPolicy: ext, global
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.noaa.nws.ncep.viz.rsc.timeseries.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ com.raytheon.uf.viz.xy;bundle-version="1.12.1174",
+ com.raytheon.viz.ui;bundle-version="1.12.1174",
+ gov.noaa.nws.ncep.common.dataplugin.ghcd,
+ com.raytheon.viz.core.graphing;bundle-version="1.12.1174",
+ com.raytheon.viz.core;bundle-version="1.12.1174",
+ gov.noaa.nws.ncep.viz.common,
+ gov.noaa.nws.ncep.viz.resources;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: gov.noaa.nws.ncep.viz.common.tsScaleMngr,
+ gov.noaa.nws.ncep.viz.rsc.timeseries.rsc,
+ gov.noaa.nws.ncep.viz.ui.display
+Export-Package: gov.noaa.nws.ncep.viz.rsc.ghcd,
+ gov.noaa.nws.ncep.viz.rsc.ghcd.rsc,
+ gov.noaa.nws.ncep.viz.rsc.ghcd.util
