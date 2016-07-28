@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EditedEvents
+Bundle-SymbolicName: gov.noaa.nws.ncep.viz.ui.editedevents;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: gov.noaa.nws.ncep.viz.ui.editedevents.Activator
+Require-Bundle: com.raytheon.viz.ui,
+ org.eclipse.core.runtime,
+ com.raytheon.uf.viz.core,
+ com.raytheon.uf.common.time,
+ gov.noaa.nws.ncep.common.dataplugin.editedevents,
+ gov.noaa.nws.ncep.common.dataplugin.ghcd,
+ gov.noaa.nws.ncep.common.swpcrefdb,
+ com.raytheon.viz.ui;bundle-version="1.12.1174",
+ com.raytheon.uf.common.dataplugin;bundle-version="1.14.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: com.raytheon.uf.viz.core.requests,
+ gov.noaa.nws.ncep.viz.ui.display
+

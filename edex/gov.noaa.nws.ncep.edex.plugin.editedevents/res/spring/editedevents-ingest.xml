@@ -1,0 +1,55 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="eventsDao" class="gov.noaa.nws.ncep.edex.plugin.editedevents.dao.EventsDao">
+		<constructor-arg ref="eventsPluginName" />
+	</bean>
+	
+	<bean id="eventsDecoder" class="gov.noaa.nws.ncep.edex.plugin.editedevents.EventsDecoder" depends-on="eventsPluginName" >
+		<property name="dao" ref="eventsDao" />
+	</bean>
+	
+	<bean id="eventsDistRegistry" factory-bean="distributionSrv"
+		factory-method="register">
+		<constructor-arg ref="eventsPluginName" />
+		<constructor-arg value="jms-durable:queue:Ingest.EditedEvents"/>
+	</bean>
+
+    <camelContext id="events-camel"
+		xmlns="http://camel.apache.org/schema/spring"
+		errorHandlerRef="errorHandler"
+		autoStartup="false">
+		
+		<endpoint id="eventsFileEndpoint" uri="file:${edex.home}/data/sbn/editedevents?noop=true&amp;idempotent=false" />
+
+		<route id="eventsFileConsumerRoute">
+			<from ref="eventsFileEndpoint" />
+			<bean ref="fileToString" />
+			<setHeader headerName="pluginName">
+				<constant>editedevents</constant>
+			</setHeader>
+			<to uri="jms-durable:queue:Ingest.EditedEvents" />
+		</route>
+		
+		<!-- Begin Events routes -->
+		<route id="eventsIngestRoute">
+			<from uri="jms-durable:queue:Ingest.EditedEvents"/>
+			<setHeader headerName="pluginName">
+				<constant>editedevents</constant>
+			</setHeader>
+			<doTry>
+				<pipeline>
+					<bean ref="stringToFile" />
+					<bean ref="eventsDecoder" method="decode" />
+					<to uri="direct-vm:indexAlert" />
+				</pipeline>
+				<doCatch>
+					<exception>java.lang.Throwable</exception>
+					<to uri="log:events?level=ERROR"/>
+				</doCatch>
+			</doTry>
+		</route>
+	</camelContext>
+</beans>

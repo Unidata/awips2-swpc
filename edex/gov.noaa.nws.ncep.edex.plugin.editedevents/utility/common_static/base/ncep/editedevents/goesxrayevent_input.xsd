@@ -1,0 +1,396 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="dataset">
+   <xs:complexType>
+      <!-- The ordered sequence of child elements -->
+      <xs:sequence>
+         <!-- The data elements (zero or more) of type "event-report" -->
+         <xs:element name="goes-xray-event-report" type="goes-xray-event-report-type" minOccurs="1" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+</xs:element>
+
+<xs:complexType name="goes-xray-event-report-type">
+   <xs:all>
+      <xs:element name="insert-time"         type="xs:dateTime"/>
+
+      <xs:element name="begin-time"          type="xs:dateTime" />
+      <xs:element name="begin-xrshort"       type="begin-xrshort-data-item"/>
+      <xs:element name="begin-xrlong"        type="begin-xrlong-data-item" />
+      <xs:element name="begin-xratio"        type="begin-xratio-data-item"/>
+
+      <xs:element name="current-xrshort"     type="current-xrshort-data-item"/>
+      <xs:element name="current-xrlong"      type="current-xrlong-data-item"/>
+      <xs:element name="current-xratio"      type="current-xratio-data-item" />
+      <xs:element name="current-int-xrshort" type="current-int-xrshort-data-item"/>
+      <xs:element name="current-int-xrlong"  type="current-int-xrlong-data-item"/>
+
+      <xs:element name="max-time"            type="xs:dateTime"                 minOccurs="0"/>
+      <xs:element name="max-xrshort"         type="max-xrshort-data-item"       minOccurs="0"/>
+      <xs:element name="max-xrlong"          type="max-xrlong-data-item"        minOccurs="0"/>
+      <xs:element name="max-xratio"          type="max-xratio-data-item"        minOccurs="0"/>
+      <xs:element name="max-temp"            type="max-temp-data-item"          minOccurs="0"/>
+      <xs:element name="max-emission-meas"   type="max-emission-meas-data-item" minOccurs="0"/>
+      <xs:element name="max-class"           type="max-class-data-item"         minOccurs="0"/>
+
+      <xs:element name="end-time"            type="xs:dateTime"                 minOccurs="0"/>
+      <xs:element name="end-xrshort"         type="end-xrshort-data-item"       minOccurs="0"/>
+      <xs:element name="end-xrlong"          type="end-xrlong-data-item"        minOccurs="0"/>
+      <xs:element name="end-xratio"          type="end-xratio-data-item"        minOccurs="0"/>
+   </xs:all>
+
+   <xs:attribute name="current-time" type="xs:dateTime" use="required"/>
+   <xs:attribute name="source" type="data-sources" use="required"/>
+</xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the begin-xrshort data.
+   -->
+   <xs:simpleType name="begin-xrshort-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="begin-xrshort-data-item">
+      <xs:simpleContent>
+         <xs:extension base="begin-xrshort-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS short wavelength channel irradiance (0.05 - 0.4 nm) at the start of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the begin-xrlong data.
+   -->
+   <xs:simpleType name="begin-xrlong-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="begin-xrlong-data-item">
+      <xs:simpleContent>
+         <xs:extension base="begin-xrlong-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS long wavelength channel irradiance (0.1-0.8 nm) at the start of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the begin-xratio data.
+   -->
+   <xs:simpleType name="begin-xratio-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0."/>
+         <xs:maxInclusive value="1."/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="begin-xratio-data-item">
+      <xs:simpleContent>
+         <xs:extension base="begin-xratio-type">
+            <xs:attribute name="description" fixed="The ratio of XRS short wavelength channel irradiance to XRS long wavelength channel irradience at the start of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the current-xrshort data.
+   -->
+   <xs:simpleType name="current-xrshort-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="current-xrshort-data-item">
+      <xs:simpleContent>
+         <xs:extension base="current-xrshort-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS short wavelength channel irradiance (0.05 - 0.4 nm) for the latest measurement of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the current-xrlong data.
+   -->
+   <xs:simpleType name="current-xrlong-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="current-xrlong-data-item">
+      <xs:simpleContent>
+         <xs:extension base="current-xrlong-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS long wavelength channel irradiance (0.1-0.8 nm) for the latest measurement of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the current-xratio data.
+   -->
+   <xs:simpleType name="current-xratio-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0."/>
+         <xs:maxInclusive value="1."/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="current-xratio-data-item">
+      <xs:simpleContent>
+         <xs:extension base="current-xratio-type">
+            <xs:attribute name="description" fixed="The ratio of XRS short wavelength channel irradiance to XRS long wavelength channel irradience at the latest measurement time."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the current-int-xrshort data.
+   -->
+   <xs:simpleType name="current-int-xrshort-type">
+      <xs:restriction base="xs:float">
+  <!--   <xs:minInclusive value="-1000."/>
+         <xs:maxInclusive value="1000."/>    -->
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="current-int-xrshort-data-item">
+      <xs:simpleContent>
+         <xs:extension base="current-int-xrshort-type">
+            <xs:attribute name="units" fixed="J/m^2"/>
+            <xs:attribute name="description" fixed="The integrated XRS short wavelength channel irradiance (0.05 - 0.4 nm) flux from the beginning of the event until the current time."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the current-int-xrlong data.
+   -->
+   <xs:simpleType name="current-int-xrlong-type">
+      <xs:restriction base="xs:float">
+   <!--  <xs:minInclusive value="-1000."/>
+         <xs:maxInclusive value="1000."/>   -->
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="current-int-xrlong-data-item">
+      <xs:simpleContent>
+         <xs:extension base="current-int-xrlong-type">
+            <xs:attribute name="units" fixed="J/m^2"/>
+            <xs:attribute name="description" fixed="The integrated XRS long wavelength channel irradiance (0.1-0.8 nm) flux from the beginning of the flare until the current time."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-xrshort data.
+   -->
+   <xs:simpleType name="max-xrshort-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-xrshort-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-xrshort-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS short wavelength channel irradiance (0.05 - 0.4 nm) at the time of the maximum flux of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-xrlong data.
+   -->
+   <xs:simpleType name="max-xrlong-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-xrlong-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-xrlong-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS long wavelength channel irradiance (0.1-0.8 nm) at the time of the maximum flux of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-xratio data.
+   -->
+   <xs:simpleType name="max-xratio-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0."/>
+         <xs:maxInclusive value="1."/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-xratio-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-xratio-type">
+             <xs:attribute name="description" fixed="The ratio of XRS short wavelength channel irradiance to XRS long wavelength channel irradience at the time of the maximum flux value of the event"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-temp data.
+   -->
+   <xs:simpleType name="max-temp-type">
+      <xs:restriction base="xs:float">
+    <!-- <xs:minInclusive value="-1000."/>
+         <xs:maxInclusive value="1000."/> -->
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-temp-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-temp-type">
+            <xs:attribute name="units" fixed="K"/>
+            <xs:attribute name="description" fixed="Temperature"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-emission-meas data.
+   -->
+   <xs:simpleType name="max-emission-meas-type">
+      <xs:restriction base="xs:float">
+    <!-- <xs:minInclusive value="-1000."/>
+         <xs:maxInclusive value="1000."/> -->
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-emission-meas-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-emission-meas-type">
+       <!-- <xs:attribute name="units" fixed="nT"/>  -->
+            <xs:attribute name="description" fixed="  Need Description "/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the max-class data.
+   -->
+   <xs:simpleType name="max-class-type">
+      <xs:restriction base="xs:string">
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="max-class-data-item">
+      <xs:simpleContent>
+         <xs:extension base="max-class-type">
+           <!--<xs:attribute name="units" fixed="nT"/>   -->
+            <xs:attribute name="description" fixed="A translation of the maximum long flux value into a known scale:  A   x &lt; 10-7   
+              B  10-7 &lt;= x &lt; 10-6
+              C  10-6 &lt;= x &lt; 10-5
+              M  10-5 &lt;= x &lt; 10-4
+              X  10-4 &lt;= x"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the end-xrshort data.
+   -->
+   <xs:simpleType name="end-xrshort-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="end-xrshort-data-item">
+      <xs:simpleContent>
+         <xs:extension base="end-xrshort-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS short wavelength channel irradiance (0.05 - 0.4 nm) at the end time of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the end-xrlong data.
+   -->
+   <xs:simpleType name="end-xrlong-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0.000000001"/>
+         <xs:maxInclusive value="0.001"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="end-xrlong-data-item">
+      <xs:simpleContent>
+         <xs:extension base="end-xrlong-type">
+            <xs:attribute name="units" fixed="W/m^2"/>
+            <xs:attribute name="description" fixed="XRS long wavelength channel irradiance (0.1-0.8 nm) at the end time of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the end-xratio data.
+   -->
+   <xs:simpleType name="end-xratio-type">
+      <xs:restriction base="xs:float">
+         <xs:minInclusive value="0"/>
+         <xs:maxInclusive value="1.0"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+   <xs:complexType name="end-xratio-data-item">
+      <xs:simpleContent>
+         <xs:extension base="end-xratio-type">
+            <xs:attribute name="description" fixed="XRS short wavelength channel irradiance to XRS long wavelength channel irradience at the end of the event."/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+
+   <!-- An enumeration of valid data source values for this XML message -->
+   <xs:simpleType name="data-sources">
+      <xs:restriction base="xs:string">
+         <xs:enumeration value="goes-13"/>
+         <xs:enumeration value="goes-14"/>
+         <xs:enumeration value="goes-15"/>
+         <xs:enumeration value="goes-r"/>
+         <xs:enumeration value="goes-16"/>
+      </xs:restriction>
+   </xs:simpleType>
+
+</xs:schema>

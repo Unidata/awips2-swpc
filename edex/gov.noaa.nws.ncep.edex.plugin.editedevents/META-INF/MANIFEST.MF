@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: EditedEvents
+Bundle-SymbolicName: gov.noaa.nws.ncep.edex.plugin.editedevents
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: 
+ com.raytheon.edex.common;bundle-version="1.12.1174",
+ com.raytheon.uf.common.localization;bundle-version="1.10.13",
+ gov.noaa.nws.ncep.common.dataplugin.editedevents;bundle-version="1.0.0",
+ gov.noaa.nws.ncep.common.swpcrefdb;bundle-version="1.0.0",
+ gov.noaa.nws.ncep.edex.swpcrefdb;bundle-version="1.0.0"
+Import-Package: com.raytheon.uf.common.message.response,
+ com.raytheon.uf.common.serialization.comm,
+ com.raytheon.uf.common.status,
+ org.apache.commons.io

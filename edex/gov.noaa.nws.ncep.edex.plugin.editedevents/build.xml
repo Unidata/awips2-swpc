@@ -1,0 +1,670 @@
+<?xml version="1.0"?>
+<project name="EventsDecoder"
+	         basedir="."
+	         default="Full-Build-With-Notifications">
+	
+    <description>
+        Build script for the AWIPS2 Edited Events Plugin project
+    </description>
+	
+	<!-- define the workspace location here -->
+	<property name="workspaceDirectory" value="${basedir}/.." />
+	<property name="editedevents.workspace.dir" location="/export/cdbsrv/jtravis/workspaces/EditedEvents"/>
+	
+	<!-- read in the properties file -->
+	<loadproperties srcFile="${editedevents.workspace.dir}/gov.noaa.nws.ncep.edex.plugin.events/build.eventsplugin.properties"/>
+	
+	<record name="${log.dir}/${project.title}.ant.build.log" action="start"/>
+	
+	<path id="editedevents.classpath">
+		<fileset dir="/awips2/java/jre/lib">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="/awips2/java/jre/lib/ext">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${dependencies.dir}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="/export/cdbsrv/jtravis/Downloads/java-apis/ant4eclipse-1.0.0.M4/libs">
+			<include name="*.jar"/>
+		</fileset>
+		<pathelement location="/export/cdbsrv/jtravis/Downloads/java-apis/hibernate-release-4.3.8.Final/lib/required/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+		<pathelement location="/export/cdbsrv/jtravis/Downloads/java-apis/junit-4.1.2/junit-4.12.jar"/>
+		<pathelement location="/export/cdbsrv/jtravis/Downloads/java-apis/junit-4.1.2/hamcrest-core-1.3.jar"/>
+		<pathelement location="/export/cdbsrv/jtravis/Downloads/java-apis/ant4eclipse-1.0.0.M4/org.ant4eclipse_1.0.0.M4.jar"/>
+		<pathelement path="${java.class.path}/"/>
+		<pathelement path="${dependencies.dir}/"/>
+	</path>
+	
+	<!--################################
+	Define the location of the Cobertura jars to be added to the classpath
+	##################################-->
+	<path id="cobertura.classpath">
+		<fileset dir="/export/cdbsrv/jtravis/Downloads/java-apis/cobertura-1.9.4.1">
+			<include name="cobertura.jar" />
+			<include name="lib/**/*.jar" />
+		</fileset>
+	</path>
+	
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+	
+	<!--##################################################
+	Task to send the javadocs, and reports to
+	people via email
+	###################################################-->
+	<target name="mail" description="send reports and javadocs via email">
+		
+		<mail mailhost="${smtp.server.name}" mailport="${smtp.server.port}" tolist="${report.distro}"
+	            subject="${email.subject.body}" enableStartTLS="true" user="Jason.Travis@noaa.gov" password="M!dn1ght5214">
+	            <from address="${email.from}"/>
+	            <message>${email.message.body}</message>
+	    </mail>
+		
+	 </target>
+	
+	<!--################################################
+		Create instrumented class files used by Cobertura
+	###################################################-->
+	<target name="instrument" description="create the coberturized class files">
+		<!--
+			Remove the coverage data file and any old instrumentation.
+		-->
+		<!--<delete file="cobertura.ser"/>-->
+		
+		<!--
+			Instrument the application classes, writing the
+			instrumented classes into ${instrumented.dir}.
+		-->
+		<cobertura-instrument todir="${instrumented.dir}">
+			<!--
+				The following line causes instrument to ignore any
+				source line containing a reference to log4j, for the
+				purposes of coverage reporting.
+			-->
+			<ignore regex="org.apache.log4j.*" />
+			
+			<fileset dir="${build.gov.noaa.nws.ncep.edex.plugin.events}">
+				<!--
+					Instrument all the application classes, but
+					don't instrument the test classes and the package info
+				-->
+				<!--<include name="**/*.class" />-->
+				<exclude name="**/Test*.class" />
+			</fileset>
+		</cobertura-instrument>
+	</target>
+	
+	<!--###############################################################
+		Execute the JUnit Tests and create the junit
+		and cobertura reports
+	#################################################################-->
+	<target name="test" description="executes all JUnit tests and creates reports">	 
+		<junit printsummary="on" haltonfailure="no" haltonerror="no">
+			<sysproperty key="net.sourceforge.cobertura.datafile" file="${basedir}/cobertura.ser" />
+			
+			<!--
+				Note the classpath order: instrumented classes are before the
+				original (uninstrumented) classes.  This is important.
+			-->
+			<classpath location="${instrumented.dir}" />
+			<classpath location="${build.gov.noaa.nws.ncep.edex.plugin.events}" />
+			
+			<!--
+				The instrumented classes reference classes used by the
+				Cobertura runtime, so Cobertura and its dependencies
+				must be on your classpath.
+			-->
+			<classpath refid="cobertura.classpath" />
+			<classpath refid="editedevents.classpath"/>
+			
+		  <classpath>
+		  	<pathelement path="${dist-test.dir}"/>
+		  	<fileset dir="/export/cdbsrv/jtravis/Downloads/java-apis/apache-log4j-2.1-bin">
+		  		<include name="*.jar"/>
+		  	</fileset>
+		  	<pathelement location="/export/cdbsrv/jtravis/Downloads/java-apis/junit-4.1.2/junit-4.12.jar"/>
+		  </classpath>
+
+		  <formatter type="xml"/>
+			
+		 <!-- Execute all JUnit test cases -->	
+		  <batchtest fork="yes" todir="${reports.junit.dir}">
+		  	<fileset dir="${editedevents.workspace.dir}/gov.noaa.nws.ncep.edex.plugin.events/test">
+		  		<include name="**/Test*.java" />
+		  	</fileset>
+		  </batchtest>
+		</junit>
+		
+		<!-- Create the JUnit Reports -->
+		<junitreport todir="${reports.junit.dir}">
+			<fileset dir="${reports.junit.dir}">
+				<exclude name="*TestSuite*.xml" />
+			</fileset>
+			<report format="frames" todir="${reports.junit.dir}" />
+		</junitreport>
+		
+		<!-- Create the Cobertura Reports -->
+		<cobertura-report destdir="${reports.cobertura.dir}">
+			<fileset dir="${editedevents.workspace.dir}/gov.noaa.nws.ncep.edex.plugin.events/src">
+				<include name="**/*.java"/>
+			</fileset>
+			<fileset dir="${instrumented.dir}">
+				<exclude name="**/test/**"/>
+			</fileset>
+		</cobertura-report>
+		
+	</target>
+	
+    <!-- ##################################
+    		Create the Java Docs
+    ################################## -->
+    <target name="javadoc" description="create the edited events plugin projects java documentation">
+        <echo>Create Java Docs for ${project.name} Project</echo>
+        <javadoc destdir="${javadoc.dir}" author="true" version="true" useexternalfile="yes" use="true" windowtitle="${project.title}">
+        	<tag name="sample.code" scope="all" description="Sample Code:"/>
+
+          <fileset dir="${editedevents.workspace.dir}/gov.noaa.nws.ncep.edex.plugin.events" defaultexcludes="yes">
+          	<exclude name="**/Test*.java" />
+            <include name="**/*.java"/>
+          </fileset>
+
+          <doctitle><![CDATA[<h1>${project.title}</h1>]]></doctitle>
+          <bottom><![CDATA[<i>Copyright &#169; 2015 NOAA. All Rights Reserved.</i>]]></bottom>
+        </javadoc>
+    </target>
+	
+	<target name="copy-jar-dependencies">
+		<copydir src="${editedevents.workspace.dir}"
+				dest="${dependencies.dir}"
+				includes="**/*.jar"
+				excludes="**/*sources*, .*"
+				flatten="true"/>
+	</target>
+	
+	<target name="clean-dependencies-directory">
+		<delete includeemptydirs="true">
+			<fileset dir="${dependencies.dir}" includes="**/*" defaultexcludes="false"/>
+			<fileset dir="${reports.junit.dir}" includes="**/*" defaultexcludes="false"/>
+			<fileset dir="${reports.cobertura.dir}" includes="**/*" defaultexcludes="false"/>
+			<fileset dir="${build.dir}" includes="**/*" defaultexcludes="false"/>
+			<fileset dir="${instrumented.dir}" includes="**/*" defaultexcludes="false"/>
+			<fileset dir="${javadoc.dir}" includes="**/*" defaultexcludes="false"/>
+		</delete>
+	</target>
+	
+	<target name="Full-Build-With-Notifications"
+		depends="clean-dependencies-directory,
+		copy-jar-dependencies,
+		build-test-gov.noaa.nws.ncep.edex.plugin.events,
+		instrument,
+		test,
+		javadoc,
+		mail">
+	</target>
+	
+	<target name="Full-Build-Without-Notifications"
+		depends="clean-dependencies-directory,
+		copy-jar-dependencies,
+		build-test-gov.noaa.nws.ncep.edex.plugin.events,
+		instrument,
+		test,
+		javadoc">
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.status">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.status}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.status}"
+				destdir="${build.com.raytheon.uf.common.status}"
+				verbose="false">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.status}"
+			basedir="${build.com.raytheon.uf.common.status}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.status}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.status}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.status}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.util" depends="build-com.raytheon.uf.common.status">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.util}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.util}"
+				destdir="${build.com.raytheon.uf.common.util}"
+				verbose="false"
+				target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.util}"
+			basedir="${build.com.raytheon.uf.common.util}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.util}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.util}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.util}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.serialization"
+		depends="build-com.raytheon.uf.common.util,
+				build-com.raytheon.uf.common.status">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.serialization}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.serialization}"
+				destdir="${build.com.raytheon.uf.common.serialization}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.serialization}"
+			basedir="${build.com.raytheon.uf.common.serialization}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.serialization}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.serialization}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.serialization}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.message" 
+		depends="build-com.raytheon.uf.common.serialization">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.message}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.message}"
+				destdir="${build.com.raytheon.uf.common.message}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.message}"
+			basedir="${build.com.raytheon.uf.common.message}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.message}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.message}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.message}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.serialization.comm" 
+		depends="build-com.raytheon.uf.common.message">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.serialization.comm}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.serialization.comm}"
+				destdir="${build.com.raytheon.uf.common.serialization.comm}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.serialization.comm}"
+			basedir="${build.com.raytheon.uf.common.serialization.comm}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.serialization.comm}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.serialization.comm}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.serialization.comm}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.time" 
+		depends="build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.serialization.comm">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.time}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.time}"
+				destdir="${build.com.raytheon.uf.common.time}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.time}"
+			basedir="${build.com.raytheon.uf.common.time}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.time}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.time}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.time}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.dataquery" 
+		depends="build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.serialization.comm,
+				build-com.raytheon.uf.common.time">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.dataquery}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.dataquery}"
+				destdir="${build.com.raytheon.uf.common.dataquery}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.dataquery}"
+			basedir="${build.com.raytheon.uf.common.dataquery}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.dataquery}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.dataquery}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.dataquery}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.datastorage"
+		depends="build-com.raytheon.uf.common.serialization">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.datastorage}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.datastorage}"
+				destdir="${build.com.raytheon.uf.common.datastorage}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.datastorage}"
+			basedir="${build.com.raytheon.uf.common.datastorage}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.datastorage}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.datastorage}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.datastorage}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.auth" 
+		depends="build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.serialization.comm">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.auth}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.auth}"
+				destdir="${build.com.raytheon.uf.common.auth}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.auth}"
+			basedir="${build.com.raytheon.uf.common.auth}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.auth}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.auth}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.auth}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.localization" 
+		depends="build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.serialization.comm,
+				build-com.raytheon.uf.common.auth">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.localization}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.localization}"
+				destdir="${build.com.raytheon.uf.common.localization}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.localization}"
+			basedir="${build.com.raytheon.uf.common.localization}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.localization}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.localization}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.localization}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.dataplugin" 
+		depends="build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.serialization.comm,
+				build-com.raytheon.uf.common.time,
+				build-com.raytheon.uf.common.localization">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.dataplugin}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.dataplugin}"
+				destdir="${build.com.raytheon.uf.common.dataplugin}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.dataplugin}"
+			basedir="${build.com.raytheon.uf.common.dataplugin}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.dataplugin}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.dataplugin}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.dataplugin}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.edex.core" 
+		depends="build-com.raytheon.uf.common.util,
+				build-com.raytheon.uf.common.dataplugin">
+		
+		<mkdir dir="${build.com.raytheon.uf.edex.core}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.edex.core}"
+				destdir="${build.com.raytheon.uf.edex.core}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.edex.core}"
+			basedir="${build.com.raytheon.uf.edex.core}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.edex.core}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.edex.core}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.edex.core}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.geospatial" 
+		depends="build-com.raytheon.uf.common.status,
+				build-com.raytheon.uf.common.serialization,
+				build-com.raytheon.uf.common.dataquery">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.geospatial}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.geospatial}"
+				destdir="${build.com.raytheon.uf.common.geospatial}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.geospatial}"
+			basedir="${build.com.raytheon.uf.common.geospatial}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.geospatial}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.geospatial}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.geospatial}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.edex.database" 
+		depends="build-com.raytheon.uf.common.util,
+				build-com.raytheon.uf.common.serialization.comm,
+				build-com.raytheon.uf.common.dataquery,
+				build-com.raytheon.uf.common.datastorage,
+				build-com.raytheon.uf.common.dataplugin,
+				build-com.raytheon.uf.edex.core,
+				build-com.raytheon.uf.common.geospatial">
+		
+		<mkdir dir="${build.com.raytheon.uf.edex.database}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.edex.database}"
+				destdir="${build.com.raytheon.uf.edex.database}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.edex.database}"
+			basedir="${build.com.raytheon.uf.edex.database}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.edex.database}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.edex.database}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.edex.database}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.units" 
+		depends="">
+		
+		<mkdir dir="${build.com.raytheon.uf.common.units}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.units}"
+				destdir="${build.com.raytheon.uf.common.units}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.units}"
+			basedir="${build.com.raytheon.uf.common.units}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.uf.common.units}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.units}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.units}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.uf.common.colormap"
+		depends="build-com.raytheon.uf.common.units,
+				build-com.raytheon.uf.common.serialization">
+		
+		<mkdir dir="${build.build-com.raytheon.uf.common.colormap}"/>
+		
+		<javac srcdir="${src.com.raytheon.uf.common.colormap}"
+				destdir="${build.build-com.raytheon.uf.common.colormap}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.uf.common.colormap}"
+			basedir="${build.build-com.raytheon.uf.common.colormap}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.build-com.raytheon.uf.common.colormap}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.uf.common.colormap}</echo>
+		<checksum file="${jarfile.com.raytheon.uf.common.colormap}"/>
+		
+	</target>
+	
+	<target name="build-com.raytheon.edex.common" 
+		depends="build-com.raytheon.uf.edex.database,
+				build-com.raytheon.uf.common.colormap">
+		
+		<mkdir dir="${build.com.raytheon.edex.common}"/>
+		
+		<javac srcdir="${src.com.raytheon.edex.common}"
+				destdir="${build.com.raytheon.edex.common}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile.com.raytheon.edex.common}"
+			basedir="${build.com.raytheon.edex.common}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.com.raytheon.edex.common}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile.com.raytheon.edex.common}</echo>
+		<checksum file="${jarfile.com.raytheon.edex.common}"/>
+		
+	</target>
+	
+	<target name="build-test-gov.noaa.nws.ncep.common.dataplugin.events" 
+		depends="build-com.raytheon.uf.edex.database">
+		
+		<mkdir dir="${build.gov.noaa.nws.ncep.common.dataplugin.events}"/>
+		
+		<javac srcdir="${src.gov.noaa.nws.ncep.common.dataplugin.events}"
+				destdir="${build.gov.noaa.nws.ncep.common.dataplugin.events}"
+				verbose="false" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile-test.gov.noaa.nws.ncep.common.dataplugin.events}"
+			basedir="${build.gov.noaa.nws.ncep.common.dataplugin.events}"
+			includes="**/*.class"/>
+		
+		<delete dir="${build.gov.noaa.nws.ncep.common.dataplugin.events}"/>
+		
+		<echo>Create MD5 Checksum for ${jarfile-test.gov.noaa.nws.ncep.common.dataplugin.events}</echo>
+		<checksum file="${jarfile-test.gov.noaa.nws.ncep.common.dataplugin.events}"/>
+		
+	</target>
+	
+	<target name="build-test-gov.noaa.nws.ncep.edex.plugin.events" 
+		depends="build-com.raytheon.uf.common.dataplugin,
+				build-com.raytheon.edex.common,
+				build-test-gov.noaa.nws.ncep.common.dataplugin.events">
+		
+		<javac srcdir="${src.gov.noaa.nws.ncep.edex.plugin.events}"
+				destdir="${build.gov.noaa.nws.ncep.edex.plugin.events}"
+				verbose="false"
+				debug="true" target="1.6">
+			<classpath refid="editedevents.classpath"/>
+		</javac>
+		
+		<jar destfile="${jarfile-test.gov.noaa.nws.ncep.edex.plugin.events}"
+			basedir="${build.gov.noaa.nws.ncep.edex.plugin.events}"
+			includes="**/*.class">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+		    	<attribute name="Implementation-Vendor" value="${vendor.name}"/>
+		    	<attribute name="Implementation-Title" value="${project.name}"/>
+		    	<attribute name="Implementation-Version" value="${TEST_VERSION}"/>
+			</manifest>
+		</jar>
+	 	<jar jarfile="${jarfile-test-src.gov.noaa.nws.ncep.edex.plugin.events}">
+	 		<fileset dir="${editedevents.workspace.dir}/gov.noaa.nws.ncep.edex.plugin.events/src" includes="**/*.java" excludes="**/*.html"/>
+	    	<manifest>
+	    		<attribute name="Built-By" value="${user.name}"/>
+	        	<attribute name="Implementation-Vendor" value="${vendor.name}"/>
+	        	<attribute name="Implementation-Title" value="${project.name}"/>
+	        	<attribute name="Implementation-Version" value="${TEST_VERSION}"/>
+	    	</manifest>
+	 	</jar>
+		
+		<echo>Create MD5 Checksum for ${jarfile-test.gov.noaa.nws.ncep.edex.plugin.events}</echo>
+		<echo>Create MD5 Checksum for ${jarfile-test-src.gov.noaa.nws.ncep.edex.plugin.events}</echo>
+		<checksum file="${jarfile-test.gov.noaa.nws.ncep.edex.plugin.events}"/>
+		<checksum file="${jarfile-test-src.gov.noaa.nws.ncep.edex.plugin.events}"/>
+		
+	</target>
+	
+</project>

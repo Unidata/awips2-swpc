@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Swpcrefdb
+Bundle-SymbolicName: gov.noaa.nws.ncep.edex.swpcrefdb
+Bundle-Version: 1.0.0.qualifier
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: 
+ com.raytheon.edex.common;bundle-version="1.12.1174",
+ gov.noaa.nws.ncep.common.swpcrefdb
+Export-Package: 
+ gov.noaa.nws.ncep.edex.swpcrefdb.dao,
+ gov.noaa.nws.ncep.edex.swpcrefdb.sql,
+ gov.noaa.nws.ncep.edex.swpcrefdb.handler
+Import-Package: com.raytheon.uf.common.status,
+ com.raytheon.uf.common.serialization.comm

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin> 
+   <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+               locationURI="menu:NCTools?after=gov.noaa.nws.ncep.viz.ui.remotescript">
+              <command
+                    commandId="gov.noaa.nws.ncep.viz.ui.editedevents"
+                    label="Edited Events..."
+                    mnemonic="E"
+                    style="push">
+              <visibleWhen>
+                 <reference
+                       definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
+                 </reference>
+              </visibleWhen>
+              </command>
+         </menuContribution>
+   </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+           
+       <command
+          id="gov.noaa.nws.ncep.viz.ui.editedevents"
+          name="Edit Events">
+      </command>  
+   
+   </extension>   
+  
+   
+   <extension
+         point="org.eclipse.ui.handlers">
+                
+       <handler
+            class="gov.noaa.nws.ncep.viz.ui.editedevents.EditEventsDialogHandler"
+            commandId="gov.noaa.nws.ncep.viz.ui.editedevents">
+       </handler> 
+   </extension>
+   
+</plugin>

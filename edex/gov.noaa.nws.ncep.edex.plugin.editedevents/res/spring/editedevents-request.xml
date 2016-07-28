@@ -1,0 +1,94 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd   
+  http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+ <bean id="RequestHandler"
+        class="gov.noaa.nws.ncep.edex.plugin.editedevents.handler.RequestHandler" />
+        
+  <bean factory-bean="handlerRegistry" factory-method="register">
+        <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.ProcessEventsRequest" />        
+        <constructor-arg ref="RequestHandler" />
+  </bean>    
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+        <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.AddEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>   
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+        <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.GetBinsRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>  
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.GetEventsRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean> 
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.AddEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+   
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.GetStationsRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>  
+     
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.GetEventTypesRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+   <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.ReBinEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.AddNewBinForEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.CreateCompositeEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.UpgradeEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.DowngradeEventRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+      <constructor-arg
+       value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.SystemDiagnosticsRequest" />
+       <constructor-arg ref="RequestHandler" />
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedevents.request.ExitRequest" />
+        <constructor-arg ref="RequestHandler" />
+  </bean>
+     
+</beans>
