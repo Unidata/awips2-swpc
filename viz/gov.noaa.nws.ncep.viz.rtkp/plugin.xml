@@ -2,6 +2,27 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
+         point="org.eclipse.ui.menus">
+         <menuContribution
+               locationURI="toolbar:NC1?after=additions">
+               <toolbar id="NC-1">
+              <command
+                   commandId="gov.noaa.nws.ncep.viz.rtkp.actions.GeoMagRTKpAction"
+                   id="gov.noaa.nws.ncep.viz.rtkp.rtkp"
+                   icon="icons/rtkp.gif"
+                   label="Real-time Kp Monitor"
+                   style="push"
+                   tooltip="Real-time Kp Monitor">
+                <visibleWhen>
+                   <reference
+                         definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
+                   </reference>
+                </visibleWhen>
+                </command>
+                </toolbar>
+         </menuContribution>
+   </extension>
+   <extension
          point="com.raytheon.uf.viz.core.resource">
       <resource
             class="gov.noaa.nws.ncep.viz.rtkp.rsc.GeoMagWorldActivityTitleDateResource"

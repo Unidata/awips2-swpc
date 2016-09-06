@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="gov.noaa.nws.ncep.viz.swpc.feature"
+      id="gov.noaa.nws.ncep.swpc.viz.feature"
       label="NCEP SWPC Feature"
       version="1.0.0.qualifier">
 
