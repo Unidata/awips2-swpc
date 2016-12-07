@@ -299,6 +299,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         unassignedRegionTableViewer = createEventsListControls(sashForm,
                 "Unassigned Regions");
 
+        createConsensusControls(sashForm);
+
         sashForm.setWeights(new int[] { 2, 1, 8, 1, 8 });
 
     }
@@ -309,6 +311,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     @Override
     public Control createButtonBar(Composite parent) {
         return null;
+    }
+
+    /**
+     * Create controls for Yesterday's Report, Today's Consensus, and Today's
+     * Final
+     * 
+     * @param parent
+     */
+    private void createConsensusControls(Composite parent) {
+
     }
 
     /**
