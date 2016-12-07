@@ -112,7 +112,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private Point lastSize = null;
 
     // Table viewer for submitted jobs
-    private TableViewer eventTableViewer = null;
+    private TableViewer assignedRegionTableViewer = null;
+
+    private TableViewer unassignedRegionTableViewer = null;
 
     private Table eventsListTable = null;
 
@@ -291,9 +293,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         createFilterControls(sashForm);
 
-        createEventsListControls(sashForm);
+        assignedRegionTableViewer = createEventsListControls(sashForm,
+                "Assigned Regions");
 
-        sashForm.setWeights(new int[] { 2, 8 });
+        unassignedRegionTableViewer = createEventsListControls(sashForm,
+                "Unassigned Regions");
+
+        sashForm.setWeights(new int[] { 2, 1, 8, 1, 8 });
 
     }
 
@@ -310,7 +316,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * 
      * @param parent
      */
-    private void createEventsListControls(Composite parent) {
+    private TableViewer createEventsListControls(Composite parent,
+            String label) {
+
+        new Label(parent, SWT.LEFT).setText(label);
 
         SashForm sashForm = new SashForm(parent, SWT.HORIZONTAL);
         GridData sashGd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -318,22 +327,22 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         sashForm.setSashWidth(3);
 
         // Create the events list table viewer
-        eventTableViewer = new TableViewer(sashForm,
+        TableViewer tableViewer = new TableViewer(sashForm,
                 SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
         // eventTableViewer.setSorter(new EventViewerSorter());
 
-        eventTableViewer.setContentProvider(new ArrayContentProvider());
-        eventTableViewer.setInput(this.getEvents());
+        tableViewer.setContentProvider(new ArrayContentProvider());
+        tableViewer.setInput(this.getEvents());
 
         labelProvider = new EditRegionsLabelProvider(binCombo.getItems(),
                 fromBeginCal.getTimeInMillis());
 
         // Create the columns
-        createColumns(labelProvider);
+        createColumns(tableViewer, labelProvider);
 
-        eventTableViewer.setLabelProvider(labelProvider);
+        tableViewer.setLabelProvider(labelProvider);
 
-        eventTableViewer
+        tableViewer
                 .addSelectionChangedListener(new ISelectionChangedListener() {
                     public void selectionChanged(
                             final SelectionChangedEvent event) {
@@ -350,34 +359,35 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     }
                 });
 
-        eventsListTable = eventTableViewer.getTable();
+        Table table = tableViewer.getTable();
 
         // Show the lines and column headers
-        eventsListTable.setLinesVisible(true);
-        eventsListTable.setHeaderVisible(true);
+        table.setLinesVisible(true);
+        table.setHeaderVisible(true);
 
-        if (eventTableViewer.getTable().getItemCount() > 0
+        if (tableViewer.getTable().getItemCount() > 0
                 && selectEventId == null) {
-            eventTableViewer.getTable().setFocus();
-            eventTableViewer.setSelection(
-                    new StructuredSelection(eventTableViewer.getElementAt(0)),
-                    true);
-            eventTableViewer.getTable().showSelection();
-            eventTableViewer.getTable().notifyListeners(SWT.Selection, null);
+            tableViewer.getTable().setFocus();
+            tableViewer.setSelection(
+                    new StructuredSelection(tableViewer.getElementAt(0)), true);
+            tableViewer.getTable().showSelection();
+            tableViewer.getTable().notifyListeners(SWT.Selection, null);
         }
 
-        eventTableViewer.refresh();
-        resizeTable();
+        tableViewer.refresh();
+        resizeTable(tableViewer);
 
-        createContextMenu();
+        createContextMenu(tableViewer);
 
-        eventTableViewer.getColumnViewerEditor()
-                .addEditorActivationListener(createEditorActivationListener());
+        tableViewer.getColumnViewerEditor().addEditorActivationListener(
+                createEditorActivationListener(tableViewer));
+        return tableViewer;
 
     }
 
-    private ColumnViewerEditorActivationListener createEditorActivationListener() {
-        final Table t = eventTableViewer.getTable();
+    private ColumnViewerEditorActivationListener createEditorActivationListener(
+            TableViewer tableViewer) {
+        final Table t = tableViewer.getTable();
         return new ColumnViewerEditorActivationListener() {
 
             @Override
@@ -873,7 +883,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * @return eventID
      */
     private int findContenderEvent() {
-        Table tbl = eventTableViewer.getTable();
+        Table tbl = assignedRegionTableViewer.getTable();
         TableItem items[] = tbl.getItems();
 
         for (int ii = 0; ii < items.length; ii++) {
@@ -893,11 +903,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     /**
      * Create the columns for the events list table
      */
-    private void createColumns(EditRegionsLabelProvider labelProvider) {
+    private void createColumns(TableViewer tableViewer,
+            EditRegionsLabelProvider labelProvider) {
 
         for (int i = 0; i < columnTitles.length; i++) {
-            TableViewerColumn col = createTableViewerColumn(columnTitles[i],
-                    columnBounds[i], i);
+            TableViewerColumn col = createTableViewerColumn(tableViewer,
+                    columnTitles[i], columnBounds[i], i);
 
             // Add tool tip text for the column headers
             switch (i) {
@@ -905,7 +916,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 // Add cell editing support for the column that represents the
                 // bin number
                 col.setEditingSupport(
-                        labelProvider.getEditorSupport(eventTableViewer, i));
+                        labelProvider.getEditorSupport(tableViewer, i));
                 col.getColumn()
                         .setToolTipText(EditEventsUIConstants.TOOL_TIP_BIN);
                 break;
@@ -1020,10 +1031,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      *            - column number
      * @return TableViewerColumn
      */
-    private TableViewerColumn createTableViewerColumn(String title, int bound,
-            final int colNumber) {
+    private TableViewerColumn createTableViewerColumn(TableViewer tableViewer,
+            String title, int bound, final int colNumber) {
         final TableViewerColumn viewerColumn = new TableViewerColumn(
-                eventTableViewer, SWT.NONE);
+                tableViewer, SWT.NONE);
 
         final TableColumn column = viewerColumn.getColumn();
         column.setText(title);
@@ -1393,10 +1404,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> events = getEvents();
 
-        eventTableViewer.setInput(events);
+        assignedRegionTableViewer.setInput(events);
         setTableRowSelection(events);
-        eventTableViewer.refresh();
-        resizeTable();
+        assignedRegionTableViewer.refresh();
+        resizeTable(assignedRegionTableViewer);
         refreshBinCombo();
 
     }
@@ -1407,9 +1418,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void setTableRowSelection(
             List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> events) {
 
-        if (eventTableViewer.getTable().getItemCount() > 0) {
+        if (assignedRegionTableViewer.getTable().getItemCount() > 0) {
 
-            eventTableViewer.getTable().setFocus();
+            assignedRegionTableViewer.getTable().setFocus();
 
             if (selectEventId != null) {
                 int i = 0;
@@ -1418,23 +1429,22 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                         break;
                     }
                 }
-                if (eventTableViewer.getElementAt(i) != null) {
-                    eventTableViewer
-                            .setSelection(
-                                    new StructuredSelection(
-                                            eventTableViewer.getElementAt(i)),
-                                    true);
+                if (assignedRegionTableViewer.getElementAt(i) != null) {
+                    assignedRegionTableViewer.setSelection(
+                            new StructuredSelection(
+                                    assignedRegionTableViewer.getElementAt(i)),
+                            true);
                 } else {
-                    eventTableViewer
-                            .setSelection(
-                                    new StructuredSelection(
-                                            eventTableViewer.getElementAt(0)),
-                                    true);
+                    assignedRegionTableViewer.setSelection(
+                            new StructuredSelection(
+                                    assignedRegionTableViewer.getElementAt(0)),
+                            true);
                 }
             }
 
-            eventTableViewer.getTable().showSelection();
-            eventTableViewer.getTable().notifyListeners(SWT.Selection, null);
+            assignedRegionTableViewer.getTable().showSelection();
+            assignedRegionTableViewer.getTable().notifyListeners(SWT.Selection,
+                    null);
         }
     }
 
@@ -1442,7 +1452,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * Create the context menu that is displayed when right clicking on a
      * selected event
      */
-    private void createContextMenu() {
+    private void createContextMenu(TableViewer tableViewer) {
 
         // add a popup menu for the selected row
         MenuManager popManager = new MenuManager();
@@ -1458,8 +1468,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         IAction downgradeEventAction = new DowngradeEventAction();
         popManager.add(downgradeEventAction);
 
-        Menu menu = popManager.createContextMenu(eventTableViewer.getTable());
-        eventTableViewer.getTable().setMenu(menu);
+        Menu menu = popManager.createContextMenu(tableViewer.getTable());
+        tableViewer.getTable().setMenu(menu);
 
     }
 
@@ -1478,11 +1488,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         public void run() {
 
-            int index = eventTableViewer.getTable().getSelectionIndex();
+            int index = assignedRegionTableViewer.getTable()
+                    .getSelectionIndex();
             if (index == -1)
                 return; // no row selected
 
-            TableItem item = eventTableViewer.getTable().getItem(index);
+            TableItem item = assignedRegionTableViewer.getTable()
+                    .getItem(index);
 
             // get data for the row that was clicked.
             gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
@@ -1512,11 +1524,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         public void run() {
 
-            int index = eventTableViewer.getTable().getSelectionIndex();
+            int index = assignedRegionTableViewer.getTable()
+                    .getSelectionIndex();
             if (index == -1)
                 return; // no row selected
 
-            TableItem item = eventTableViewer.getTable().getItem(index);
+            TableItem item = assignedRegionTableViewer.getTable()
+                    .getItem(index);
 
             // get data for the row that was clicked.
             gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
@@ -1561,11 +1575,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         public void run() {
 
-            int index = eventTableViewer.getTable().getSelectionIndex();
+            int index = assignedRegionTableViewer.getTable()
+                    .getSelectionIndex();
             if (index == -1)
                 return; // no row selected
 
-            TableItem item = eventTableViewer.getTable().getItem(index);
+            TableItem item = assignedRegionTableViewer.getTable()
+                    .getItem(index);
 
             // get data for the row that was clicked.
             gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
@@ -1598,11 +1614,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         public void run() {
 
-            int index = eventTableViewer.getTable().getSelectionIndex();
+            int index = assignedRegionTableViewer.getTable()
+                    .getSelectionIndex();
             if (index == -1)
                 return; // no row selected
 
-            TableItem item = eventTableViewer.getTable().getItem(index);
+            TableItem item = assignedRegionTableViewer.getTable()
+                    .getItem(index);
 
             // get data for the row that was clicked.
             gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
@@ -1625,8 +1643,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     /**
      * Resizes the events list table
      */
-    private void resizeTable() {
-        for (TableColumn tc : eventTableViewer.getTable().getColumns())
+    private void resizeTable(TableViewer tableViewer) {
+        for (TableColumn tc : tableViewer.getTable().getColumns())
             tc.pack();
     }
 
@@ -1647,7 +1665,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         if (returnValue == JFileChooser.APPROVE_OPTION) {
 
             try {
-                EditEventsUtil.exportTable(eventTableViewer,
+                EditEventsUtil.exportTable(assignedRegionTableViewer,
                         chooser.getSelectedFile());
             } catch (VizException e1) {
                 EditEventsUtil.displayMessageDialog(getShell(),
