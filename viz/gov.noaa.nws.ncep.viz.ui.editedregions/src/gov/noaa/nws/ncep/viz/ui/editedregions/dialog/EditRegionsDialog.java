@@ -157,6 +157,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             EditEventsUIConstants.SORTBY_OPTION_REGION,
             EditEventsUIConstants.SORTBY_OPTION_OBSERVATORY };
 
+    // TODO: Replace with columns for Edited Regions
     private String[] columnTitles = { EditEventsUIConstants.COLUMN_HEADER_BIN,
             EditEventsUIConstants.COLUMN_HEADER_BEGINQ,
             EditEventsUIConstants.COLUMN_HEADER_BEGIN_DATE,
@@ -193,6 +194,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     /**
      * Label provider for the cells in the edit events table
      */
+    // TODO: We should consider updating this class to return a column count,
+    // possibly add
+    // a new interface.
     private EditRegionsLabelProvider labelProvider = null;
 
     /**
@@ -320,6 +324,19 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * @param parent
      */
     private void createConsensusControls(Composite parent) {
+        Group consensusGroup = new Group(parent, SWT.SHADOW_OUT);
+        consensusGroup
+                .setLayout(new GridLayout(columnTitles.length + 1, false));
+        consensusGroup
+                .setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+        Composite consensusComp = new Composite(consensusGroup, SWT.None);
+
+        GridLayout gridLayout = new GridLayout(10, false);
+
+        consensusComp.setLayout(gridLayout);
+        consensusComp.setLayoutData(
+                new GridData(GridData.CENTER, SWT.TOP, true, true));
 
     }
 
@@ -824,6 +841,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     /**
      * Save location and size of the dialog.
      */
+    @Override
     public boolean close() {
 
         if (confirmClose()) {
