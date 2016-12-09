@@ -305,7 +305,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         createConsensusControls(sashForm);
 
-        sashForm.setWeights(new int[] { 2, 1, 8, 1, 8 });
+        sashForm.setWeights(new int[] { 2, 1, 6, 1, 6, 6 });
 
     }
 
@@ -337,6 +337,17 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         consensusComp.setLayout(gridLayout);
         consensusComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
+
+        for (String rowLabel : new String[] { "Yesterday's report",
+                "Today's Consensus", "Today's Final" }) {
+            new Label(parent, SWT.LEFT).setText(rowLabel);
+
+            for (int i = 0; i < columnTitles.length; i++) {
+                Text text = new Text(consensusComp, SWT.BORDER);
+                text.setText("");
+                text.setEnabled(false);
+            }
+        }
 
     }
 
