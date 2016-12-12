@@ -39,7 +39,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -54,7 +53,6 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -269,8 +267,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void initializeComponents(Composite parent) {
 
         getShell().setText("Edited Regions");
-
-        this.createMenus();
 
         // show scroll bars when needed
         scrollBarListener = new Listener() {
@@ -1110,65 +1106,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     /**
-     * Find the table item of the specified event report.
-     * 
-     * @param event
-     * @return
-     */
-    // private TableItem findTableItem(Event event) {
-    // Table tbl = eventTableViewer.getTable();
-    // TableItem items[] = tbl.getItems();
-    //
-    // for (int ii = 0; ii < items.length; ii++) {
-    // if (items[ii].getData().equals(event)) {
-    // return items[ii];
-    // }
-    // }
-    // return null;
-    // }
-
-    // @Override
-    // public void updateEvent(
-    // gov.noaa.nws.ncep.common.dataplugin.editedevents.Event event) {
-    // // make call to update event in db
-    // eventTableViewer.update(event, null);
-    //
-    // // setItemBackgroundColor(event);
-    //
-    // // update output
-    // // if (eventTableViewer.getTable().getSelection().length > 0
-    // // && eventTableViewer.getTable().getSelection()[0].getData()
-    // // .equals(event)) {
-    // // String output = event.getOutput();
-    // // if (!event.getError().isEmpty()) {
-    // // output += "\nError message:\n" + event.getError();
-    // // }
-    // // }
-    // }
-
-    // @Override
-    // public void addEvent(
-    // gov.noaa.nws.ncep.common.dataplugin.editedevents.Event event) {
-    // // make call to add new row to db
-    // eventTableViewer.add(event);
-    // }
-    /**
-     * @param originalData
-     * @param additionalStyle
-     * @return
-     */
-    private static FontData[] getModifiedFontData(FontData[] originalData,
-            int additionalStyle) {
-        FontData[] styleData = new FontData[originalData.length];
-        for (int i = 0; i < styleData.length; i++) {
-            FontData base = originalData[i];
-            styleData[i] = new FontData(base.getName(), base.getHeight(),
-                    base.getStyle() | additionalStyle);
-        }
-        return styleData;
-    }
-
-    /**
      * Returns the list of events in the db that matches the criteria in the
      * filter controls
      * 
@@ -1249,192 +1186,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 labelProvider.setBins(binCombo.getItems());
             }
         }
-    }
-
-    /**
-     * Create the menu bar and menus.
-     */
-    private void createMenus() {
-        menuBar = new Menu(this.getShell(), SWT.BAR);
-
-        this.createFileMenu(menuBar);
-        this.createOptionsMenu(menuBar);
-        this.createViewMenu(menuBar);
-        this.createHelpMenu(menuBar);
-
-        this.getShell().setMenuBar(menuBar);
-    }
-
-    /**
-     * Create the File menu.
-     * 
-     * @param menuBar
-     *            Menu bar.
-     */
-    private void createFileMenu(Menu menuBar) {
-        // -------------------------------------
-        // Create the File menu
-        // -------------------------------------
-        Menu fileMenu = new Menu(menuBar);
-
-        // Create the File menu item in the menubar
-        MenuItem fileMenuItem = new MenuItem(menuBar, SWT.CASCADE);
-        fileMenuItem.setText("File");
-        fileMenuItem.setMenu(fileMenu);
-
-        // -------------------------------------------------
-        // Create all the items in the File dropdown menu
-        // -------------------------------------------------
-
-        // Export menu item
-        MenuItem exportMI = new MenuItem(fileMenu, SWT.NONE);
-        exportMI.setText("Export Events...");
-        exportMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                exportEvents();
-            }
-        });
-
-        // new MenuItem(fileMenu, SWT.SEPARATOR);
-
-        // Exit menu item
-        MenuItem exitMI = new MenuItem(fileMenu, SWT.NONE);
-        exitMI.setText("Exit");
-        exitMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                close();
-            }
-        });
-    }
-
-    /**
-     * Create the Options menu.
-     * 
-     * @param menuBar
-     *            Menu bar.
-     */
-    private void createOptionsMenu(Menu menuBar) {
-        // -------------------------------------
-        // Create the Options menu
-        // -------------------------------------
-        Menu toolsMenu = new Menu(menuBar);
-
-        // Create the Options menu item in the menubar
-        MenuItem toolsMenuItem = new MenuItem(menuBar, SWT.CASCADE);
-        toolsMenuItem.setText("Options");
-        toolsMenuItem.setMenu(toolsMenu);
-
-        // -------------------------------------------------
-        // Create all the items in the Options dropdown menu
-        // -------------------------------------------------
-
-        // Enter Event menu item
-        MenuItem enterEventMI = new MenuItem(toolsMenu, SWT.NONE);
-        enterEventMI.setText("Enter Event...");
-        enterEventMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-
-                SelectEventToEnterDialog selectEventDlg = new SelectEventToEnterDialog(
-                        getShell());
-
-                if (Window.OK == selectEventDlg.open()) {
-                    selectEventId = selectEventDlg.getNewEventId();
-                }
-
-                refreshEventsListTable();
-
-            }
-        });
-    }
-
-    /**
-     * Create the View menu.
-     * 
-     * @param menuBar
-     *            Menu bar.
-     */
-    private void createViewMenu(Menu menuBar) {
-        // -------------------------------------
-        // Create the View menu
-        // -------------------------------------
-        Menu toolsMenu = new Menu(menuBar);
-
-        // Create the View menu item in the menubar
-        MenuItem toolsMenuItem = new MenuItem(menuBar, SWT.CASCADE);
-        toolsMenuItem.setText("View");
-        toolsMenuItem.setMenu(toolsMenu);
-
-        // -------------------------------------------------
-        // Create all the items in the View dropdown menu
-        // -------------------------------------------------
-
-        // Default menu item
-        MenuItem defaultMI = new MenuItem(toolsMenu, SWT.NONE);
-        defaultMI.setText("Default");
-        defaultMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-
-            }
-        });
-
-        // Extended menu item
-        MenuItem extendedMI = new MenuItem(toolsMenu, SWT.NONE);
-        extendedMI.setText("Extended");
-        extendedMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-
-            }
-        });
-
-        // Customized menu item
-        MenuItem customizedMI = new MenuItem(toolsMenu, SWT.NONE);
-        customizedMI.setText("Customized");
-        customizedMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-
-            }
-        });
-    }
-
-    /**
-     * Create the Help menu.
-     * 
-     * @param menuBar
-     *            Menu bar.
-     */
-    private void createHelpMenu(Menu menuBar) {
-        // -------------------------------------
-        // Create the Help menu
-        // -------------------------------------
-        Menu helpMenu = new Menu(menuBar);
-
-        // Create the Help menu item in the menubar
-        MenuItem helpMenuItem = new MenuItem(menuBar, SWT.CASCADE);
-        helpMenuItem.setText("Help");
-        helpMenuItem.setMenu(helpMenu);
-
-        // -------------------------------------------------
-        // Create all the items in the Help dropdown menu
-        // -------------------------------------------------
-
-        // Default menu item
-        MenuItem aboutMI = new MenuItem(helpMenu, SWT.NONE);
-        aboutMI.setText("About");
-        aboutMI.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                EditEventsUtil.displayMessageDialog(getShell(),
-                        "Edited Events Version "
-                                + EditedEventsConstants.VERSION_NUMBER,
-                        "About Edited Events");
-            }
-        });
     }
 
     /**
