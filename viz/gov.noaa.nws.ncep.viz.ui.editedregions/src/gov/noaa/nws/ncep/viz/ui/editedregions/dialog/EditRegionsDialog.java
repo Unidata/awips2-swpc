@@ -332,7 +332,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite consensusComp = new Composite(consensusGroup, SWT.None);
 
-        GridLayout gridLayout = new GridLayout(10, false);
+        GridLayout gridLayout = new GridLayout(columnTitles.length + 1, false);
 
         consensusComp.setLayout(gridLayout);
         consensusComp.setLayoutData(
@@ -340,11 +340,11 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         for (String rowLabel : new String[] { "Yesterday's report",
                 "Today's Consensus", "Today's Final" }) {
-            new Label(parent, SWT.LEFT).setText(rowLabel);
+            new Label(consensusComp, SWT.LEFT).setText(rowLabel);
 
             for (int i = 0; i < columnTitles.length; i++) {
                 Text text = new Text(consensusComp, SWT.BORDER);
-                text.setText("");
+                text.setLayoutData(new GridData(20, SWT.DEFAULT));
                 text.setEnabled(false);
             }
         }
