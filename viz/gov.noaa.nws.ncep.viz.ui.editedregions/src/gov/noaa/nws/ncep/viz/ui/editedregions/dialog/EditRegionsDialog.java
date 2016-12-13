@@ -15,12 +15,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -34,7 +28,6 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -48,28 +41,21 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
-import com.raytheon.uf.viz.core.exception.VizException;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedevents.util.EditedEventsConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.Activator;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EnterEventUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.Events;
 
 /**
@@ -114,10 +100,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private TableViewer unassignedRegionTableViewer = null;
 
-    private Table eventsListTable = null;
-
-    private Listener scrollBarListener = null;
-
     private Calendar fromBeginCal;
 
     private Calendar toBeginCal;
@@ -136,11 +118,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * The ID for the event which is to be selected
      */
     private Integer selectEventId = null;
-
-    /**
-     * Main menu bar.
-     */
-    private Menu menuBar = null;
 
     private String[] viewOptions = {
             EditEventsUIConstants.VIEW_OPTION_ALL_REPORTS,
@@ -267,23 +244,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void initializeComponents(Composite parent) {
 
         getShell().setText("Edited Regions");
-
-        // show scroll bars when needed
-        scrollBarListener = new Listener() {
-            @Override
-            public void handleEvent(Event event) {
-                Text txt = (Text) event.widget;
-                Rectangle r1 = txt.getClientArea();
-                Rectangle r2 = txt.computeTrim(r1.x, r1.y, r1.width, r1.height);
-                Point p = txt.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-                txt.getHorizontalBar().setVisible(r2.width <= p.x);
-                txt.getVerticalBar().setVisible(r2.height <= p.y);
-                if (event.type == SWT.Modify) {
-                    txt.getParent().layout(true);
-                    txt.showSelection();
-                }
-            }
-        };
 
         // Sash form to hold the filter criteria area and events list table
         SashForm sashForm = new SashForm(parent, SWT.VERTICAL);
@@ -443,7 +403,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             public void afterEditorDeactivated(
                     ColumnViewerEditorDeactivationEvent event) {
 
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
             @Override
@@ -501,7 +461,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
                 EditEventsUtil.processNewEvents(fromBeginCal.getTimeInMillis(),
                         toBeginCal.getTimeInMillis());
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -550,7 +510,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                         .format(fromBeginCal.getTime());
                 fromDateText.setText(selectedDate);
 
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -582,7 +542,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                         .format(toBeginCal.getTime());
                 toDateText.setText(selectedDate);
 
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -597,7 +557,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 fromDateText
                         .setText(viewDateFormat.format(fromBeginCal.getTime()));
                 toDateText.setText(viewDateFormat.format(toBeginCal.getTime()));
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -622,7 +582,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         viewCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                refreshEventsListTable();
+                refreshRegionTables();
             }
         });
 
@@ -643,7 +603,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 viewCombo.setText(viewOptions[0]);
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -667,7 +627,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         sortByCombo.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                refreshEventsListTable();
+                refreshRegionTables();
             }
         });
 
@@ -688,7 +648,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 sortByCombo.setText(sortByOptions[0]);
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -714,7 +674,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             @Override
             public void widgetSelected(SelectionEvent e) {
-                refreshEventsListTable();
+                refreshRegionTables();
             }
         });
 
@@ -735,7 +695,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 binCombo.setText("");
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -757,7 +717,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 viewCombo.setText(viewOptions[0]);
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -771,7 +731,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 sortByCombo.setText(sortByOptions[0]);
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -785,7 +745,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 binCombo.setText("");
-                refreshEventsListTable();
+                refreshRegionTables();
             }
 
         });
@@ -860,7 +820,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             }
             return super.close();
         } else {
-            refreshEventsListTable();
+            refreshRegionTables();
             return false;
         }
 
@@ -880,61 +840,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         saveExitConfMB.setText("Save/Exit EE Application?");
         saveExitConfMB.setMessage("Do you want to save your changes?");
 
-        if (saveExitConfMB.open() == SWT.YES) {
+        close = true;
 
-            // Check to see if contender events exist
-            int contenderEventID = findContenderEvent();
-
-            if (contenderEventID == 0) { // Contender events do not exist
-                EditEventsUtil.exitEditedEvents(fromBeginCal.getTimeInMillis());
-                close = true;
-            } else {
-                // Contender events exists
-                MessageBox contenderConfMB = new MessageBox(this.getShell(),
-                        SWT.YES | SWT.NO);
-                contenderConfMB.setText("Contenders Exist");
-                contenderConfMB.setMessage(
-                        "There are still unresolved 'Contender' events that need forecaster decision. Are you sure you don't want to take care of this now?");
-
-                if (contenderConfMB.open() == SWT.YES) {
-                    selectEventId = contenderEventID;
-                    close = false;
-                } else {
-                    EditEventsUtil
-                            .exitEditedEvents(fromBeginCal.getTimeInMillis());
-                    close = true;
-                }
-            }
-        } else {
-            close = true;
-        }
+        // TODO: Just a placeholder for now. We'll need a different check moving
+        // forward.
 
         return close;
-    }
-
-    /**
-     * Check to see if there are one or more events with status='Contender'
-     * (symbol='='). If contender events exist, return the event ID of the first
-     * contender event in the events list.
-     * 
-     * @return eventID
-     */
-    private int findContenderEvent() {
-        Table tbl = assignedRegionTableViewer.getTable();
-        TableItem items[] = tbl.getItems();
-
-        for (int ii = 0; ii < items.length; ii++) {
-            gov.noaa.nws.ncep.common.dataplugin.editedevents.Event event = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) items[ii]
-                    .getData();
-
-            // return the event ID if the event is a contender
-            if (EditedEventsConstants.EVENT_STATUS.CONTENDER.toString()
-                    .equalsIgnoreCase(event.getStatusText())) {
-                return event.getId();
-            }
-        }
-
-        return 0;
     }
 
     /**
@@ -1192,12 +1103,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * Refresh the events list in the table display. Also, refresh the binCombo
      * to get the latest bins.
      */
-    private void refreshEventsListTable() {
+    private void refreshRegionTables() {
 
-        List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> events = getEvents();
-
-        assignedRegionTableViewer.setInput(events);
-        setTableRowSelection(events);
+        assignedRegionTableViewer.setInput(null);
         assignedRegionTableViewer.refresh();
         resizeTable(assignedRegionTableViewer);
         refreshBinCombo();
@@ -1205,231 +1113,15 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     /**
-     * @param rowIndex
-     */
-    private void setTableRowSelection(
-            List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> events) {
-
-        if (assignedRegionTableViewer.getTable().getItemCount() > 0) {
-
-            assignedRegionTableViewer.getTable().setFocus();
-
-            if (selectEventId != null) {
-                int i = 0;
-                for (i = 0; i < events.size(); i++) {
-                    if (selectEventId == events.get(i).getId()) {
-                        break;
-                    }
-                }
-                if (assignedRegionTableViewer.getElementAt(i) != null) {
-                    assignedRegionTableViewer.setSelection(
-                            new StructuredSelection(
-                                    assignedRegionTableViewer.getElementAt(i)),
-                            true);
-                } else {
-                    assignedRegionTableViewer.setSelection(
-                            new StructuredSelection(
-                                    assignedRegionTableViewer.getElementAt(0)),
-                            true);
-                }
-            }
-
-            assignedRegionTableViewer.getTable().showSelection();
-            assignedRegionTableViewer.getTable().notifyListeners(SWT.Selection,
-                    null);
-        }
-    }
-
-    /**
      * Create the context menu that is displayed when right clicking on a
-     * selected event
+     * selected region
      */
     private void createContextMenu(TableViewer tableViewer) {
 
         // add a popup menu for the selected row
-        MenuManager popManager = new MenuManager();
-        IAction createBinAction = new CreateNewBinAction();
-        popManager.add(createBinAction);
 
-        IAction createCompositeAction = new CreateCompositeAction();
-        popManager.add(createCompositeAction);
+        // TODO: add code or delete function.
 
-        IAction upgradeEventAction = new UpgradeEventAction();
-        popManager.add(upgradeEventAction);
-
-        IAction downgradeEventAction = new DowngradeEventAction();
-        popManager.add(downgradeEventAction);
-
-        Menu menu = popManager.createContextMenu(tableViewer.getTable());
-        tableViewer.getTable().setMenu(menu);
-
-    }
-
-    /**
-     * Action class that is responsible for creating a new bin for a selected
-     * event
-     * 
-     * @author sgurung
-     * 
-     */
-    private class CreateNewBinAction extends Action {
-
-        public CreateNewBinAction() {
-            super("Create New Bin for this Event");
-        }
-
-        public void run() {
-
-            int index = assignedRegionTableViewer.getTable()
-                    .getSelectionIndex();
-            if (index == -1)
-                return; // no row selected
-
-            TableItem item = assignedRegionTableViewer.getTable()
-                    .getItem(index);
-
-            // get data for the row that was clicked.
-            gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
-                    .getData();
-            selectEventId = selectedEvent.getId();
-
-            if (selectedEvent.getId() != 0) {
-                EditEventsUtil.addNewBinForEvent(fromBeginCal.getTimeInMillis(),
-                        selectedEvent);
-                refreshEventsListTable();
-            }
-        }
-    }
-
-    /**
-     * Action class that is responsible for creating a composite event for a
-     * selected event
-     * 
-     * @author sgurung
-     * 
-     */
-    private class CreateCompositeAction extends Action {
-
-        public CreateCompositeAction() {
-            super("Create Composite");
-        }
-
-        public void run() {
-
-            int index = assignedRegionTableViewer.getTable()
-                    .getSelectionIndex();
-            if (index == -1)
-                return; // no row selected
-
-            TableItem item = assignedRegionTableViewer.getTable()
-                    .getItem(index);
-
-            // get data for the row that was clicked.
-            gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
-                    .getData();
-
-            if (selectedEvent.getId() != 0) {
-
-                // A composite report may only be composed based on a best
-                // report.
-                if (selectedEvent.getStatusCd() >= 4) {
-
-                    EnterEventDialog enterEventDlg = new EnterEventDialog(
-                            getShell());
-                    enterEventDlg.setCompositeEvent(true);
-                    enterEventDlg.setSelectedEventType(selectedEvent.getType());
-                    enterEventDlg.setNewEvent(selectedEvent);
-                    if (Window.OK == enterEventDlg.open()) {
-                        selectEventId = enterEventDlg.getNewEventId();
-                    }
-                } else {
-
-                    EnterEventUtil.displayMessageDialog(getShell(),
-                            "You may only create a composite of a 'best' report");
-                }
-
-                refreshEventsListTable();
-            }
-        }
-    }
-
-    /**
-     * Action class that is responsible for upgrading a selected event
-     * 
-     * @author sgurung
-     * 
-     */
-    private class UpgradeEventAction extends Action {
-
-        public UpgradeEventAction() {
-            super("Upgrade Event");
-        }
-
-        public void run() {
-
-            int index = assignedRegionTableViewer.getTable()
-                    .getSelectionIndex();
-            if (index == -1)
-                return; // no row selected
-
-            TableItem item = assignedRegionTableViewer.getTable()
-                    .getItem(index);
-
-            // get data for the row that was clicked.
-            gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
-                    .getData();
-
-            if (selectedEvent.getId() != 0) {
-                String message = EditEventsUtil.upgradeEvent(
-                        fromBeginCal.getTimeInMillis(), selectedEvent);
-
-                if (message != null) {
-                    EditEventsUtil.displayMessageDialog(getShell(), message);
-                }
-
-                refreshEventsListTable();
-            }
-        }
-    }
-
-    /**
-     * Action class that is responsible for downgrading a selected event
-     * 
-     * @author sgurung
-     * 
-     */
-    private class DowngradeEventAction extends Action {
-
-        public DowngradeEventAction() {
-            super("Downgrade Event");
-        }
-
-        public void run() {
-
-            int index = assignedRegionTableViewer.getTable()
-                    .getSelectionIndex();
-            if (index == -1)
-                return; // no row selected
-
-            TableItem item = assignedRegionTableViewer.getTable()
-                    .getItem(index);
-
-            // get data for the row that was clicked.
-            gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) item
-                    .getData();
-
-            if (selectedEvent.getId() != 0) {
-
-                String message = EditEventsUtil.downgradeEvent(
-                        fromBeginCal.getTimeInMillis(), selectedEvent);
-
-                if (message != null) {
-                    EditEventsUtil.displayMessageDialog(getShell(), message);
-                }
-
-                refreshEventsListTable();
-            }
-        }
     }
 
     /**
@@ -1438,33 +1130,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void resizeTable(TableViewer tableViewer) {
         for (TableColumn tc : tableViewer.getTable().getColumns())
             tc.pack();
-    }
-
-    /**
-     * Export the edited events list to a file
-     * 
-     */
-    private void exportEvents() {
-
-        JFrame parentFrame = new JFrame();
-
-        JFileChooser chooser = new JFileChooser();
-        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        chooser.setDialogTitle("Export Edited Events List");
-
-        int returnValue = chooser.showSaveDialog(parentFrame);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-
-            try {
-                EditEventsUtil.exportTable(assignedRegionTableViewer,
-                        chooser.getSelectedFile());
-            } catch (VizException e1) {
-                EditEventsUtil.displayMessageDialog(getShell(),
-                        "Error occurred while exporting the events to a file");
-            }
-        }
-
     }
 
 }
