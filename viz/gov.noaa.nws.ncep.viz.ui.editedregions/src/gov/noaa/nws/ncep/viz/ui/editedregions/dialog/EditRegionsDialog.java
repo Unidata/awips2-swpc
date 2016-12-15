@@ -280,30 +280,36 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * @param parent
      */
     private void createConsensusControls(Composite parent) {
-        Group consensusGroup = new Group(parent, SWT.SHADOW_OUT);
-        consensusGroup
-                .setLayout(new GridLayout(columnTitles.length + 1, false));
-        consensusGroup
-                .setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        Composite consensusComp = new Composite(parent, SWT.NONE);
+        consensusComp.setLayout(new GridLayout(2, false));
 
-        Composite consensusComp = new Composite(consensusGroup, SWT.None);
+        Group gridGroup = new Group(consensusComp, SWT.SHADOW_OUT);
+        gridGroup.setLayout(new GridLayout(columnTitles.length + 1, false));
+        gridGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+        Composite gridComp = new Composite(gridGroup, SWT.NONE);
 
         GridLayout gridLayout = new GridLayout(columnTitles.length + 1, false);
 
-        consensusComp.setLayout(gridLayout);
-        consensusComp.setLayoutData(
+        gridComp.setLayout(gridLayout);
+        gridComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
 
         for (String rowLabel : new String[] { "Yesterday's report",
                 "Today's Consensus", "Today's Final" }) {
-            new Label(consensusComp, SWT.LEFT).setText(rowLabel);
+            new Label(gridComp, SWT.LEFT).setText(rowLabel);
 
             for (int i = 0; i < columnTitles.length; i++) {
-                Text text = new Text(consensusComp, SWT.BORDER);
+                Text text = new Text(gridComp, SWT.BORDER);
                 text.setLayoutData(new GridData(20, SWT.DEFAULT));
                 text.setEnabled(false);
             }
         }
+
+        Composite checkboxComp = new Composite(consensusComp, SWT.NONE);
+        checkboxComp.setLayout(new GridLayout(1, true));
+        new Button(checkboxComp, SWT.CHECK).setText("Fix Final");
+        new Button(checkboxComp, SWT.CHECK).setText("Inactivate");
 
     }
 
