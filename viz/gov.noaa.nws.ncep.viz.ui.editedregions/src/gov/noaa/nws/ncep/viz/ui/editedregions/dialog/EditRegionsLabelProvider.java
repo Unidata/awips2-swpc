@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.viewers.CellEditor;
@@ -22,7 +21,6 @@ import org.eclipse.swt.widgets.Composite;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.Event;
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.EventBin;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
 
 /**
@@ -132,153 +130,6 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
     public String getColumnText(Object element, int columnIndex) {
 
         String returnValue = "";
-        Event er = (Event) element;
-
-        switch (columnIndex) {
-        case EditEventsUIConstants.COLUMN_INDEX_BIN:
-            returnValue = (er.getBin() != null)
-                    ? er.getBin().getBinNumber().toString() : "";
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_BEGINQ:
-            String beginQ = er.getBegInq();
-            beginQ = (beginQ != null && !beginQ.trim().equalsIgnoreCase("null"))
-                    ? er.getBegInq() : "";
-            returnValue = beginQ;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_BEGIN_DATE:
-            Date date = null;
-            if (er.getBeginDate() != null) {
-                date = er.getBeginDate().getTime();
-            }
-            returnValue = ((date != null) ? dateFormatWithoutTime.format(date)
-                    : null);
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_BEGIN_TIME:
-            String beginTime = (er.getBeginTime() != null && er.getId() != 0)
-                    ? er.getBeginTime().toString() : "";
-            beginTime = (beginTime.length() == 1) ? ("000" + beginTime)
-                    : beginTime;
-            beginTime = (beginTime.length() == 2) ? ("00" + beginTime)
-                    : beginTime;
-            beginTime = (beginTime.length() == 3) ? ("0" + beginTime)
-                    : beginTime;
-            returnValue = beginTime;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_MAXQ:
-            String maxQ = er.getMaxq();
-            maxQ = (maxQ != null && !maxQ.trim().equalsIgnoreCase("null"))
-                    ? er.getMaxq() : "";
-            returnValue = maxQ;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_MAX_TIME:
-            String maxTime = (er.getMaxTime() != null && er.getId() != 0)
-                    ? er.getMaxTime().toString() : "";
-            maxTime = (maxTime.length() == 1) ? ("000" + maxTime) : maxTime;
-            maxTime = (maxTime.length() == 2) ? ("00" + maxTime) : maxTime;
-            maxTime = (maxTime.length() == 3) ? ("0" + maxTime) : maxTime;
-            returnValue = maxTime;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_ENDQ:
-            String endQ = er.getEndq();
-            endQ = (endQ != null && !endQ.trim().equalsIgnoreCase("null"))
-                    ? er.getEndq() : "";
-            returnValue = endQ;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_END_TIME:
-            String endTime = (er.getEndTime() != null && er.getId() != 0)
-                    ? er.getEndTime().toString() : "";
-            endTime = (endTime.length() == 1) ? ("000" + endTime) : endTime;
-            endTime = (endTime.length() == 2) ? ("00" + endTime) : endTime;
-            endTime = (endTime.length() == 3) ? ("0" + endTime) : endTime;
-            returnValue = endTime;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_OBSERVATORY:
-            returnValue = er.getObservatory();
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_QUALITY:
-            returnValue = er.getQuality();
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_TYPE:
-            returnValue = er.getType();
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_LOCATION:
-            String location = er.getLocation();
-            location = (location != null
-                    && !location.trim().equalsIgnoreCase("null"))
-                            ? er.getLocation() : "";
-            returnValue = location;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_FREQUENCY:
-            String frequency = er.getFrequency();
-            frequency = (frequency != null
-                    && !frequency.trim().equalsIgnoreCase("null"))
-                            ? er.getFrequency() : "";
-            returnValue = frequency;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_1:
-            String part1 = er.getParticulars1();
-            part1 = (part1 != null && !part1.trim().equalsIgnoreCase("null"))
-                    ? part1 : "";
-            returnValue = part1;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_2:
-            String part2 = er.getParticulars2();
-            part2 = (part2 != null && !part2.trim().equalsIgnoreCase("null"))
-                    ? part2 : "";
-            returnValue = part2;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_3:
-            String part3 = er.getParticulars3();
-            part3 = (part3 != null && !part3.trim().equalsIgnoreCase("null"))
-                    ? part3 : "";
-            returnValue = part3;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_4:
-            String part4 = er.getParticulars4();
-            part4 = (part4 != null && !part4.trim().equalsIgnoreCase("null"))
-                    ? part4 : "";
-            returnValue = part4;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_5:
-            String part5 = er.getParticulars5();
-            part5 = (part5 != null && !part5.trim().equalsIgnoreCase("null"))
-                    ? part5 : "";
-            returnValue = part5;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_6:
-            String part6 = er.getParticulars6();
-            part6 = (part6 != null && !part6.trim().equalsIgnoreCase("null"))
-                    ? part6 : "";
-            returnValue = part6;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_7:
-            String part7 = er.getParticulars7();
-            part7 = (part7 != null && !part7.trim().equalsIgnoreCase("null"))
-                    ? part7 : "";
-            returnValue = part7;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_8:
-            String part8 = er.getParticulars8();
-            part8 = (part8 != null && !part8.trim().equalsIgnoreCase("null"))
-                    ? part8 : "";
-            returnValue = part8;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_REGION:
-            Integer region = er.getRegion();
-            returnValue = ((region != null && region != 9999)
-                    ? region.toString() : "");
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_AGE:
-            String age = er.getAge();
-            returnValue = age;
-            break;
-        case EditEventsUIConstants.COLUMN_INDEX_STATUS_TEXT:
-            returnValue = er.getStatusText();
-            break;
-        default:
-            returnValue = "";
-            break;
-        }
 
         return returnValue;
     }
