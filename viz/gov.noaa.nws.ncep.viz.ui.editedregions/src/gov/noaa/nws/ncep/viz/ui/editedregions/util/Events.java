@@ -161,15 +161,15 @@ public class Events {
     	
     	if (view != null) {
 	    	switch(view) {
-		    	case EditEventsUIConstants.VIEW_OPTION_ALL_REPORTS:
+		    	case EditRegionsUIConstants.VIEW_OPTION_ALL_REPORTS:
 		    		break;
-		    	case EditEventsUIConstants.VIEW_OPTION_BEST_ONLY:
+		    	case EditRegionsUIConstants.VIEW_OPTION_BEST_ONLY:
 		    		statusText= EditedEventsConstants.EVENT_STATUS.WINNER.toString() + "OR " + EditedEventsConstants.EVENT_STATUS.SOLEBEST.toString();
 		    		break;
-		    	case EditEventsUIConstants.VIEW_OPTION_CONTENDERS_ONLY:
+		    	case EditRegionsUIConstants.VIEW_OPTION_CONTENDERS_ONLY:
 		    		statusText = EditedEventsConstants.EVENT_STATUS.CONTENDER.toString();
 		    		break;
-		    	case EditEventsUIConstants.VIEW_OPTION_NEW_REPORTS:
+		    	case EditRegionsUIConstants.VIEW_OPTION_NEW_REPORTS:
 		    		 age = EditedEventsConstants.EVENT_AGE.NEW.toString();
 		    		break;
 		    	default:
@@ -179,23 +179,23 @@ public class Events {
     	
     	if (sortBy != null) {
 	    	switch(sortBy) {
-		    	case EditEventsUIConstants.SORTBY_OPTION_BIN_DATE:		    		
+		    	case EditRegionsUIConstants.SORTBY_OPTION_BIN_DATE:		    		
 		    		sortByColumn = EventBin.BEGIN_DATE_TIME;
 		    		addSeparator = true;
 	            	break;
-		    	case EditEventsUIConstants.SORTBY_OPTION_TIME:
+		    	case EditRegionsUIConstants.SORTBY_OPTION_TIME:
 		    		sortByColumn = Event.BEGIN_DATE;
 		    		addSeparator = false;
 			    	break;
-		    	case EditEventsUIConstants.SORTBY_OPTION_TYPE:
+		    	case EditRegionsUIConstants.SORTBY_OPTION_TYPE:
 		    		sortByColumn = Event.CODED_TYPE;
 		    		addSeparator = true;
 			    	break;
-		    	case EditEventsUIConstants.SORTBY_OPTION_REGION:
+		    	case EditRegionsUIConstants.SORTBY_OPTION_REGION:
 		    		sortByColumn = Event.REGION;
 		    		addSeparator = true;
 			    	break;
-		    	case EditEventsUIConstants.SORTBY_OPTION_OBSERVATORY:
+		    	case EditRegionsUIConstants.SORTBY_OPTION_OBSERVATORY:
 		    		sortByColumn = Event.OBSERVATORY;
 		    		addSeparator = false;
 			    	break;

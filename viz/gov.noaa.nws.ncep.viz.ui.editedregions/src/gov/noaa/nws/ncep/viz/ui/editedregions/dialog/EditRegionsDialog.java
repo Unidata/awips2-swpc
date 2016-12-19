@@ -54,7 +54,7 @@ import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
 import gov.noaa.nws.ncep.viz.ui.editedregions.Activator;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUIConstants;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.Events;
 
@@ -119,44 +119,31 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      */
     private Integer selectEventId = null;
 
-    private String[] viewOptions = {
-            EditEventsUIConstants.VIEW_OPTION_ALL_REPORTS,
-            EditEventsUIConstants.VIEW_OPTION_BEST_ONLY,
-            EditEventsUIConstants.VIEW_OPTION_CONTENDERS_ONLY,
-            EditEventsUIConstants.VIEW_OPTION_NEW_REPORTS };
-
-    private String[] sortByOptions = {
-            EditEventsUIConstants.SORTBY_OPTION_BIN_DATE,
-            EditEventsUIConstants.SORTBY_OPTION_TIME,
-            EditEventsUIConstants.SORTBY_OPTION_TYPE,
-            EditEventsUIConstants.SORTBY_OPTION_REGION,
-            EditEventsUIConstants.SORTBY_OPTION_OBSERVATORY };
-
     // TODO: Replace with columns for Edited Regions
-    private String[] columnTitles = { EditEventsUIConstants.COLUMN_HEADER_BIN,
-            EditEventsUIConstants.COLUMN_HEADER_BEGINQ,
-            EditEventsUIConstants.COLUMN_HEADER_BEGIN_DATE,
-            EditEventsUIConstants.COLUMN_HEADER_BEGIN_TIME,
-            EditEventsUIConstants.COLUMN_HEADER_MAXQ,
-            EditEventsUIConstants.COLUMN_HEADER_MAX_TIME,
-            EditEventsUIConstants.COLUMN_HEADER_ENDQ,
-            EditEventsUIConstants.COLUMN_HEADER_END_TIME,
-            EditEventsUIConstants.COLUMN_HEADER_OBSERVATORY,
-            EditEventsUIConstants.COLUMN_HEADER_QUALITY,
-            EditEventsUIConstants.COLUMN_HEADER_TYPE,
-            EditEventsUIConstants.COLUMN_HEADER_LOCATION,
-            EditEventsUIConstants.COLUMN_HEADER_FREQUENCY,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_1,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_2,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_3,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_4,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_5,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_6,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_7,
-            EditEventsUIConstants.COLUMN_HEADER_PARTICULARS_8,
-            EditEventsUIConstants.COLUMN_HEADER_REGION,
-            EditEventsUIConstants.COLUMN_HEADER_AGE,
-            EditEventsUIConstants.COLUMN_HEADER_STATUS };
+    private String[] columnTitles = { EditRegionsUIConstants.COLUMN_HEADER_BIN,
+            EditRegionsUIConstants.COLUMN_HEADER_BEGINQ,
+            EditRegionsUIConstants.COLUMN_HEADER_BEGIN_DATE,
+            EditRegionsUIConstants.COLUMN_HEADER_BEGIN_TIME,
+            EditRegionsUIConstants.COLUMN_HEADER_MAXQ,
+            EditRegionsUIConstants.COLUMN_HEADER_MAX_TIME,
+            EditRegionsUIConstants.COLUMN_HEADER_ENDQ,
+            EditRegionsUIConstants.COLUMN_HEADER_END_TIME,
+            EditRegionsUIConstants.COLUMN_HEADER_OBSERVATORY,
+            EditRegionsUIConstants.COLUMN_HEADER_QUALITY,
+            EditRegionsUIConstants.COLUMN_HEADER_TYPE,
+            EditRegionsUIConstants.COLUMN_HEADER_LOCATION,
+            EditRegionsUIConstants.COLUMN_HEADER_FREQUENCY,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_1,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_2,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_3,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_4,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_5,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_6,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_7,
+            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_8,
+            EditRegionsUIConstants.COLUMN_HEADER_REGION,
+            EditRegionsUIConstants.COLUMN_HEADER_AGE,
+            EditRegionsUIConstants.COLUMN_HEADER_STATUS };
 
     private int[] columnBounds = { 50, 50, 75, 50, 50, 50, 50, 50, 50, 50, 45,
             75, 65, 85, 85, 85, 85, 85, 85, 85, 50, 50, 50, 50 };
@@ -582,7 +569,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         // RequestType combo
         new Label(composite, SWT.LEFT).setText("View:");
         viewCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        viewCombo.setItems(viewOptions);
+        viewCombo.setItems(new String[] { "Place holder" });
         viewCombo.select(0);
 
         viewCombo.addSelectionListener(new SelectionAdapter() {
@@ -608,7 +595,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resetViewButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                viewCombo.setText(viewOptions[0]);
+                viewCombo.setText(viewCombo.getItem(0));
                 refreshRegionTables();
             }
 
@@ -627,7 +614,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         Label sortLbl = new Label(composite, SWT.LEFT);
         sortLbl.setText("Sort by:");
         sortByCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        sortByCombo.setItems(sortByOptions);
+        sortByCombo.setItems(new String[] { "Sort by placeholder" });
         sortByCombo.select(0);
 
         sortByCombo.addSelectionListener(new SelectionAdapter() {
@@ -653,7 +640,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resetSortByButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                sortByCombo.setText(sortByOptions[0]);
+                sortByCombo.setText(sortByCombo.getItem(0));
                 refreshRegionTables();
             }
 
@@ -722,7 +709,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resetViewButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                viewCombo.setText(viewOptions[0]);
+                viewCombo.setText("Reset placeholder");
                 refreshRegionTables();
             }
 
@@ -736,7 +723,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resetSortButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                sortByCombo.setText(sortByOptions[0]);
+                sortByCombo.setText("Sort by placeholder");
                 refreshRegionTables();
             }
 
@@ -866,105 +853,105 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             // Add tool tip text for the column headers
             switch (i) {
-            case EditEventsUIConstants.COLUMN_INDEX_BIN:
+            case EditRegionsUIConstants.COLUMN_INDEX_BIN:
                 // Add cell editing support for the column that represents the
                 // bin number
                 col.setEditingSupport(
                         labelProvider.getEditorSupport(tableViewer, i));
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_BIN);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_BIN);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_BEGINQ:
+            case EditRegionsUIConstants.COLUMN_INDEX_BEGINQ:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_BEGINQ);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_BEGINQ);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_BEGIN_DATE:
+            case EditRegionsUIConstants.COLUMN_INDEX_BEGIN_DATE:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_BEGIN_DATE);
+                        EditRegionsUIConstants.TOOL_TIP_BEGIN_DATE);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_BEGIN_TIME:
+            case EditRegionsUIConstants.COLUMN_INDEX_BEGIN_TIME:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_BEGIN_TIME);
+                        EditRegionsUIConstants.TOOL_TIP_BEGIN_TIME);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_MAXQ:
+            case EditRegionsUIConstants.COLUMN_INDEX_MAXQ:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_MAXQ);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_MAXQ);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_MAX_TIME:
+            case EditRegionsUIConstants.COLUMN_INDEX_MAX_TIME:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_MAX_TIME);
+                        EditRegionsUIConstants.TOOL_TIP_MAX_TIME);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_ENDQ:
+            case EditRegionsUIConstants.COLUMN_INDEX_ENDQ:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_ENDQ);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_ENDQ);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_END_TIME:
+            case EditRegionsUIConstants.COLUMN_INDEX_END_TIME:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_END_TIME);
+                        EditRegionsUIConstants.TOOL_TIP_END_TIME);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_OBSERVATORY:
+            case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_OBSERVATORY);
+                        EditRegionsUIConstants.TOOL_TIP_OBSERVATORY);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_QUALITY:
+            case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_QUALITY);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_QUALITY);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_TYPE:
+            case EditRegionsUIConstants.COLUMN_INDEX_TYPE:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_TYPE);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_TYPE);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_LOCATION:
+            case EditRegionsUIConstants.COLUMN_INDEX_LOCATION:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_LOCATION);
+                        EditRegionsUIConstants.TOOL_TIP_LOCATION);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_FREQUENCY:
+            case EditRegionsUIConstants.COLUMN_INDEX_FREQUENCY:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_FREQUENCY);
+                        EditRegionsUIConstants.TOOL_TIP_FREQUENCY);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_1:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_1:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_2:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_2:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_3:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_3:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_4:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_4:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_5:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_5:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_6:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_6:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_7:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_7:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_PARTICULARS_8:
+            case EditRegionsUIConstants.COLUMN_INDEX_PARTICULARS_8:
                 col.getColumn().setToolTipText(
-                        EditEventsUIConstants.TOOL_TIP_PARTICULARS_1_10);
+                        EditRegionsUIConstants.TOOL_TIP_PARTICULARS_1_10);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_REGION:
+            case EditRegionsUIConstants.COLUMN_INDEX_REGION:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_REGION);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_REGION);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_AGE:
+            case EditRegionsUIConstants.COLUMN_INDEX_AGE:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_AGE);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_AGE);
                 break;
-            case EditEventsUIConstants.COLUMN_INDEX_STATUS_TEXT:
+            case EditRegionsUIConstants.COLUMN_INDEX_STATUS_TEXT:
                 col.getColumn()
-                        .setToolTipText(EditEventsUIConstants.TOOL_TIP_STATUS);
+                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_STATUS);
                 break;
             default:
                 break;
