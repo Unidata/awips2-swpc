@@ -54,8 +54,8 @@ import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
 import gov.noaa.nws.ncep.viz.ui.editedregions.Activator;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.Events;
 
 /**
@@ -120,30 +120,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private Integer selectEventId = null;
 
     // TODO: Replace with columns for Edited Regions
-    private String[] columnTitles = { EditRegionsUIConstants.COLUMN_HEADER_BIN,
-            EditRegionsUIConstants.COLUMN_HEADER_BEGINQ,
-            EditRegionsUIConstants.COLUMN_HEADER_BEGIN_DATE,
-            EditRegionsUIConstants.COLUMN_HEADER_BEGIN_TIME,
-            EditRegionsUIConstants.COLUMN_HEADER_MAXQ,
-            EditRegionsUIConstants.COLUMN_HEADER_MAX_TIME,
-            EditRegionsUIConstants.COLUMN_HEADER_ENDQ,
-            EditRegionsUIConstants.COLUMN_HEADER_END_TIME,
-            EditRegionsUIConstants.COLUMN_HEADER_OBSERVATORY,
-            EditRegionsUIConstants.COLUMN_HEADER_QUALITY,
-            EditRegionsUIConstants.COLUMN_HEADER_TYPE,
-            EditRegionsUIConstants.COLUMN_HEADER_LOCATION,
-            EditRegionsUIConstants.COLUMN_HEADER_FREQUENCY,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_1,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_2,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_3,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_4,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_5,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_6,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_7,
-            EditRegionsUIConstants.COLUMN_HEADER_PARTICULARS_8,
-            EditRegionsUIConstants.COLUMN_HEADER_REGION,
-            EditRegionsUIConstants.COLUMN_HEADER_AGE,
-            EditRegionsUIConstants.COLUMN_HEADER_STATUS };
+    private String[] columnTitles = EditRegionsUIConstants.COLUMNS;
 
     private int[] columnBounds = { 50, 50, 75, 50, 50, 50, 50, 50, 50, 50, 45,
             75, 65, 85, 85, 85, 85, 85, 85, 85, 50, 50, 50, 50 };
@@ -894,8 +871,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                         EditRegionsUIConstants.TOOL_TIP_OBSERVATORY);
                 break;
             case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
-                col.getColumn()
-                        .setToolTipText(EditRegionsUIConstants.TOOL_TIP_QUALITY);
+                col.getColumn().setToolTipText(
+                        EditRegionsUIConstants.TOOL_TIP_QUALITY);
                 break;
             case EditRegionsUIConstants.COLUMN_INDEX_TYPE:
                 col.getColumn()
