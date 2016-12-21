@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationListener;
@@ -30,9 +29,6 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -53,7 +49,6 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
-import gov.noaa.nws.ncep.viz.ui.editedregions.Activator;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.Events;
@@ -104,10 +99,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private Calendar toBeginCal;
 
-    private Text fromDateText = null;
-
-    private Text toDateText = null;
-
     private Combo viewCombo = null;
 
     private Combo binCombo = null;
@@ -151,8 +142,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         dateFormat.setTimeZone(defaultTZ);
         viewDateFormat.setTimeZone(defaultTZ);
-
-        this.resetFilterDates();
 
     }
 
@@ -215,7 +204,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         sashForm.setLayoutData(sashGd);
         sashForm.setSashWidth(3);
 
-        createFilterControls(sashForm);
+        createRegionControls(sashForm);
 
         assignedRegionTableViewer = createEventsListControls(sashForm,
                 "Assigned Regions");
@@ -385,11 +374,11 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     /**
-     * Creates controls in the Filter section (top left section) in the tab
+     * Creates controls for the upper section of the Edit Regions dialog.
      * 
      * @param parent
      */
-    private void createFilterControls(Composite parent) {
+    private void createRegionControls(Composite parent) {
 
         Group filterGroup = new Group(parent, SWT.SHADOW_OUT);
         filterGroup.setLayout(new GridLayout(1, false));
@@ -397,343 +386,11 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite filterComp = new Composite(filterGroup, SWT.None);
 
-        GridLayout gridLayout = new GridLayout(10, false);
+        GridLayout gridLayout = new GridLayout(6, false);
 
         filterComp.setLayout(gridLayout);
         filterComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
-
-        this.createViewWindowControls(filterComp);
-
-        this.createRefreshControl(filterComp);
-
-        this.createViewControls(filterComp);
-
-        this.createSortByControls(filterComp);
-
-        this.createSelectBinControls(filterComp);
-    }
-
-    /**
-     * Creates the Refresh button control (top right section)
-     * 
-     * @param parent
-     */
-    private void createRefreshControl(Composite parent) {
-
-        new Label(parent, SWT.LEFT).setText("   ");
-
-        final Button refreshButton = new Button(parent, SWT.PUSH);
-        refreshButton.setText("  Refresh  ");
-        refreshButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-                EditEventsUtil.processNewEvents(fromBeginCal.getTimeInMillis(),
-                        toBeginCal.getTimeInMillis());
-                refreshRegionTables();
-            }
-
-        });
-
-    }
-
-    /**
-     * Creates the controls for the dates selection
-     * 
-     * @param composite
-     */
-    public void createViewWindowControls(Composite composite) {
-
-        new Label(composite, SWT.LEFT).setText("View Window:");
-        fromDateText = new Text(composite, SWT.BORDER);
-        fromDateText.setText(viewDateFormat.format(fromBeginCal.getTime()));
-        fromDateText.setEnabled(false);
-
-        String iconString = "icons/date_picker.gif";
-        ImageDescriptor id = Activator
-                .imageDescriptorFromPlugin(Activator.PLUGIN_ID, iconString);
-        Image icon = null;
-        if (id != null) {
-            icon = id.createImage();
-        }
-
-        final Button fromDateDatePickerButton = new Button(composite, SWT.PUSH);
-        fromDateDatePickerButton.setToolTipText("Select From Date");
-        if (icon != null) {
-            fromDateDatePickerButton.setImage(icon);
-        }
-        fromDateDatePickerButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-                CalendarDialog calDialog = new CalendarDialog(getShell());
-
-                Calendar selectedDT = calDialog.open(fromBeginCal, defaultTZ);
-                if (selectedDT != null) {
-                    fromBeginCal = selectedDT;
-                } else {
-                    return;
-                }
-
-                String selectedDate = viewDateFormat
-                        .format(fromBeginCal.getTime());
-                fromDateText.setText(selectedDate);
-
-                refreshRegionTables();
-            }
-
-        });
-
-        new Label(composite, SWT.LEFT).setText("To:");
-        toDateText = new Text(composite, SWT.BORDER);
-        toDateText.setText(viewDateFormat.format(toBeginCal.getTime()));
-        toDateText.setEnabled(false);
-
-        final Button toDateDatePickerButton = new Button(composite, SWT.PUSH);
-        toDateDatePickerButton.setToolTipText("Select To Date");
-        if (icon != null) {
-            toDateDatePickerButton.setImage(icon);
-        }
-        toDateDatePickerButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-                CalendarDialog calSelDlg = new CalendarDialog(getShell());
-
-                Calendar selectedDT = calSelDlg.open(toBeginCal, defaultTZ);
-                if (selectedDT != null) {
-                    toBeginCal = selectedDT;
-                } else {
-                    return;
-                }
-
-                String selectedDate = viewDateFormat
-                        .format(toBeginCal.getTime());
-                toDateText.setText(selectedDate);
-
-                refreshRegionTables();
-            }
-
-        });
-
-        final Button resetDateButton = new Button(composite, SWT.PUSH);
-        resetDateButton.setText("Reset Times");
-        resetDateButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-
-                resetFilterDates();
-                fromDateText
-                        .setText(viewDateFormat.format(fromBeginCal.getTime()));
-                toDateText.setText(viewDateFormat.format(toBeginCal.getTime()));
-                refreshRegionTables();
-            }
-
-        });
-
-        new Label(composite, SWT.LEFT).setText("");
-
-    }
-
-    /**
-     * Creates the view selection controls
-     * 
-     * @param composite
-     */
-    public void createViewControls(Composite composite) {
-
-        // RequestType combo
-        new Label(composite, SWT.LEFT).setText("View:");
-        viewCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        viewCombo.setItems(new String[] { "Place holder" });
-        viewCombo.select(0);
-
-        viewCombo.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                refreshRegionTables();
-            }
-        });
-
-        String iconString = "icons/reset.png";
-        ImageDescriptor id = Activator
-                .imageDescriptorFromPlugin(Activator.PLUGIN_ID, iconString);
-        Image icon = null;
-        if (id != null) {
-            icon = id.createImage();
-        }
-
-        final Button resetViewButton = new Button(composite, SWT.PUSH);
-        resetViewButton.setToolTipText("Reset View");
-        if (icon != null) {
-            resetViewButton.setImage(icon);
-        }
-        resetViewButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                viewCombo.setText(viewCombo.getItem(0));
-                refreshRegionTables();
-            }
-
-        });
-
-    }
-
-    /**
-     * Creates the sort by selection controls
-     * 
-     * @param composite
-     */
-    public void createSortByControls(Composite composite) {
-
-        // Sort By combo
-        Label sortLbl = new Label(composite, SWT.LEFT);
-        sortLbl.setText("Sort by:");
-        sortByCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        sortByCombo.setItems(new String[] { "Sort by placeholder" });
-        sortByCombo.select(0);
-
-        sortByCombo.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                refreshRegionTables();
-            }
-        });
-
-        String iconString = "icons/reset.png";
-        ImageDescriptor id = Activator
-                .imageDescriptorFromPlugin(Activator.PLUGIN_ID, iconString);
-        Image icon = null;
-        if (id != null) {
-            icon = id.createImage();
-        }
-
-        final Button resetSortByButton = new Button(composite, SWT.PUSH);
-        resetSortByButton.setToolTipText("Reset Sort");
-        if (icon != null) {
-            resetSortByButton.setImage(icon);
-        }
-        resetSortByButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                sortByCombo.setText(sortByCombo.getItem(0));
-                refreshRegionTables();
-            }
-
-        });
-
-    }
-
-    /**
-     * Cretes the bin selection controls
-     * 
-     * @param composite
-     */
-    public void createSelectBinControls(Composite composite) {
-
-        // Bin Number combo
-        new Label(composite, SWT.LEFT).setText("View Bin Number:");
-        binCombo = new Combo(composite, SWT.DROP_DOWN | SWT.READ_ONLY);
-        binCombo.setSize(75, 18);
-        binCombo.add("");
-
-        this.refreshBinCombo();
-
-        binCombo.addSelectionListener(new SelectionAdapter() {
-
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                refreshRegionTables();
-            }
-        });
-
-        String iconString = "icons/reset.png";
-        ImageDescriptor id = Activator
-                .imageDescriptorFromPlugin(Activator.PLUGIN_ID, iconString);
-        Image icon = null;
-        if (id != null) {
-            icon = id.createImage();
-        }
-
-        final Button resetBinButton = new Button(composite, SWT.PUSH);
-        resetBinButton.setToolTipText("Reset Bin to All");
-        if (icon != null) {
-            resetBinButton.setImage(icon);
-        }
-        resetBinButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                binCombo.setText("");
-                refreshRegionTables();
-            }
-
-        });
-
-        new Label(composite, SWT.LEFT).setText("");
-    }
-
-    /**
-     * Creates the reset buttons for view, sort and bin selections
-     * 
-     * @param composite
-     */
-    public void createResetButtons(Composite composite) {
-        new Label(composite, SWT.LEFT).setText("");
-
-        final Button resetViewButton = new Button(composite, SWT.PUSH);
-        resetViewButton.setText("Reset View");
-        resetViewButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                viewCombo.setText("Reset placeholder");
-                refreshRegionTables();
-            }
-
-        });
-
-        new Label(composite, SWT.LEFT).setText("");
-        new Label(composite, SWT.LEFT).setText("");
-
-        final Button resetSortButton = new Button(composite, SWT.PUSH);
-        resetSortButton.setText("Reset Sort");
-        resetSortButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                sortByCombo.setText("Sort by placeholder");
-                refreshRegionTables();
-            }
-
-        });
-
-        new Label(composite, SWT.LEFT).setText("");
-        new Label(composite, SWT.LEFT).setText("");
-
-        final Button resetBinButton = new Button(composite, SWT.PUSH);
-        resetBinButton.setText("Reset Bin to all");
-        resetBinButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                binCombo.setText("");
-                refreshRegionTables();
-            }
-
-        });
-
-    }
-
-    /**
-     * Reset fromBeginDate and toBeginDate to default (toBeginDate = current
-     * time and fromBeginDate = toBeginTime - 48 hours)
-     */
-    private void resetFilterDates() {
-        toBeginCal = Calendar.getInstance();
-
-        Calendar cal = Calendar.getInstance();
-        cal.clear();
-        cal.setTimeInMillis(toBeginCal.getTimeInMillis());
-        cal.add(Calendar.HOUR, -48);
-        fromBeginCal = cal;
     }
 
     /**
