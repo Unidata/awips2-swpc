@@ -26,6 +26,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -362,6 +364,17 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         filterComp.setLayout(gridLayout);
         filterComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
+
+        Button closeButton = new Button(filterComp, SWT.PUSH);
+        closeButton.setText("Close");
+        closeButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                close();
+            }
+
+        });
+
     }
 
     /**
