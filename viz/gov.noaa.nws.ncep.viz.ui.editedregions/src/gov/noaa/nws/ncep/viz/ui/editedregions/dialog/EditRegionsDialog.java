@@ -10,9 +10,6 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -34,7 +31,6 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -45,13 +41,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
-import com.raytheon.uf.common.status.IUFStatusHandler;
-import com.raytheon.uf.common.status.UFStatus;
-
-import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.Events;
 
 /**
  * Dialog for the main user interface for the EditedEvents application
@@ -73,8 +63,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // singleton instance
     private static EditRegionsDialog INSTANCE;
 
-    private final IUFStatusHandler statusHandler = UFStatus
-            .getHandler(EditRegionsDialog.class);
+    // private final IUFStatusHandler statusHandler =
+    // UFStatus.getHandler(EditRegionsDialog.class);
 
     protected SimpleDateFormat dateFormat = new SimpleDateFormat(
             "dd MMM yyyy HH:mm:ss");
@@ -95,16 +85,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private TableViewer unassignedRegionTableViewer = null;
 
-    private Calendar fromBeginCal;
-
-    private Calendar toBeginCal;
-
-    private Combo viewCombo = null;
-
-    private Combo binCombo = null;
-
-    private Combo sortByCombo = null;
-
     /**
      * The ID for the event which is to be selected
      */
@@ -115,11 +95,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private int[] columnBounds = { 50, 50, 75, 50, 50, 50, 50, 50, 50, 50, 45,
             75, 65, 85, 85, 85, 85, 85, 85, 85, 50, 50, 50, 50 };
-
-    /**
-     * List of bins
-     */
-    private List<Integer> eventBins = null;
 
     /**
      * Label provider for the cells in the edit events table
@@ -166,10 +141,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      */
     @Override
     public Control createDialogArea(Composite parent) {
-
-        // call processNewEvents
-        EditEventsUtil.processNewEvents(fromBeginCal.getTimeInMillis(),
-                toBeginCal.getTimeInMillis());
 
         Composite top = (Composite) super.createDialogArea(parent);
 
@@ -287,10 +258,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         // eventTableViewer.setSorter(new EventViewerSorter());
 
         tableViewer.setContentProvider(new ArrayContentProvider());
-        tableViewer.setInput(this.getEvents());
+        // tableViewer.setInput(this.getEvents());
 
-        labelProvider = new EditRegionsLabelProvider(binCombo.getItems(),
-                fromBeginCal.getTimeInMillis());
+        labelProvider = new EditRegionsLabelProvider(new String[0],
+                System.currentTimeMillis());
 
         // Create the columns
         createColumns(tableViewer, labelProvider);
@@ -644,89 +615,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     /**
-     * Returns the list of events in the db that matches the criteria in the
-     * filter controls
-     * 
-     * @return List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event>
-     */
-    private List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> getEvents() {
-
-        Events ge = new Events();
-        ge.setBeginDTTM(fromBeginCal.getTimeInMillis());
-        ge.setEndDTTM(toBeginCal.getTimeInMillis());
-        ge.setBin((!binCombo.getText().isEmpty())
-                ? Integer.parseInt(binCombo.getText()) : null);
-        ge.setSortBy((!sortByCombo.getText().isEmpty()) ? sortByCombo.getText()
-                : null);
-        ge.setView(
-                (!viewCombo.getText().isEmpty()) ? viewCombo.getText() : null);
-
-        List<gov.noaa.nws.ncep.common.dataplugin.editedevents.Event> events = null;
-
-        try {
-            events = ge.getEvents();
-
-        } catch (EditedEventsException e) {
-            statusHandler.error("Unable to get the list of events",
-                    e.getMessage());
-            e.printStackTrace();
-        }
-
-        return events;
-
-    }
-
-    /**
-     * Initializes the bin combo to display the most up-to-date list of bins
-     */
-    private void refreshBinCombo() {
-
-        String curBin = binCombo.getText();
-
-        List<String> bins = Arrays.asList(binCombo.getItems());
-
-        eventBins = EditEventsUtil.getBins(fromBeginCal.getTimeInMillis(),
-                toBeginCal.getTimeInMillis());
-        int eventBinsSize = (eventBins != null) ? eventBins.size() : 0;
-
-        // add new bins to the binCombo
-        for (int j = 0; j < eventBinsSize; j++) {
-
-            Integer bin = eventBins.get(j);
-
-            if (!bins.contains(String.valueOf(bin))) {
-                binCombo.add(String.valueOf(bin));
-            }
-        }
-
-        // Re-sort the items in the binCombo
-        String[] items = binCombo.getItems();
-        Arrays.sort(items);
-        binCombo.setItems(items);
-
-        // select the current bin
-        for (int j = 0; j < items.length; j++) {
-
-            if (curBin.equals(items[j])) {
-                binCombo.select(j);
-            }
-
-        }
-
-        if (labelProvider != null) {
-
-            // TODO move this to a more appropriate place later
-            labelProvider.setBeginDTTM(fromBeginCal.getTimeInMillis());
-
-            // update the list of bins in the cell editor (combo viewer for bin
-            // number)
-            if (eventBins != null && eventBins.size() > 0) {
-                labelProvider.setBins(binCombo.getItems());
-            }
-        }
-    }
-
-    /**
      * Refresh the events list in the table display. Also, refresh the binCombo
      * to get the latest bins.
      */
@@ -735,7 +623,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         assignedRegionTableViewer.setInput(null);
         assignedRegionTableViewer.refresh();
         resizeTable(assignedRegionTableViewer);
-        refreshBinCombo();
 
     }
 
