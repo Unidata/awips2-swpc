@@ -191,7 +191,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         createConsensusControls(sashForm);
 
-        sashForm.setWeights(new int[] { 2, 1, 6, 1, 6, 6 });
+        sashForm.setWeights(new int[] { 4, 1, 6, 1, 6, 6 });
+
+        parent.pack(true);
 
     }
 
@@ -364,7 +366,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite filterComp = new Composite(filterGroup, SWT.None);
 
-        GridLayout gridLayout = new GridLayout(6, false);
+        GridLayout gridLayout = new GridLayout(9, false);
 
         filterComp.setLayout(gridLayout);
         filterComp.setLayoutData(
