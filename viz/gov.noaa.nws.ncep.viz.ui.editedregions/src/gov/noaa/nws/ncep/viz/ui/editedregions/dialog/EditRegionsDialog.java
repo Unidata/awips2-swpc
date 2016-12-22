@@ -183,10 +183,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         createRegionControls(sashForm);
 
-        assignedRegionTableViewer = createEventsListControls(sashForm,
+        assignedRegionTableViewer = createRegionsListControls(sashForm,
                 "Assigned Regions");
 
-        unassignedRegionTableViewer = createEventsListControls(sashForm,
+        unassignedRegionTableViewer = createRegionsListControls(sashForm,
                 "Unassigned Regions");
 
         createConsensusControls(sashForm);
@@ -248,7 +248,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * 
      * @param parent
      */
-    private TableViewer createEventsListControls(Composite parent,
+    private TableViewer createRegionsListControls(Composite parent,
             String label) {
 
         new Label(parent, SWT.LEFT).setText(label);
