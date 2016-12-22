@@ -10,6 +10,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -390,6 +391,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Button undoRegionButton = new Button(filterComp, SWT.PUSH);
         undoRegionButton.setText("Undo Region");
+
+        new Label(filterComp, SWT.LEAD).setText("Region data for:");
+
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Etc/UTC"));
+        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+
+        Text dateText = new Text(filterComp, SWT.BORDER);
+        dateText.setText(format.format(cal.getTime()));
 
     }
 
