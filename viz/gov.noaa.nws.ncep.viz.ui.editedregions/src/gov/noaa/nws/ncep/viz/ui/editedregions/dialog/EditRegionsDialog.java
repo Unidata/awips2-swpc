@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -372,8 +373,23 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             public void widgetSelected(SelectionEvent e) {
                 close();
             }
-
         });
+
+        new Label(filterComp, SWT.LEAD).setText("");
+
+        new Label(filterComp, SWT.LEAD).setText("Region:");
+
+        Combo regionCombo = new Combo(filterComp,
+                SWT.READ_ONLY | SWT.DROP_DOWN);
+        regionCombo
+                .setItems(new String[] { "Region 1", "Region 2", "Region 3" });
+        regionCombo.select(0);
+
+        Button newRegionButton = new Button(filterComp, SWT.PUSH);
+        newRegionButton.setText("New Region");
+
+        Button undoRegionButton = new Button(filterComp, SWT.PUSH);
+        undoRegionButton.setText("Undo Region");
 
     }
 
