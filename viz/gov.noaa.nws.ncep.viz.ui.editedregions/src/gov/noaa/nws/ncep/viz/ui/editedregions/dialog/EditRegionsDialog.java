@@ -10,7 +10,9 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -356,8 +358,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void createRegionControls(Composite parent) {
 
         Group filterGroup = new Group(parent, SWT.SHADOW_OUT);
-        filterGroup.setLayout(new GridLayout(1, false));
-        filterGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        filterGroup.setLayout(new GridLayout(16, false));
+        filterGroup
+                .setLayoutData(new GridData(SWT.LEAD, SWT.CENTER, true, true));
 
         Composite filterComp = new Composite(filterGroup, SWT.None);
 
@@ -392,13 +395,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         Button undoRegionButton = new Button(filterComp, SWT.PUSH);
         undoRegionButton.setText("Undo Region");
 
+        new Label(filterComp, SWT.LEAD).setText("");
+
         new Label(filterComp, SWT.LEAD).setText("Region data for:");
 
-        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Etc/UTC"));
-        SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("dd MMM yyyy");
+        LocalDate date = LocalDate.now(ZoneOffset.UTC);
 
         Text dateText = new Text(filterComp, SWT.BORDER);
-        dateText.setText(format.format(cal.getTime()));
+        dateText.setText(formatter.format(date));
 
     }
 
