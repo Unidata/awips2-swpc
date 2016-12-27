@@ -9,11 +9,9 @@
  **/
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -72,14 +70,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // private final IUFStatusHandler statusHandler =
     // UFStatus.getHandler(EditRegionsDialog.class);
 
-    protected SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "dd MMM yyyy HH:mm:ss");
-
-    protected SimpleDateFormat viewDateFormat = new SimpleDateFormat(
-            "MM/dd/yyyy HH:mm:ss");
-
-    private TimeZone defaultTZ = TimeZone.getTimeZone("UTC");
-
     // last location of the dialog
     private Point lastLocation = null;
 
@@ -120,9 +110,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.MAX | SWT.MIN | SWT.RESIZE
                 | SWT.MODELESS);
-
-        dateFormat.setTimeZone(defaultTZ);
-        viewDateFormat.setTimeZone(defaultTZ);
 
     }
 
@@ -359,20 +346,20 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      */
     private void createRegionControls(Composite parent) {
 
-        Group filterGroup = new Group(parent, SWT.SHADOW_OUT);
-        filterGroup.setLayout(new GridLayout(16, false));
-        filterGroup
+        Group regionGroup = new Group(parent, SWT.SHADOW_OUT);
+        regionGroup.setLayout(new GridLayout(16, false));
+        regionGroup
                 .setLayoutData(new GridData(SWT.LEAD, SWT.CENTER, true, true));
 
-        Composite filterComp = new Composite(filterGroup, SWT.None);
+        Composite regionComp = new Composite(regionGroup, SWT.None);
 
         GridLayout gridLayout = new GridLayout(9, false);
 
-        filterComp.setLayout(gridLayout);
-        filterComp.setLayoutData(
+        regionComp.setLayout(gridLayout);
+        regionComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
 
-        Button closeButton = new Button(filterComp, SWT.PUSH);
+        Button closeButton = new Button(regionComp, SWT.PUSH);
         closeButton.setText("Close");
         closeButton.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -381,31 +368,31 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             }
         });
 
-        new Label(filterComp, SWT.LEAD).setText("");
+        new Label(regionComp, SWT.LEAD).setText("");
 
-        new Label(filterComp, SWT.LEAD).setText("Region:");
+        new Label(regionComp, SWT.LEAD).setText("Region:");
 
-        Combo regionCombo = new Combo(filterComp,
+        Combo regionCombo = new Combo(regionComp,
                 SWT.READ_ONLY | SWT.DROP_DOWN);
         regionCombo
                 .setItems(new String[] { "Region 1", "Region 2", "Region 3" });
         regionCombo.select(0);
 
-        Button newRegionButton = new Button(filterComp, SWT.PUSH);
+        Button newRegionButton = new Button(regionComp, SWT.PUSH);
         newRegionButton.setText("New Region");
 
-        Button undoRegionButton = new Button(filterComp, SWT.PUSH);
+        Button undoRegionButton = new Button(regionComp, SWT.PUSH);
         undoRegionButton.setText("Undo Region");
 
-        new Label(filterComp, SWT.LEAD).setText("");
+        new Label(regionComp, SWT.LEAD).setText("");
 
-        new Label(filterComp, SWT.LEAD).setText("Region data for:");
+        new Label(regionComp, SWT.LEAD).setText("Region data for:");
 
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("dd MMM yyyy");
         LocalDate date = LocalDate.now(ZoneOffset.UTC);
 
-        Text dateText = new Text(filterComp, SWT.BORDER);
+        Text dateText = new Text(regionComp, SWT.BORDER);
         dateText.setText(formatter.format(date));
 
     }
@@ -668,7 +655,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         assignedRegionTableViewer.setInput(null);
         assignedRegionTableViewer.refresh();
+
+        unassignedRegionTableViewer.setInput(null);
+        unassignedRegionTableViewer.refresh();
+
         resizeTable(assignedRegionTableViewer);
+        resizeTable(unassignedRegionTableViewer);
 
     }
 
