@@ -177,8 +177,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 "Unassigned Regions");
 
         createConsensusControls(sashForm);
+        createArrowControls(sashForm);
 
-        sashForm.setWeights(new int[] { 4, 1, 6, 1, 6, 6 });
+        sashForm.setWeights(new int[] { 4, 1, 6, 1, 6, 6, 2 });
 
         parent.pack(true);
 
@@ -229,6 +230,18 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         checkboxComp.setLayout(new GridLayout(1, true));
         new Button(checkboxComp, SWT.CHECK).setText("Fix Final");
         new Button(checkboxComp, SWT.CHECK).setText("Inactivate");
+
+    }
+
+    private void createArrowControls(Composite parent) {
+        Composite arrowComp = new Composite(parent, SWT.NONE);
+        arrowComp.setLayout(new GridLayout(2, false));
+
+        Button btnLeft = new Button(arrowComp, SWT.PUSH);
+        Button btnRight = new Button(arrowComp, SWT.PUSH);
+
+        btnLeft.setText("<--");
+        btnRight.setText("-->");
 
     }
 
