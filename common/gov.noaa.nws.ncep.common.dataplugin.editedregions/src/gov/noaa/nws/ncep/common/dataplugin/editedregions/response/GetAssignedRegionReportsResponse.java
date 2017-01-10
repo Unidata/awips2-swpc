@@ -13,7 +13,7 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetBinsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetBinsResults;
@@ -21,30 +21,21 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained
- * from the execution of the GetBinsCommand command
+ * from the execution of the GetAssignedRegionReportsCommand
  * 
- * <pre>
  * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Jan 14, 2016 R9583       sgurung     Initial creation
- * 
- * </pre>
- * 
- * @author sgurung
+ * @author 
  * @version 1.0
  */
 @DynamicSerialize
-public class GetBinsResponse extends BaseResponse<GetBinsResponse> implements
+public class GetAssignedRegionReportsResponse extends BaseResponse<GetAssignedRegionReportsResponse> implements
 		IResponse {
 
 	/**
 	 * The original request
 	 */
 	@DynamicSerializeElement
-	private GetBinsRequest request = null;
+	private GetAssignedRegionReportsRequest request = null;
 
 	/**
 	 * The error
@@ -74,7 +65,7 @@ public class GetBinsResponse extends BaseResponse<GetBinsResponse> implements
 	/**
 	* 
 	*/
-	public GetBinsResponse() {
+	public GetAssignedRegionReportsResponse() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -200,7 +191,7 @@ public class GetBinsResponse extends BaseResponse<GetBinsResponse> implements
 
 	@Override
 	public void setRequest(IRequest request) {
-		this.request = (GetBinsRequest) request;
+		this.request = (GetAssignedRegionReportsRequest) request;
 	}
 
 	/* (non-Javadoc)

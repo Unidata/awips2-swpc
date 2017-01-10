@@ -8,18 +8,10 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 
 /**
  * Class for allowing the client to request the back-end to
- * create a composite event
+ * obtain the Assigned Region Reports
  * 
  * 
- * <pre>
  * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Dec 12, 2015 R9583      jtravis     Initial creation
- * 
- * </pre>
  * 
  * @author jtravis
  * @version 1.0
