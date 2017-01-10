@@ -4,7 +4,11 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+<<<<<<< HEAD
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
+=======
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateCompositeEventRequest;
+>>>>>>> bc660c3a811d44b38fa4fa1355c83824e31fa0de
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateCompositeEventResults;
@@ -34,7 +38,11 @@ public class CreateCompositeEventResponse extends
 	/**
 	 * The original request
 	 */
+<<<<<<< HEAD
+	private GetAssignedRegionReportsRequest request = null;
+=======
 	private CreateCompositeEventRequest request = null;
+>>>>>>> bc660c3a811d44b38fa4fa1355c83824e31fa0de
 	
 	/**
 	 * The error
@@ -166,7 +174,11 @@ public class CreateCompositeEventResponse extends
      * getRequest()
      */
     @Override
+<<<<<<< HEAD
+    public GetAssignedRegionReportsRequest getRequest() {
+=======
     public CreateCompositeEventRequest getRequest() {
+>>>>>>> bc660c3a811d44b38fa4fa1355c83824e31fa0de
     	return this.request;
     }
 
@@ -191,7 +203,11 @@ public class CreateCompositeEventResponse extends
 	 */
 	@Override
 	public void setRequest(IRequest request) {
+<<<<<<< HEAD
+		this.request = (GetAssignedRegionReportsRequest) request;
+=======
 		this.request = (CreateCompositeEventRequest) request;
+>>>>>>> bc660c3a811d44b38fa4fa1355c83824e31fa0de
 	}
 
 	/* (non-Javadoc)
