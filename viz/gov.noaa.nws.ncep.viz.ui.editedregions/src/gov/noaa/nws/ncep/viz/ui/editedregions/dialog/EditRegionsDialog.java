@@ -489,7 +489,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         MessageBox saveExitConfMB = new MessageBox(this.getShell(),
                 SWT.YES | SWT.NO);
-        saveExitConfMB.setText("Save/Exit EE Application?");
+        saveExitConfMB.setText("Save and Exit?");
         saveExitConfMB.setMessage("Do you want to save your changes?");
 
         if (saveExitConfMB.open() == SWT.OK) {
@@ -504,17 +504,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 if (response.getError() != null) {
                     throw response.getError();
                 }
+                close = true;
             } catch (EditedRegionsException e) {
                 statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),
                         e);
             }
 
         }
-
-        close = true;
-
-        // TODO: Just a placeholder for now. We'll need a different check moving
-        // forward.
 
         return close;
     }
