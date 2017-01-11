@@ -492,7 +492,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         saveExitConfMB.setText("Save and Exit?");
         saveExitConfMB.setMessage("Do you want to save your changes?");
 
-        if (saveExitConfMB.open() == SWT.OK) {
+        if (saveExitConfMB.open() == SWT.YES) {
             ExitRequest request = new ExitRequest();
             ExitResponse response = null;
             request.setBeginDTTM(System.currentTimeMillis());
@@ -504,12 +504,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 if (response.getError() != null) {
                     throw response.getError();
                 }
-                close = true;
+
             } catch (EditedRegionsException e) {
                 statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),
                         e);
             }
-
+            close = true;
         }
 
         return close;
