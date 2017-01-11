@@ -45,6 +45,14 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
+import com.raytheon.uf.common.status.IUFStatusHandler;
+import com.raytheon.uf.common.status.UFStatus;
+import com.raytheon.uf.common.status.UFStatus.Priority;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
@@ -67,8 +75,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // singleton instance
     private static EditRegionsDialog INSTANCE;
 
-    // private final IUFStatusHandler statusHandler =
-    // UFStatus.getHandler(EditRegionsDialog.class);
+    private final IUFStatusHandler statusHandler = UFStatus
+            .getHandler(EditRegionsDialog.class);
 
     // last location of the dialog
     private Point lastLocation = null;
@@ -283,7 +291,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                         IStructuredSelection selection = (IStructuredSelection) event
                                 .getSelection();
 
-                        gov.noaa.nws.ncep.common.dataplugin.editedevents.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedevents.Event) selection
+                        gov.noaa.nws.ncep.common.dataplugin.editedregions.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedregions.Event) selection
                                 .getFirstElement();
 
                         if (selectedEvent != null) {
@@ -483,6 +491,25 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 SWT.YES | SWT.NO);
         saveExitConfMB.setText("Save/Exit EE Application?");
         saveExitConfMB.setMessage("Do you want to save your changes?");
+
+        if (saveExitConfMB.open() == SWT.OK) {
+            ExitRequest request = new ExitRequest();
+            ExitResponse response = null;
+            request.setBeginDTTM(System.currentTimeMillis());
+
+            Gateway gateway = Gateway.getInstance();
+
+            try {
+                response = gateway.submit(request);
+                if (response.getError() != null) {
+                    throw response.getError();
+                }
+            } catch (EditedRegionsException e) {
+                statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),
+                        e);
+            }
+
+        }
 
         close = true;
 

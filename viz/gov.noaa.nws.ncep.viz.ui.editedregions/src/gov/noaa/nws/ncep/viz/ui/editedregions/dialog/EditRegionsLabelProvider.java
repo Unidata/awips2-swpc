@@ -19,9 +19,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedevents.Event;
-import gov.noaa.nws.ncep.common.dataplugin.editedevents.EventBin;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditEventsUtil;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Event;
 
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
@@ -226,34 +224,7 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         @Override
         protected void setValue(Object element, Object value) {
 
-            Event event = (Event) element;
-
-            switch (columnIndex) {
-            case 0:
-                Integer binNumber = null;
-                if (value != null) {
-                    if (value instanceof EventBin) {
-
-                        binNumber = ((EventBin) value).getBinNumber();
-                    } else if (value instanceof String) {
-
-                        String val = (String) value;
-                        if (!val.isEmpty()) {
-                            binNumber = Integer.parseInt(val);
-                        }
-                    } else {
-
-                        binNumber = (Integer) value;
-                    }
-                }
-
-                // Assign the new bin number to the event (re-bin)
-                if (event.getId() != 0 & binNumber != null && event.getBin()
-                        .getBinNumber().intValue() != binNumber) {
-                    EditEventsUtil.rebinEvent(beginDTTM, event, binNumber);
-                }
-                break;
-            }
+            // TODO: add code, or nuke this subclass.
         }
 
     }
