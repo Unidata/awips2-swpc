@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: EditedEvents
+Bundle-Name: EditedRegions
 Bundle-SymbolicName: gov.noaa.nws.ncep.viz.ui.editedregions;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: gov.noaa.nws.ncep.viz.ui.editedregions.Activator
