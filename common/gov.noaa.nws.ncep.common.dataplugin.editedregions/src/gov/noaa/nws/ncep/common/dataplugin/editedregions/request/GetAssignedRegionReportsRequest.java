@@ -3,7 +3,7 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.request;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Event;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 
 /**
@@ -30,13 +30,13 @@ public class GetAssignedRegionReportsRequest extends
      * The event to persist
      */
     @DynamicSerializeElement
-    private Event event = null;  
+    private Region region = null;  
     
     /**
      * The event ID of the event that is persisted/updated
      */
     @DynamicSerializeElement
-    private Integer eventID = null; 
+    private Integer regionID = null; 
     
     
 	/**
@@ -68,7 +68,7 @@ public class GetAssignedRegionReportsRequest extends
     public boolean isValid() {
     	boolean valid = false;
         
-        if (this.event != null) {
+        if (this.region != null) {
             valid = true;
         }
 
@@ -87,32 +87,32 @@ public class GetAssignedRegionReportsRequest extends
     	;;
     }
 
-    /**
-	 * @return the event
+	/**
+	 * @return the region
 	 */
-	public Event getEvent() {
-		return event;
+	public Region getRegion() {
+		return region;
 	}
 
 	/**
-	 * @param event the event to set
+	 * @param region the region to set
 	 */
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setRegion(Region region) {
+		this.region = region;
 	}
 
 	/**
-	 * @return the eventID
+	 * @return the regionID
 	 */
-	public Integer getEventID() {
-		return eventID;
+	public Integer getRegionID() {
+		return regionID;
 	}
 
 	/**
-	 * @param eventID the eventID to set
+	 * @param regionID the regionID to set
 	 */
-	public void setEventID(Integer eventID) {
-		this.eventID = eventID;
+	public void setRegionID(Integer regionID) {
+		this.regionID = regionID;
 	}
     
 }

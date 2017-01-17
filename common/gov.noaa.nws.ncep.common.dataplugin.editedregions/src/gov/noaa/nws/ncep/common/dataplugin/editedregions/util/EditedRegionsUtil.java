@@ -57,7 +57,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
  * @version 1.0
  */
 
-public class EditedEventsUtil {
+public class EditedRegionsUtil {
 
     /**
      * Validate the xml file against a schema defined in the input xml file
@@ -143,7 +143,7 @@ public class EditedEventsUtil {
         try {
             xsdPath = pathMgr.getFile(
                     commonStaticBase,
-                    "ncep" + File.separator + EditedEventsConstants.PLUGIN_NAME
+                    "ncep" + File.separator + EditedRegionsConstants.PLUGIN_NAME
                             + File.separator + xsdFileName).getCanonicalPath();
 
         } catch (Exception e) {

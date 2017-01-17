@@ -27,7 +27,7 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.util;
  * @version 1.0
  */
 
-public class EditedEventsConstants {
+public class EditedRegionsConstants {
 
     /**
      * Plugin name

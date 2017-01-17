@@ -10,15 +10,6 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.BaseResponse;
  * The Gateway class provides the means for clients to interact
  * with the back-end
  * 
- * <pre>
- * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Nov 7, 2015  R9583      jtravis     Initial creation
- * 
- * </pre>
  * 
  * @author jtravis
  * @version 1.0

@@ -14,7 +14,7 @@ import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedEventsConstants;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 
 /**
  * 
@@ -560,7 +560,7 @@ public class GOESXrayEvent extends PersistablePluginDataObject {
 
 	@Override
     public String getPluginName() {
-        return EditedEventsConstants.PLUGIN_NAME;
+        return EditedRegionsConstants.PLUGIN_NAME;
     }
 
 }
