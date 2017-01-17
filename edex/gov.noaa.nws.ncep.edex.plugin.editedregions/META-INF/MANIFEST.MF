@@ -14,6 +14,7 @@ Import-Package: com.raytheon.uf.common.message.response,
  com.raytheon.uf.common.serialization.comm,
  com.raytheon.uf.common.status,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.request,
+ gov.noaa.nws.ncep.common.dataplugin.editedregions.response,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.exception,
  org.apache.commons.io
