@@ -407,6 +407,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         Button newRegionButton = new Button(regionComp, SWT.PUSH);
         newRegionButton.setText("New Region");
 
+        newRegionButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent ev) {
+                refreshRegionTables();
+            }
+        });
+
         Button undoRegionButton = new Button(regionComp, SWT.PUSH);
         undoRegionButton.setText("Undo Region");
 
