@@ -1,11 +1,15 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddEventResults;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
 
 /**
  * The command class that is executed to add an event
@@ -147,70 +151,38 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
     public IResponse execute() {
         this.setStartTime();
 
-        AddEventResults results = null;
-        // Integer eventID = this.request.getEventID();
-        // Event event = this.request.getEvent();
-        //
-        // try {
-        // EventsDao dao = new EventsDao();
-        //
-        // if (eventID == null || eventID == 0) {
-        // event.setInsertTime(Calendar.getInstance());
-        // eventID = dao.persist(event);
-        // this.request.setEventID(eventID);
-        // } else {
-        // event.setId(eventID);
-        // dao.saveOrUpdate(event);
-        // }
-        //
-        // if (eventID != null) {
-        //
-        // event = (Event) dao.queryById(eventID);
-        //
-        // results = new AddEventResults();
-        // results.setEvent(event);
-        // }
-        //
-        // } catch (PluginException e) {
-        // String errorMsg = "ERROR - PluginException Occured When Executing
-        // AddEventCommand";
-        // EditedEventsException exception = new
-        // EditedEventsException(errorMsg);
-        // exception.setStackTrace(e.getStackTrace());
-        // this.error = exception;
-        // } catch (DataAccessLayerException e) {
-        // String errorMsg = "ERROR - DataAccessLayerException Occured When
-        // Executing AddEventCommand";
-        // EditedEventsException exception = new
-        // EditedEventsException(errorMsg);
-        // exception.setStackTrace(e.getStackTrace());
-        // this.error = exception;
-        // }
+        List<Region> regions = new ArrayList<Region>();
+
+        Region region = new Region();
+        region.setId(request.getRegionID().intValue());
+        regions.add(region);
 
         this.setEndTime();
 
-        return this.createResponse(results);
+        return this.createResponse(regions);
     }
 
     /**
      * @param results
      * @return IResponse
      */
-    private IResponse createResponse(IResults results) {
-        // AddEventResponse response = new AddEventResponse();
-        //
-        // if (this.hasError()) {
-        // response.setError(this.getError());
-        // } else {
-        // response.setResults(results);
-        // }
-        //
-        // // populate the response and the results
-        // response.setRequest(this.getRequest());
-        // response.setProcessingTime(this.getProcessingTime());
-        //
-        // return response;
-        return null;
+    private IResponse createResponse(List<Region> regions) {
+
+        GetAssignedRegionReportsResults results = new GetAssignedRegionReportsResults();
+        results.setRegions(regions);
+
+        GetAssignedRegionReportsResponse response = new GetAssignedRegionReportsResponse();
+
+        if (this.hasError()) {
+            response.setError(this.getError());
+        } else {
+            response.setResults(results);
+        }
+
+        response.setRequest(this.getRequest());
+        response.setProcessingTime(this.getProcessingTime());
+
+        return response;
     }
 
 }

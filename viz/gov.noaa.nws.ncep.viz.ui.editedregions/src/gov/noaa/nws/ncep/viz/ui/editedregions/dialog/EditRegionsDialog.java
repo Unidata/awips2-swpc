@@ -1,5 +1,4 @@
 /**
-\ * This code has unlimited rights, and is provided "as is" by the National Centers 
  * for Environmental Prediction, without warranty of any kind, either expressed or implied, 
  * including but not limited to the implied warranties of merchantability and/or fitness 
  * for a particular purpose.
@@ -12,6 +11,8 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -49,10 +50,14 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
@@ -688,16 +693,43 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * to get the latest bins.
      */
     private void refreshRegionTables() {
-
-        assignedRegionTableViewer.setInput(null);
+        List<Region> regions = Collections.emptyList();
+        try {
+            regions = getRegions();
+        } catch (EditedRegionsException e) {
+            statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
+        }
+        assignedRegionTableViewer.setInput(regions);
         assignedRegionTableViewer.refresh();
 
-        unassignedRegionTableViewer.setInput(null);
+        unassignedRegionTableViewer.setInput(regions);
         unassignedRegionTableViewer.refresh();
 
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
 
+    }
+
+    private List<Region> getRegions() throws EditedRegionsException {
+        GetAssignedRegionReportsRequest request = new GetAssignedRegionReportsRequest();
+
+        Region region = new Region();
+        region.setId(3);
+
+        request.setRegionID(Integer.valueOf(region.getId()));
+        request.setRegion(region);
+
+        if (request.isValid()) {
+
+            GetAssignedRegionReportsResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.getResults() != null && !response.hasErrors()) {
+                GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
+                        .getResults();
+                return results.getRegions();
+            }
+        }
+        return Collections.emptyList();
     }
 
     /**

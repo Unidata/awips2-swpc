@@ -4,7 +4,14 @@ import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.serialization.comm.IRequestHandler;
 import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetAssignedRegionReportsCommand;
 
 /**
  * Class that provides the capability to initialize commands based on requests
@@ -39,6 +46,31 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
 
         switch (requestClassSimpleName) {
 
+        case "GetAssignedRegionReportsRequest":
+            GetAssignedRegionReportsRequest getReportsRequest = (GetAssignedRegionReportsRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            GetAssignedRegionReportsResponse getReportsResponse = null;
+
+            if (!getReportsRequest.isValid()) {
+                getReportsResponse = new GetAssignedRegionReportsResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                getReportsResponse.setError(e);
+            } else {
+                // build the command which includes adding
+                // the request to the command in the event
+                // the request had parameters necessary to satisfy
+                // the command
+                GetAssignedRegionReportsCommand getReportsCmd = new GetAssignedRegionReportsCommand();
+                getReportsCmd.setRequest(getReportsRequest);
+
+                // create the response
+                getReportsResponse = (GetAssignedRegionReportsResponse) getReportsCmd
+                        .execute();
+            }
+
+            return getReportsResponse;
         case "GetEventTypesRequest":
             // GetEventTypesRequest getEventTypesRequest =
             // (GetEventTypesRequest)
@@ -456,29 +488,29 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             // return getStationsResponse;
 
         case "ExitRequest":
-            // ExitRequest exitRequest = (ExitRequest)
-            // Class.forName(requestClassName).cast(request);
-            //
-            // ExitResponse exitResponse = null;
-            //
-            // if (!exitRequest.isValid()) {
-            // exitResponse = new ExitResponse();
-            // EditedEventsException e = new EditedEventsException("ERROR -
-            // Request Is Invalid");
-            // exitResponse.setError(e);
-            // } else {
-            // // build the command which includes adding
-            // // the request to the command in the event
-            // // the request had parameters necessary to satisfy
-            // // the command
-            // ExitCommand exitCommand = new ExitCommand();
-            // exitCommand.setRequest(exitRequest);
-            //
-            // // create the response
-            // exitResponse = (ExitResponse) exitCommand.execute();
-            // }
-            //
-            // return exitResponse;
+            ExitRequest exitRequest = (ExitRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            ExitResponse exitResponse = null;
+
+            if (!exitRequest.isValid()) {
+                exitResponse = new ExitResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR -" + "Request Is Invalid");
+                exitResponse.setError(e);
+            } else {
+                // build the command which includes adding
+                // the request to the command in the event
+                // the request had parameters necessary to satisfy
+                // the command
+                ExitCommand exitCommand = new ExitCommand();
+                exitCommand.setRequest(exitRequest);
+
+                // create the response
+                exitResponse = (ExitResponse) exitCommand.execute();
+            }
+
+            return exitResponse;
 
         default: // notify caller that the request is not a known request type
 
