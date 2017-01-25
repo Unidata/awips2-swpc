@@ -6,7 +6,9 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 @DynamicSerialize
 public class Region extends PersistablePluginDataObject {
 
-    @Override
+	private static final long serialVersionUID = 6589298851235632930L;
+
+	@Override
     public String getPluginName() {
         // TODO: Use constant.
         return "editedregions";
