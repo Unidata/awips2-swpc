@@ -4,19 +4,19 @@
   http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd   
   http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
- <bean id="RequestHandler"
+ <bean id="ERRequestHandler"
         class="gov.noaa.nws.ncep.edex.plugin.editedregions.handler.RequestHandler" />
         
   <bean factory-bean="handlerRegistry" factory-method="register">
         <constructor-arg
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest" />        
-        <constructor-arg ref="RequestHandler" />
+        <constructor-arg ref="ERRequestHandler" />
   </bean>    
   
   <bean factory-bean="handlerRegistry" factory-method="register">
        <constructor-arg
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest" />
-        <constructor-arg ref="RequestHandler" />
+        <constructor-arg ref="ERRequestHandler" />
   </bean>
      
 </beans>
