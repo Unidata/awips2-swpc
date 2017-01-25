@@ -728,8 +728,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         if (request.isValid()) {
 
-            GetAssignedRegionReportsResponse response = Gateway.getInstance()
-                    .submit(request);
+            GetAssignedRegionReportsResponse response = Gateway.getInstance().submit(request);
+            
             if (response.getResults() != null && !response.hasErrors()) {
                 GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
                         .getResults();
