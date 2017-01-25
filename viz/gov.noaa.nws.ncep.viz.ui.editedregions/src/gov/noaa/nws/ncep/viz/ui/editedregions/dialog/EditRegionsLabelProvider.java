@@ -19,8 +19,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Event;
-
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
  * the EditEventsDialog. Also provides editing support for some of the cells.
@@ -181,43 +179,44 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
 
         @Override
         protected boolean canEdit(Object element) {
-            Event event = (Event) element;
-            if (event.getId() != 0) {
-                return true;
-            } else {
-                return false;
-            }
+            // Event event = (Event) element;
+            // if (event.getId() != 0) {
+            // return true;
+            // } else {
+            // return false;
+            // }
+            return true;
         }
 
         @Override
         protected CellEditor getCellEditor(Object element) {
 
-            Event event = (Event) element;
-            ComboBoxViewerCellEditor ve;
-            switch (columnIndex) {
-            case 0:
-                ve = (ComboBoxViewerCellEditor) editor;
-                ve.getViewer().setContentProvider(new ComboContentProvider());
-                ve.getViewer().setInput(clean(bins));
-                ve.getViewer().getCCombo()
-                        .setText(String.valueOf(event.getBin().getBinNumber()));
-                this.setValue(element, event.getBin().getBinNumber());
-
-                return editor;
-            }
+            // Event event = (Event) element;
+            // ComboBoxViewerCellEditor ve;
+            // switch (columnIndex) {
+            // case 0:
+            // ve = (ComboBoxViewerCellEditor) editor;
+            // ve.getViewer().setContentProvider(new ComboContentProvider());
+            // ve.getViewer().setInput(clean(bins));
+            // ve.getViewer().getCCombo()
+            // .setText(String.valueOf(event.getBin().getBinNumber()));
+            // this.setValue(element, event.getBin().getBinNumber());
+            //
+            // return editor;
+            // }
             return null;
         }
 
         @Override
         protected Object getValue(Object element) {
-            Event event = (Event) element;
-            switch (columnIndex) {
-            case 0:
-                if (event.getBin() != null)
-                    return new Integer(event.getBin().getBinNumber());
-                else
-                    return new Integer(0);
-            }
+            // Event event = (Event) element;
+            // switch (columnIndex) {
+            // case 0:
+            // if (event.getBin() != null)
+            // return new Integer(event.getBin().getBinNumber());
+            // else
+            // return new Integer(0);
+            // }
             return null;
         }
 

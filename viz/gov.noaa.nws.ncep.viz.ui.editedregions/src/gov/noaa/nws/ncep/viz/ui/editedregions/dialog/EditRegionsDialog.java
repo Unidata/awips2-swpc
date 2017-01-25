@@ -20,7 +20,6 @@ import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationListener;
 import org.eclipse.jface.viewers.ColumnViewerEditorDeactivationEvent;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -293,15 +292,19 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 .addSelectionChangedListener(new ISelectionChangedListener() {
                     public void selectionChanged(
                             final SelectionChangedEvent event) {
-                        IStructuredSelection selection = (IStructuredSelection) event
-                                .getSelection();
-
-                        gov.noaa.nws.ncep.common.dataplugin.editedregions.Event selectedEvent = (gov.noaa.nws.ncep.common.dataplugin.editedregions.Event) selection
-                                .getFirstElement();
-
-                        if (selectedEvent != null) {
-                            selectEventId = selectedEvent.getId();
-                        }
+                        // IStructuredSelection selection =
+                        // (IStructuredSelection) event
+                        // .getSelection();
+                        //
+                        // gov.noaa.nws.ncep.common.dataplugin.editedregions.Event
+                        // selectedEvent =
+                        // (gov.noaa.nws.ncep.common.dataplugin.editedregions.Event)
+                        // selection
+                        // .getFirstElement();
+                        //
+                        // if (selectedEvent != null) {
+                        // selectEventId = selectedEvent.getId();
+                        // }
 
                     }
                 });
@@ -728,8 +731,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         if (request.isValid()) {
 
-            GetAssignedRegionReportsResponse response = Gateway.getInstance().submit(request);
-            
+            GetAssignedRegionReportsResponse response = Gateway.getInstance()
+                    .submit(request);
+
             if (response.getResults() != null && !response.hasErrors()) {
                 GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
                         .getResults();
