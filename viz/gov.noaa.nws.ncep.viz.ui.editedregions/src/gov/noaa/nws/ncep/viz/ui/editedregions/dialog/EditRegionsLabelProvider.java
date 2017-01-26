@@ -1,6 +1,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
@@ -127,11 +128,13 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
     @Override
     public String getColumnText(Object element, int columnIndex) {
 
-        Region region = (Region) element;
+        RegionReport report = (RegionReport) element;
 
         switch (columnIndex) {
         case 0:
-            return region.getClass().getSimpleName();
+            return report.getDate().format(DateTimeFormatter.ISO_LOCAL_DATE);
+        case 8:
+            return report.getArea();
         default:
             return null;
         }

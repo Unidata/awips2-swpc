@@ -50,6 +50,7 @@ import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
@@ -602,16 +603,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * to get the latest bins.
      */
     private void refreshRegionTables() {
-        List<Region> regions = Collections.emptyList();
+        List<RegionReport> reports = Collections.emptyList();
         try {
-            regions = getRegions();
+            reports = getReports();
         } catch (EditedRegionsException e) {
             statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
         }
-        assignedRegionTableViewer.setInput(regions);
+        assignedRegionTableViewer.setInput(reports);
         assignedRegionTableViewer.refresh();
 
-        unassignedRegionTableViewer.setInput(regions);
+        unassignedRegionTableViewer.setInput(reports);
         unassignedRegionTableViewer.refresh();
 
         resizeTable(assignedRegionTableViewer);
@@ -619,7 +620,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    private List<Region> getRegions() throws EditedRegionsException {
+    private List<RegionReport> getReports() throws EditedRegionsException {
         GetAssignedRegionReportsRequest request = new GetAssignedRegionReportsRequest();
 
         Region region = new Region();
@@ -636,7 +637,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             if (response.getResults() != null && !response.hasErrors()) {
                 GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
                         .getResults();
-                return results.getRegions();
+                return results.getReports();
             }
         }
         return Collections.emptyList();

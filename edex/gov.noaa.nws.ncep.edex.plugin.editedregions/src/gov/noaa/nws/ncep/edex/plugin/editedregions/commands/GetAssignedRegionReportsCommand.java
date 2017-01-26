@@ -1,9 +1,13 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
@@ -157,19 +161,23 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
         region.setId(request.getRegionID().intValue());
         regions.add(region);
 
+        RegionReport report = new RegionReport();
+        report.setArea("Area 51");
+        report.setDate(LocalDate.of(2017, Month.JANUARY, 1));
+
         this.setEndTime();
 
-        return this.createResponse(regions);
+        return this.createResponse(Collections.singletonList(report));
     }
 
     /**
      * @param results
      * @return IResponse
      */
-    private IResponse createResponse(List<Region> regions) {
+    private IResponse createResponse(List<RegionReport> regions) {
 
         GetAssignedRegionReportsResults results = new GetAssignedRegionReportsResults();
-        results.setRegions(regions);
+        results.setReports(regions);
 
         GetAssignedRegionReportsResponse response = new GetAssignedRegionReportsResponse();
 
