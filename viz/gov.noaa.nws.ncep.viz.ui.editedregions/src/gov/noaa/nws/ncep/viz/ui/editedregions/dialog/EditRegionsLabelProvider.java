@@ -19,6 +19,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
+
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
  * the EditEventsDialog. Also provides editing support for some of the cells.
@@ -125,9 +127,14 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
     @Override
     public String getColumnText(Object element, int columnIndex) {
 
-        String returnValue = "";
+        Region region = (Region) element;
 
-        return returnValue;
+        switch (columnIndex) {
+        case 0:
+            return region.getClass().getSimpleName();
+        default:
+            return null;
+        }
     }
 
     public int getColumnCount() {

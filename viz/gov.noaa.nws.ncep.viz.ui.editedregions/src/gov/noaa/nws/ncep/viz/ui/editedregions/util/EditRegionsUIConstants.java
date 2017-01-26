@@ -42,6 +42,10 @@ public interface EditRegionsUIConstants {
             "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
             "Spot Class", "Mag Class", "Mag Str", "Region" };
 
+    public static final String[] TOOLTIPS = new String[] { "Date", "Obstime",
+            "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
+            "Spot Class", "Mag Class", "Mag Str", "Region" };
+
     public static final int COLUMN_INDEX_BIN = 0;
 
     public static final int COLUMN_INDEX_BEGINQ = 1;
