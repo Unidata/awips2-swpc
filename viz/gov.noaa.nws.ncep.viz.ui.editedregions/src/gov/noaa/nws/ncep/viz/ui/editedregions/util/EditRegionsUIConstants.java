@@ -46,53 +46,33 @@ public interface EditRegionsUIConstants {
             "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
             "Spot Class", "Mag Class", "Mag Str", "Region" };
 
-    public static final int COLUMN_INDEX_BIN = 0;
+    public static final int COLUMN_INDEX_DATE = 0;
 
-    public static final int COLUMN_INDEX_BEGINQ = 1;
+    public static final int COLUMN_INDEX_OBSTIME = 1;
 
-    public static final int COLUMN_INDEX_BEGIN_DATE = 2;
+    public static final int COLUMN_INDEX_OBS = 2;
 
-    public static final int COLUMN_INDEX_BEGIN_TIME = 3;
+    public static final int COLUMN_INDEX_Q = 3;
 
-    public static final int COLUMN_INDEX_MAXQ = 4;
+    public static final int COLUMN_INDEX_00ZLOC = 4;
 
-    public static final int COLUMN_INDEX_MAX_TIME = 5;
+    public static final int COLUMN_INDEX_RPTLOC = 5;
 
-    public static final int COLUMN_INDEX_ENDQ = 6;
+    public static final int COLUMN_INDEX_LO = 6;
 
-    public static final int COLUMN_INDEX_END_TIME = 7;
+    public static final int COLUMN_INDEX_LL = 7;
 
-    public static final int COLUMN_INDEX_OBSERVATORY = 8;
+    public static final int COLUMN_INDEX_AREA = 8;
 
-    public static final int COLUMN_INDEX_QUALITY = 9;
+    public static final int COLUMN_INDEX_NUM_SPOTS = 9;
 
-    public static final int COLUMN_INDEX_TYPE = 10;
+    public static final int COLUMN_INDEX_SPOT_CLASS = 10;
 
-    public static final int COLUMN_INDEX_LOCATION = 11;
+    public static final int COLUMN_INDEX_MAG_CLASS = 11;
 
-    public static final int COLUMN_INDEX_FREQUENCY = 12;
+    public static final int COLUMN_INDEX_MAG_STR = 12;
 
-    public static final int COLUMN_INDEX_PARTICULARS_1 = 13;
-
-    public static final int COLUMN_INDEX_PARTICULARS_2 = 14;
-
-    public static final int COLUMN_INDEX_PARTICULARS_3 = 15;
-
-    public static final int COLUMN_INDEX_PARTICULARS_4 = 16;
-
-    public static final int COLUMN_INDEX_PARTICULARS_5 = 17;
-
-    public static final int COLUMN_INDEX_PARTICULARS_6 = 18;
-
-    public static final int COLUMN_INDEX_PARTICULARS_7 = 19;
-
-    public static final int COLUMN_INDEX_PARTICULARS_8 = 20;
-
-    public static final int COLUMN_INDEX_REGION = 21;
-
-    public static final int COLUMN_INDEX_AGE = 22;
-
-    public static final int COLUMN_INDEX_STATUS_TEXT = 23;
+    public static final int COLUMN_INDEX_REGION = 13;
 
     public static final String COLUMN_HEADER_BIN = "Bin";
 

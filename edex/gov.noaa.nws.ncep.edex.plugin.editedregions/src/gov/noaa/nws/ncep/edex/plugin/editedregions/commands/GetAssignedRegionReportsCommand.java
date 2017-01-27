@@ -1,10 +1,8 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
-import java.util.TimeZone;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
@@ -161,18 +159,28 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
         region.setId(request.getRegionID().intValue());
         regions.add(region);
 
-        RegionReport report = new RegionReport();
-        report.setArea("Area 51");
+        RegionReport report1 = new RegionReport();
+        report1.setQ("2");
+        report1.setRegion(new Region());
+        report1.setArea("30");
+        report1.setLl("003");
+        report1.setLo("072");
+        report1.setArea("30");
+        report1.setNumSpots(1);
+        report1.setSpotClass("Hsx");
 
-        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        date.clear();
-        date.set(2017, 0, 1, 0, 0, 0);
-
-        report.setDate(date);
+        RegionReport report2 = new RegionReport();
+        report2.setQ("2");
+        report2.setRegion(new Region());
+        report2.setArea("00");
+        report2.setLl("14");
+        report2.setLo("61");
+        report2.setNumSpots(1);
+        report2.setSpotClass("Axx");
 
         this.setEndTime();
 
-        return this.createResponse(Collections.singletonList(report));
+        return this.createResponse(Arrays.asList(report1));
     }
 
     /**
