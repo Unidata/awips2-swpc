@@ -49,15 +49,12 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
@@ -605,7 +602,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void refreshRegionTables() {
         List<RegionReport> reports = Collections.emptyList();
         try {
-            reports = getReports();
+            reports = EditRegionsServerUtil.getRegionReports();
         } catch (EditedRegionsException e) {
             statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
         }
@@ -617,30 +614,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
-
-    }
-
-    private List<RegionReport> getReports() throws EditedRegionsException {
-        GetAssignedRegionReportsRequest request = new GetAssignedRegionReportsRequest();
-
-        Region region = new Region();
-        region.setId(3);
-
-        request.setRegionID(Integer.valueOf(region.getId()));
-        request.setRegion(region);
-
-        if (request.isValid()) {
-
-            GetAssignedRegionReportsResponse response = Gateway.getInstance()
-                    .submit(request);
-
-            if (response.getResults() != null && !response.hasErrors()) {
-                GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
-                        .getResults();
-                return results.getReports();
-            }
-        }
-        return Collections.emptyList();
     }
 
     /**
