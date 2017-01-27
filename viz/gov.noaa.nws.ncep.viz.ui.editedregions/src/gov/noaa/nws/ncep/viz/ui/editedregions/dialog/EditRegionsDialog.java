@@ -193,6 +193,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         parent.pack(true);
 
+        refreshRegionTables();
+
     }
 
     /**
