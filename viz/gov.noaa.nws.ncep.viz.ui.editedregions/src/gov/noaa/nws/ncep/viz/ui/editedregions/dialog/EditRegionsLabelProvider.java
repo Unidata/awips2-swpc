@@ -146,6 +146,7 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
                         .toLocalDate();
                 return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
             }
+            return "";
         case EditRegionsUIConstants.COLUMN_INDEX_LO:
             return report.getLo();
         case EditRegionsUIConstants.COLUMN_INDEX_LL:
