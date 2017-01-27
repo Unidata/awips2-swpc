@@ -12,7 +12,7 @@
         <property name="pluginName" ref="eventsPluginName" />
         <property name="pluginFQN" value="gov.noaa.nws.ncep.common.dataplugin.editedregions" />
         <property name="dao" value="gov.noaa.nws.ncep.edex.plugin.editedevents.dao.EventsDao" />
-        <property name="record" value="gov.noaa.nws.ncep.common.dataplugin.editedregions.Region" />
+        <property name="record" value="gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport" />
     </bean>
   
 	<bean id="eventsRegistered" factory-bean="pluginRegistry" factory-method="register"> <!-- depends-on="textRegistered" -->

@@ -1,38 +1,56 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.Calendar;
 
 import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
+import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
+import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
+@DynamicSerialize
 public class RegionReport extends PersistablePluginDataObject {
 
-    private LocalDate date;
+    private static final long serialVersionUID = -2348816710419849461L;
 
-    private LocalTime obstime;
+    @DynamicSerializeElement
+    private Calendar date;
 
+    @DynamicSerializeElement
+    private Calendar obstime;
+
+    @DynamicSerializeElement
     private String obs;
 
+    @DynamicSerializeElement
     private String q;
 
+    @DynamicSerializeElement
     private String zeroZLocation;
 
+    @DynamicSerializeElement
     private String reportLocation;
 
+    @DynamicSerializeElement
     private String lo;
 
+    @DynamicSerializeElement
     private String ll;
 
+    @DynamicSerializeElement
     private String area;
 
+    @DynamicSerializeElement
     private int numSpots;
 
+    @DynamicSerializeElement
     private String spotClass;
 
+    @DynamicSerializeElement
     private String magClass;
 
+    @DynamicSerializeElement
     private String magStr;
 
+    @DynamicSerializeElement
     private Region region;
 
     @Override
@@ -44,7 +62,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the date
      */
-    public LocalDate getDate() {
+    public Calendar getDate() {
         return date;
     }
 
@@ -52,14 +70,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param date
      *            the date to set
      */
-    public void setDate(LocalDate date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
     /**
      * @return the obstime
      */
-    public LocalTime getObstime() {
+    public Calendar getObstime() {
         return obstime;
     }
 
@@ -67,7 +85,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param obstime
      *            the obstime to set
      */
-    public void setObstime(LocalTime obstime) {
+    public void setObstime(Calendar obstime) {
         this.obstime = obstime;
     }
 

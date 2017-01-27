@@ -1,10 +1,10 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
@@ -163,7 +163,12 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
 
         RegionReport report = new RegionReport();
         report.setArea("Area 51");
-        report.setDate(LocalDate.of(2017, Month.JANUARY, 1));
+
+        Calendar date = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        date.clear();
+        date.set(2017, 0, 1, 0, 0, 0);
+
+        report.setDate(date);
 
         this.setEndTime();
 
