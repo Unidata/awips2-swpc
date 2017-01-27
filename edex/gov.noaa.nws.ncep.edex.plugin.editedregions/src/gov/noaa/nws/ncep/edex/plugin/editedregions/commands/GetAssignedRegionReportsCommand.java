@@ -180,7 +180,7 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
 
         this.setEndTime();
 
-        return this.createResponse(Arrays.asList(report1));
+        return this.createResponse(Arrays.asList(report1, report2));
     }
 
     /**
