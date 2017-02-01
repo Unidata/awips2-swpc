@@ -3,51 +3,51 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-	<bean id="eventsDao" class="gov.noaa.nws.ncep.edex.plugin.editedevents.dao.EventsDao">
-		<constructor-arg ref="eventsPluginName" />
+	<bean id="regionsDao" class="gov.noaa.nws.ncep.edex.plugin.editedevents.dao.EventsDao">
+		<constructor-arg ref="regionsPluginName" />
 	</bean>
 	
-	<bean id="eventsDecoder" class="gov.noaa.nws.ncep.edex.plugin.editedevents.EventsDecoder" depends-on="eventsPluginName" >
-		<property name="dao" ref="eventsDao" />
+	<bean id="regionsDecoder" class="gov.noaa.nws.ncep.edex.plugin.editedevents.EventsDecoder" depends-on="regionsPluginName" >
+		<property name="dao" ref="regionsDao" />
 	</bean>
 	
-	<bean id="eventsDistRegistry" factory-bean="distributionSrv"
+	<bean id="regionsDistRegistry" factory-bean="distributionSrv"
 		factory-method="register">
-		<constructor-arg ref="eventsPluginName" />
-		<constructor-arg value="jms-durable:queue:Ingest.EditedEvents"/>
+		<constructor-arg ref="regionsPluginName" />
+		<constructor-arg value="jms-durable:queue:Ingest.EditedRegions"/>
 	</bean>
 
-    <camelContext id="events-camel"
+    <camelContext id="regions-camel"
 		xmlns="http://camel.apache.org/schema/spring"
 		errorHandlerRef="errorHandler"
 		autoStartup="false">
 		
-		<endpoint id="eventsFileEndpoint" uri="file:${edex.home}/data/sbn/editedevents?noop=true&amp;idempotent=false" />
+		<endpoint id="regionsFileEndpoint" uri="file:${edex.home}/data/sbn/editedregions?noop=true&amp;idempotent=false" />
 
-		<route id="eventsFileConsumerRoute">
-			<from ref="eventsFileEndpoint" />
+		<route id="regionsFileConsumerRoute">
+			<from ref="regionsFileEndpoint" />
 			<bean ref="fileToString" />
 			<setHeader headerName="pluginName">
-				<constant>editedevents</constant>
+				<constant>editedregions</constant>
 			</setHeader>
-			<to uri="jms-durable:queue:Ingest.EditedEvents" />
+			<to uri="jms-durable:queue:Ingest.EditedRegions" />
 		</route>
 		
-		<!-- Begin Events routes -->
-		<route id="eventsIngestRoute">
-			<from uri="jms-durable:queue:Ingest.EditedEvents"/>
+		<!-- Begin Region routes -->
+		<route id="regionsIngestRoute">
+			<from uri="jms-durable:queue:Ingest.EditedRegions"/>
 			<setHeader headerName="pluginName">
-				<constant>editedevents</constant>
+				<constant>editedregions</constant>
 			</setHeader>
 			<doTry>
 				<pipeline>
 					<bean ref="stringToFile" />
-					<bean ref="eventsDecoder" method="decode" />
+					<bean ref="regionsDecoder" method="decode" />
 					<to uri="direct-vm:indexAlert" />
 				</pipeline>
 				<doCatch>
 					<exception>java.lang.Throwable</exception>
-					<to uri="log:events?level=ERROR"/>
+					<to uri="log:regions?level=ERROR"/>
 				</doCatch>
 			</doTry>
 		</route>
