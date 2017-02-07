@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin> 
-   <extension
+<extension
          point="org.eclipse.ui.menus">
          <menuContribution
-               locationURI="menu:NCTools?after=gov.noaa.nws.ncep.viz.ui.remotescript">
+            locationURI="menu:org.eclipse.ui.main.menu?after=NCTools">
+           <menu
+                id="SWPCApps"
+                label="SWPC"
+                mnemonic="S">
+             <visibleWhen>
+                <reference
+                      definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
+                </reference>
+             </visibleWhen>
               <command
                     commandId="gov.noaa.nws.ncep.viz.ui.editedevents"
-                    label="Edited Events..."
+                    label="Edited Events"
                     mnemonic="E"
                     style="push">
               <visibleWhen>
@@ -16,6 +25,7 @@
                  </reference>
               </visibleWhen>
               </command>
+              </menu>
          </menuContribution>
    </extension>
     <extension
