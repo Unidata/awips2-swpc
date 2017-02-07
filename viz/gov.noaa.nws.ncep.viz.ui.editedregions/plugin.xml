@@ -4,10 +4,19 @@
    <extension
          point="org.eclipse.ui.menus">
          <menuContribution
-               locationURI="menu:NCTools?after=gov.noaa.nws.ncep.viz.ui.remotescript">
+            locationURI="menu:org.eclipse.ui.main.menu?after=NCTools">
+           <menu
+                id="SWPCApps"
+                label="SWPC"
+                mnemonic="S">
+             <visibleWhen>
+                <reference
+                      definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
+                </reference>
+             </visibleWhen>
               <command
                     commandId="gov.noaa.nws.ncep.viz.ui.editedregions"
-                    label="Edited Regions..."
+                    label="Edited Regions"
                     mnemonic="E"
                     style="push">
               <visibleWhen>
@@ -16,6 +25,7 @@
                  </reference>
               </visibleWhen>
               </command>
+              </menu>
          </menuContribution>
    </extension>
     <extension
