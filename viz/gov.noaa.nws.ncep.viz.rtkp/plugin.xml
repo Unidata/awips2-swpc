@@ -1,27 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension
+<extension
          point="org.eclipse.ui.menus">
          <menuContribution
-               locationURI="toolbar:NC1?after=additions">
-               <toolbar id="NC-1">
+            locationURI="menu:org.eclipse.ui.main.menu?after=NCTools">
+           <menu
+                id="SWPCApps"
+                label="SWPC"
+                mnemonic="S">
+             <visibleWhen>
+                <reference
+                      definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
+                </reference>
+             </visibleWhen>
+
               <command
                    commandId="gov.noaa.nws.ncep.viz.rtkp.actions.GeoMagRTKpAction"
                    id="gov.noaa.nws.ncep.viz.rtkp.rtkp"
-                   icon="icons/rtkp.gif"
                    label="Real-time Kp Monitor"
-                   style="push"
-                   tooltip="Real-time Kp Monitor">
+                   style="push">
                 <visibleWhen>
                    <reference
                          definitionId="gov.noaa.nws.ncep.viz.ui.personalities.inNCActionSet">
                    </reference>
                 </visibleWhen>
                 </command>
-                </toolbar>
+                </menu>
          </menuContribution>
-   </extension>
+         </extension>
    <extension
          point="com.raytheon.uf.viz.core.resource">
       <resource
