@@ -19,7 +19,7 @@ import java.util.Calendar;
  * @author sgurung
  * @version 1.0	
  */
-public class EECommandUtil {		
+public class ERCommandUtil {		
 	
 	 /**
      * Clear hours, minutes, seconds and milliseconds of the given Calendar (set
