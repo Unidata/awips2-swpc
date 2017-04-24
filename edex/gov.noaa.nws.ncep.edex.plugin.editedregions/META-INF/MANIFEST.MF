@@ -13,8 +13,12 @@ Require-Bundle:
 Import-Package: com.raytheon.uf.common.message.response,
  com.raytheon.uf.common.serialization.comm,
  com.raytheon.uf.common.status,
+ gov.noaa.nws.ncep.common.dataplugin.editedevents.request,
+ gov.noaa.nws.ncep.common.dataplugin.editedevents.response,
+ gov.noaa.nws.ncep.common.dataplugin.editedevents.results,
+ gov.noaa.nws.ncep.common.dataplugin.editedevents.util,
+ gov.noaa.nws.ncep.common.dataplugin.editedregions.exception,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.request,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.response,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf,
- gov.noaa.nws.ncep.common.dataplugin.editedregions.exception,
  org.apache.commons.io
