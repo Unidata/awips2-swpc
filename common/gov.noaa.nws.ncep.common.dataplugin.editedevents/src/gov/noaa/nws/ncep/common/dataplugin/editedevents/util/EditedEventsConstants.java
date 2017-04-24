@@ -44,7 +44,7 @@ public class EditedEventsConstants {
      */
     public static final String GOES_XRA_EVENTS_FREQUENCY = "1-8A";
 
-    public static final String VERSION_NUMBER = "1.1b";
+    public static final String VERSION_NUMBER = "1.2b";
 
     public static final String EVENT_QUALITY_5 = "5";
 
