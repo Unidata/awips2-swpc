@@ -153,30 +153,30 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
     public IResponse execute() {
         this.setStartTime();
 
-        List<Region> regions = new ArrayList<Region>();
+        List<Region> regions = new ArrayList<>();
 
         Region region = new Region();
         region.setId(request.getRegionID().intValue());
         regions.add(region);
 
         RegionReport report1 = new RegionReport();
-        report1.setQ("2");
-        report1.setRegion(new Region());
-        report1.setArea("30");
-        report1.setLl("003");
-        report1.setLo("072");
-        report1.setArea("30");
-        report1.setNumSpots(1);
-        report1.setSpotClass("Hsx");
+        // report1.setQ("2");
+        // report1.setRegion(new Region());
+        // report1.setArea("30");
+        // report1.setLl("003");
+        // report1.setLo("072");
+        // report1.setArea("30");
+        // report1.setNumSpots(1);
+        // report1.setSpotClass("Hsx");
 
         RegionReport report2 = new RegionReport();
-        report2.setQ("2");
-        report2.setRegion(new Region());
-        report2.setArea("00");
-        report2.setLl("14");
-        report2.setLo("61");
-        report2.setNumSpots(1);
-        report2.setSpotClass("Axx");
+        // report2.setQ("2");
+        // report2.setRegion(new Region());
+        // report2.setArea("00");
+        // report2.setLl("14");
+        // report2.setLo("61");
+        // report2.setNumSpots(1);
+        // report2.setSpotClass("Axx");
 
         this.setEndTime();
 

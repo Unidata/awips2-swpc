@@ -1,13 +1,8 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,9 +18,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
-
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
-import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
@@ -133,35 +125,36 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
     @Override
     public String getColumnText(Object element, int columnIndex) {
 
-        RegionReport report = (RegionReport) element;
-
-        switch (columnIndex) {
-        case EditRegionsUIConstants.COLUMN_INDEX_Q:
-            return report.getQ();
-        case EditRegionsUIConstants.COLUMN_INDEX_DATE:
-            Calendar cal = report.getDate();
-            if (cal != null) {
-                LocalDate date = LocalDateTime
-                        .ofInstant(report.getDate().toInstant(), ZoneOffset.UTC)
-                        .toLocalDate();
-                return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
-            }
-            return "";
-        case EditRegionsUIConstants.COLUMN_INDEX_LO:
-            return report.getLo();
-        case EditRegionsUIConstants.COLUMN_INDEX_LL:
-            return report.getLl();
-        case EditRegionsUIConstants.COLUMN_INDEX_AREA:
-            return report.getArea();
-        case EditRegionsUIConstants.COLUMN_INDEX_NUM_SPOTS:
-            return String.valueOf(report.getNumSpots());
-        case EditRegionsUIConstants.COLUMN_INDEX_SPOT_CLASS:
-            return report.getSpotClass();
-        case EditRegionsUIConstants.COLUMN_INDEX_REGION:
-            return String.valueOf(report.getRegion());
-        default:
-            return "";
-        }
+        // RegionReport report = (RegionReport) element;
+        //
+        // switch (columnIndex) {
+        // case EditRegionsUIConstants.COLUMN_INDEX_Q:
+        // return report.getQ();
+        // case EditRegionsUIConstants.COLUMN_INDEX_DATE:
+        // Calendar cal = report.getDate();
+        // if (cal != null) {
+        // LocalDate date = LocalDateTime
+        // .ofInstant(report.getDate().toInstant(), ZoneOffset.UTC)
+        // .toLocalDate();
+        // return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        // }
+        // return "";
+        // case EditRegionsUIConstants.COLUMN_INDEX_LO:
+        // return report.getLo();
+        // case EditRegionsUIConstants.COLUMN_INDEX_LL:
+        // return report.getLl();
+        // case EditRegionsUIConstants.COLUMN_INDEX_AREA:
+        // return report.getArea();
+        // case EditRegionsUIConstants.COLUMN_INDEX_NUM_SPOTS:
+        // return String.valueOf(report.getNumSpots());
+        // case EditRegionsUIConstants.COLUMN_INDEX_SPOT_CLASS:
+        // return report.getSpotClass();
+        // case EditRegionsUIConstants.COLUMN_INDEX_REGION:
+        // return String.valueOf(report.getRegion());
+        // default:
+        // return "";
+        // }
+        return "";
     }
 
     public int getColumnCount() {

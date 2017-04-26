@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions;
 
-import java.util.Calendar;
-
 import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
@@ -12,46 +10,73 @@ public class RegionReport extends PersistablePluginDataObject {
     private static final long serialVersionUID = -2348816710419849461L;
 
     @DynamicSerializeElement
-    private Calendar date;
+    private int station;
 
     @DynamicSerializeElement
-    private Calendar obstime;
+    private String observatory;
 
     @DynamicSerializeElement
-    private String obs;
+    private String type;
 
     @DynamicSerializeElement
-    private String q;
+    private int quality;
 
     @DynamicSerializeElement
-    private String zeroZLocation;
+    private int region;
+
+    @DynamicSerializeElement
+    private int latitude;
+
+    @DynamicSerializeElement
+    private int reportLongitude;
+
+    @DynamicSerializeElement
+    private int longitude;
 
     @DynamicSerializeElement
     private String reportLocation;
 
     @DynamicSerializeElement
-    private String lo;
+    private String location;
 
     @DynamicSerializeElement
-    private String ll;
+    private int carlon;
 
     @DynamicSerializeElement
-    private String area;
+    private int extent;
 
     @DynamicSerializeElement
-    private int numSpots;
+    private int area;
 
     @DynamicSerializeElement
-    private String spotClass;
+    private int numspots;
 
     @DynamicSerializeElement
-    private String magClass;
+    private int zurich;
 
     @DynamicSerializeElement
-    private String magStr;
+    private int penumbra;
 
     @DynamicSerializeElement
-    private Region region;
+    private String compact;
+
+    @DynamicSerializeElement
+    private String spotclass;
+
+    @DynamicSerializeElement
+    private int magcode;
+
+    @DynamicSerializeElement
+    private String magclass;
+
+    @DynamicSerializeElement
+    private int obsid;
+
+    @DynamicSerializeElement
+    private int reportStatus;
+
+    @DynamicSerializeElement
+    private boolean validSpotClass;
 
     @Override
     public String getPluginName() {
@@ -60,78 +85,123 @@ public class RegionReport extends PersistablePluginDataObject {
     }
 
     /**
-     * @return the date
+     * @return the station
      */
-    public Calendar getDate() {
-        return date;
+    public int getStation() {
+        return station;
     }
 
     /**
-     * @param date
-     *            the date to set
+     * @param station
+     *            the station to set
      */
-    public void setDate(Calendar date) {
-        this.date = date;
+    public void setStation(int station) {
+        this.station = station;
     }
 
     /**
-     * @return the obstime
+     * @return the observatory
      */
-    public Calendar getObstime() {
-        return obstime;
+    public String getObservatory() {
+        return observatory;
     }
 
     /**
-     * @param obstime
-     *            the obstime to set
+     * @param observatory
+     *            the observatory to set
      */
-    public void setObstime(Calendar obstime) {
-        this.obstime = obstime;
+    public void setObservatory(String observatory) {
+        this.observatory = observatory;
     }
 
     /**
-     * @return the obs
+     * @return the type
      */
-    public String getObs() {
-        return obs;
+    public String getType() {
+        return type;
     }
 
     /**
-     * @param obs
-     *            the obs to set
+     * @param type
+     *            the type to set
      */
-    public void setObs(String obs) {
-        this.obs = obs;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
-     * @return the q
+     * @return the quality
      */
-    public String getQ() {
-        return q;
+    public int getQuality() {
+        return quality;
     }
 
     /**
-     * @param q
-     *            the q to set
+     * @param quality
+     *            the quality to set
      */
-    public void setQ(String q) {
-        this.q = q;
+    public void setQuality(int quality) {
+        this.quality = quality;
     }
 
     /**
-     * @return the zeroZLocation
+     * @return the region
      */
-    public String getZeroZLocation() {
-        return zeroZLocation;
+    public int getRegion() {
+        return region;
     }
 
     /**
-     * @param zeroZLocation
-     *            the zeroZLocation to set
+     * @param region
+     *            the region to set
      */
-    public void setZeroZLocation(String zeroZLocation) {
-        this.zeroZLocation = zeroZLocation;
+    public void setRegion(int region) {
+        this.region = region;
+    }
+
+    /**
+     * @return the latitude
+     */
+    public int getLatitude() {
+        return latitude;
+    }
+
+    /**
+     * @param latitude
+     *            the latitude to set
+     */
+    public void setLatitude(int latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * @return the reportLongitude
+     */
+    public int getReportLongitude() {
+        return reportLongitude;
+    }
+
+    /**
+     * @param reportLongitude
+     *            the reportLongitude to set
+     */
+    public void setReportLongitude(int reportLongitude) {
+        this.reportLongitude = reportLongitude;
+    }
+
+    /**
+     * @return the longitude
+     */
+    public int getLongitude() {
+        return longitude;
+    }
+
+    /**
+     * @param longitude
+     *            the longitude to set
+     */
+    public void setLongitude(int longitude) {
+        this.longitude = longitude;
     }
 
     /**
@@ -150,39 +220,54 @@ public class RegionReport extends PersistablePluginDataObject {
     }
 
     /**
-     * @return the lo
+     * @return the location
      */
-    public String getLo() {
-        return lo;
+    public String getLocation() {
+        return location;
     }
 
     /**
-     * @param lo
-     *            the lo to set
+     * @param location
+     *            the location to set
      */
-    public void setLo(String lo) {
-        this.lo = lo;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /**
-     * @return the ll
+     * @return the carlon
      */
-    public String getLl() {
-        return ll;
+    public int getCarlon() {
+        return carlon;
     }
 
     /**
-     * @param ll
-     *            the ll to set
+     * @param carlon
+     *            the carlon to set
      */
-    public void setLl(String ll) {
-        this.ll = ll;
+    public void setCarlon(int carlon) {
+        this.carlon = carlon;
+    }
+
+    /**
+     * @return the extent
+     */
+    public int getExtent() {
+        return extent;
+    }
+
+    /**
+     * @param extent
+     *            the extent to set
+     */
+    public void setExtent(int extent) {
+        this.extent = extent;
     }
 
     /**
      * @return the area
      */
-    public String getArea() {
+    public int getArea() {
         return area;
     }
 
@@ -190,83 +275,158 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param area
      *            the area to set
      */
-    public void setArea(String area) {
+    public void setArea(int area) {
         this.area = area;
     }
 
     /**
-     * @return the numSpots
+     * @return the numspots
      */
-    public int getNumSpots() {
-        return numSpots;
+    public int getNumspots() {
+        return numspots;
     }
 
     /**
-     * @param numSpots
-     *            the numSpots to set
+     * @param numspots
+     *            the numspots to set
      */
-    public void setNumSpots(int numSpots) {
-        this.numSpots = numSpots;
+    public void setNumspots(int numspots) {
+        this.numspots = numspots;
     }
 
     /**
-     * @return the spotClass
+     * @return the zurich
      */
-    public String getSpotClass() {
-        return spotClass;
+    public int getZurich() {
+        return zurich;
     }
 
     /**
-     * @param spotClass
-     *            the spotClass to set
+     * @param zurich
+     *            the zurich to set
      */
-    public void setSpotClass(String spotClass) {
-        this.spotClass = spotClass;
+    public void setZurich(int zurich) {
+        this.zurich = zurich;
     }
 
     /**
-     * @return the magClass
+     * @return the penumbra
      */
-    public String getMagClass() {
-        return magClass;
+    public int getPenumbra() {
+        return penumbra;
     }
 
     /**
-     * @param magClass
-     *            the magClass to set
+     * @param penumbra
+     *            the penumbra to set
      */
-    public void setMagClass(String magClass) {
-        this.magClass = magClass;
+    public void setPenumbra(int penumbra) {
+        this.penumbra = penumbra;
     }
 
     /**
-     * @return the magStr
+     * @return the compact
      */
-    public String getMagStr() {
-        return magStr;
+    public String getCompact() {
+        return compact;
     }
 
     /**
-     * @param magStr
-     *            the magStr to set
+     * @param compact
+     *            the compact to set
      */
-    public void setMagStr(String magStr) {
-        this.magStr = magStr;
+    public void setCompact(String compact) {
+        this.compact = compact;
     }
 
     /**
-     * @return the region
+     * @return the spotclass
      */
-    public Region getRegion() {
-        return region;
+    public String getSpotclass() {
+        return spotclass;
     }
 
     /**
-     * @param region
-     *            the region to set
+     * @param spotclass
+     *            the spotclass to set
      */
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setSpotclass(String spotclass) {
+        this.spotclass = spotclass;
+    }
+
+    /**
+     * @return the magcode
+     */
+    public int getMagcode() {
+        return magcode;
+    }
+
+    /**
+     * @param magcode
+     *            the magcode to set
+     */
+    public void setMagcode(int magcode) {
+        this.magcode = magcode;
+    }
+
+    /**
+     * @return the magclass
+     */
+    public String getMagclass() {
+        return magclass;
+    }
+
+    /**
+     * @param magclass
+     *            the magclass to set
+     */
+    public void setMagclass(String magclass) {
+        this.magclass = magclass;
+    }
+
+    /**
+     * @return the obsid
+     */
+    public int getObsid() {
+        return obsid;
+    }
+
+    /**
+     * @param obsid
+     *            the obsid to set
+     */
+    public void setObsid(int obsid) {
+        this.obsid = obsid;
+    }
+
+    /**
+     * @return the reportStatus
+     */
+    public int getReportStatus() {
+        return reportStatus;
+    }
+
+    /**
+     * @param reportStatus
+     *            the reportStatus to set
+     */
+    public void setReportStatus(int reportStatus) {
+        this.reportStatus = reportStatus;
+    }
+
+    /**
+     * @return the validSpotClass
+     */
+    public boolean isValidSpotClass() {
+        return validSpotClass;
+    }
+
+    /**
+     * @param validSpotClass
+     *            the validSpotClass to set
+     */
+    public void setValidSpotClass(boolean validSpotClass) {
+        this.validSpotClass = validSpotClass;
     }
 
 }

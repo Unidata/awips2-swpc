@@ -18,10 +18,10 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsUtil;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.GoesXrayDataSet;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.GoesXrayEvent;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.RegionReportDataSet;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -53,7 +53,7 @@ public class RegionsDecoder {
         try {
             dao = new RegionReportsDao();
         } catch (PluginException e) {
-            statusHandler.handle(Priority.PROBLEM, "Error creating EventsDao",
+            statusHandler.handle(Priority.PROBLEM, "Error creating RegionsDao",
                     e);
 
         }
@@ -105,26 +105,26 @@ public class RegionsDecoder {
             }
 
             // Unmarshall the input xml file
-            ctx = JAXBContext.newInstance(GoesXrayDataSet.class,
-                    GoesXrayEvent.class);
+            ctx = JAXBContext.newInstance(RegionReportDataSet.class,
+                    RegionReport.class);
 
-            GoesXrayDataSet gxrds = null;
+            RegionReportDataSet dataSet = null;
 
             if (ctx != null && is != null) {
                 Unmarshaller um = ctx.createUnmarshaller();
                 if (um != null) {
                     Object result = um.unmarshal(is);
-                    if (result instanceof GoesXrayDataSet)
-                        gxrds = (GoesXrayDataSet) result;
+                    if (result instanceof RegionReportDataSet)
+                        dataSet = (RegionReportDataSet) result;
                 }
             }
 
-            if (gxrds != null) {
+            if (dataSet != null) {
 
-                List<GoesXrayEvent> xrayEvents = gxrds.getXrayEvents();
+                List<RegionReport> reports = dataSet.getRegionReports();
 
-                int xrayEventsSize = xrayEvents.size();
-                if (xrayEventsSize <= 0)
+                int reportCount = reports.size();
+                if (reportCount <= 0)
                     return new PluginDataObject[0];
 
                 pdos = new PluginDataObject[0];
