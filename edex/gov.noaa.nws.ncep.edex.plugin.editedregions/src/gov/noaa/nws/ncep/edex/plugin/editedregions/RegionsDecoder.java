@@ -5,23 +5,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 import com.raytheon.edex.exception.DecoderException;
+import com.raytheon.uf.common.dataplugin.PluginDataObject;
 import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
-import com.raytheon.uf.common.dataplugin.PluginDataObject;
-
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsUtil;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.GoesXrayDataSet;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.GoesXrayEvent;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RegionsDecoderUtil;
 
 /**
  * Decoder class for processing Region Reports
@@ -50,10 +51,11 @@ public class RegionsDecoder {
     public RegionsDecoder() throws DecoderException {
         instance = this;
         try {
-        	dao = new RegionReportsDao();
+            dao = new RegionReportsDao();
         } catch (PluginException e) {
-        	statusHandler.handle(Priority.PROBLEM, "Error creating EventsDao",e);
-        	
+            statusHandler.handle(Priority.PROBLEM, "Error creating EventsDao",
+                    e);
+
         }
     }
 
@@ -83,77 +85,81 @@ public class RegionsDecoder {
      * @throws DecoderException
      * @throws PluginException
      */
-     @SuppressWarnings("resource")
-     public PluginDataObject[] decode(File inputFile) throws DecoderException,
-     															PluginException {
-    
-    	 PluginDataObject[] pdos = null;
-    	 InputStream is = null;
-    	 JAXBContext ctx = null;
-    
-    	 try {
-    		 is = new FileInputStream(inputFile);
-    
-    		 // Validate the input file against the schema (schema name is
-    		 // provided in the input file)
-    		 boolean validationResult = EditedRegionsUtil.validateXmlFileAgainstSchema(inputFile);
-    		 if (!validationResult) {
-    			 return new PluginDataObject[0];
-    		 }
-    
-    		 // Unmarshall the input xml file
-    		 ctx = JAXBContext.newInstance(GoesXrayDataSet.class,
-    				 GoesXrayEvent.class);
-    
-    		 GoesXrayDataSet gxrds = null;
-    
-    		 if (ctx != null && is != null) {
-    			 Unmarshaller um = ctx.createUnmarshaller();
-    			 if (um != null) {
-    				 Object result = um.unmarshal(is);
-    				 if (result instanceof GoesXrayDataSet)
-    					 gxrds = (GoesXrayDataSet) result;
-    			 }
-    		 }
-    
-    		 if (gxrds != null) {
-    
-    			 List<GoesXrayEvent> xrayEvents = gxrds.getXrayEvents();
-    
-    			 int xrayEventsSize = xrayEvents.size();
-    			 if (xrayEventsSize <= 0)
-    				 return new PluginDataObject[0];
-    
-    			 pdos = RegionsDecoderUtil.convertGoesXrayEventsToGoesXrayPDOs(xrayEvents);
-    
-    		 }
-    
-    	 } catch (FileNotFoundException e) {
-    		 statusHandler.handle(Priority.PROBLEM, "Error reading file: " + inputFile, e);
-    		 e.printStackTrace();
-    		 return new PluginDataObject[0];
-    
-    	 } catch (EditedRegionsException e) {
-    		 statusHandler.handle(Priority.PROBLEM, e.getMessage(), e);
-    		 e.printStackTrace();
-    		 return new PluginDataObject[0];
-    
-    	 } catch (JAXBException e) {
-    		 statusHandler.handle(Priority.PROBLEM, "Error unmarshalling file: " + inputFile, e);
-    		 e.printStackTrace();
-    		 return new PluginDataObject[0];
-    
-    	 } finally {
-    
-    		 try {
-    			 is.close();
-    		 } catch (IOException e) {
-    			 statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),e);
-    		 }
-    	 }
-    
-    	 return pdos;
-     }
+    @SuppressWarnings("resource")
+    public PluginDataObject[] decode(File inputFile)
+            throws DecoderException, PluginException {
+
+        PluginDataObject[] pdos = null;
+        InputStream is = null;
+        JAXBContext ctx = null;
+
+        try {
+            is = new FileInputStream(inputFile);
+
+            // Validate the input file against the schema (schema name is
+            // provided in the input file)
+            boolean validationResult = EditedRegionsUtil
+                    .validateXmlFileAgainstSchema(inputFile);
+            if (!validationResult) {
+                return new PluginDataObject[0];
+            }
+
+            // Unmarshall the input xml file
+            ctx = JAXBContext.newInstance(GoesXrayDataSet.class,
+                    GoesXrayEvent.class);
+
+            GoesXrayDataSet gxrds = null;
+
+            if (ctx != null && is != null) {
+                Unmarshaller um = ctx.createUnmarshaller();
+                if (um != null) {
+                    Object result = um.unmarshal(is);
+                    if (result instanceof GoesXrayDataSet)
+                        gxrds = (GoesXrayDataSet) result;
+                }
+            }
+
+            if (gxrds != null) {
+
+                List<GoesXrayEvent> xrayEvents = gxrds.getXrayEvents();
+
+                int xrayEventsSize = xrayEvents.size();
+                if (xrayEventsSize <= 0)
+                    return new PluginDataObject[0];
+
+                pdos = new PluginDataObject[0];
+
+            }
+
+        } catch (FileNotFoundException e) {
+            statusHandler.handle(Priority.PROBLEM,
+                    "Error reading file: " + inputFile, e);
+            e.printStackTrace();
+            return new PluginDataObject[0];
+
+        } catch (EditedRegionsException e) {
+            statusHandler.handle(Priority.PROBLEM, e.getMessage(), e);
+            e.printStackTrace();
+            return new PluginDataObject[0];
+
+        } catch (JAXBException e) {
+            statusHandler.handle(Priority.PROBLEM,
+                    "Error unmarshalling file: " + inputFile, e);
+            e.printStackTrace();
+            return new PluginDataObject[0];
+
+        } finally {
+
+            try {
+                is.close();
+            } catch (IOException e) {
+                statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),
+                        e);
+            }
+        }
+
+        return pdos;
+    }
 
     /**
      * @return the eventsDao
@@ -163,7 +169,8 @@ public class RegionsDecoder {
     }
 
     /**
-     * @param eventsDao the eventsDao to set
+     * @param eventsDao
+     *            the eventsDao to set
      */
     public void setDao(RegionReportsDao eventsDao) {
         this.dao = eventsDao;
