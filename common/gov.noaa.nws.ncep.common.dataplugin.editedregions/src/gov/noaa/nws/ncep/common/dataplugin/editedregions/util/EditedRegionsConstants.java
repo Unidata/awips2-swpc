@@ -11,19 +11,9 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.util;
 
 /**
- * Edited Events Constants
+ * Edited Regions Constants
  * 
- * <pre>
- * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Nov 9, 2015  R9583      sgurung     Initial creation
- * 
- * </pre>
- * 
- * @author sgurung
+ * @author jtravis
  * @version 1.0
  */
 
@@ -32,7 +22,7 @@ public class EditedRegionsConstants {
     /**
      * Plugin name
      */
-    public static final String PLUGIN_NAME = "editedevents";
+    public static final String PLUGIN_NAME = "editedregions";
 
     /**
      * Default value for missing region
@@ -44,12 +34,18 @@ public class EditedRegionsConstants {
      */
     public static final String GOES_XRA_EVENTS_FREQUENCY = "1-8A";
 
-    public static final String VERSION_NUMBER = "1.1b";
+    public static final String VERSION_NUMBER = "1.0";
 
     public static final String EVENT_QUALITY_5 = "5";
 
     // Defines edited event types
 
+    /**
+     * @author jtravis
+     *
+     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     *
+     */
     public static enum EventType {
         XRA("XRA"), // 0
         CME("CME"), // 1
@@ -74,6 +70,8 @@ public class EditedRegionsConstants {
 
     /**
      * Event age
+     * 
+     * TODO - probably can delete...this was copied from the EditedEventsConstance class
      * 
      */
     public static enum EVENT_AGE {
@@ -101,6 +99,9 @@ public class EditedRegionsConstants {
 
     /**
      * Event status text values
+     * 
+     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     * 
      */
     public static enum EVENT_STATUS {
         DELETED { // StatusCode = 1
@@ -132,6 +133,8 @@ public class EditedRegionsConstants {
 
     /**
      * The origin of where the SelectBestEventCommand is being called from
+     * 
+     * TODO - probably can delete...this was copied from the EditedEventsConstance class
      */
     public static enum Origin {
         PROCESS_EVENTS, REBIN_EVENT, REVISIT_OLD_BIN

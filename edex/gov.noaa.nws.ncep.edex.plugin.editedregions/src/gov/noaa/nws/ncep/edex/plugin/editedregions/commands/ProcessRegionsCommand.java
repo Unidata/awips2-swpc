@@ -9,7 +9,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedevents.request.ProcessEventsReq
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.EventsDao;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.GoesXrayEventDao;
 
 /**
@@ -39,7 +39,7 @@ public class ProcessRegionsCommand extends BaseCommand {
     /**
      * Dao for Event records
      */
-    private EventsDao eventDao = null;
+    private RegionReportsDao eventDao = null;
 
     /**
      * Dao for GoesXrayEvent records

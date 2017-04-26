@@ -1,78 +1,64 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.dao;
 
+import org.springframework.transaction.TransactionException;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.TransactionCallback;
+
 import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.dataplugin.persist.IPersistable;
 import com.raytheon.uf.common.datastorage.IDataStore;
+import com.raytheon.uf.edex.database.DataAccessLayerException;
 import com.raytheon.uf.edex.database.plugin.PluginDao;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+
 /**
- * Data Access Object (DAO) class to interact with swpc_event database table.
+ * Data Access Object (DAO) class to interact with swpc_region_report database table.
  * 
- * *
+ * TODO need to create the swpc_region_report table
  * 
- * <pre>
- * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Mar 19, 2016  R9583     sgurung     Initial creation
- * 
- * </pre>
- * 
- * @author sgurung
+ * @author jtravis
  * @version 1.0
  */
-public class EventsDao extends PluginDao {
-    //
-    // /**
-    // * Creates a new EventsDao
-    // *
-    // * @param pluginName
-    // * @throws PluginException
-    // */
-    public EventsDao() throws PluginException {
-        super("editedregions");
-    }
+public class RegionReportsDao extends PluginDao {
+	
+     /**
+     * Creates a new RegionReportsDAO
+     *
+     * @throws PluginException
+     */
+     public RegionReportsDao() throws PluginException {
+    	 super(EditedRegionsConstants.PLUGIN_NAME);
+     }
+    
+     /**
+     * Persist the event and return the event id
+     *
+     * @param regionReport
+     * @return id
+     * @throws DataAccessLayerException
+     */
+     public Integer persist(final RegionReport regionReport) throws DataAccessLayerException {
+    	 int id = 0;
+    	 try {
+    		 // Get a session and create a new criteria instance
+    		 id = txTemplate.execute(new TransactionCallback<Integer>() {
 
-    //
-    // /**
-    // * Creates a new EventsDao
-    // *
-    // * @throws PluginException
-    // */
-    // public EventsDao() throws PluginException {
-    // super(EditedEventsConstants.PLUGIN_NAME);
-    // }
-    //
-    // /**
-    // * Persist the event and return the event id
-    // *
-    // * @param event
-    // * @return id
-    // * @throws DataAccessLayerException
-    // */
-    // public Integer persist(final Event event) throws DataAccessLayerException
-    // {
-    // int id = 0;
-    // try {
-    // // Get a session and create a new criteria instance
-    // id = txTemplate
-    // .execute(new TransactionCallback<Integer>() {
-    // @Override
-    // public Integer doInTransaction(TransactionStatus status) {
-    //
-    // return (Integer) getCurrentSession().save(event);
-    // }
-    // });
-    // } catch (TransactionException e) {
-    // throw new DataAccessLayerException("Transaction failed", e);
-    // }
-    // return id;
-    //
-    //
-    // }
-    //
+    			 public Integer doInTransaction(TransactionStatus status) {
+    
+    				 return (Integer) getCurrentSession().save(regionReport);
+    			 }
+    		 });
+    		 
+    	 } catch (TransactionException e) {
+    		 throw new DataAccessLayerException("Transaction failed", e);
+    	 }
+     
+    	 return id;
+    
+     }
+    
     // /**
     // * Retrieves list of events within given date range
     // *

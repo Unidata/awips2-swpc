@@ -1,13 +1,3 @@
-/**
- * This code has unlimited rights, and is provided "as is" by the National Centers 
- * for Environmental Prediction, without warranty of any kind, either expressed or implied, 
- * including but not limited to the implied warranties of merchantability and/or fitness 
- * for a particular purpose.
- * 
- * 
- * This code has been developed by the NCEP-SIB for use in the AWIPS2 system.
- * 
- */
 package gov.noaa.nws.ncep.edex.plugin.editedevents;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException;
@@ -39,17 +29,7 @@ import com.raytheon.uf.common.status.UFStatus.Priority;
 /**
  * Decoder class for processing events
  * 
- * <pre>
- * 
- * SOFTWARE HISTORY
- * 
- * Date         Ticket#    Engineer    Description
- * ------------ ---------- ----------- --------------------------
- * Nov 9, 2015  R9583        sgurung     Initial creation
- * 
- * </pre>
- * 
- * @author sgurung
+ * @author jtravis
  * @version 1.0
  */
 public class EventsDecoder {
