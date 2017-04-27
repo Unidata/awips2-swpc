@@ -10,7 +10,6 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.GoesXrayEventDao;
 
 /**
  * Command class use to perform the processing of new events.
@@ -40,11 +39,6 @@ public class ProcessRegionsCommand extends BaseCommand {
      * Dao for Event records
      */
     private RegionReportsDao eventDao = null;
-
-    /**
-     * Dao for GoesXrayEvent records
-     */
-    private GoesXrayEventDao goesXrayEventDao = null;
 
     /**
      * Logger
