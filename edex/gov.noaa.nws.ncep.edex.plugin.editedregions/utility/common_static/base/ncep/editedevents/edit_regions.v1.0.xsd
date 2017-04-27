@@ -1,0 +1,481 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  
+   <xs:element name="dataset">
+
+      <xs:complexType>
+      
+         <!-- The ordered sequence of child elements -->
+         <xs:sequence>
+            
+                    
+                        
+            <!-- The data elements (zero or more) of type "time-tagged-data" -->
+            <xs:element name="data-item" type="time-tagged-data" minOccurs="0" maxOccurs="unbounded"/>
+            
+         </xs:sequence>
+         
+         
+      </xs:complexType>
+      
+   </xs:element>
+         
+   <xs:complexType name="time-tagged-data">
+      <xs:all>
+         <xs:element name="Station" type="Station-data-item" minOccurs="0"/>
+         <xs:element name="Observatory" type="Observatory-data-item"/>
+         <xs:element name="Type" type="Type-data-item"/>
+         <xs:element name="Quality" type="Quality-data-item"/>
+         <xs:element name="Region" type="Region-data-item" minOccurs="0"/>
+         <xs:element name="Latitude" type="Latitude-data-item"/>
+         <xs:element name="Report-Longitude" type="Report-Longitude-data-item"/>
+         <xs:element name="Longitude" type="Longitude-data-item" minOccurs="0"/>
+         <xs:element name="Report-Location" type="Report-Location-data-item" minOccurs="0"/>
+         <xs:element name="Location" type="Location-data-item" minOccurs="0"/>
+         <xs:element name="Carlon" type="Carlon-data-item" minOccurs="0"/>
+         <xs:element name="Extent" type="Extent-data-item"/>
+         <xs:element name="Area" type="Area-data-item"/>
+         <xs:element name="Numspot" type="Numspot-data-item"/>
+         <xs:element name="Zurich" type="Zurich-data-item" minOccurs="0"/>
+         <xs:element name="Penumbra" type="Penumbra-data-item" minOccurs="0"/>
+         <xs:element name="Compact" type="Compact-data-item" minOccurs="0"/>
+         <xs:element name="Spotclass" type="Spotclass-data-item" minOccurs="0"/>
+         <xs:element name="Magcode" type="Magcode-data-item" minOccurs="0"/>
+         <xs:element name="Magclass" type="Magclass-data-item" minOccurs="0"/>
+         <xs:element name="Magstr" type="Magstr-data-item" minOccurs="0"/>
+         <xs:element name="Maggrad" type="Maggrad-data-item" minOccurs="0"/>
+         <xs:element name="Obsid" type="Obsid-data-item"/>
+         <xs:element name="Report-Status" type="Report-status-data-item"/>
+         <xs:element name="ValidSpotClass" type="ValidSpotClass-data-item" minOccurs="0"/>
+         
+         
+         
+         
+      </xs:all>
+      <xs:attribute name="time-tag" type="xs:dateTime" use="required"/>
+   </xs:complexType>
+
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Station data.
+   -->
+   
+   <xs:simpleType name="Station-type">
+      <xs:restriction base="xs:nonNegativeInteger">
+         <xs:minInclusive value="0"/>
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Station-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Station-type">
+            <xs:attribute name="description" fixed="Stations"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Observatory data.
+   -->   
+   <xs:simpleType name="Observatory-type">
+      <xs:restriction base="xs:string">
+          <xs:pattern value="[a-zA-Z][a-zA-Z][a-zA-Z]"/>
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Observatory-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Observatory-type">
+            <xs:attribute name="description" fixed="Observatory"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   
+  <!-- 
+     A simpleType specifying the type and value restrictions
+         for the Type data.
+   -->   
+   <xs:simpleType name="Type-type">
+      <xs:restriction base="xs:string">
+         <xs:pattern value="[a-z][a-z][a-z]"/>
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Type-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Type-type">
+            <xs:attribute name="description" fixed="Type"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   
+   
+   
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the Quality data.
+   -->   
+   <xs:simpleType name="Quality-type">
+      <xs:restriction base="xs:nonNegativeInteger">
+         <xs:minInclusive value="0"/>
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Quality-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Quality-type">
+            <xs:attribute name="description" fixed="Quality"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+  
+  
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the Region data.
+   -->   
+   <xs:simpleType name="Region-type">
+      <xs:restriction base="xs:integer">
+      <xs:minInclusive value="0"/>
+     </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Region-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Region-type">
+            <xs:attribute name="description" fixed="Region"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+    
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Latitude data.
+   -->   
+   <xs:simpleType name="Latitude-type">
+      <xs:restriction base="xs:integer">
+
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Latitude-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Latitude-type">
+            <xs:attribute name="units" fixed="Degrees"/>
+            <xs:attribute name="description" fixed="Latitude"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Report_Longitude data.
+   -->   
+   <xs:simpleType name="Report-Longitude-type">
+      <xs:restriction base="xs:integer">
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Report-Longitude-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Report-Longitude-type">
+           
+            <xs:attribute name="description" fixed="Report_Longitude"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+   
+   
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the Longitude data.
+   -->   
+   <xs:simpleType name="Longitude-type">
+      <xs:restriction base="xs:integer">
+        </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Longitude-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Longitude-type">
+            <xs:attribute name="units" fixed="Degrees"/>
+            <xs:attribute name="description" fixed="Longitude"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+ 
+ 
+ 
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the Report_Location data.
+   -->   
+   <xs:simpleType name="Report-Location-type">
+      <xs:restriction base="xs:string">
+      <!-- <xs:pattern value="[A-Z0-9]{6}"/> 
+      -->
+       <xs:pattern value="[NS]([0-9])+[EW]([0-9])+"/>
+         
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Report-Location-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Report-Location-type">
+           <xs:attribute name="description" fixed="Report Location"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+  
+ 
+ <!--
+         A simpleType specifying the type and value restrictions
+         for the Location data.
+   -->   
+   <xs:simpleType name="Location-type">
+      <xs:restriction base="xs:string">
+       <xs:pattern value="[NS]([0-9])+[EW]([0-9])+"/>
+        
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Location-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Location-type">
+            <xs:attribute name="units" fixed="Degrees"/>
+            <xs:attribute name="description" fixed="Location"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+  
+ 
+ 
+ <!--
+         A simpleType specifying the type and value restrictions
+         for the Carington Longitude data.
+   -->   
+   <xs:simpleType name="Carlon-type">
+      <xs:restriction base="xs:integer">
+         <xs:minInclusive value="0"/>
+         <xs:maxInclusive value="360"/>
+      </xs:restriction>
+   </xs:simpleType>
+   
+   <xs:complexType name="Carlon-data-item">
+      <xs:simpleContent>
+         <xs:extension base="Carlon-type">
+            <xs:attribute name="units" fixed="Degrees"/>
+            <xs:attribute name="description" fixed="Carington Longitude"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>
+  
+ 
+ 
+  
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Extent data.
+   -->
+     
+   <xs:complexType name="Extent-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Extent"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Area data.
+   -->
+     
+   <xs:complexType name="Area-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Area"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Numspot data.
+   -->
+     
+   <xs:complexType name="Numspot-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Numspot"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Zurich data.
+   -->
+     
+   <xs:complexType name="Zurich-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Zurich"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Penumbra data.
+   -->
+     
+   <xs:complexType name="Penumbra-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Penumbra"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+    <!--
+         A simpleType specifying the type and value restrictions
+         for the Compact data.
+   -->
+     
+   <xs:complexType name="Compact-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Compact"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Spotclass data.
+   -->
+     
+   <xs:complexType name="Spotclass-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+           <xs:attribute name="description" fixed="Spotclass"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Magcode data.
+   -->
+     
+   <xs:complexType name="Magcode-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Magcode"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Magclass data.
+   -->
+     
+   <xs:complexType name="Magclass-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:string">
+           <xs:attribute name="description" fixed="Magclass"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+   <!--
+         A simpleType specifying the type and value restrictions
+         for the Magstr data.
+   -->
+     
+   <xs:complexType name="Magstr-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Magstr"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+      <!--
+         A simpleType specifying the type and value restrictions
+         for the Maggrad data.
+   -->
+     
+   <xs:complexType name="Maggrad-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Maggrad"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+      
+      <!--
+         A simpleType specifying the type and value restrictions
+         for the Obsid data.
+   -->
+     
+   <xs:complexType name="Obsid-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Obsid"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>  
+   
+   
+  
+  <!--
+         A simpleType specifying the type and value restrictions
+         for the Report_status data.
+   -->
+     
+   <xs:complexType name="Report-status-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Report Status"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>   
+   
+   
+    <!--
+         A simpleType specifying the type and value restrictions
+         for the ValidSpotClass data.
+   -->
+     
+   <xs:complexType name="ValidSpotClass-data-item">
+      <xs:simpleContent>
+         <xs:extension base="xs:integer">
+           <xs:attribute name="description" fixed="Valid Spot Class"/>
+         </xs:extension>
+      </xs:simpleContent>
+   </xs:complexType>   
+   
+        
+</xs:schema>

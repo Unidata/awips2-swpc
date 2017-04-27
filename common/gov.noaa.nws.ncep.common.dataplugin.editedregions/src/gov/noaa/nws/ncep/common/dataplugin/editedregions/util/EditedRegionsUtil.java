@@ -41,7 +41,7 @@ import com.raytheon.uf.common.localization.PathManagerFactory;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 
 /**
- * Utility class
+ * Utility class for validating Edited Regions XML data files
  * 
  * <pre>
  * 
@@ -53,7 +53,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
  * 
  * </pre>
  * 
- * @author sgurung
+ * @author jtravis
  * @version 1.0
  */
 
@@ -94,24 +94,25 @@ public class EditedRegionsUtil {
 
             xsdSchemaFile = getXSDFile(xsdFileName);
 
-            if (xsdSchemaFile == null)
+            if (xsdSchemaFile == null) {
                 return false;
+            } else {
+            
+            	// create a SchemaFactory capable of understanding WXS schemas
+            	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            // create a SchemaFactory capable of understanding WXS schemas
-            SchemaFactory factory = SchemaFactory
-                    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            	// load a WXS schema, represented by a Schema instance
+            	Source schemaFile = new StreamSource(xsdSchemaFile);
+            	Schema schema = factory.newSchema(schemaFile);
 
-            // load a WXS schema, represented by a Schema instance
-            Source schemaFile = new StreamSource(xsdSchemaFile);
-            Schema schema = factory.newSchema(schemaFile);
-
-            // create a Validator instance, which can be used to validate an
-            // instance document
-            Validator validator = schema.newValidator();
-            validator.validate(new DOMSource(document));
+            	// create a Validator instance, which can be used to validate an
+            	// instance document
+            	Validator validator = schema.newValidator();
+            	validator.validate(new DOMSource(document));
+            }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // TODO remove when release
             throw new EditedRegionsException("Error validating input xml file '"
                     + xmlFile + "' against schema '"
                     + xsdSchemaFile.getAbsolutePath() + "'");
