@@ -21,7 +21,7 @@ public class RegionReportDataSet {
      * List of region reports.
      */
     @DynamicSerializeElement
-    @XmlElement(name = "region-report")
+    @XmlElement(name = "data-item")
     private List<RegionReport> reports;
 
     public RegionReportDataSet() {
