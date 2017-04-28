@@ -14,7 +14,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 
 /**
- * Data Access Object (DAO) class to interact with swpc_region_report database table.
+ * Data Access Object (DAO) class to interact with swpc_region_report database
+ * table.
  * 
  * TODO need to create the swpc_region_report table
  * 
@@ -22,43 +23,54 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
  * @version 1.0
  */
 public class RegionReportsDao extends PluginDao {
-	
-     /**
+
+    /**
      * Creates a new RegionReportsDAO
      *
      * @throws PluginException
      */
-     public RegionReportsDao() throws PluginException {
-    	 super(EditedRegionsConstants.PLUGIN_NAME);
-     }
-    
-     /**
+    public RegionReportsDao() throws PluginException {
+        super(EditedRegionsConstants.PLUGIN_NAME);
+    }
+
+    /**
+     * Creates a new RegionReportsDao
+     * 
+     * @param pluginName
+     * @throws PluginException
+     */
+    public RegionReportsDao(String pluginName) throws PluginException {
+        super(pluginName);
+    }
+
+    /**
      * Persist the event and return the event id
      *
      * @param regionReport
      * @return id
      * @throws DataAccessLayerException
      */
-     public Integer persist(final RegionReport regionReport) throws DataAccessLayerException {
-    	 int id = 0;
-    	 try {
-    		 // Get a session and create a new criteria instance
-    		 id = txTemplate.execute(new TransactionCallback<Integer>() {
+    public Integer persist(final RegionReport regionReport)
+            throws DataAccessLayerException {
+        int id = 0;
+        try {
+            // Get a session and create a new criteria instance
+            id = txTemplate.execute(new TransactionCallback<Integer>() {
 
-    			 public Integer doInTransaction(TransactionStatus status) {
-    
-    				 return (Integer) getCurrentSession().save(regionReport);
-    			 }
-    		 });
-    		 
-    	 } catch (TransactionException e) {
-    		 throw new DataAccessLayerException("Transaction failed", e);
-    	 }
-     
-    	 return id;
-    
-     }
-    
+                public Integer doInTransaction(TransactionStatus status) {
+
+                    return (Integer) getCurrentSession().save(regionReport);
+                }
+            });
+
+        } catch (TransactionException e) {
+            throw new DataAccessLayerException("Transaction failed", e);
+        }
+
+        return id;
+
+    }
+
     // /**
     // * Retrieves list of events within given date range
     // *
