@@ -1,81 +1,157 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.raytheon.uf.common.dataplugin.PluginDataObject;
 import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
+@Entity
+@SequenceGenerator(initialValue = 1, name = PluginDataObject.ID_GEN, sequenceName = "SWPC_REGION_REPORTS_SEQ")
+@Table(name = "SWPC_REGION_REPORTS")
+//@Table(name = "SWPC_REGION_REPORTS", uniqueConstraints = { @UniqueConstraint(columnNames = {
+//        "refTime", "type", "observatory", "endDate" }) })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 @DynamicSerialize
 public class RegionReport extends PersistablePluginDataObject {
 
+	// NOTE: if have a value that is an instance of class
+	// that is backed by a db table use the following
+	// annotation as an example:
+	//
+	//
+	//	    @Embedded
+    //      @ManyToOne(cascade = { CascadeType.REFRESH })
+    //      @JoinColumn(referencedColumnName = "BIN_NUMBER", name = "BIN")
+    //      @DynamicSerializeElement
+    //      @XmlElement
+	//		private EventBin bin = null;
+	//
+	
     private static final long serialVersionUID = -2348816710419849461L;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int station;
-
+    
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String observatory;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String type;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int quality;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int region;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int latitude;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int reportLongitude;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int longitude;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String reportLocation;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String location;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int carlon;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int extent;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int area;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int numspots;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int zurich;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int penumbra;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String compact;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String spotclass;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int magcode;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private String magclass;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int obsid;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private int reportStatus;
 
+    @Column
     @DynamicSerializeElement
+    @XmlAttribute
     private boolean validSpotClass;
 
     @Override

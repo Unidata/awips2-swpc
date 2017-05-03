@@ -10,6 +10,13 @@
  */
 package gov.noaa.nws.ncep.edex.plugin.editedregions.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.raytheon.uf.common.dataplugin.PluginDataObject;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
+
 /**
  * Utility class for the EventsDecoder
  * 
@@ -28,22 +35,21 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.util;
  */
 
 public class RegionsDecoderUtil {
-    //
-    // public static PluginDataObject[] convertGoesXrayEventsToPDOs(
-    // List<GoesXrayEvent> xrayEvents) {
-    //
-    // List<PluginDataObject> pdos = new ArrayList<PluginDataObject>();
-    // Event record = null;
-    //
-    // for (int i = 0; i < xrayEvents.size(); i++) {
-    //
-    // record = convertGoesXrayEventToEventRecord(xrayEvents.get(i));
-    // pdos.add(record);
-    //
-    // }
-    // return pdos.toArray(new PluginDataObject[pdos.size()]);
-    //
-    // }
+    
+//     public static PluginDataObject[] convertGoesXrayEventsToPDOs(List<RegionReport> reports) {
+//    
+//    	 List<PluginDataObject> pdos = new ArrayList<PluginDataObject>();
+//    	 RegionReport report = null;
+//    
+//    	 for (int i = 0; i < reports.size(); i++) {
+//    
+//    		 report = toRegionReport(reports.get(i));
+//    		 pdos.add(report);
+//    
+//    	 }
+//    	 return pdos.toArray(new PluginDataObject[pdos.size()]);
+//    
+//     }
     //
     // public static Event convertGoesXrayEventToEventRecord(
     // GoesXrayEvent xrayEvent) {

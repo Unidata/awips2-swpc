@@ -124,10 +124,12 @@ public class RegionsDecoder {
                 List<RegionReport> reports = dataSet.getRegionReports();
 
                 int reportCount = reports.size();
-                if (reportCount <= 0)
+                
+                if (reportCount <= 0) {
                     return new PluginDataObject[0];
+                }
 
-                pdos = new PluginDataObject[0];
+                pdos = reports.toArray(new PluginDataObject[0]);
 
             }
 
