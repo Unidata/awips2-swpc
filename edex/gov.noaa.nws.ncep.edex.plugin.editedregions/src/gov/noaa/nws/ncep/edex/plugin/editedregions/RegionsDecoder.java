@@ -23,6 +23,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsUtil;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.xml.RegionReportDataSet;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RegionsDecoderUtil;
 
 /**
  * Decoder class for processing Region Reports
@@ -85,7 +86,6 @@ public class RegionsDecoder {
      * @throws DecoderException
      * @throws PluginException
      */
-    @SuppressWarnings("resource")
     public PluginDataObject[] decode(File inputFile)
             throws DecoderException, PluginException {
 
@@ -128,8 +128,8 @@ public class RegionsDecoder {
                 if (reportCount <= 0) {
                     return new PluginDataObject[0];
                 }
-
-                pdos = reports.toArray(new PluginDataObject[0]);
+                
+                pdos = RegionsDecoderUtil.convertRegionReportsPDOs(reports);
 
             }
 

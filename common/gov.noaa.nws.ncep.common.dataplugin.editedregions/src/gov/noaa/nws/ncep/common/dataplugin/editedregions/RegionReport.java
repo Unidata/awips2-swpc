@@ -6,7 +6,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import com.raytheon.uf.common.dataplugin.PluginDataObject;
@@ -20,7 +20,7 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 //@Table(name = "SWPC_REGION_REPORTS", uniqueConstraints = { @UniqueConstraint(columnNames = {
 //        "refTime", "type", "observatory", "endDate" }) })
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
+@XmlAccessorType(XmlAccessType.FIELD) 
 @DynamicSerialize
 public class RegionReport extends PersistablePluginDataObject {
 
@@ -39,121 +39,145 @@ public class RegionReport extends PersistablePluginDataObject {
 	
     private static final long serialVersionUID = -2348816710419849461L;
 
+//    private static final String STATION = "station";
+//    private static final String OBSERVATORY = "observatory";
+//    private static final String TYPE = "type";
+//    private static final String QUALITY = "quality";
+//    private static final String REGION = "region";
+//    private static final String LATITUDE = "latitude";
+//    private static final String REPORT_LONGITUDE = "reportLongitude";
+//    private static final String LONGITUDE = "longitude";
+//    private static final String REPORT_LOCATION = "reportLocation";
+//    private static final String LOCATION = "location";
+//    private static final String CAR_LON = "carlon";
+//    private static final String EXTENT = "extent";
+//    private static final String AREA = "area";
+//    private static final String NUM_SPOTS = "numspots";
+//    private static final String ZURICH = "zurich";
+//    private static final String PENUMBRA = "penumbra";
+//    private static final String COMPACT = "compact";
+//    private static final String SPOT_CLASS = "spotclass";
+//    private static final String MAG_CODE = "magcode";
+//    private static final String MAG_CLASS = "magclass";
+//    private static final String OBS_ID = "obsid";
+//    private static final String REPORT_STATUS = "reportStatus";
+//    private static final String VALID_SPOT_CLASS = "validSpotClass";
+    		
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Station")
     private int station;
     
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Observatory")
     private String observatory;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Type")
     private String type;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Quality")
     private int quality;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Region")
     private int region;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Latitude")
     private int latitude;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Report-Longitude")
     private int reportLongitude;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Longitude")
     private int longitude;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Report-Location")
     private String reportLocation;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Location")
     private String location;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Carlon")
     private int carlon;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Extent")
     private int extent;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Area")
     private int area;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement
     private int numspots;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Zurich")
     private int zurich;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Penumbra")
     private int penumbra;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Compact")
     private String compact;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Spotclass")
     private String spotclass;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Magcode")
     private int magcode;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Magclass")
     private String magclass;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Obsid")
     private int obsid;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "Report-Status")
     private int reportStatus;
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute
+    @XmlElement(name = "ValidSpotClass")
     private boolean validSpotClass;
-
+    
     @Override
     public String getPluginName() {
         // TODO: Use constant.
@@ -164,7 +188,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the station
      */
     public int getStation() {
-        return station;
+        return this.station;
     }
 
     /**
@@ -179,7 +203,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the observatory
      */
     public String getObservatory() {
-        return observatory;
+        return this.observatory;
     }
 
     /**
@@ -194,7 +218,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the type
      */
     public String getType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -209,7 +233,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the quality
      */
     public int getQuality() {
-        return quality;
+        return this.quality;
     }
 
     /**
@@ -224,7 +248,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the region
      */
     public int getRegion() {
-        return region;
+        return this.region;
     }
 
     /**
@@ -239,7 +263,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the latitude
      */
     public int getLatitude() {
-        return latitude;
+        return this.latitude;
     }
 
     /**
@@ -254,7 +278,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the reportLongitude
      */
     public int getReportLongitude() {
-        return reportLongitude;
+        return this.reportLongitude;
     }
 
     /**
@@ -269,7 +293,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the longitude
      */
     public int getLongitude() {
-        return longitude;
+        return this.longitude;
     }
 
     /**
@@ -284,7 +308,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the reportLocation
      */
     public String getReportLocation() {
-        return reportLocation;
+        return this.reportLocation;
     }
 
     /**
@@ -299,7 +323,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the location
      */
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     /**
@@ -314,7 +338,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the carlon
      */
     public int getCarlon() {
-        return carlon;
+        return this.carlon;
     }
 
     /**
@@ -329,7 +353,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the extent
      */
     public int getExtent() {
-        return extent;
+        return this.extent;
     }
 
     /**
@@ -344,7 +368,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the area
      */
     public int getArea() {
-        return area;
+        return this.area;
     }
 
     /**
@@ -359,7 +383,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the numspots
      */
     public int getNumspots() {
-        return numspots;
+        return this.numspots;
     }
 
     /**
@@ -374,7 +398,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the zurich
      */
     public int getZurich() {
-        return zurich;
+        return this.zurich;
     }
 
     /**
@@ -389,7 +413,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the penumbra
      */
     public int getPenumbra() {
-        return penumbra;
+        return this.penumbra;
     }
 
     /**
@@ -404,7 +428,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the compact
      */
     public String getCompact() {
-        return compact;
+        return this.compact;
     }
 
     /**
@@ -419,7 +443,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the spotclass
      */
     public String getSpotclass() {
-        return spotclass;
+        return this.spotclass;
     }
 
     /**
@@ -434,7 +458,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the magcode
      */
     public int getMagcode() {
-        return magcode;
+        return this.magcode;
     }
 
     /**
@@ -449,7 +473,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the magclass
      */
     public String getMagclass() {
-        return magclass;
+        return this.magclass;
     }
 
     /**
@@ -464,7 +488,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the obsid
      */
     public int getObsid() {
-        return obsid;
+        return this.obsid;
     }
 
     /**
@@ -479,7 +503,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the reportStatus
      */
     public int getReportStatus() {
-        return reportStatus;
+        return this.reportStatus;
     }
 
     /**
@@ -494,7 +518,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @return the validSpotClass
      */
     public boolean isValidSpotClass() {
-        return validSpotClass;
+        return this.validSpotClass;
     }
 
     /**
