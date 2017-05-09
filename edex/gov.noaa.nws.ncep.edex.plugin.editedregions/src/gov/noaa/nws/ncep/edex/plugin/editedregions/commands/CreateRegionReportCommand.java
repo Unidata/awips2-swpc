@@ -1,14 +1,12 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 
 /**
  * The command class that is executed to add a region report
@@ -31,16 +29,22 @@ public class CreateRegionReportCommand extends BaseCommand {
     public CreateRegionReportCommand() {
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#getError()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * getError()
      */
     @Override
     public EditedRegionsException getError() {
         return this.error;
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#hasError()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * hasError()
      */
     @Override
     public boolean hasError() {
@@ -51,24 +55,33 @@ public class CreateRegionReportCommand extends BaseCommand {
         }
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#getStartTime()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * getStartTime()
      */
     @Override
     public long getStartTime() {
         return this.startTime;
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#getEndTime()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * getEndTime()
      */
     @Override
     public long getEndTime() {
         return this.endTime;
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#getProcessingTime()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * getProcessingTime()
      */
     @Override
     public long getProcessingTime() {
@@ -79,8 +92,11 @@ public class CreateRegionReportCommand extends BaseCommand {
         return time;
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#isValid()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * isValid()
      */
     @Override
     public boolean isValid() {
@@ -95,8 +111,12 @@ public class CreateRegionReportCommand extends BaseCommand {
         }
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#setRequest(gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * setRequest(gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf
+     * .IRequest)
      */
     @Override
     public void setRequest(IRequest request) {
@@ -104,26 +124,26 @@ public class CreateRegionReportCommand extends BaseCommand {
 
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#getRequest()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * getRequest()
      */
     @Override
     public IRequest getRequest() {
         return (IRequest) this.request;
     }
 
-    /* (non-Javadoc)
-     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#execute()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
+     * execute()
      */
     @Override
     public IResponse execute() {
         this.setStartTime();
-
-        List<Region> regions = new ArrayList<>();
-
-//        Region region = new Region();
-//        region.setId(request.getRegionID().intValue());
-//        regions.add(region);
 
         RegionReport report = this.request.getRegionReport();
         // report1.setQ("2");
@@ -134,38 +154,33 @@ public class CreateRegionReportCommand extends BaseCommand {
         // report1.setArea("30");
         // report1.setNumSpots(1);
         // report1.setSpotClass("Hsx");
-        
-        //TODO - add the logic to persist the region report and obtain the unique id
 
-        
+        // TODO - add the logic to persist the region report and obtain the
+        // unique id
 
         this.setEndTime();
 
-//        return this.createResponse(Arrays.asList(report1, report2));
-        return null; // TODO - return a CreateRegionReportResponse!!!
+        return this.createResponse(report);
     }
 
-//    /**
-//     * @param results
-//     * @return IResponse
-//     */
-//    private IResponse createResponse(List<RegionReport> regions) {
-//
-//        GetAssignedRegionReportsResults results = new GetAssignedRegionReportsResults();
-//        results.setReports(regions);
-//
-//        GetAssignedRegionReportsResponse response = new GetAssignedRegionReportsResponse();
-//
-//        if (this.hasError()) {
-//            response.setError(this.getError());
-//        } else {
-//            response.setResults(results);
-//        }
-//
-//        response.setRequest(this.getRequest());
-//        response.setProcessingTime(this.getProcessingTime());
-//
-//        return response;
-//    }
+    /**
+     * @param results
+     * @return IResponse
+     */
+    private IResponse createResponse(RegionReport report) {
+        CreateRegionReportResponse response = new CreateRegionReportResponse();
+
+        if (this.hasError()) {
+            response.setError(this.getError());
+        } else {
+            CreateRegionReportResults results = new CreateRegionReportResults();
+            results.setReportID(report.getId());
+            response.setResults(results);
+        }
+
+        response.setRequest(this.getRequest());
+        response.setProcessingTime(this.getProcessingTime());
+        return response;
+    }
 
 }

@@ -16,7 +16,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
@@ -28,8 +28,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * @version 1.0
  */
 @DynamicSerialize
-public class CreateRegionReportResponse extends
-        BaseResponse<CreateRegionReportResponse> implements IResponse {
+public class CreateRegionReportResponse
+        extends BaseResponse<CreateRegionReportResponse> implements IResponse {
 
     /**
      * The original request
@@ -47,7 +47,7 @@ public class CreateRegionReportResponse extends
      * The results from the CreateRegionReportResults
      */
     @DynamicSerializeElement
-    private GetAssignedRegionReportsResults results = null;
+    private CreateRegionReportResults results = null;
 
     /**
      * The time in milliseconds to complete round trip of client --> request -->
@@ -113,7 +113,7 @@ public class CreateRegionReportResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (GetAssignedRegionReportsResults) results;
+        this.results = (CreateRegionReportResults) results;
     }
 
     /*
