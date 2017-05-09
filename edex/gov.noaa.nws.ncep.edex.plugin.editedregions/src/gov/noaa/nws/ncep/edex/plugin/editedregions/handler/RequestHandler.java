@@ -5,11 +5,14 @@ import com.raytheon.uf.common.serialization.comm.IRequestHandler;
 import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetAssignedRegionReportsCommand;
 
@@ -71,33 +74,33 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
 
             return getReportsResponse;
-        case "GetEventTypesRequest":
-            // GetEventTypesRequest getEventTypesRequest =
-            // (GetEventTypesRequest)
-            // Class.forName(requestClassName).cast(request);
-            //
-            // GetEventTypesResponse getEventTypesResponse = null;
-            //
-            // if (!getEventTypesRequest.isValid()) {
-            // getEventTypesResponse = new GetEventTypesResponse();
-            // EditedEventsException e = new EditedEventsException("ERROR -
-            // Request Is Invalid");
-            // getEventTypesResponse.setError(e);
-            // } else {
-            // // build the command which includes adding
-            // // the request to the command in the event
-            // // the request had parameters necessary to satisfy
-            // // the command
-            // GetEventTypesCommand getEventTypesCmd = new
-            // GetEventTypesCommand();
-            // getEventTypesCmd.setRequest(getEventTypesRequest);
-            //
-            // // create the response
-            // getEventTypesResponse = (GetEventTypesResponse)
-            // getEventTypesCmd.execute();
-            // }
-            //
-            // return getEventTypesResponse;
+        case "CreateRegionReportRequest":
+        	
+             CreateRegionReportRequest createRegionReportRequest =
+             (CreateRegionReportRequest)
+             Class.forName(requestClassName).cast(request);
+            
+             CreateRegionReportResponse createRegionReportResponse = null;
+            
+             if (!createRegionReportRequest.isValid()) {
+            	 createRegionReportResponse = new CreateRegionReportResponse();
+            	 EditedRegionsException e = 
+            			 new EditedRegionsException("ERROR - Request Is Invalid");
+            			 createRegionReportResponse.setError(e);
+             } else {
+            	 // build the command which includes adding
+            	 // the request to the command in the event
+            	 // the request had parameters necessary to satisfy
+            	 // the command
+            	 CreateRegionReportCommand createRegionReportCmd = new CreateRegionReportCommand();
+            	 createRegionReportCmd.setRequest(createRegionReportRequest);
+            
+            	 // create the response
+            	 createRegionReportResponse = (CreateRegionReportResponse)
+            			 createRegionReportCmd.execute();
+             }
+            
+             return createRegionReportResponse;
 
         case "UpdateEventRequest":
             // UpdateEventRequest updateEventRequest = (UpdateEventRequest)
