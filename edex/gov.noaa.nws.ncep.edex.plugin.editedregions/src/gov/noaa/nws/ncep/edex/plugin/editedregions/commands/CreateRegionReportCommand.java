@@ -1,5 +1,10 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import com.raytheon.uf.common.dataplugin.PluginException;
+import com.raytheon.uf.common.status.IUFStatusHandler;
+import com.raytheon.uf.common.status.UFStatus;
+import com.raytheon.uf.edex.database.DataAccessLayerException;
+
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
@@ -7,6 +12,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
  * The command class that is executed to add a region report
@@ -22,6 +28,16 @@ public class CreateRegionReportCommand extends BaseCommand {
      * command
      */
     private CreateRegionReportRequest request = null;
+    
+    /**
+     * Dao for EventBin records
+     */
+    private RegionReportsDao regionReportsDao = null;
+    
+    /**
+	 * Logger
+	 */
+    private static final IUFStatusHandler statusHandler = UFStatus.getHandler(CreateRegionReportCommand.class);
 
     /**
      * Default Constructor
@@ -144,19 +160,29 @@ public class CreateRegionReportCommand extends BaseCommand {
     @Override
     public IResponse execute() {
         this.setStartTime();
+        
+        RegionReport report = null;
+        int reportId = 0;
+        
+        try {
+        	
+	        this.regionReportsDao = new RegionReportsDao();
+	        
+	        report = this.request.getRegionReport();
+	
+	        // TODO - add the logic to persist the region report and obtain the
+	        // unique id
 
-        RegionReport report = this.request.getRegionReport();
-        // report1.setQ("2");
-        // report1.setRegion(new Region());
-        // report1.setArea("30");
-        // report1.setLl("003");
-        // report1.setLo("072");
-        // report1.setArea("30");
-        // report1.setNumSpots(1);
-        // report1.setSpotClass("Hsx");
+			reportId = this.regionReportsDao.persist(report);
 
-        // TODO - add the logic to persist the region report and obtain the
-        // unique id
+        
+        } catch (PluginException e) {
+        	
+        	EditedRegionsException ex = new EditedRegionsException(e);
+        	
+        } catch (DataAccessLayerException e) {
+        	EditedRegionsException ex = new EditedRegionsException(e);
+        }
 
         this.setEndTime();
 

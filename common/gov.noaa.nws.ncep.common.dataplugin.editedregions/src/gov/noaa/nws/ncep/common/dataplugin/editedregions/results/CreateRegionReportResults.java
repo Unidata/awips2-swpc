@@ -27,6 +27,7 @@ public class CreateRegionReportResults implements IResults {
      */
     @Override
     public int numResults() {
+    	// TODO change to return the real number of results
         return 1;
     }
 
