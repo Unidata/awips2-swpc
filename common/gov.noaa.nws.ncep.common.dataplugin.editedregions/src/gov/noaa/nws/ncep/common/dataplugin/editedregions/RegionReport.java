@@ -14,60 +14,63 @@ import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+
 @Entity
 @SequenceGenerator(initialValue = 1, name = PluginDataObject.ID_GEN, sequenceName = "SWPC_REGION_REPORTS_SEQ")
 @Table(name = "SWPC_REGION_REPORTS")
-//@Table(name = "SWPC_REGION_REPORTS", uniqueConstraints = { @UniqueConstraint(columnNames = {
-//        "refTime", "type", "observatory", "endDate" }) })
+// @Table(name = "SWPC_REGION_REPORTS", uniqueConstraints = {
+// @UniqueConstraint(columnNames = {
+// "refTime", "type", "observatory", "endDate" }) })
 @XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD) 
+@XmlAccessorType(XmlAccessType.FIELD)
 @DynamicSerialize
 public class RegionReport extends PersistablePluginDataObject {
 
-	// NOTE: if have a value that is an instance of class
-	// that is backed by a db table use the following
-	// annotation as an example:
-	//
-	//
-	//	    @Embedded
-    //      @ManyToOne(cascade = { CascadeType.REFRESH })
-    //      @JoinColumn(referencedColumnName = "BIN_NUMBER", name = "BIN")
-    //      @DynamicSerializeElement
-    //      @XmlElement
-	//		private EventBin bin = null;
-	//
-	
+    // NOTE: if have a value that is an instance of class
+    // that is backed by a db table use the following
+    // annotation as an example:
+    //
+    //
+    // @Embedded
+    // @ManyToOne(cascade = { CascadeType.REFRESH })
+    // @JoinColumn(referencedColumnName = "BIN_NUMBER", name = "BIN")
+    // @DynamicSerializeElement
+    // @XmlElement
+    // private EventBin bin = null;
+    //
+
     private static final long serialVersionUID = -2348816710419849461L;
 
-//    private static final String STATION = "station";
-//    private static final String OBSERVATORY = "observatory";
-//    private static final String TYPE = "type";
-//    private static final String QUALITY = "quality";
-//    private static final String REGION = "region";
-//    private static final String LATITUDE = "latitude";
-//    private static final String REPORT_LONGITUDE = "reportLongitude";
-//    private static final String LONGITUDE = "longitude";
-//    private static final String REPORT_LOCATION = "reportLocation";
-//    private static final String LOCATION = "location";
-//    private static final String CAR_LON = "carlon";
-//    private static final String EXTENT = "extent";
-//    private static final String AREA = "area";
-//    private static final String NUM_SPOTS = "numspots";
-//    private static final String ZURICH = "zurich";
-//    private static final String PENUMBRA = "penumbra";
-//    private static final String COMPACT = "compact";
-//    private static final String SPOT_CLASS = "spotclass";
-//    private static final String MAG_CODE = "magcode";
-//    private static final String MAG_CLASS = "magclass";
-//    private static final String OBS_ID = "obsid";
-//    private static final String REPORT_STATUS = "reportStatus";
-//    private static final String VALID_SPOT_CLASS = "validSpotClass";
-    		
+    // private static final String STATION = "station";
+    // private static final String OBSERVATORY = "observatory";
+    // private static final String TYPE = "type";
+    // private static final String QUALITY = "quality";
+    // private static final String REGION = "region";
+    // private static final String LATITUDE = "latitude";
+    // private static final String REPORT_LONGITUDE = "reportLongitude";
+    // private static final String LONGITUDE = "longitude";
+    // private static final String REPORT_LOCATION = "reportLocation";
+    // private static final String LOCATION = "location";
+    // private static final String CAR_LON = "carlon";
+    // private static final String EXTENT = "extent";
+    // private static final String AREA = "area";
+    // private static final String NUM_SPOTS = "numspots";
+    // private static final String ZURICH = "zurich";
+    // private static final String PENUMBRA = "penumbra";
+    // private static final String COMPACT = "compact";
+    // private static final String SPOT_CLASS = "spotclass";
+    // private static final String MAG_CODE = "magcode";
+    // private static final String MAG_CLASS = "magclass";
+    // private static final String OBS_ID = "obsid";
+    // private static final String REPORT_STATUS = "reportStatus";
+    // private static final String VALID_SPOT_CLASS = "validSpotClass";
+
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Station")
     private int station;
-    
+
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Observatory")
@@ -177,11 +180,10 @@ public class RegionReport extends PersistablePluginDataObject {
     @DynamicSerializeElement
     @XmlElement(name = "ValidSpotClass")
     private boolean validSpotClass;
-    
+
     @Override
     public String getPluginName() {
-        // TODO: Use constant.
-        return "editedregions";
+        return EditedRegionsConstants.PLUGIN_NAME;
     }
 
     /**

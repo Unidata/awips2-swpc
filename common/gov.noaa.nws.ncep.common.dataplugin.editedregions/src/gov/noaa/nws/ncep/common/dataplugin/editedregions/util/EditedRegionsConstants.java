@@ -10,6 +10,8 @@
  */
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.util;
 
+import java.util.TimeZone;
+
 /**
  * Edited Regions Constants
  * 
@@ -18,6 +20,11 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.util;
  */
 
 public class EditedRegionsConstants {
+
+    /**
+     * UTC Time Zone
+     */
+    public static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
 
     /**
      * Plugin name
@@ -43,7 +50,8 @@ public class EditedRegionsConstants {
     /**
      * @author jtravis
      *
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     *         TODO - probably can delete...this was copied from the
+     *         EditedEventsConstance class
      *
      */
     public static enum EventType {
@@ -71,7 +79,8 @@ public class EditedRegionsConstants {
     /**
      * Event age
      * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     * TODO - probably can delete...this was copied from the
+     * EditedEventsConstance class
      * 
      */
     public static enum EVENT_AGE {
@@ -100,7 +109,8 @@ public class EditedRegionsConstants {
     /**
      * Event status text values
      * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     * TODO - probably can delete...this was copied from the
+     * EditedEventsConstance class
      * 
      */
     public static enum EVENT_STATUS {
@@ -134,7 +144,8 @@ public class EditedRegionsConstants {
     /**
      * The origin of where the SelectBestEventCommand is being called from
      * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
+     * TODO - probably can delete...this was copied from the
+     * EditedEventsConstance class
      */
     public static enum Origin {
         PROCESS_EVENTS, REBIN_EVENT, REVISIT_OLD_BIN

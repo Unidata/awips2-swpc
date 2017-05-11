@@ -13,35 +13,34 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @version 1.0
  */
 @DynamicSerialize
-public class CreateRegionReportRequest extends
-        Request<CreateRegionReportRequest> implements IRequest {
+public class CreateRegionReportRequest
+        extends Request<CreateRegionReportRequest> implements IRequest {
 
     /**
      * The Requests ID
      */
     @DynamicSerializeElement
     private final long id;
-    
+
     /**
      * The region report to persist
      */
     @DynamicSerializeElement
-    private RegionReport report = null;  
-    
+    private RegionReport regionReport = null;
+
     /**
-     * The region report ID of the region report that is persisted/updated
-     * TODO do we need this?
+     * The region report ID of the region report that is persisted/updated TODO
+     * do we need this?
      */
     @DynamicSerializeElement
-    private Integer regionReportID = null; 
-    
-    
-	/**
-	 * 
-	 */
-	public CreateRegionReportRequest() {
-		this.id = System.currentTimeMillis();
-	}
+    private Integer regionReportID = null;
+
+    /**
+     * 
+     */
+    public CreateRegionReportRequest() {
+        this.id = System.currentTimeMillis();
+    }
 
     /*
      * (non-Javadoc)
@@ -63,9 +62,9 @@ public class CreateRegionReportRequest extends
      */
     @Override
     public boolean isValid() {
-    	boolean valid = false;
-        
-        if (this.report != null) {
+        boolean valid = false;
+
+        if (this.regionReport != null) {
             valid = true;
         }
 
@@ -74,42 +73,44 @@ public class CreateRegionReportRequest extends
 
     @Override
     public void setId(long ID) {
-    	// The id is set when the request is initialized
-    	// but the system still requires the method for
-    	// serialization / deserialization through the gateway.
-    	//
-    	// thus, this method does not actually change the id
-    	//
-    	// TODO - verify this
-    	;;
+        // The id is set when the request is initialized
+        // but the system still requires the method for
+        // serialization / deserialization through the gateway.
+        //
+        // thus, this method does not actually change the id
+        //
+        // TODO - verify this
+        ;
+        ;
     }
 
-	/**
-	 * @return the region
-	 */
-	public RegionReport getRegionReport() {
-		return this.report;
-	}
+    /**
+     * @return the region
+     */
+    public RegionReport getRegionReport() {
+        return this.regionReport;
+    }
 
-	/**
-	 * @param
-	 */
-	public void setRegionReport(RegionReport report) {
-		this.report = report;
-	}
+    /**
+     * @param
+     */
+    public void setRegionReport(RegionReport regionReport) {
+        this.regionReport = regionReport;
+    }
 
-	/**
-	 * @return the regionReportID
-	 */
-	public Integer getRegionReportID() {
-		return this.regionReportID;
-	}
+    /**
+     * @return the regionReportID
+     */
+    public Integer getRegionReportID() {
+        return this.regionReportID;
+    }
 
-	/**
-	 * @param regionReportID the regionReportID to set
-	 */
-	public void setRegionReportID(Integer regionReportID) {
-		this.regionReportID = regionReportID;
-	}
-    
+    /**
+     * @param regionReportID
+     *            the regionReportID to set
+     */
+    public void setRegionReportID(Integer regionReportID) {
+        this.regionReportID = regionReportID;
+    }
+
 }
