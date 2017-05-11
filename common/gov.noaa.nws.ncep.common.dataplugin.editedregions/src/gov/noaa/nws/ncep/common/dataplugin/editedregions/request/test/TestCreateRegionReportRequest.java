@@ -83,9 +83,12 @@ public class TestCreateRegionReportRequest {
         report.setValidSpotClass(validSpotClass);
 
         request.setRegionReport(report);
+        
         try {
             CreateRegionReportResponse response = gateway.submit(request);
+            
             Objects.requireNonNull(response, "response");
+            
             if (response.hasErrors()) {
                 statusHandler.handle(Priority.ERROR,
                         "Error processing request.", response.getError());

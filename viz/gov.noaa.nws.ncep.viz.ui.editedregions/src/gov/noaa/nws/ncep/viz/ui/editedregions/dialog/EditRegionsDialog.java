@@ -403,8 +403,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Combo regionCombo = new Combo(regionComp,
                 SWT.READ_ONLY | SWT.DROP_DOWN);
-        regionCombo
-                .setItems(new String[] { "Region 1", "Region 2", "Region 3" });
+        regionCombo.setItems(new String[] { "Region 1", "Region 2", "Region 3" });
         regionCombo.select(0);
 
         Button newRegionButton = new Button(regionComp, SWT.PUSH);
@@ -416,6 +415,18 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 refreshRegionTables();
             }
         });
+        
+        
+        Button newRegionReportButton = new Button(regionComp, SWT.PUSH);
+        newRegionReportButton.setText("Create Report");
+
+        newRegionReportButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent ev) {
+            	createNewRegionReport();
+            }
+        });
+        
 
         Button undoRegionButton = new Button(regionComp, SWT.PUSH);
         undoRegionButton.setText("Undo Region");
@@ -602,6 +613,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     /**
      * Refresh the events list in the table display. Also, refresh the binCombo
      * to get the latest bins.
+     * 
+     * TODO this comment needs to change
      */
     private void refreshRegionTables() {
         List<RegionReport> reports = Collections.emptyList();
@@ -618,6 +631,15 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
+    }
+    
+    /**
+     * create new region report
+     */
+    private void createNewRegionReport() {
+
+    	// TODO populate this 
+    	
     }
 
     /**

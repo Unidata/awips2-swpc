@@ -11,7 +11,13 @@
         <constructor-arg
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest" />        
         <constructor-arg ref="ERRequestHandler" />
-  </bean>    
+  </bean> 
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+        <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportsRequest" />        
+        <constructor-arg ref="ERRequestHandler" />
+  </bean>   
   
   <bean factory-bean="handlerRegistry" factory-method="register">
        <constructor-arg
