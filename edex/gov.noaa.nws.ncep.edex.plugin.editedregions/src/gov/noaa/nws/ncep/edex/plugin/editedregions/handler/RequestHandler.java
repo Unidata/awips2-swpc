@@ -7,11 +7,11 @@ import com.raytheon.uf.common.serialization.comm.IServerRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetAssignedRegionReportsCommand;
@@ -49,14 +49,14 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
 
         switch (requestClassSimpleName) {
 
-        case "GetAssignedRegionReportsRequest":
-            GetAssignedRegionReportsRequest getReportsRequest = (GetAssignedRegionReportsRequest) Class
+        case "GetRegionReportsRequest":
+            GetRegionReportsRequest getReportsRequest = (GetRegionReportsRequest) Class
                     .forName(requestClassName).cast(request);
 
-            GetAssignedRegionReportsResponse getReportsResponse = null;
-
+            GetRegionReportsResponse getReportsResponse = null;
+            
             if (!getReportsRequest.isValid()) {
-                getReportsResponse = new GetAssignedRegionReportsResponse();
+                getReportsResponse = new GetRegionReportsResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
                 getReportsResponse.setError(e);
@@ -65,11 +65,22 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                 // the request to the command in the event
                 // the request had parameters necessary to satisfy
                 // the command
+            	
+            	// TODO add check to determine which command to execute
+            	if (getReportsRequest.isObtainAssignedReports() &&
+            			getReportsRequest.isObtainUnassignedReports()) { // obtain all region reports
+            		
+            	} else if (getReportsRequest.isObtainAssignedReports()) { // obtain assigned region reports
+            		
+            	} else { // obtain un-assigned region reports
+            		
+            	}
+            	
                 GetAssignedRegionReportsCommand getReportsCmd = new GetAssignedRegionReportsCommand();
                 getReportsCmd.setRequest(getReportsRequest);
 
                 // create the response
-                getReportsResponse = (GetAssignedRegionReportsResponse) getReportsCmd
+                getReportsResponse = (GetRegionReportsResponse) getReportsCmd
                         .execute();
             }
 
@@ -102,7 +113,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             
              return createRegionReportResponse;
 
-        case "UpdateEventRequest":
+        case "CreateRegionRequest":
             // UpdateEventRequest updateEventRequest = (UpdateEventRequest)
             // Class.forName(requestClassName).cast(request);
             //

@@ -9,15 +9,21 @@
         
   <bean factory-bean="handlerRegistry" factory-method="register">
         <constructor-arg
-        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest" />        
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest" />        
         <constructor-arg ref="ERRequestHandler" />
-  </bean> 
+  </bean>
   
   <bean factory-bean="handlerRegistry" factory-method="register">
         <constructor-arg
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest" />        
         <constructor-arg ref="ERRequestHandler" />
-  </bean>   
+  </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+        <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest" />        
+        <constructor-arg ref="ERRequestHandler" />
+  </bean>      
   
   <bean factory-bean="handlerRegistry" factory-method="register">
        <constructor-arg

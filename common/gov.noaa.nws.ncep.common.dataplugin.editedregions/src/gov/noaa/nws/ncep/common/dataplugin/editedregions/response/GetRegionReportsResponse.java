@@ -13,29 +13,30 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained from the execution of the
- * GetAssignedRegionReportsCommand
+ * GetAssignedRegionReportsCommand, GetUnassignedRegionReportsCommand or the
+ * GetAllRegionReportsCommand
  * 
  * 
  * @author
  * @version 1.0
  */
 @DynamicSerialize
-public class GetAssignedRegionReportsResponse extends
-        BaseResponse<GetAssignedRegionReportsResponse> implements IResponse {
+public class GetRegionReportsResponse extends
+        BaseResponse<GetRegionReportsResponse> implements IResponse {
 
     /**
      * The original request
      */
     @DynamicSerializeElement
-    private GetAssignedRegionReportsRequest request = null;
+    private GetRegionReportsRequest request = null;
 
     /**
      * The error
@@ -47,7 +48,7 @@ public class GetAssignedRegionReportsResponse extends
      * The results from the GetBinsCommand
      */
     @DynamicSerializeElement
-    private GetAssignedRegionReportsResults results = null;
+    private GetRegionReportsResults results = null;
 
     /**
      * The time in milliseconds to complete round trip of client --> request -->
@@ -65,7 +66,7 @@ public class GetAssignedRegionReportsResponse extends
     /**
     * 
     */
-    public GetAssignedRegionReportsResponse() {
+    public GetRegionReportsResponse() {
         // TODO Auto-generated constructor stub
     }
 
@@ -113,7 +114,7 @@ public class GetAssignedRegionReportsResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (GetAssignedRegionReportsResults) results;
+        this.results = (GetRegionReportsResults) results;
     }
 
     /*
@@ -188,7 +189,7 @@ public class GetAssignedRegionReportsResponse extends
 
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetAssignedRegionReportsRequest) request;
+        this.request = (GetRegionReportsRequest) request;
     }
 
     /*

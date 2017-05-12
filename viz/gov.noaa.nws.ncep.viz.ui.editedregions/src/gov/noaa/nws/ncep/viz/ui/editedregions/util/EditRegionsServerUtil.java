@@ -8,8 +8,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 
 public final class EditRegionsServerUtil {
     private EditRegionsServerUtil() {
@@ -29,11 +29,11 @@ public final class EditRegionsServerUtil {
 
         if (request.isValid()) {
 
-            GetAssignedRegionReportsResponse response = Gateway.getInstance()
+            GetRegionReportsResponse response = Gateway.getInstance()
                     .submit(request);
 
             if (response.getResults() != null && !response.hasErrors()) {
-                GetAssignedRegionReportsResults results = (GetAssignedRegionReportsResults) response
+                GetRegionReportsResults results = (GetRegionReportsResults) response
                         .getResults();
                 return results.getReports();
             }

@@ -1,20 +1,20 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetUnassignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetAssignedRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetAssignedRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 
 /**
- * The command class that is executed to add an event
+ * The command class that is executed to obtain unassigned
+ * region reports
  * 
  * 
  * @author jtravis
@@ -26,7 +26,7 @@ public class GetUnassignedRegionReportsCommand extends BaseCommand {
      * The request from the client that resulted in creating an instance of the
      * command
      */
-    private GetAssignedRegionReportsRequest request = null;
+    private GetUnassignedRegionReportsRequest request = null;
 
     /**
      * Default Constructor
@@ -127,7 +127,7 @@ public class GetUnassignedRegionReportsCommand extends BaseCommand {
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetAssignedRegionReportsRequest) request;
+        this.request = (GetUnassignedRegionReportsRequest) request;
 
     }
 
@@ -155,32 +155,10 @@ public class GetUnassignedRegionReportsCommand extends BaseCommand {
 
         List<Region> regions = new ArrayList<>();
 
-        Region region = new Region();
-        region.setId(request.getRegionID().intValue());
-        regions.add(region);
-
-        RegionReport report1 = new RegionReport();
-        // report1.setQ("2");
-        // report1.setRegion(new Region());
-        // report1.setArea("30");
-        // report1.setLl("003");
-        // report1.setLo("072");
-        // report1.setArea("30");
-        // report1.setNumSpots(1);
-        // report1.setSpotClass("Hsx");
-
-        RegionReport report2 = new RegionReport();
-        // report2.setQ("2");
-        // report2.setRegion(new Region());
-        // report2.setArea("00");
-        // report2.setLl("14");
-        // report2.setLo("61");
-        // report2.setNumSpots(1);
-        // report2.setSpotClass("Axx");
-
         this.setEndTime();
-
-        return this.createResponse(Arrays.asList(report1, report2));
+// TODO add logic
+//        return this.createResponse(Arrays.asList(report1, report2));
+        return null;
     }
 
     /**
@@ -189,10 +167,10 @@ public class GetUnassignedRegionReportsCommand extends BaseCommand {
      */
     private IResponse createResponse(List<RegionReport> regions) {
 
-        GetAssignedRegionReportsResults results = new GetAssignedRegionReportsResults();
+        GetRegionReportsResults results = new GetRegionReportsResults();
         results.setReports(regions);
 
-        GetAssignedRegionReportsResponse response = new GetAssignedRegionReportsResponse();
+        GetRegionReportsResponse response = new GetRegionReportsResponse();
 
         if (this.hasError()) {
             response.setError(this.getError());

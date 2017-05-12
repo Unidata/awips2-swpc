@@ -9,11 +9,11 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 @DynamicSerialize
-public class GetAssignedRegionReportsResults implements IResults {
+public class GetRegionReportsResults implements IResults {
     @DynamicSerializeElement
     private List<RegionReport> reports = null;
 
-    public GetAssignedRegionReportsResults() {
+    public GetRegionReportsResults() {
 
     }
 

@@ -1,38 +1,38 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetAssignedRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetUnassignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 
 /**
- * The command class that is executed to obtain assigned
- * region reports
+ * The command class that is executed to obtain all
+ * region reports regardless of if they have been assigned
+ * or unassigned to a specific region
  * 
  * 
  * @author jtravis
  * @version 1.0
  */
-public class GetAssignedRegionReportsCommand extends BaseCommand {
+public class GetAllRegionReportsCommand extends BaseCommand {
 
     /**
      * The request from the client that resulted in creating an instance of the
      * command
      */
-    private GetAssignedRegionReportsRequest request = null;
+    private GetRegionReportsRequest request = null;
 
     /**
      * Default Constructor
      */
-    public GetAssignedRegionReportsCommand() {
+    public GetAllRegionReportsCommand() {
     }
 
     /*
@@ -128,7 +128,7 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetAssignedRegionReportsRequest) request;
+        this.request = (GetUnassignedRegionReportsRequest) request;
 
     }
 
@@ -157,9 +157,8 @@ public class GetAssignedRegionReportsCommand extends BaseCommand {
         List<Region> regions = new ArrayList<>();
 
         this.setEndTime();
-
+// TODO add logic
 //        return this.createResponse(Arrays.asList(report1, report2));
-        // TODO add logic
         return null;
     }
 
