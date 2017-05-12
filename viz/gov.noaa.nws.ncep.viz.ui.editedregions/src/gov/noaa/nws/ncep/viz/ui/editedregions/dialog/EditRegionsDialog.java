@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.ViewerCell;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -644,6 +645,15 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      */
     private void createNewRegionReport() {
 
+        EnterRegionReportDialog regionReportDlg = new EnterRegionReportDialog(
+                getShell());
+        if (regionReportDlg.open() == Window.OK) {
+            // TODO: place code for submitting new report here.
+        }
+
+        refreshRegionTables();
+
+        // TODO: Need to split this out to EditRegionsServerUtil
         // Begin test code.
         CreateRegionReportRequest request = new CreateRegionReportRequest();
         RegionReport report = new RegionReport();
