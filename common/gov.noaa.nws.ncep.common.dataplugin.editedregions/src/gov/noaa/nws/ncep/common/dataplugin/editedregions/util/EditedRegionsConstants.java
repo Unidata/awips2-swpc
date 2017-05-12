@@ -29,115 +29,21 @@ public class EditedRegionsConstants {
      */
     public static final Integer MISSING_REGION_VAL = null;
 
-    /**
-     * Default frequenct for goes xray events
-     */
-    public static final String GOES_XRA_EVENTS_FREQUENCY = "1-8A";
-
     public static final String VERSION_NUMBER = "1.0";
 
-    public static final String EVENT_QUALITY_5 = "5";
-
-    // Defines edited event types
-
-    /**
-     * @author jtravis
-     *
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
-     *
-     */
-    public static enum EventType {
-        XRA("XRA"), // 0
-        CME("CME"), // 1
-        FLA("FLA"), // 2
-        RNS("RNS"), // 3
-        DSF("DSF"), // 4
-        RSP("RSP"), // 5
-        RBR("RBR"), // 6
-        DALAS("DALAS"); // 7
-
-        private String type;
-
-        // Constructor
-        EventType(String type) {
-            this.type = type;
-        }
-
-        public String getType() {
-            return type;
-        }
-    };
-
-    /**
-     * Event age
-     * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
-     * 
-     */
-    public static enum EVENT_AGE {
-        NEW {
-            public String toString() {
-                return "NEW";
-            }
-        },
-        COR {
-            public String toString() {
-                return "COR";
-            }
-        },
-        OLD {
-            public String toString() {
-                return "OLD";
-            }
-        },
-        DEL {
-            public String toString() {
-                return "DEL";
-            }
-        };
-    }
-
-    /**
-     * Event status text values
-     * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
-     * 
-     */
-    public static enum EVENT_STATUS {
-        DELETED { // StatusCode = 1
-            public String toString() {
-                return "DEL";
-            }
-        },
-        LOSER { // StatusCode = 2
-            public String toString() {
-                return "-";
-            }
-        },
-        CONTENDER { // StatusCode = 3
-            public String toString() {
-                return "=";
-            }
-        },
-        WINNER { // StatusCode = 4
-            public String toString() {
-                return "+";
-            }
-        },
-        SOLEBEST { // StatusCode = 5
-            public String toString() {
-                return "";
-            }
-        };
-    }
-
-    /**
-     * The origin of where the SelectBestEventCommand is being called from
-     * 
-     * TODO - probably can delete...this was copied from the EditedEventsConstance class
-     */
-    public static enum Origin {
-        PROCESS_EVENTS, REBIN_EVENT, REVISIT_OLD_BIN
+    public static enum REGION_REPORT_STATUS {
+    	ASSIGNED("Assigned"),
+    	UNASSIGNED("Un-Assigned");
+    	
+    	private String type;
+    	
+    	REGION_REPORT_STATUS(String type) {
+    		this.type = type;
+    	}
+    	
+    	public String getType() {
+    		return type;
+    	}
     }
 
 }
