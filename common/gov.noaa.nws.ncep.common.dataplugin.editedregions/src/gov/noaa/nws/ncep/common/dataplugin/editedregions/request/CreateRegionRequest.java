@@ -13,8 +13,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @version 1.0
  */
 @DynamicSerialize
-public class CreateRegionCommand
-        extends Request<CreateRegionCommand> implements IRequest {
+public class CreateRegionRequest
+        extends Request<CreateRegionRequest> implements IRequest {
 
     /**
      * The Requests ID
@@ -38,7 +38,7 @@ public class CreateRegionCommand
     /**
      * 
      */
-    public CreateRegionCommand() {
+    public CreateRegionRequest() {
         this.id = System.currentTimeMillis();
     }
 
