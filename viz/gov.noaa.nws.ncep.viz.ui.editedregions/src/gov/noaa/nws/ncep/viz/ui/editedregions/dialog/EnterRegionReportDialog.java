@@ -1,7 +1,10 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
+import java.util.Calendar;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Combo;
@@ -14,6 +17,13 @@ import org.eclipse.swt.widgets.Text;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
+import com.raytheon.uf.common.status.UFStatus.Priority;
+import com.raytheon.uf.common.time.DataTime;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 
 public class EnterRegionReportDialog extends Dialog {
 
@@ -62,7 +72,6 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Combo cmbValidSpotClass;
 
-    @SuppressWarnings("unused")
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterRegionReportDialog.class);
 
@@ -72,8 +81,100 @@ public class EnterRegionReportDialog extends Dialog {
 
     protected Control createDialogArea(Composite parent) {
         Composite top = (Composite) super.createDialogArea(parent);
+
+        GridLayout layout = new GridLayout(1, true);
+        layout.marginHeight = 1;
+        layout.marginWidth = 1;
+        top.setLayout(layout);
+
         this.initializeComponents(parent);
+
+        top.setSize(750, 750);
+
         return top;
+    }
+
+    @Override
+    public int open() {
+        if (this.getShell() == null) {
+            this.create();
+        }
+
+        Point size = getInitialSize();
+        getShell().setSize(size);
+        getShell().setLocation(getInitialLocation(size));
+
+        return super.open();
+    }
+
+    /**
+     * Verify that the data provided is valid.
+     * 
+     * @return
+     */
+    private boolean validateData() {
+        // TODO: Add implementation
+        return true;
+    }
+
+    private static String getSelection(Combo combo) {
+        int index = combo.getSelectionIndex();
+        if (index >= 0) {
+            return combo.getItem(index);
+        }
+        return null;
+    }
+
+    /**
+     * Build out the RegionReport object from the entered data.
+     * 
+     * @return
+     */
+    private RegionReport buildRegionReport() {
+        RegionReport report = new RegionReport();
+        report.setDataTime(new DataTime(
+                Calendar.getInstance(EditedRegionsConstants.TIME_ZONE_UTC)));
+
+        report.setObservatory(getSelection(cmbObservatory));
+        report.setType(txtType.getText());
+        report.setQuality(Integer.parseInt(getSelection(cmbQuality)));
+        report.setRegion(Integer.parseInt(txtRegion.getText()));
+        report.setLatitude(Integer.parseInt(txtLatitude.getText()));
+        report.setReportLongitude(
+                Integer.parseInt(txtReportLongitude.getText()));
+        report.setLongitude(Integer.parseInt(txtLongitude.getText()));
+        report.setReportLocation(txtReportLocation.getText());
+        report.setLocation(txtLocation.getText());
+        report.setCarlon(Integer.parseInt(txtCarlon.getText()));
+        report.setExtent(Integer.parseInt(txtExtent.getText()));
+        report.setArea(Integer.parseInt(txtArea.getText()));
+        report.setNumspots(Integer.parseInt(txtNumspots.getText()));
+        report.setZurich(Integer.parseInt(getSelection(cmbZurich)));
+        report.setPenumbra(Integer.parseInt(getSelection(cmbPenumbra)));
+        report.setCompact(getSelection(cmbCompact));
+        report.setSpotclass(txtSpotClass.getText());
+        report.setMagcode(Integer.parseInt(getSelection(cmbMagcode)));
+        report.setMagclass(getSelection(cmbMagclass));
+        report.setObsid(Integer.parseInt(getSelection(cmbObsid)));
+        report.setReportStatus(Integer.parseInt(getSelection(cmbReportStatus)));
+        report.setValidSpotClass(!"0".equals(getSelection(cmbValidSpotClass)));
+
+        return report;
+    }
+
+    @Override
+    protected void okPressed() {
+        try {
+            if (validateData()) {
+                RegionReport report = buildRegionReport();
+                if (report != null) {
+                    EditRegionsServerUtil.saveNewRegionReport(report);
+                }
+            }
+        } catch (EditedRegionsException ex) {
+            statusHandler.handle(Priority.ERROR,
+                    "Unable to save new region report.", ex);
+        }
     }
 
     private void initializeComponents(Composite parent) {
