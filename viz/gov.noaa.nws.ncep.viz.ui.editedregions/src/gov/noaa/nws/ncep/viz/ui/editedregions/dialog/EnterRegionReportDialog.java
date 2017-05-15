@@ -89,7 +89,8 @@ public class EnterRegionReportDialog extends Dialog {
 
         this.initializeComponents(parent);
 
-        top.setSize(750, 750);
+  //      top.setSize(750, 750);
+        this.getShell().setSize(750, 750);
 
         return top;
     }
