@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
@@ -79,6 +80,7 @@ public class EnterRegionReportDialog extends Dialog {
         super(parent);
     }
 
+    @Override
     protected Control createDialogArea(Composite parent) {
         Composite top = (Composite) super.createDialogArea(parent);
 
@@ -89,7 +91,6 @@ public class EnterRegionReportDialog extends Dialog {
 
         this.initializeComponents(parent);
 
-  //      top.setSize(750, 750);
         this.getShell().setSize(750, 750);
 
         return top;
@@ -132,9 +133,11 @@ public class EnterRegionReportDialog extends Dialog {
      * @return
      */
     private RegionReport buildRegionReport() {
+        Calendar calendar = Calendar
+                .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
         RegionReport report = new RegionReport();
-        report.setDataTime(new DataTime(
-                Calendar.getInstance(EditedRegionsConstants.TIME_ZONE_UTC)));
+        report.setDataTime(new DataTime(calendar));
+        report.setPersistenceTime(calendar.getTime());
 
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
@@ -168,14 +171,27 @@ public class EnterRegionReportDialog extends Dialog {
         try {
             if (validateData()) {
                 RegionReport report = buildRegionReport();
-                if (report != null) {
-                    EditRegionsServerUtil.saveNewRegionReport(report);
-                }
+                EditRegionsServerUtil.saveNewRegionReport(report);
+
+                MessageBox mb = new MessageBox(this.getShell(),
+                        SWT.ICON_INFORMATION ^ SWT.OK);
+                mb.setText("Saved");
+                mb.setMessage("Your region report data has been saved!");
+                mb.open();
+            } else {
+                MessageBox mb = new MessageBox(this.getShell(),
+                        SWT.ICON_ERROR ^ SWT.OK);
+                mb.setText("Please correct errors.");
+                mb.setMessage(
+                        "Your data could not be validated. Please re-enter data and try again.");
+                mb.open();
+                return;
             }
         } catch (EditedRegionsException ex) {
             statusHandler.handle(Priority.ERROR,
                     "Unable to save new region report.", ex);
         }
+        super.okPressed();
     }
 
     private void initializeComponents(Composite parent) {

@@ -521,13 +521,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         boolean close = false;
 
         MessageBox saveExitConfMB = new MessageBox(this.getShell(),
-                SWT.YES | SWT.NO | SWT.CANCEL);
-        saveExitConfMB.setText("Save and Exit?");
-        saveExitConfMB.setMessage("Do you want to save your changes?");
+                SWT.OK | SWT.CANCEL);
+        saveExitConfMB.setText("Confirm exit");
+        saveExitConfMB.setMessage("Do you want to save and exit?");
 
         int buttonID = saveExitConfMB.open();
 
-        if (buttonID == SWT.YES || buttonID == SWT.NO) {
+        if (buttonID == SWT.OK) {
             ExitRequest request = new ExitRequest();
             ExitResponse response = null;
             request.setBeginDTTM(System.currentTimeMillis());
