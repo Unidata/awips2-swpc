@@ -6,6 +6,7 @@ import java.util.List;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetUnassignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
@@ -128,7 +129,7 @@ public class GetAllRegionReportsCommand extends BaseCommand {
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetUnassignedRegionReportsRequest) request;
+        this.request = (GetRegionReportsRequest) request;
 
     }
 

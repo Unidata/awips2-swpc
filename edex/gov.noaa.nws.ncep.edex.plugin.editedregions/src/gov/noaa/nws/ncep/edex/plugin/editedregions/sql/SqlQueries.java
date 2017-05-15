@@ -67,18 +67,18 @@ public abstract class SqlQueries {
 																"GROUP BY gxe.id ORDER BY gxe.id";
 	
 																
-	/**
-	 * Query to remove the deleted events from the swpc_event table
-	 */
-	public static final String REMOVE_DELETED_EVENTS = 
-			"DELETE FROM swpc_event WHERE begindate >= ? AND statuscd = '" + (EditedRegionsConstants.EVENT_STATUS.DELETED.ordinal() + 1) + "' AND statustext = '" + EditedRegionsConstants.EVENT_STATUS.DELETED.toString() + "'";
-	
-	/**
-	 * Query to update events' age to 'OLD' and changeflag to 0 for events with age='NEW' or 'COR'  
-	 */
-	public static final String SET_EVENTS_AGE_TO_OLD = 
-			"UPDATE swpc_event SET age = '"  + EditedRegionsConstants.EVENT_AGE.OLD.toString() + "', changeflag=0 WHERE begindate >= ? AND age = '" + EditedRegionsConstants.EVENT_AGE.NEW.toString() + "' OR age = '" + EditedRegionsConstants.EVENT_AGE.COR.toString() + "'";
-	
+//	/**
+//	 * Query to remove the deleted events from the swpc_event table
+//	 */
+//	public static final String REMOVE_DELETED_EVENTS = 
+//			"DELETE FROM swpc_event WHERE begindate >= ? AND statuscd = '" + (EditedRegionsConstants.EVENT_STATUS.DELETED.ordinal() + 1) + "' AND statustext = '" + EditedRegionsConstants.EVENT_STATUS.DELETED.toString() + "'";
+//	
+//	/**
+//	 * Query to update events' age to 'OLD' and changeflag to 0 for events with age='NEW' or 'COR'  
+//	 */
+//	public static final String SET_EVENTS_AGE_TO_OLD = 
+//			"UPDATE swpc_event SET age = '"  + EditedRegionsConstants.EVENT_AGE.OLD.toString() + "', changeflag=0 WHERE begindate >= ? AND age = '" + EditedRegionsConstants.EVENT_AGE.NEW.toString() + "' OR age = '" + EditedRegionsConstants.EVENT_AGE.COR.toString() + "'";
+//	
 	/**
 	 * Query to update events' changeflag to 0   
 	 */
