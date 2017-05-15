@@ -226,9 +226,12 @@ public class EnterRegionReportDialog extends Dialog {
      * @param label
      * @return the Combo control
      */
-    private Combo addComboControl(Composite parent, String label) {
+    private Combo addComboControl(Composite parent, String label,
+            String[] items) {
         new Label(parent, SWT.LEFT).setText(label);
         Combo combo = new Combo(parent, SWT.DROP_DOWN ^ SWT.READ_ONLY);
+        combo.setItems(items);
+        combo.select(0);
         new Label(parent, SWT.LEFT).setText(" ");
         return combo;
     }
@@ -249,13 +252,15 @@ public class EnterRegionReportDialog extends Dialog {
         new Label(composite, SWT.LEFT).setText(" ");
 
         // Observatory field
-        cmbObservatory = addComboControl(composite, "Observatory");
+        cmbObservatory = addComboControl(composite, "Observatory",
+                new String[] { "APLM", "KHMN", "LISS" });
 
         // Type field
         txtType = addTextControl(composite, "Type");
 
         // Quality field
-        cmbQuality = addComboControl(composite, "Quality");
+        cmbQuality = addComboControl(composite, "Quality",
+                new String[] { "4", "5" });
 
         // Region field
         txtRegion = addTextControl(composite, "Region");
@@ -288,31 +293,39 @@ public class EnterRegionReportDialog extends Dialog {
         txtNumspots = addTextControl(composite, "Num spots");
 
         // Zurich field
-        cmbZurich = addComboControl(composite, "Zurich");
+        cmbZurich = addComboControl(composite, "Zurich",
+                new String[] { "1", "2", "3", "4", "5", "6", "7" });
 
         // Penumbra field
-        cmbPenumbra = addComboControl(composite, "Penumbra");
+        cmbPenumbra = addComboControl(composite, "Penumbra",
+                new String[] { "0", "1", "2", "3", "4", "5" });
 
         // Compact field
-        cmbCompact = addComboControl(composite, "Compact");
+        cmbCompact = addComboControl(composite, "Compact",
+                new String[] { "/", "7", "8", "9" });
 
         // Spotclass field
         txtSpotClass = addTextControl(composite, "Spot class");
 
         // Magcode field
-        cmbMagcode = addComboControl(composite, "Magcode");
+        cmbMagcode = addComboControl(composite, "Magcode",
+                new String[] { "1", "2", "3", "4", "5", "6", "7" });
 
         // Magclass field
-        cmbMagclass = addComboControl(composite, "Magclass");
+        cmbMagclass = addComboControl(composite, "Magclass",
+                new String[] { "A", "B", "BG", "G", "BD", "BDG", "GD" });
 
         // Obsid field
-        cmbObsid = addComboControl(composite, "Obsid");
+        cmbObsid = addComboControl(composite, "Obsid",
+                new String[] { "1", "2", "3", "4" });
 
         // Report Status field
-        cmbReportStatus = addComboControl(composite, "Report Status");
+        cmbReportStatus = addComboControl(composite, "Report Status",
+                new String[] { "1", "2", "3", "4" });
 
         // ValidSpotClass field
-        cmbValidSpotClass = addComboControl(composite, "Valid Spot Class");
+        cmbValidSpotClass = addComboControl(composite, "Valid Spot Class",
+                new String[] { "0", "1" });
 
     }
 
