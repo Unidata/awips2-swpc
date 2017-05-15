@@ -50,7 +50,7 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Combo cmbCompact;
 
-    private Text txtSpotclass;
+    private Text txtSpotClass;
 
     private Combo cmbMagcode;
 
@@ -103,6 +103,41 @@ public class EnterRegionReportDialog extends Dialog {
 
     }
 
+    /**
+     * Adds a new row with a text entry widget and the provided label.
+     * 
+     * @param parent
+     * @param label
+     * @return the Text control
+     * 
+     */
+    private Text addTextControl(Composite parent, String label) {
+        new Label(parent, SWT.LEFT).setText(label);
+        Text text = new Text(parent, SWT.BORDER);
+        new Label(parent, SWT.LEFT).setText(" ");
+        return text;
+    }
+
+    /**
+     * Adds a new row with a combo selection widget and the provided label.
+     * 
+     * @param parent
+     * @param label
+     * @return the Combo control
+     */
+    private Combo addComboControl(Composite parent, String label) {
+        new Label(parent, SWT.LEFT).setText(label);
+        Combo combo = new Combo(parent, SWT.DROP_DOWN ^ SWT.READ_ONLY);
+        new Label(parent, SWT.LEFT).setText(" ");
+        return combo;
+    }
+
+    /**
+     * Add the controls for the region report fields onto the GUI.
+     * 
+     * @param group
+     *            The parent group
+     */
     private void createFieldControls(Group group) {
 
         Composite composite = new Composite(group, SWT.None);
@@ -110,17 +145,74 @@ public class EnterRegionReportDialog extends Dialog {
         composite.setLayoutData(
                 new GridData(GridData.FILL, GridData.FILL, true, true));
 
-        // Observatory field
-        new Label(composite, SWT.LEFT).setText("Observatory: ");
-        cmbObservatory = new Combo(composite, SWT.DROP_DOWN ^ SWT.READ_ONLY);
-
         new Label(composite, SWT.LEFT).setText(" ");
+
+        // Observatory field
+        cmbObservatory = addComboControl(composite, "Observatory");
 
         // Type field
-        new Label(composite, SWT.LEFT).setText("Type: ");
-        txtType = new Text(composite, SWT.BORDER);
+        txtType = addTextControl(composite, "Type");
 
-        new Label(composite, SWT.LEFT).setText(" ");
+        // Quality field
+        cmbQuality = addComboControl(composite, "Quality");
+
+        // Region field
+        txtRegion = addTextControl(composite, "Region");
+
+        // Latitude field
+        txtLatitude = addTextControl(composite, "Latitude");
+
+        // Report Longitude field
+        txtReportLongitude = addTextControl(composite, "Report Longitude");
+
+        // Longitude field
+        txtLongitude = addTextControl(composite, "Longitude");
+
+        // Report Location field
+        txtReportLocation = addTextControl(composite, "Report Location");
+
+        // Location field
+        txtLocation = addTextControl(composite, "Location");
+
+        // Carlon field
+        txtCarlon = addTextControl(composite, "Carlon");
+
+        // Extent field
+        txtExtent = addTextControl(composite, "Extent");
+
+        // Area field
+        txtArea = addTextControl(composite, "Area");
+
+        // Num spots field
+        txtNumspots = addTextControl(composite, "Num spots");
+
+        // Zurich field
+        cmbZurich = addComboControl(composite, "Zurich");
+
+        // Penumbra field
+        cmbPenumbra = addComboControl(composite, "Penumbra");
+
+        // Compact field
+        cmbCompact = addComboControl(composite, "Compact");
+
+        // Spotclass field
+        txtSpotClass = addTextControl(composite, "Spot class");
+
+        // Magcode field
+        cmbMagcode = addComboControl(composite, "Magcode");
+
+        // Magclass field
+        cmbMagclass = addComboControl(composite, "Magclass");
+
+        // Obsid field
+        cmbObsid = addComboControl(composite, "Obsid");
+
+        // Report Status field
+        cmbReportStatus = addComboControl(composite, "Report Status");
+
+        // ValidSpotClass field
+        cmbValidSpotClass = addComboControl(composite, "Valid Spot Class");
+
     }
 
     private void initializeControlsWithDefaultValues() {
