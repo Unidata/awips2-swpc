@@ -19,6 +19,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
+
 /**
  * Get the cell labels/values to be displayed in the edit events list table of
  * the EditEventsDialog. Also provides editing support for some of the cells.
@@ -125,41 +128,87 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
     @Override
     public String getColumnText(Object element, int columnIndex) {
 
-        // RegionReport report = (RegionReport) element;
-        //
-        // switch (columnIndex) {
-        // case EditRegionsUIConstants.COLUMN_INDEX_Q:
-        // return report.getQ();
-        // case EditRegionsUIConstants.COLUMN_INDEX_DATE:
-        // Calendar cal = report.getDate();
-        // if (cal != null) {
-        // LocalDate date = LocalDateTime
-        // .ofInstant(report.getDate().toInstant(), ZoneOffset.UTC)
-        // .toLocalDate();
-        // return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        // }
-        // return "";
-        // case EditRegionsUIConstants.COLUMN_INDEX_LO:
-        // return report.getLo();
-        // case EditRegionsUIConstants.COLUMN_INDEX_LL:
-        // return report.getLl();
-        // case EditRegionsUIConstants.COLUMN_INDEX_AREA:
-        // return report.getArea();
-        // case EditRegionsUIConstants.COLUMN_INDEX_NUM_SPOTS:
-        // return String.valueOf(report.getNumSpots());
-        // case EditRegionsUIConstants.COLUMN_INDEX_SPOT_CLASS:
-        // return report.getSpotClass();
-        // case EditRegionsUIConstants.COLUMN_INDEX_REGION:
-        // return String.valueOf(report.getRegion());
-        // default:
-        // return "";
-        // }
-        return "";
+        RegionReport report = (RegionReport) element;
+
+        switch (columnIndex) {
+
+        case EditRegionsUIConstants.COLUMN_INDEX_STATION:
+            return String.valueOf(report.getStation());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
+            return String.valueOf(report.getObservatory());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_TYPE:
+            return report.getType();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
+            return String.valueOf(report.getQuality());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_REGION:
+            return String.valueOf(report.getRegion());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_LATITUDE:
+            return String.valueOf(report.getLatitude());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LONGITUDE:
+            return String.valueOf(report.getReportLongitude());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_LONGITUDE:
+            return String.valueOf(report.getLongitude());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LOCATION:
+            return report.getReportLocation();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_LOCATION:
+            return report.getLocation();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_CARLON:
+            return String.valueOf(report.getCarlon());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_EXTENT:
+            return String.valueOf(report.getExtent());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_AREA:
+            return String.valueOf(report.getArea());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_NUMSPOTS:
+            return String.valueOf(report.getNumspots());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_ZURICH:
+            return String.valueOf(report.getZurich());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_PENUMBRA:
+            return String.valueOf(report.getPenumbra());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_COMPACT:
+            return report.getCompact();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_SPOTCLASS:
+            return report.getSpotclass();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_MAGCODE:
+            return String.valueOf(report.getMagcode());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_MAGCLASS:
+            return report.getMagclass();
+
+        case EditRegionsUIConstants.COLUMN_INDEX_OBSID:
+            return String.valueOf(report.getObsid());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_STATUS:
+            return String.valueOf(report.getReportStatus());
+
+        case EditRegionsUIConstants.COLUMN_INDEX_VALID_SPOT_CLASS:
+            return String.valueOf(report.isValidSpotClass());
+
+        default:
+            return "";
+        }
     }
 
     public int getColumnCount() {
         // TODO: Set a constant.
-        return 24;
+        return EditRegionsUIConstants.COLUMN_COUNT;
     }
 
     /**

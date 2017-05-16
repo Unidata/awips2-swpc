@@ -46,33 +46,53 @@ public interface EditRegionsUIConstants {
             "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
             "Spot Class", "Mag Class", "Mag Str", "Region" };
 
-    public static final int COLUMN_INDEX_DATE = 0;
+    public static final int COLUMN_COUNT = 23;
 
-    public static final int COLUMN_INDEX_OBSTIME = 1;
+    public static final int COLUMN_INDEX_STATION = 0;
 
-    public static final int COLUMN_INDEX_OBS = 2;
+    public static final int COLUMN_INDEX_OBSERVATORY = 1;
 
-    public static final int COLUMN_INDEX_Q = 3;
+    public static final int COLUMN_INDEX_TYPE = 2;
 
-    public static final int COLUMN_INDEX_00ZLOC = 4;
+    public static final int COLUMN_INDEX_QUALITY = 3;
 
-    public static final int COLUMN_INDEX_RPTLOC = 5;
+    public static final int COLUMN_INDEX_REGION = 4;
 
-    public static final int COLUMN_INDEX_LO = 6;
+    public static final int COLUMN_INDEX_LATITUDE = 5;
 
-    public static final int COLUMN_INDEX_LL = 7;
+    public static final int COLUMN_INDEX_REPORT_LONGITUDE = 6;
 
-    public static final int COLUMN_INDEX_AREA = 8;
+    public static final int COLUMN_INDEX_LONGITUDE = 7;
 
-    public static final int COLUMN_INDEX_NUM_SPOTS = 9;
+    public static final int COLUMN_INDEX_REPORT_LOCATION = 8;
 
-    public static final int COLUMN_INDEX_SPOT_CLASS = 10;
+    public static final int COLUMN_INDEX_LOCATION = 9;
 
-    public static final int COLUMN_INDEX_MAG_CLASS = 11;
+    public static final int COLUMN_INDEX_CARLON = 10;
 
-    public static final int COLUMN_INDEX_MAG_STR = 12;
+    public static final int COLUMN_INDEX_EXTENT = 11;
 
-    public static final int COLUMN_INDEX_REGION = 13;
+    public static final int COLUMN_INDEX_AREA = 12;
+
+    public static final int COLUMN_INDEX_NUMSPOTS = 13;
+
+    public static final int COLUMN_INDEX_ZURICH = 14;
+
+    public static final int COLUMN_INDEX_PENUMBRA = 15;
+
+    public static final int COLUMN_INDEX_COMPACT = 16;
+
+    public static final int COLUMN_INDEX_SPOTCLASS = 17;
+
+    public static final int COLUMN_INDEX_MAGCODE = 18;
+
+    public static final int COLUMN_INDEX_MAGCLASS = 19;
+
+    public static final int COLUMN_INDEX_OBSID = 20;
+
+    public static final int COLUMN_INDEX_REPORT_STATUS = 21;
+
+    public static final int COLUMN_INDEX_VALID_SPOT_CLASS = 22;
 
     public static final String COLUMN_HEADER_BIN = "Bin";
 
