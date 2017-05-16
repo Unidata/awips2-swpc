@@ -61,6 +61,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
@@ -624,16 +625,21 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * TODO this comment needs to change
      */
     private void refreshRegionTables() {
-        List<RegionReport> reports = Collections.emptyList();
+        List<RegionReport> assignedReports = Collections.emptyList();
+        List<RegionReport> unassignedReports = Collections.emptyList();
+
         try {
-            reports = EditRegionsServerUtil.getRegionReports();
+            GetRegionReportsResults results = EditRegionsServerUtil
+                    .getRegionReports(true, true);
+            assignedReports = results.getAssignedRegionReports();
+            unassignedReports = results.getUnAssignedReports();
         } catch (EditedRegionsException e) {
             statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
         }
-        assignedRegionTableViewer.setInput(reports);
+        assignedRegionTableViewer.setInput(assignedReports);
         assignedRegionTableViewer.refresh();
 
-        unassignedRegionTableViewer.setInput(reports);
+        unassignedRegionTableViewer.setInput(unassignedReports);
         unassignedRegionTableViewer.refresh();
 
         resizeTable(assignedRegionTableViewer);
