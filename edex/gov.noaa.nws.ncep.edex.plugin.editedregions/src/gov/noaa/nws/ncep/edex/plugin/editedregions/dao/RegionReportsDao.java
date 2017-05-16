@@ -1,5 +1,12 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.dao;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -95,40 +102,59 @@ public class RegionReportsDao extends PluginDao {
     // }
     // });
     // }
-    //
-    // /**
-    // * Retrieves list of events based on the bin number
-    // *
-    // * @return list of events
-    // */
-    // @SuppressWarnings({ "unchecked", "rawtypes" })
-    // public List<Event> getEventsByBin(final Integer binNumber,
-    // final boolean notBinNumber,
-    // final boolean sortAscending) {
-    // return (List<Event>) txTemplate.execute(new TransactionCallback() {
-    // @Override
-    // public Object doInTransaction(TransactionStatus status) {
-    // Session sess = getCurrentSession();
-    // Criteria crit = sess.createCriteria(Event.class);
-    // Criterion where1 = null;
-    //
-    // if (notBinNumber) {
-    // where1 = Restrictions.ne(Event.BIN, getEventBinByBinNumber(binNumber));
-    // } else {
-    // where1 = Restrictions.eq(Event.BIN, getEventBinByBinNumber(binNumber));
-    // }
-    //
-    // crit.add(where1);
-    //
-    // if (sortAscending) {
-    // crit.addOrder(Order.asc(Event.BEGIN_DATE));
-    // }
-    //
-    // return crit.list();
-    // }
-    // });
-    // }
-    //
+    
+     /**
+     * Retrieves list of Region Reports that have been assigned to a region
+     *
+     * @return list of events
+     */
+     @SuppressWarnings({ "unchecked", "rawtypes" })
+     public List<RegionReport> getAssignedRegionReports(final boolean sortAscending) {
+    	 	return (List<RegionReport>) txTemplate.execute(new TransactionCallback() {
+    	 		
+    	 		@Override
+    	 		public Object doInTransaction(TransactionStatus status) {
+    	 			Session sess = getCurrentSession();
+    	 			Criteria crit = sess.createCriteria(RegionReport.class);
+    	 			Criterion where1 = Restrictions.isNotNull(RegionReport.REGION);
+    
+    	 			crit.add(where1);
+    
+    	 			if (sortAscending) {
+    	 				crit.addOrder(Order.asc(RegionReport.STATION));
+    	 			}
+    
+    	 			return crit.list();
+    	 		}
+    	 	});
+     }
+     
+     /**
+     * Retrieves list of Region Reports that have not been assigned to a region
+     *
+     * @return list of events
+     */
+     @SuppressWarnings({ "unchecked", "rawtypes" })
+     public List<RegionReport> getUnAssignedRegionReports(final boolean sortAscending) {
+    	 	return (List<RegionReport>) txTemplate.execute(new TransactionCallback() {
+    	 		
+    	 		@Override
+    	 		public Object doInTransaction(TransactionStatus status) {
+    	 			Session sess = getCurrentSession();
+    	 			Criteria crit = sess.createCriteria(RegionReport.class);
+    	 			Criterion where1 = Restrictions.isNull(RegionReport.REGION);
+    
+    	 			crit.add(where1);
+    
+    	 			if (sortAscending) {
+    	 				crit.addOrder(Order.asc(RegionReport.STATION));
+    	 			}
+    
+    	 			return crit.list();
+    	 		}
+    	 	});
+     }
+    
     // /**
     // * Retrieves list of events that occur before the start
     // * date

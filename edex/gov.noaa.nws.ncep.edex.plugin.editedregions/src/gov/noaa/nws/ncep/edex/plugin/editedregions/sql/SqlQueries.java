@@ -20,7 +20,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
  */
 
 public abstract class SqlQueries {
-	
+
 	/**
 	 * Query to update the swpc_goes_xray_event to set the value of the column processed=true
 	 */

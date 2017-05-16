@@ -7,6 +7,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 
@@ -18,7 +19,17 @@ public final class EditRegionsServerUtil {
 
     public static List<RegionReport> getRegionReports()
             throws EditedRegionsException {
-        // TODO: add implementation
+        // TODO: verify implementation and make changes as appropriate
+    	
+    	GetRegionReportsRequest request = new GetRegionReportsRequest();
+    	
+    	request.setObtainAssignedReports(true);
+    	request.setObtainUnassignedReports(true);
+    	
+    	if (request.isValid()) {
+    		
+    	}
+    	
         return Collections.emptyList();
     }
 

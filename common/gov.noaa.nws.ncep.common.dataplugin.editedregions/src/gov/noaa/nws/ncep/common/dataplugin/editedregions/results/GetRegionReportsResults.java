@@ -10,24 +10,55 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 @DynamicSerialize
 public class GetRegionReportsResults implements IResults {
-    @DynamicSerializeElement
-    private List<RegionReport> reports = null;
+    
+	@DynamicSerializeElement
+    private List<RegionReport> unAssignedReports = null;
+	
+	@DynamicSerializeElement
+    private List<RegionReport> assignedRegionReports = null;
 
+    /**
+     * Constructor
+     */
     public GetRegionReportsResults() {
 
     }
 
-    public void setReports(List<RegionReport> reports) {
-        this.reports = reports;
-    }
+	/**
+	 * @return the unAssignedReports
+	 */
+	public List<RegionReport> getUnAssignedReports() {
+		return unAssignedReports;
+	}
 
-    public List<RegionReport> getReports() {
-        return this.reports;
-    }
+	/**
+	 * @param unAssignedReports the unAssignedReports to set
+	 */
+	public void setUnAssignedReports(List<RegionReport> unAssignedReports) {
+		this.unAssignedReports = unAssignedReports;
+	}
 
+	/**
+	 * @return the assignedRegionReports
+	 */
+	public List<RegionReport> getAssignedRegionReports() {
+		return assignedRegionReports;
+	}
+
+	/**
+	 * @param assignedRegionReports the assignedRegionReports to set
+	 */
+	public void setAssignedRegionReports(List<RegionReport> assignedRegionReports) {
+		this.assignedRegionReports = assignedRegionReports;
+	}
+	
     @Override
     public int numResults() {
-        return this.reports != null ? this.reports.size() : 0;
+    	
+    	int resultCount = this.unAssignedReports.size() +
+    						this.assignedRegionReports.size();
+    	
+        return resultCount;
     }
 
 }

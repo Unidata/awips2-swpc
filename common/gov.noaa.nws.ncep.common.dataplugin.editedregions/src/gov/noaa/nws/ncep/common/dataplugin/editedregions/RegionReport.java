@@ -42,11 +42,11 @@ public class RegionReport extends PersistablePluginDataObject {
 
     private static final long serialVersionUID = -2348816710419849461L;
 
-    // private static final String STATION = "station";
+    public static final String STATION = "station";
     // private static final String OBSERVATORY = "observatory";
     // private static final String TYPE = "type";
     // private static final String QUALITY = "quality";
-    // private static final String REGION = "region";
+    public static final String REGION = "region";
     // private static final String LATITUDE = "latitude";
     // private static final String REPORT_LONGITUDE = "reportLongitude";
     // private static final String LONGITUDE = "longitude";

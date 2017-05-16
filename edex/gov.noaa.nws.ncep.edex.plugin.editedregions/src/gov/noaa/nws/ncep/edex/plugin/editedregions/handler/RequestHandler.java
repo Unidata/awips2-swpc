@@ -14,7 +14,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetAssignedRegionReportsCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 
 /**
  * Class that provides the capability to initialize commands based on requests
@@ -61,26 +61,13 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                         "ERROR - " + "Request Is Invalid");
                 getReportsResponse.setError(e);
             } else {
-                // build the command which includes adding
-                // the request to the command in the event
-                // the request had parameters necessary to satisfy
-                // the command
-            	
-            	// TODO add check to determine which command to execute
-            	if (getReportsRequest.isObtainAssignedReports() &&
-            			getReportsRequest.isObtainUnassignedReports()) { // obtain all region reports
-            		
-            	} else if (getReportsRequest.isObtainAssignedReports()) { // obtain assigned region reports
-            		
-            	} else { // obtain un-assigned region reports
-            		
-            	}
-            	
-                GetAssignedRegionReportsCommand getReportsCmd = new GetAssignedRegionReportsCommand();
-                getReportsCmd.setRequest(getReportsRequest);
+ 
+            	GetRegionReportsCommand cmd = new GetRegionReportsCommand();
+
+            	cmd.setRequest(getReportsRequest);
 
                 // create the response
-                getReportsResponse = (GetRegionReportsResponse) getReportsCmd
+                getReportsResponse = (GetRegionReportsResponse) cmd
                         .execute();
             }
 

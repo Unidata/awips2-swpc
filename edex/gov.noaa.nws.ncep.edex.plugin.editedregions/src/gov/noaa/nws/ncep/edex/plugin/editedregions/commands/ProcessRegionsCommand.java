@@ -36,7 +36,7 @@ public class ProcessRegionsCommand extends BaseCommand {
     private ProcessEventsRequest request = null;
 
     /**
-     * Dao for Event records
+     * Dao for Region Report records
      */
     private RegionReportsDao eventDao = null;
 

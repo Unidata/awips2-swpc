@@ -9,9 +9,6 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * Class for allowing the client to request the back-end to
  * obtain the Assigned Region Reports
  * 
- * 
- * 
- * 
  * @author jtravis
  * @version 1.0
  */
@@ -46,6 +43,19 @@ public class GetRegionReportsRequest extends
 		this.id = System.currentTimeMillis();
 		this.obtainAssignedReports = false;
 		this.obtainUnassignedReports = false;
+	}
+	
+	/**
+	 * Constructor supplying argument to determine
+	 * what kinds of region reports to obtain
+	 * 
+	 * @param getAssignedReports
+	 * @param getUnassignedReports
+	 */
+	public GetRegionReportsRequest(boolean getAssignedReports, boolean getUnassignedReports) {
+		this.id = System.currentTimeMillis();
+		this.obtainAssignedReports = getAssignedReports;
+		this.obtainUnassignedReports = getUnassignedReports;
 	}
 
     /*

@@ -3,15 +3,18 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
+import com.raytheon.uf.common.dataplugin.PluginException;
+import com.raytheon.uf.common.status.IUFStatusHandler;
+import com.raytheon.uf.common.status.UFStatus;
+
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetUnassignedRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
  * The command class that is executed to obtain all
@@ -22,18 +25,29 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReport
  * @author jtravis
  * @version 1.0
  */
-public class GetAllRegionReportsCommand extends BaseCommand {
+public class GetRegionReportsCommand extends BaseCommand {
 
     /**
      * The request from the client that resulted in creating an instance of the
      * command
      */
     private GetRegionReportsRequest request = null;
+    
+    /**
+     * Dao for Region Report records
+     */
+    private RegionReportsDao regionReportsDao = null;
+    
+    /**
+     * Logger
+     */
+    private static final IUFStatusHandler statusHandler = UFStatus
+            .getHandler(GetRegionReportsCommand.class);
 
     /**
      * Default Constructor
      */
-    public GetAllRegionReportsCommand() {
+    public GetRegionReportsCommand() {
     }
 
     /*
@@ -153,36 +167,42 @@ public class GetAllRegionReportsCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
-        this.setStartTime();
-
-        List<Region> regions = new ArrayList<>();
-
-        this.setEndTime();
-// TODO add logic
-//        return this.createResponse(Arrays.asList(report1, report2));
-        return null;
-    }
-
-    /**
-     * @param results
-     * @return IResponse
-     */
-    private IResponse createResponse(List<RegionReport> regions) {
-
-        GetRegionReportsResults results = new GetRegionReportsResults();
-        results.setReports(regions);
-
+    	
+    	this.setStartTime();
+    	
+        List<RegionReport> unAssignedRegionReports = new ArrayList<>();
+        List<RegionReport> assignedRegionReports = new ArrayList<>();
         GetRegionReportsResponse response = new GetRegionReportsResponse();
+        GetRegionReportsResults results = new GetRegionReportsResults();
+        
+        try {
+        
+        	regionReportsDao = new RegionReportsDao();
 
-        if (this.hasError()) {
-            response.setError(this.getError());
-        } else {
-            response.setResults(results);
+        	if (this.request.isObtainAssignedReports()) {
+     
+        		assignedRegionReports = regionReportsDao.getAssignedRegionReports(true);
+        		
+        		results.setAssignedRegionReports(assignedRegionReports);
+        	}
+        
+        	if (this.request.isObtainUnassignedReports()) {
+        	
+        		unAssignedRegionReports = regionReportsDao.getUnAssignedRegionReports(true);
+        		
+        		results.setUnAssignedReports(unAssignedRegionReports);
+        	}
+
+        	response.setResults(results);
+        	
+
+        } catch (PluginException e) {
+        	EditedRegionsException erx = new EditedRegionsException(e);
+        	response.setError(erx);
         }
-
-        response.setRequest(this.getRequest());
-        response.setProcessingTime(this.getProcessingTime());
-
+        
+        this.setEndTime();
+        
         return response;
     }
 
