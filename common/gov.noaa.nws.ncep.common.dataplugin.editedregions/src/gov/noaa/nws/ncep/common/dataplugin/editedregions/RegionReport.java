@@ -43,6 +43,7 @@ public class RegionReport extends PersistablePluginDataObject {
     private static final long serialVersionUID = -2348816710419849461L;
 
     public static final String STATION = "station";
+
     // private static final String OBSERVATORY = "observatory";
     // private static final String TYPE = "type";
     // private static final String QUALITY = "quality";
@@ -69,7 +70,7 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Station")
-    private int station;
+    private Integer station;
 
     @Column
     @DynamicSerializeElement
@@ -84,27 +85,27 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Quality")
-    private int quality;
+    private Integer quality;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Region")
-    private int region;
+    private Integer region;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Latitude")
-    private int latitude;
+    private Integer latitude;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Report-Longitude")
-    private int reportLongitude;
+    private Integer reportLongitude;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Longitude")
-    private int longitude;
+    private Integer longitude;
 
     @Column
     @DynamicSerializeElement
@@ -119,32 +120,32 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Carlon")
-    private int carlon;
+    private Integer carlon;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Extent")
-    private int extent;
+    private Integer extent;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Area")
-    private int area;
+    private Integer area;
 
     @Column
     @DynamicSerializeElement
     @XmlElement
-    private int numspots;
+    private Integer numspots;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Zurich")
-    private int zurich;
+    private Integer zurich;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Penumbra")
-    private int penumbra;
+    private Integer penumbra;
 
     @Column
     @DynamicSerializeElement
@@ -159,7 +160,7 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Magcode")
-    private int magcode;
+    private Integer magcode;
 
     @Column
     @DynamicSerializeElement
@@ -169,12 +170,12 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Obsid")
-    private int obsid;
+    private Integer obsid;
 
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Report-Status")
-    private int reportStatus;
+    private Integer reportStatus;
 
     @Column
     @DynamicSerializeElement
@@ -189,7 +190,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the station
      */
-    public int getStation() {
+    public Integer getStation() {
         return this.station;
     }
 
@@ -197,7 +198,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param station
      *            the station to set
      */
-    public void setStation(int station) {
+    public void setStation(Integer station) {
         this.station = station;
     }
 
@@ -234,7 +235,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the quality
      */
-    public int getQuality() {
+    public Integer getQuality() {
         return this.quality;
     }
 
@@ -242,14 +243,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param quality
      *            the quality to set
      */
-    public void setQuality(int quality) {
+    public void setQuality(Integer quality) {
         this.quality = quality;
     }
 
     /**
      * @return the region
      */
-    public int getRegion() {
+    public Integer getRegion() {
         return this.region;
     }
 
@@ -257,14 +258,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param region
      *            the region to set
      */
-    public void setRegion(int region) {
+    public void setRegion(Integer region) {
         this.region = region;
     }
 
     /**
      * @return the latitude
      */
-    public int getLatitude() {
+    public Integer getLatitude() {
         return this.latitude;
     }
 
@@ -272,14 +273,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param latitude
      *            the latitude to set
      */
-    public void setLatitude(int latitude) {
+    public void setLatitude(Integer latitude) {
         this.latitude = latitude;
     }
 
     /**
      * @return the reportLongitude
      */
-    public int getReportLongitude() {
+    public Integer getReportLongitude() {
         return this.reportLongitude;
     }
 
@@ -287,14 +288,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param reportLongitude
      *            the reportLongitude to set
      */
-    public void setReportLongitude(int reportLongitude) {
+    public void setReportLongitude(Integer reportLongitude) {
         this.reportLongitude = reportLongitude;
     }
 
     /**
      * @return the longitude
      */
-    public int getLongitude() {
+    public Integer getLongitude() {
         return this.longitude;
     }
 
@@ -302,7 +303,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param longitude
      *            the longitude to set
      */
-    public void setLongitude(int longitude) {
+    public void setLongitude(Integer longitude) {
         this.longitude = longitude;
     }
 
@@ -339,7 +340,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the carlon
      */
-    public int getCarlon() {
+    public Integer getCarlon() {
         return this.carlon;
     }
 
@@ -347,14 +348,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param carlon
      *            the carlon to set
      */
-    public void setCarlon(int carlon) {
+    public void setCarlon(Integer carlon) {
         this.carlon = carlon;
     }
 
     /**
      * @return the extent
      */
-    public int getExtent() {
+    public Integer getExtent() {
         return this.extent;
     }
 
@@ -362,14 +363,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param extent
      *            the extent to set
      */
-    public void setExtent(int extent) {
+    public void setExtent(Integer extent) {
         this.extent = extent;
     }
 
     /**
      * @return the area
      */
-    public int getArea() {
+    public Integer getArea() {
         return this.area;
     }
 
@@ -377,14 +378,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param area
      *            the area to set
      */
-    public void setArea(int area) {
+    public void setArea(Integer area) {
         this.area = area;
     }
 
     /**
      * @return the numspots
      */
-    public int getNumspots() {
+    public Integer getNumspots() {
         return this.numspots;
     }
 
@@ -392,14 +393,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param numspots
      *            the numspots to set
      */
-    public void setNumspots(int numspots) {
+    public void setNumspots(Integer numspots) {
         this.numspots = numspots;
     }
 
     /**
      * @return the zurich
      */
-    public int getZurich() {
+    public Integer getZurich() {
         return this.zurich;
     }
 
@@ -407,14 +408,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param zurich
      *            the zurich to set
      */
-    public void setZurich(int zurich) {
+    public void setZurich(Integer zurich) {
         this.zurich = zurich;
     }
 
     /**
      * @return the penumbra
      */
-    public int getPenumbra() {
+    public Integer getPenumbra() {
         return this.penumbra;
     }
 
@@ -422,7 +423,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param penumbra
      *            the penumbra to set
      */
-    public void setPenumbra(int penumbra) {
+    public void setPenumbra(Integer penumbra) {
         this.penumbra = penumbra;
     }
 
@@ -459,7 +460,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the magcode
      */
-    public int getMagcode() {
+    public Integer getMagcode() {
         return this.magcode;
     }
 
@@ -467,7 +468,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param magcode
      *            the magcode to set
      */
-    public void setMagcode(int magcode) {
+    public void setMagcode(Integer magcode) {
         this.magcode = magcode;
     }
 
@@ -489,7 +490,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the obsid
      */
-    public int getObsid() {
+    public Integer getObsid() {
         return this.obsid;
     }
 
@@ -497,14 +498,14 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param obsid
      *            the obsid to set
      */
-    public void setObsid(int obsid) {
+    public void setObsid(Integer obsid) {
         this.obsid = obsid;
     }
 
     /**
      * @return the reportStatus
      */
-    public int getReportStatus() {
+    public Integer getReportStatus() {
         return this.reportStatus;
     }
 
@@ -512,7 +513,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param reportStatus
      *            the reportStatus to set
      */
-    public void setReportStatus(int reportStatus) {
+    public void setReportStatus(Integer reportStatus) {
         this.reportStatus = reportStatus;
     }
 
