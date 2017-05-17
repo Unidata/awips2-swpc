@@ -133,81 +133,92 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         switch (columnIndex) {
 
         case EditRegionsUIConstants.COLUMN_INDEX_STATION:
-            return String.valueOf(report.getStation());
+            return convertToDisplay(report.getStation());
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
-            return String.valueOf(report.getObservatory());
+            return convertToDisplay(report.getObservatory());
 
         case EditRegionsUIConstants.COLUMN_INDEX_TYPE:
-            return report.getType();
+            return convertToDisplay(report.getType());
 
         case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
-            return String.valueOf(report.getQuality());
+            return convertToDisplay(report.getQuality());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REGION:
-            return String.valueOf(report.getRegion());
+            return convertToDisplay(report.getRegion());
 
         case EditRegionsUIConstants.COLUMN_INDEX_LATITUDE:
-            return String.valueOf(report.getLatitude());
+            return convertToDisplay(report.getLatitude());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LONGITUDE:
-            return String.valueOf(report.getReportLongitude());
+            return convertToDisplay(report.getReportLongitude());
 
         case EditRegionsUIConstants.COLUMN_INDEX_LONGITUDE:
-            return String.valueOf(report.getLongitude());
+            return convertToDisplay(report.getLongitude());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LOCATION:
-            return report.getReportLocation();
+            return convertToDisplay(report.getReportLocation());
 
         case EditRegionsUIConstants.COLUMN_INDEX_LOCATION:
-            return report.getLocation();
+            return convertToDisplay(report.getLocation());
 
         case EditRegionsUIConstants.COLUMN_INDEX_CARLON:
-            return String.valueOf(report.getCarlon());
+            return convertToDisplay(report.getCarlon());
 
         case EditRegionsUIConstants.COLUMN_INDEX_EXTENT:
-            return String.valueOf(report.getExtent());
+            return convertToDisplay(report.getExtent());
 
         case EditRegionsUIConstants.COLUMN_INDEX_AREA:
-            return String.valueOf(report.getArea());
+            return convertToDisplay(report.getArea());
 
         case EditRegionsUIConstants.COLUMN_INDEX_NUMSPOTS:
-            return String.valueOf(report.getNumspots());
+            return convertToDisplay(report.getNumspots());
 
         case EditRegionsUIConstants.COLUMN_INDEX_ZURICH:
-            return String.valueOf(report.getZurich());
+            return convertToDisplay(report.getZurich());
 
         case EditRegionsUIConstants.COLUMN_INDEX_PENUMBRA:
-            return String.valueOf(report.getPenumbra());
+            return convertToDisplay(report.getPenumbra());
 
         case EditRegionsUIConstants.COLUMN_INDEX_COMPACT:
-            return report.getCompact();
+            return convertToDisplay(report.getCompact());
 
         case EditRegionsUIConstants.COLUMN_INDEX_SPOTCLASS:
-            return report.getSpotclass();
+            return convertToDisplay(report.getSpotclass());
 
         case EditRegionsUIConstants.COLUMN_INDEX_MAGCODE:
-            return String.valueOf(report.getMagcode());
+            return convertToDisplay(report.getMagcode());
 
         case EditRegionsUIConstants.COLUMN_INDEX_MAGCLASS:
-            return report.getMagclass();
+            return convertToDisplay(report.getMagclass());
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSID:
-            return String.valueOf(report.getObsid());
+            return convertToDisplay(report.getObsid());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_STATUS:
-            return String.valueOf(report.getReportStatus());
+            return convertToDisplay(report.getReportStatus());
 
         case EditRegionsUIConstants.COLUMN_INDEX_VALID_SPOT_CLASS:
-            return String.valueOf(report.isValidSpotClass());
+            return convertToDisplay(report.isValidSpotClass());
 
         default:
             return "";
         }
     }
 
+    /**
+     * Convert the element into text for display on the Edit Regions GUI. If the
+     * element is not null, the toString() element is called on the element.
+     * Otherwise, an empty string is returned.
+     * 
+     * @param element
+     * @return
+     */
+    private static String convertToDisplay(Object element) {
+        return element != null ? element.toString() : "";
+    }
+
     public int getColumnCount() {
-        // TODO: Set a constant.
         return EditRegionsUIConstants.COLUMN_COUNT;
     }
 
