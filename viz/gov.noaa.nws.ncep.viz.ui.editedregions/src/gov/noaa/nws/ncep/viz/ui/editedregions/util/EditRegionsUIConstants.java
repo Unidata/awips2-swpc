@@ -38,13 +38,14 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
 public interface EditRegionsUIConstants {
 
-    public static final String[] COLUMNS = new String[] { "Date", "Obstime",
-            "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
-            "Spot Class", "Mag Class", "Mag Str", "Region" };
+    public static final String[] COLUMNS = new String[] { "Station",
+            "Observatory", "Type", "Quality", "Region", "Latitude",
+            "Report Longitude", "Longitude", "Report Location", "Location",
+            "Carlon", "Extent", "Area", "Numspots", "Zurich", "Penumbra",
+            "Compact", "Spotclass", "Magcode", "Magclass", "Obsid",
+            "Report Status", "Valid Spot Class" };
 
-    public static final String[] TOOLTIPS = new String[] { "Date", "Obstime",
-            "Obs", "Q", "00Z Loc", "Rpt Loc", "Lo", "LL", "Area", "Num Spots",
-            "Spot Class", "Mag Class", "Mag Str", "Region" };
+    public static final String[] TOOLTIPS = COLUMNS.clone();
 
     public static final int COLUMN_COUNT = 23;
 
