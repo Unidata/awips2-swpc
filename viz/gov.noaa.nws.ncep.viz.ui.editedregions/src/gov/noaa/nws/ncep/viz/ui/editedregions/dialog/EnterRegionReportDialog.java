@@ -25,53 +25,103 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsValidationUtil;
 
 public class EnterRegionReportDialog extends Dialog {
 
     // Input fields
+
+    private Combo cmbStation;
+
+    private Label lblStation;
+
     private Combo cmbObservatory;
+
+    private Label lblObservatory;
 
     private Text txtType;
 
+    private Label lblType;
+
     private Combo cmbQuality;
+
+    private Label lblQuality;
 
     private Text txtRegion;
 
+    private Label lblRegion;
+
     private Text txtLatitude;
+
+    private Label lblLatitude;
 
     private Text txtReportLongitude;
 
+    private Label lblReportLongitude;
+
     private Text txtLongitude;
+
+    private Label lblLongitude;
 
     private Text txtReportLocation;
 
+    private Label lblReportLocation;
+
     private Text txtLocation;
+
+    private Label lblLocation;
 
     private Text txtCarlon;
 
+    private Label lblCarlon;
+
     private Text txtExtent;
+
+    private Label lblExtent;
 
     private Text txtArea;
 
+    private Label lblArea;
+
     private Text txtNumspots;
+
+    private Label lblNumspots;
 
     private Combo cmbZurich;
 
+    private Label lblZurich;
+
     private Combo cmbPenumbra;
+
+    private Label lblPenumbra;
 
     private Combo cmbCompact;
 
+    private Label lblCompact;
+
     private Text txtSpotClass;
+
+    private Label lblSpotClass;
 
     private Combo cmbMagcode;
 
+    private Label lblMagcode;
+
     private Combo cmbMagclass;
+
+    private Label lblMagclass;
 
     private Combo cmbObsid;
 
+    private Label lblObsid;
+
     private Combo cmbReportStatus;
 
+    private Label lblReportStatus;
+
     private Combo cmbValidSpotClass;
+
+    private Label lblValidSpotClass;
 
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterRegionReportDialog.class);
@@ -114,9 +164,44 @@ public class EnterRegionReportDialog extends Dialog {
      * 
      * @return
      */
-    private boolean validateData() {
-        // TODO: Add implementation
-        return true;
+    private boolean validateRegionReportData() {
+        boolean pass = true;
+
+        pass &= EditRegionsValidationUtil.validateInteger(cmbQuality.getText(),
+                lblQuality);
+        pass &= EditRegionsValidationUtil.validateInteger(txtRegion.getText(),
+                lblRegion);
+        pass &= EditRegionsValidationUtil.validateInteger(txtLatitude.getText(),
+                lblLatitude);
+        pass &= EditRegionsValidationUtil.validateInteger(
+                txtReportLongitude.getText(), lblReportLongitude);
+        pass &= EditRegionsValidationUtil
+                .validateInteger(txtLongitude.getText(), lblLongitude);
+        pass &= EditRegionsValidationUtil.validateInteger(txtCarlon.getText(),
+                lblCarlon);
+        pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
+                lblExtent);
+        pass &= EditRegionsValidationUtil.validateInteger(txtArea.getText(),
+                lblArea);
+        pass &= EditRegionsValidationUtil.validateInteger(txtNumspots.getText(),
+                lblNumspots);
+        pass &= EditRegionsValidationUtil.validateInteger(cmbZurich.getText(),
+                lblZurich);
+        pass &= EditRegionsValidationUtil.validateInteger(cmbPenumbra.getText(),
+                lblPenumbra);
+        pass &= EditRegionsValidationUtil.validateInteger(cmbMagcode.getText(),
+                lblMagcode);
+        pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
+                lblExtent);
+        pass &= EditRegionsValidationUtil
+                .validateInteger(cmbReportStatus.getText(), lblReportStatus);
+        pass &= EditRegionsValidationUtil.validateInteger(
+                cmbValidSpotClass.getText(), lblValidSpotClass);
+
+        this.getShell().layout(true, true);
+
+        return pass;
+
     }
 
     private static String getSelection(Combo combo) {
@@ -125,6 +210,18 @@ public class EnterRegionReportDialog extends Dialog {
             return combo.getItem(index);
         }
         return null;
+    }
+
+    /**
+     * 
+     * @param value
+     * @return null if the string is empty, return an Integer object.
+     */
+    private static Integer convertInt(String value) {
+        if (value.equals("")) {
+            return null;
+        }
+        return Integer.valueOf(Integer.parseInt(value));
     }
 
     /**
@@ -141,26 +238,25 @@ public class EnterRegionReportDialog extends Dialog {
 
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
-        report.setQuality(Integer.parseInt(getSelection(cmbQuality)));
-        report.setRegion(Integer.parseInt(txtRegion.getText()));
-        report.setLatitude(Integer.parseInt(txtLatitude.getText()));
-        report.setReportLongitude(
-                Integer.parseInt(txtReportLongitude.getText()));
-        report.setLongitude(Integer.parseInt(txtLongitude.getText()));
+        report.setQuality(convertInt(getSelection(cmbQuality)));
+        report.setRegion(convertInt(txtRegion.getText()));
+        report.setLatitude(convertInt(txtLatitude.getText()));
+        report.setReportLongitude(convertInt(txtReportLongitude.getText()));
+        report.setLongitude(convertInt(txtLongitude.getText()));
         report.setReportLocation(txtReportLocation.getText());
         report.setLocation(txtLocation.getText());
-        report.setCarlon(Integer.parseInt(txtCarlon.getText()));
-        report.setExtent(Integer.parseInt(txtExtent.getText()));
-        report.setArea(Integer.parseInt(txtArea.getText()));
-        report.setNumspots(Integer.parseInt(txtNumspots.getText()));
-        report.setZurich(Integer.parseInt(getSelection(cmbZurich)));
-        report.setPenumbra(Integer.parseInt(getSelection(cmbPenumbra)));
+        report.setCarlon(convertInt(txtCarlon.getText()));
+        report.setExtent(convertInt(txtExtent.getText()));
+        report.setArea(convertInt(txtArea.getText()));
+        report.setNumspots(convertInt(txtNumspots.getText()));
+        report.setZurich(convertInt(getSelection(cmbZurich)));
+        report.setPenumbra(convertInt(getSelection(cmbPenumbra)));
         report.setCompact(getSelection(cmbCompact));
         report.setSpotclass(txtSpotClass.getText());
-        report.setMagcode(Integer.parseInt(getSelection(cmbMagcode)));
+        report.setMagcode(convertInt(getSelection(cmbMagcode)));
         report.setMagclass(getSelection(cmbMagclass));
-        report.setObsid(Integer.parseInt(getSelection(cmbObsid)));
-        report.setReportStatus(Integer.parseInt(getSelection(cmbReportStatus)));
+        report.setObsid(convertInt(getSelection(cmbObsid)));
+        report.setReportStatus(convertInt(getSelection(cmbReportStatus)));
         report.setValidSpotClass(!"0".equals(getSelection(cmbValidSpotClass)));
 
         return report;
@@ -169,7 +265,7 @@ public class EnterRegionReportDialog extends Dialog {
     @Override
     protected void okPressed() {
         try {
-            if (validateData()) {
+            if (validateRegionReportData()) {
                 RegionReport report = buildRegionReport();
                 EditRegionsServerUtil.saveNewRegionReport(report);
 
@@ -232,7 +328,6 @@ public class EnterRegionReportDialog extends Dialog {
     private Text addTextControl(Composite parent, String label) {
         new Label(parent, SWT.LEFT).setText(label);
         Text text = new Text(parent, SWT.BORDER);
-        new Label(parent, SWT.LEFT).setText(" ");
         return text;
     }
 
@@ -249,8 +344,13 @@ public class EnterRegionReportDialog extends Dialog {
         Combo combo = new Combo(parent, SWT.DROP_DOWN ^ SWT.READ_ONLY);
         combo.setItems(items);
         combo.select(0);
-        new Label(parent, SWT.LEFT).setText(" ");
         return combo;
+    }
+
+    private Label addLabel(Composite parent) {
+        Label label = new Label(parent, SWT.LEFT);
+        label.setText("");
+        return label;
     }
 
     /**
@@ -266,83 +366,125 @@ public class EnterRegionReportDialog extends Dialog {
         composite.setLayoutData(
                 new GridData(GridData.FILL, GridData.FILL, true, true));
 
-        new Label(composite, SWT.LEFT).setText(" ");
-
         // Observatory field
         cmbObservatory = addComboControl(composite, "Observatory",
                 new String[] { "APLM", "KHMN", "LISS" });
 
+        lblObservatory = addLabel(composite);
+
         // Type field
         txtType = addTextControl(composite, "Type");
+
+        lblType = addLabel(composite);
 
         // Quality field
         cmbQuality = addComboControl(composite, "Quality",
                 new String[] { "4", "5" });
 
+        lblQuality = addLabel(composite);
+
         // Region field
         txtRegion = addTextControl(composite, "Region");
+
+        lblRegion = addLabel(composite);
 
         // Latitude field
         txtLatitude = addTextControl(composite, "Latitude");
 
+        lblLatitude = addLabel(composite);
+
         // Report Longitude field
         txtReportLongitude = addTextControl(composite, "Report Longitude");
+
+        lblReportLongitude = addLabel(composite);
 
         // Longitude field
         txtLongitude = addTextControl(composite, "Longitude");
 
+        lblLongitude = addLabel(composite);
+
         // Report Location field
         txtReportLocation = addTextControl(composite, "Report Location");
+
+        lblReportLocation = addLabel(composite);
 
         // Location field
         txtLocation = addTextControl(composite, "Location");
 
+        lblLocation = addLabel(composite);
+
         // Carlon field
         txtCarlon = addTextControl(composite, "Carlon");
+
+        lblCarlon = addLabel(composite);
 
         // Extent field
         txtExtent = addTextControl(composite, "Extent");
 
+        lblExtent = addLabel(composite);
+
         // Area field
         txtArea = addTextControl(composite, "Area");
 
+        lblArea = addLabel(composite);
+
         // Num spots field
         txtNumspots = addTextControl(composite, "Num spots");
+
+        lblNumspots = addLabel(composite);
 
         // Zurich field
         cmbZurich = addComboControl(composite, "Zurich",
                 new String[] { "1", "2", "3", "4", "5", "6", "7" });
 
+        lblZurich = addLabel(composite);
+
         // Penumbra field
         cmbPenumbra = addComboControl(composite, "Penumbra",
                 new String[] { "0", "1", "2", "3", "4", "5" });
+
+        lblPenumbra = addLabel(composite);
 
         // Compact field
         cmbCompact = addComboControl(composite, "Compact",
                 new String[] { "/", "7", "8", "9" });
 
+        lblCompact = addLabel(composite);
+
         // Spotclass field
         txtSpotClass = addTextControl(composite, "Spot class");
+
+        lblSpotClass = addLabel(composite);
 
         // Magcode field
         cmbMagcode = addComboControl(composite, "Magcode",
                 new String[] { "1", "2", "3", "4", "5", "6", "7" });
 
+        lblMagcode = addLabel(composite);
+
         // Magclass field
         cmbMagclass = addComboControl(composite, "Magclass",
                 new String[] { "A", "B", "BG", "G", "BD", "BDG", "GD" });
+
+        lblMagclass = addLabel(composite);
 
         // Obsid field
         cmbObsid = addComboControl(composite, "Obsid",
                 new String[] { "1", "2", "3", "4" });
 
+        lblObsid = addLabel(composite);
+
         // Report Status field
         cmbReportStatus = addComboControl(composite, "Report Status",
                 new String[] { "1", "2", "3", "4" });
 
+        lblReportStatus = addLabel(composite);
+
         // ValidSpotClass field
         cmbValidSpotClass = addComboControl(composite, "Valid Spot Class",
                 new String[] { "0", "1" });
+
+        lblValidSpotClass = addLabel(composite);
 
     }
 
