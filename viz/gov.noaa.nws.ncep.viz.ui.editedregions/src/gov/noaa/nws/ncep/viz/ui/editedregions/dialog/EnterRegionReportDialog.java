@@ -204,6 +204,13 @@ public class EnterRegionReportDialog extends Dialog {
 
     }
 
+    /**
+     * 
+     * @param combo
+     *            the combo box
+     * @return The currently selected item in the Combo control, or null if none
+     *         are selected.
+     */
     private static String getSelection(Combo combo) {
         int index = combo.getSelectionIndex();
         if (index >= 0) {
@@ -279,7 +286,7 @@ public class EnterRegionReportDialog extends Dialog {
                         SWT.ICON_ERROR ^ SWT.OK);
                 mb.setText("Please correct errors.");
                 mb.setMessage(
-                        "Your data could not be validated. Please re-enter data and try again.");
+                        "Your data could not be validated. Please address errors and try again.");
                 mb.open();
                 return;
             }
@@ -290,6 +297,12 @@ public class EnterRegionReportDialog extends Dialog {
         super.okPressed();
     }
 
+    /**
+     * Perform an initialization of all components on this dialog.
+     * 
+     * @param parent
+     *            The parent composite
+     */
     private void initializeComponents(Composite parent) {
         getShell().setText("Enter new region report.");
 
@@ -347,6 +360,12 @@ public class EnterRegionReportDialog extends Dialog {
         return combo;
     }
 
+    /**
+     * Adds a new Label control to the parent composite.
+     * 
+     * @param parent
+     * @return the Label control
+     */
     private Label addLabel(Composite parent) {
         Label label = new Label(parent, SWT.LEFT);
         label.setText("");

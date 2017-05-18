@@ -1,6 +1,5 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -11,10 +10,8 @@ import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.ILabelProviderListener;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -42,26 +39,13 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 public class EditRegionsLabelProvider implements ITableLabelProvider {
 
-    /**
-     * List of bin numbers that are displayed in the cell editor for the "Bin"
-     * column.
-     */
-    private String[] bins = null;
-
     private long beginDTTM = 0L;
-
-    /**
-     * Date format
-     */
-    protected SimpleDateFormat dateFormatWithoutTime = new SimpleDateFormat(
-            "dd MMM yyyy");
 
     /**
      * Constructor
      *
      */
-    public EditRegionsLabelProvider(String[] bins, long beginDTTM) {
-        this.bins = bins;
+    public EditRegionsLabelProvider(long beginDTTM) {
         this.beginDTTM = beginDTTM;
     }
 
@@ -218,6 +202,10 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         return element != null ? element.toString() : "";
     }
 
+    /**
+     * 
+     * @return The number of region report columns.
+     */
     public int getColumnCount() {
         return EditRegionsUIConstants.COLUMN_COUNT;
     }
@@ -312,44 +300,6 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
 
             // TODO: add code, or nuke this subclass.
         }
-
-    }
-
-    private class ComboContentProvider implements IStructuredContentProvider {
-        @Override
-        public Object[] getElements(Object inputElement) {
-            Object[] result = null;
-
-            if (inputElement instanceof String[]) {
-                result = (String[]) inputElement;
-            }
-            return result;
-        }
-
-        @Override
-        public void dispose() {
-        }
-
-        @Override
-        public void inputChanged(Viewer viewer, Object oldInput,
-                Object newInput) {
-
-        }
-    }
-
-    /**
-     * @return the bins
-     */
-    public String[] getBins() {
-        return bins;
-    }
-
-    /**
-     * @param bins
-     *            the bins to set
-     */
-    public void setBins(String[] bins) {
-        this.bins = bins;
     }
 
     /**

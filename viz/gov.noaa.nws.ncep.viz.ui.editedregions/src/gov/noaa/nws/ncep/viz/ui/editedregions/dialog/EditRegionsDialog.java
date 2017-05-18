@@ -289,7 +289,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         tableViewer.setContentProvider(new ArrayContentProvider());
         // tableViewer.setInput(this.getEvents());
 
-        labelProvider = new EditRegionsLabelProvider(new String[0],
+        labelProvider = new EditRegionsLabelProvider(
                 System.currentTimeMillis());
 
         // Create the columns
