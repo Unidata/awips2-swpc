@@ -37,26 +37,27 @@ import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 @SuppressWarnings("rawtypes")
 @DynamicSerialize
 @Entity
-@Table(name = "SWPC_PENUMBRA")
-public class Penumbra extends PersistableDataObject implements ISWPCBaseTable {
+@Table(name = "SWPC_PENUMBRAL_CLASS")
+public class PenumbralClass extends PersistableDataObject implements ISWPCBaseTable {
 
     private static final long serialVersionUID = -2052838874371396188L;
 
     public static final String ID = "id";
+    
+    public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
 
-    public static final String TYPE = "type";
 
     @Id
     @DynamicSerializeElement
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_penumbra_seq_gen")
-    @SequenceGenerator(name = "swpc_penumbra_seq_gen", sequenceName = "SWPC_PENUMBRA_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_penumbral_class_seq_gen")
+    @SequenceGenerator(name = "swpc_penumbral_class_seq_gen", sequenceName = "SWPC_PENUMBRAL_CLASS_SEQ")
     private long id = 0;
 
-    @Column(name = "TYPE", unique = true, nullable = false)
+    @Column(name = "CODE", unique = true, nullable = false)
     @DynamicSerializeElement
-    private Integer type = null;
+    private Integer code = null;
 
     @Embedded
     @ManyToOne(cascade = { CascadeType.REFRESH })
@@ -67,7 +68,7 @@ public class Penumbra extends PersistableDataObject implements ISWPCBaseTable {
     /**
      * 
      */
-    public Penumbra() {
+    public PenumbralClass() {
     }
 
     @Override
@@ -85,7 +86,7 @@ public class Penumbra extends PersistableDataObject implements ISWPCBaseTable {
      * @return the type
      */
     public Integer getType() {
-        return type;
+        return code;
     }
 
     /**
@@ -93,7 +94,7 @@ public class Penumbra extends PersistableDataObject implements ISWPCBaseTable {
      *            the type to set
      */
     public void setType(Integer type) {
-        this.type = type;
+        this.code = type;
     }
 
     /**
