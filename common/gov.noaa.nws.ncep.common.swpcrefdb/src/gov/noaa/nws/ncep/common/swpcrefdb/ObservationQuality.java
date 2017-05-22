@@ -19,7 +19,7 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 /**
- * Class representing the SWPC_OBSERVATION_TYPE table.
+ * Class representing the SWPC_OBSERVATION_QUALITY table.
  * 
  * <pre>
  * 
@@ -37,8 +37,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @SuppressWarnings("rawtypes")
 @DynamicSerialize
 @Entity
-@Table(name = "SWPC_OBSERVATION_TYPE")
-public class ObservationType extends PersistableDataObject implements ISWPCBaseTable {
+@Table(name = "SWPC_OBSERVATION_QUALITY")
+public class ObservationQuality extends PersistableDataObject implements ISWPCBaseTable {
 
     private static final long serialVersionUID = -2052838874371396178L;   
 
@@ -46,12 +46,12 @@ public class ObservationType extends PersistableDataObject implements ISWPCBaseT
     
     public static final String TYPE = "type";
 
-    public static final String DESCRIPTION = "description"; 
+    public static final String DESCRIPTION = "description";
     
     @Id
     @DynamicSerializeElement
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_observation_type_seq_gen")
-    @SequenceGenerator(name = "swpc_observation_type_seq_gen", sequenceName = "SWPC_OBSERVATION_TYPE_SEQ")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_observation_quality_seq_gen")
+    @SequenceGenerator(name = "swpc_observation_quality_seq_gen", sequenceName = "SWPC_OBSERVATION_QUALITY_SEQ")
     private long id = 0;
 
 
@@ -68,19 +68,19 @@ public class ObservationType extends PersistableDataObject implements ISWPCBaseT
     /**
 	 * 
 	 */
-    public ObservationType() {
+    public ObservationQuality() {
     }
 
-	/**
-	 * @return
+	/* (non-Javadoc)
+	 * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
 	 */
 	@Override
 	public long getId() {
 		return this.id;
 	}
 
-	/**
-	 * @param id
+	/* (non-Javadoc)
+	 * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
 	 */
 	@Override
 	public void setId(long id) {
