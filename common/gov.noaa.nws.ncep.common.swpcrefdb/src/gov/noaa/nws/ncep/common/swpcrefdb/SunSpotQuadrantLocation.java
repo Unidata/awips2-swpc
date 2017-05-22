@@ -44,7 +44,7 @@ public class SunSpotQuadrantLocation extends PersistableDataObject implements IS
 
     public static final String ID = "id"; 
     
-    public static final String TYPE = "type";
+    public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
     
@@ -55,9 +55,9 @@ public class SunSpotQuadrantLocation extends PersistableDataObject implements IS
     private long id = 0;
 
 
-    @Column(name = "TYPE", unique = true, nullable = false)
+    @Column(name = "CODE", unique = true, nullable = false)
     @DynamicSerializeElement
-    private Integer type = null;
+    private Integer code = null;
 
     @Embedded
     @ManyToOne(cascade = { CascadeType.REFRESH })
@@ -92,14 +92,14 @@ public class SunSpotQuadrantLocation extends PersistableDataObject implements IS
 	 * @return the type
 	 */
 	public Integer getType() {
-		return type;
+		return code;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
 	public void setType(Integer type) {
-		this.type = type;
+		this.code = type;
 	}
 
 	/**
