@@ -1,13 +1,11 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -59,7 +57,7 @@ public class SpotClass extends PersistableDataObject implements ISWPCBaseTable {
     private Integer type = null;
 
     @Embedded
-    @ManyToOne(cascade = { CascadeType.REFRESH })
+    // @ManyToOne(cascade = { CascadeType.REFRESH })
     @PrimaryKeyJoinColumn
     @DynamicSerializeElement
     private String description;

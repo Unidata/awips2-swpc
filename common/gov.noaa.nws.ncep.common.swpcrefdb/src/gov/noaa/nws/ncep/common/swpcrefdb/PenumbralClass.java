@@ -1,13 +1,11 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -38,16 +36,16 @@ import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 @DynamicSerialize
 @Entity
 @Table(name = "SWPC_PENUMBRAL_CLASS")
-public class PenumbralClass extends PersistableDataObject implements ISWPCBaseTable {
+public class PenumbralClass extends PersistableDataObject
+        implements ISWPCBaseTable {
 
     private static final long serialVersionUID = -2052838874371396188L;
 
     public static final String ID = "id";
-    
+
     public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
-
 
     @Id
     @DynamicSerializeElement
@@ -60,7 +58,7 @@ public class PenumbralClass extends PersistableDataObject implements ISWPCBaseTa
     private Integer code = null;
 
     @Embedded
-    @ManyToOne(cascade = { CascadeType.REFRESH })
+    // @ManyToOne(cascade = { CascadeType.REFRESH })
     @PrimaryKeyJoinColumn
     @DynamicSerializeElement
     private String description;
