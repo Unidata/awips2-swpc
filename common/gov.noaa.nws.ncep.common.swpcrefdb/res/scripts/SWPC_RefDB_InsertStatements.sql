@@ -3,7 +3,6 @@ INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (2,'
 INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (3,'Southwest');
 INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (4,'Northwest');
 
-
 INSERT into awips.swpc_satellite_tracking_status (id, description) VALUES (1, 'Primary');
 INSERT into awips.swpc_satellite_tracking_status (id, description) VALUES (2, 'Secondary');
 INSERT into awips.swpc_satellite_tracking_status (id, description) VALUES (3, 'Tertiary');
