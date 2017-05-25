@@ -160,6 +160,16 @@ public class EnterRegionReportDialog extends Dialog {
     }
 
     /**
+     * Populate the dialog with data from an existing RegionReport object. Used
+     * when updating reports.
+     * 
+     * @param report
+     */
+    public void populateData(RegionReport report) {
+        // TODO: Implement me!
+    }
+
+    /**
      * Verify that the data provided is valid.
      * 
      * @return

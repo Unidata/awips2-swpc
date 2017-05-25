@@ -16,6 +16,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
@@ -42,10 +45,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
@@ -746,14 +751,51 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     /**
      * Create the context menu that is displayed when right clicking on a
-     * selected region
+     * selected region report.
      */
     private void createContextMenu(TableViewer tableViewer) {
 
         // add a popup menu for the selected row
+        MenuManager menuManager = new MenuManager();
+        IAction updateRegionReportAction = new UpdateRegionReportAction(
+                tableViewer.getTable());
+        menuManager.add(updateRegionReportAction);
 
-        // TODO: add code or delete function.
+        Menu menu = menuManager.createContextMenu(tableViewer.getTable());
+        tableViewer.getTable().setMenu(menu);
 
+    }
+
+    /**
+     * Action class responsible for updating the selected region report.
+     *
+     * @author alockleigh
+     */
+    private final class UpdateRegionReportAction extends Action {
+        private final Table table;
+
+        public UpdateRegionReportAction(Table table) {
+            super("Update report");
+            this.table = Objects.requireNonNull(table, "table");
+        }
+
+        @Override
+        public void run() {
+            int index = this.table.getSelectionIndex();
+            if (index < 0) {
+                return;
+            }
+
+            TableItem item = this.table.getItem(index);
+            RegionReport report = (RegionReport) item.getData();
+
+            EnterRegionReportDialog regionReportDlg = new EnterRegionReportDialog(
+                    EditRegionsDialog.this.getShell());
+            regionReportDlg.populateData(report);
+            if (regionReportDlg.open() == Window.OK) {
+
+            }
+        }
     }
 
     /**
