@@ -700,6 +700,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             EnterRegionReportDialog regionReportDlg = new EnterRegionReportDialog(
                     EditRegionsDialog.this.getShell());
+            regionReportDlg.create();
             regionReportDlg.populateData(report);
             if (regionReportDlg.open() == Window.OK) {
 
