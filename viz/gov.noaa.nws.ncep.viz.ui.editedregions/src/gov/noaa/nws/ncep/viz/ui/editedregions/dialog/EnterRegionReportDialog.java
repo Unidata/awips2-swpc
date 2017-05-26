@@ -160,13 +160,61 @@ public class EnterRegionReportDialog extends Dialog {
     }
 
     /**
+     * Select the item on the Combo control that matches the given item. If no
+     * items match, this function does nothing.
+     * 
+     * @param combo
+     * @param item
+     */
+    private static final void selectItem(Combo combo, Object value) {
+        String valueStr = convertToString(value);
+        for (int index = 0; index < combo.getItemCount(); index++) {
+            String item = combo.getItem(index);
+            if (valueStr.equals(item)) {
+                combo.select(index);
+            }
+        }
+    }
+
+    /**
+     * 
+     * @param value
+     * @return value.toString() is the value is not null, empty string
+     *         otherwise.
+     */
+    private static final String convertToString(Object obj) {
+        return (obj != null) ? obj.toString() : "";
+    }
+
+    /**
      * Populate the dialog with data from an existing RegionReport object. Used
      * when updating reports.
      * 
      * @param report
      */
     public void populateData(RegionReport report) {
-        // TODO: Implement me!
+        selectItem(cmbStation, report.getStation());
+        selectItem(cmbObservatory, report.getObservatory());
+        txtType.setText(report.getType());
+        selectItem(cmbQuality, report.getQuality());
+        txtRegion.setText(convertToString(report.getRegion()));
+        txtLatitude.setText(convertToString(report.getLatitude()));
+        txtReportLongitude
+                .setText(convertToString(report.getReportLongitude()));
+        txtLongitude.setText(convertToString(report.getLongitude()));
+        txtReportLocation.setText(convertToString(report.getReportLocation()));
+        txtLocation.setText(convertToString(report.getLocation()));
+        txtCarlon.setText(convertToString(report.getCarlon()));
+        txtExtent.setText(convertToString(report.getExtent()));
+        txtArea.setText(convertToString(report.getArea()));
+        txtNumspots.setText(convertToString(report.getNumspots()));
+        selectItem(cmbZurich, report.getZurich());
+        selectItem(cmbPenumbra, report.getPenumbra());
+        selectItem(cmbCompact, report.getCompact());
+        txtSpotClass.setText(convertToString(report.getSpotclass()));
+        selectItem(cmbObsid, report.getObsid());
+        selectItem(cmbReportStatus, report.getReportStatus());
+        selectItem(cmbValidSpotClass, report.isValidSpotClass() ? "1" : "0");
     }
 
     /**
