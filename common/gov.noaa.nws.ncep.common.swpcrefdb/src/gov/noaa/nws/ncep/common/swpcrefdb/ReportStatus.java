@@ -2,15 +2,11 @@ package gov.noaa.nws.ncep.common.swpcrefdb;
 
 import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -52,18 +48,18 @@ public class ReportStatus extends PersistableDataObject implements ISWPCBaseTabl
     @DynamicSerializeElement
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_report_status_seq_gen")
     @SequenceGenerator(name = "swpc_report_status_seq_gen", sequenceName = "SWPC_REPORT_STATUS_SEQ")
+    @Column(name = "ID", unique = true, nullable = false)
     private long id = 0;
 
 
     @Column(name = "CODE", unique = true, nullable = false)
     @DynamicSerializeElement
-    private Integer code = null;
+    private String code = null;
 
-    @Embedded
-    @ManyToOne(cascade = { CascadeType.REFRESH })
-    @PrimaryKeyJoinColumn
+
+    @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
-    private StationType description;
+    private String description;
 
     /**
 	 * 
@@ -91,28 +87,28 @@ public class ReportStatus extends PersistableDataObject implements ISWPCBaseTabl
 	/**
 	 * @return the type
 	 */
-	public Integer getType() {
+	public String getType() {
 		return code;
 	}
 
 	/**
 	 * @param type the type to set
 	 */
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.code = type;
 	}
 
 	/**
 	 * @return the description
 	 */
-	public StationType getDescription() {
+	public String getDescription() {
 		return description;
 	}
 
 	/**
 	 * @param description the description to set
 	 */
-	public void setDescription(StationType description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

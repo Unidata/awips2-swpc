@@ -1,7 +1,49 @@
-INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (1,'Northeast');
-INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (2,'Southeast');
-INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (3,'Southwest');
-INSERT into awips.swpc_sunspot_quadrant_location (type, description) VALUES (4,'Northwest');
+INSERT into awips.swpc_sunspot_quadrant_location (id, description) VALUES (1, 'Northeast');
+INSERT into awips.swpc_sunspot_quadrant_location (id, description) VALUES (2, 'Southeast');
+INSERT into awips.swpc_sunspot_quadrant_location (id, description) VALUES (3, 'Southwest');
+INSERT into awips.swpc_sunspot_quadrant_location (id, description) VALUES (4, 'Northwest');
+
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (1, '/', 'Single spot or unipolar group');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (2, '7', 'Open Distribution');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (3, '8', 'Intermediate Distribution');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (4, '9', 'Compact Distribution');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (5, 'X', 'Single spot or unipolar group');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (6, 'O', 'open Distribution');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (7, 'I', 'Intermediate Distribution');
+INSERT into awips.swpc_sunspot_distribution (id, code, description) VALUES (8, 'C', 'Compact Distribution');
+
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (1, 'A', 'Unipolar; no penumbra; length (normally) less than 3 heliographic degrees');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (2, 'B', 'Bipolar; no penumbra; length (normally) 3 degrees or greater');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (3, 'C', 'Bipolar; penumbra on only one pole');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (4, 'D', 'Bipolar; penumbra on both poles; length less than or equal to 10 degrees');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (5, 'E', 'Bipolar; penumbra on both pols; length greater than 10 but less than or equal to 15 degrees');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (6, 'F', 'Bipolar; penumbra on both poles; length greater than 15 degrees');
+INSERT into awips.swpc_spot_class (id, code, description) VALUES (7, 'H', 'Unipolar; with penumbra');
+
+
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (0, 'X', 'No Penumbra');
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (1, 'R', 'Rudimentary Penumbra');
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (2, 'S', 'Small Symmetric Penumbra');
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (3, 'A', 'Small Asymmetric Penumbra');
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (4, 'H', 'Large Symmetric Penumbra');
+INSERT into awips.swpc_penumbral_class (id, code, description) VALUES (5, 'K', 'Large Asymmetric Penumbra');
+
+INSERT into awips.swpc_observation_type (id, description) VALUES (1,'Visual');
+INSERT into awips.swpc_observation_type (id, description) VALUES (2,'Not Used');
+INSERT into awips.swpc_observation_type (id, description) VALUES (3,'Projection');
+INSERT into awips.swpc_observation_type (id, description) VALUES (4,'Electronic');
+
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (1, 1, 'Very Poor');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (2, 2, 'Poor');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (3, 3, 'Fair');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (4, 4, 'Good');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (5, 5, 'Excellent');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (6, 6, 'No observation, weather causes');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (7, 7, 'No observation, equipment problem');
+INSERT into awips.swpc_observation_quality (id, code, description) VALUES (8, 8, 'No observation, other causes');
+
+INSERT into awips.swpc_report_status (id, code, description) VALUES (1, 'ASSIGNED', 'The report has been assigned to a specific solar region');
+INSERT into awips.swpc_report_status (id, code, description) VALUES (2, 'UNASSIGNED', 'The report has not been assigned to a specifc solar region');
 
 INSERT into awips.swpc_satellite_tracking_status (id, description) VALUES (1, 'Primary');
 INSERT into awips.swpc_satellite_tracking_status (id, description) VALUES (2, 'Secondary');

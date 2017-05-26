@@ -1,12 +1,10 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,7 +41,7 @@ public class SunSpotQuadrantLocation extends PersistableDataObject
 
     public static final String ID = "id";
 
-    public static final String CODE = "code";
+//    public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
 
@@ -51,17 +49,18 @@ public class SunSpotQuadrantLocation extends PersistableDataObject
     @DynamicSerializeElement
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_sunspot_quadrant_location_seq_gen")
     @SequenceGenerator(name = "swpc_sunspot_quadrant_location_seq_gen", sequenceName = "SWPC_SUNSPOT_QUADRANT_LOCATION_SEQ")
+    @Column(name = "ID", unique = true, nullable = false)
     private long id = 0;
 
-    @Column(name = "CODE", unique = true, nullable = false)
-    @DynamicSerializeElement
-    private Integer code = null;
+//    @Column(name = "CODE", unique = true, nullable = false)
+//    @DynamicSerializeElement
+//    private Integer code = null;
 
-    @Embedded
+//    @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
-    @PrimaryKeyJoinColumn
+    @Column(name = "DESCRIPTION", unique = true, nullable = false)
     @DynamicSerializeElement
-    private StationType description;
+    private String description;
 
     /**
      * 
@@ -90,25 +89,25 @@ public class SunSpotQuadrantLocation extends PersistableDataObject
 
     }
 
-    /**
-     * @return the type
-     */
-    public Integer getType() {
-        return code;
-    }
-
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType(Integer type) {
-        this.code = type;
-    }
+//    /**
+//     * @return the type
+//     */
+//    public Integer getType() {
+//        return code;
+//    }
+//
+//    /**
+//     * @param type
+//     *            the type to set
+//     */
+//    public void setType(Integer type) {
+//        this.code = type;
+//    }
 
     /**
      * @return the description
      */
-    public StationType getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -116,7 +115,7 @@ public class SunSpotQuadrantLocation extends PersistableDataObject
      * @param description
      *            the description to set
      */
-    public void setDescription(StationType description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 

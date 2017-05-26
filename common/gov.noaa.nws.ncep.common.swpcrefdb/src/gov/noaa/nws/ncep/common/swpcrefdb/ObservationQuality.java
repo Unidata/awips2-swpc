@@ -1,12 +1,10 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -51,17 +49,18 @@ public class ObservationQuality extends PersistableDataObject
     @DynamicSerializeElement
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_observation_quality_seq_gen")
     @SequenceGenerator(name = "swpc_observation_quality_seq_gen", sequenceName = "SWPC_OBSERVATION_QUALITY_SEQ")
+    @Column(name = "ID", unique = true, nullable = false)
     private long id = 0;
 
     @Column(name = "CODE", unique = true, nullable = false)
     @DynamicSerializeElement
     private Integer code = null;
 
-    @Embedded
+    //@Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
-    @PrimaryKeyJoinColumn
+    @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
-    private StationType description;
+    private String description;
 
     /**
      * 
@@ -108,7 +107,7 @@ public class ObservationQuality extends PersistableDataObject
     /**
      * @return the description
      */
-    public StationType getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -116,7 +115,7 @@ public class ObservationQuality extends PersistableDataObject
      * @param description
      *            the description to set
      */
-    public void setDescription(StationType description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
