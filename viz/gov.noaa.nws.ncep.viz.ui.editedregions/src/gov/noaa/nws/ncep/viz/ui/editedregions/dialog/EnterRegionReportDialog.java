@@ -443,6 +443,13 @@ public class EnterRegionReportDialog extends Dialog {
         composite.setLayoutData(
                 new GridData(GridData.FILL, GridData.FILL, true, true));
 
+        // Station field
+
+        cmbStation = addComboControl(composite, "Station",
+                new String[] { "Alpha", "Beta", "Delta" });
+
+        lblStation = addLabel(composite);
+
         // Observatory field
         cmbObservatory = addComboControl(composite, "Observatory",
                 new String[] { "APLM", "KHMN", "LISS" });
