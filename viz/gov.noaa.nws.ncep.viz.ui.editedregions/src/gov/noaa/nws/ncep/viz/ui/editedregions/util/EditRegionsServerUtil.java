@@ -5,10 +5,13 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 
 public final class EditRegionsServerUtil {
     private EditRegionsServerUtil() {
@@ -54,6 +57,24 @@ public final class EditRegionsServerUtil {
             }
         }
         return null;
+    }
 
+    public static RegionReport updateRegionReport(RegionReport report)
+            throws EditedRegionsException {
+        UpdateRegionReportRequest request = new UpdateRegionReportRequest();
+        request.setRegionReport(report);
+
+        if (request.isValid()) {
+            UpdateRegionReportResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                UpdateRegionReportResults results = (UpdateRegionReportResults) response
+                        .getResults();
+                return results.getReport();
+            }
+        }
+        return null;
     }
 }

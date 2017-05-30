@@ -126,6 +126,8 @@ public class EnterRegionReportDialog extends Dialog {
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterRegionReportDialog.class);
 
+    private Integer reportId = null;
+
     protected EnterRegionReportDialog(Shell parent) {
         super(parent);
     }
@@ -215,6 +217,14 @@ public class EnterRegionReportDialog extends Dialog {
         selectItem(cmbObsid, report.getObsid());
         selectItem(cmbReportStatus, report.getReportStatus());
         selectItem(cmbValidSpotClass, report.isValidSpotClass() ? "1" : "0");
+    }
+
+    public Integer getReportId() {
+        return this.reportId;
+    }
+
+    public void setReportId(Integer reportId) {
+        this.reportId = reportId;
     }
 
     /**
@@ -332,7 +342,11 @@ public class EnterRegionReportDialog extends Dialog {
         try {
             if (validateRegionReportData()) {
                 RegionReport report = buildRegionReport();
-                EditRegionsServerUtil.saveNewRegionReport(report);
+                if (reportId != null) {
+                    EditRegionsServerUtil.updateRegionReport(report);
+                } else {
+                    EditRegionsServerUtil.saveNewRegionReport(report);
+                }
 
                 MessageBox mb = new MessageBox(this.getShell(),
                         SWT.ICON_INFORMATION ^ SWT.OK);

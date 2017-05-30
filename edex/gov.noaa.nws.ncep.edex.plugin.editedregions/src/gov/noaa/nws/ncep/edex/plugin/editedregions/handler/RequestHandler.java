@@ -9,12 +9,15 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRep
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
 
 /**
  * Class that provides the capability to initialize commands based on requests
@@ -54,51 +57,67 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                     .forName(requestClassName).cast(request);
 
             GetRegionReportsResponse getReportsResponse = null;
-            
+
             if (!getReportsRequest.isValid()) {
                 getReportsResponse = new GetRegionReportsResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
                 getReportsResponse.setError(e);
             } else {
- 
-            	GetRegionReportsCommand cmd = new GetRegionReportsCommand();
 
-            	cmd.setRequest(getReportsRequest);
+                GetRegionReportsCommand cmd = new GetRegionReportsCommand();
+
+                cmd.setRequest(getReportsRequest);
 
                 // create the response
-                getReportsResponse = (GetRegionReportsResponse) cmd
-                        .execute();
+                getReportsResponse = (GetRegionReportsResponse) cmd.execute();
             }
 
             return getReportsResponse;
         case "CreateRegionReportRequest":
-        	
-             CreateRegionReportRequest createRegionReportRequest =
-             (CreateRegionReportRequest)
-             Class.forName(requestClassName).cast(request);
-            
-             CreateRegionReportResponse createRegionReportResponse = null;
-            
-             if (!createRegionReportRequest.isValid()) {
-            	 createRegionReportResponse = new CreateRegionReportResponse();
-            	 EditedRegionsException e = 
-            			 new EditedRegionsException("ERROR - Request Is Invalid");
-            			 createRegionReportResponse.setError(e);
-             } else {
-            	 // build the command which includes adding
-            	 // the request to the command in the event
-            	 // the request had parameters necessary to satisfy
-            	 // the command
-            	 CreateRegionReportCommand createRegionReportCmd = new CreateRegionReportCommand();
-            	 createRegionReportCmd.setRequest(createRegionReportRequest);
-            
-            	 // create the response
-            	 createRegionReportResponse = (CreateRegionReportResponse)
-            			 createRegionReportCmd.execute();
-             }
-            
-             return createRegionReportResponse;
+
+            CreateRegionReportRequest createRegionReportRequest = (CreateRegionReportRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            CreateRegionReportResponse createRegionReportResponse = null;
+
+            if (!createRegionReportRequest.isValid()) {
+                createRegionReportResponse = new CreateRegionReportResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - Request Is Invalid");
+                createRegionReportResponse.setError(e);
+            } else {
+                // build the command which includes adding
+                // the request to the command in the event
+                // the request had parameters necessary to satisfy
+                // the command
+                CreateRegionReportCommand createRegionReportCmd = new CreateRegionReportCommand();
+                createRegionReportCmd.setRequest(createRegionReportRequest);
+
+                // create the response
+                createRegionReportResponse = (CreateRegionReportResponse) createRegionReportCmd
+                        .execute();
+            }
+
+            return createRegionReportResponse;
+
+        case "UpdateRegionReportRequest":
+            UpdateRegionReportRequest updateRegionReportRequest = (UpdateRegionReportRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            UpdateRegionReportResponse updateRegionReportResponse = null;
+            if (updateRegionReportRequest.isValid()) {
+                updateRegionReportResponse = new UpdateRegionReportResponse();
+                updateRegionReportResponse.setError(
+                        new EditedRegionsException("ERROR - Invalid Request"));
+            } else {
+                UpdateRegionReportCommand updateRegionReportCmd = new UpdateRegionReportCommand();
+                updateRegionReportCmd.setRequest(updateRegionReportRequest);
+
+                updateRegionReportResponse = (UpdateRegionReportResponse) updateRegionReportCmd
+                        .execute();
+            }
+            return updateRegionReportResponse;
 
         case "CreateRegionRequest":
             // UpdateEventRequest updateEventRequest = (UpdateEventRequest)

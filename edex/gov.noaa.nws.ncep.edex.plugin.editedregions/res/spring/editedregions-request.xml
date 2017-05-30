@@ -30,5 +30,11 @@
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest" />
         <constructor-arg ref="ERRequestHandler" />
   </bean>
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest" />
+        <constructor-arg ref="ERRequestHandler" />
+  </bean>
      
 </beans>
