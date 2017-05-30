@@ -10,10 +10,10 @@ import org.springframework.transaction.support.TransactionCallback;
 import com.raytheon.uf.edex.database.dao.CoreDao;
 import com.raytheon.uf.edex.database.dao.DaoConfig;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
+import gov.noaa.nws.ncep.common.swpcrefdb.ReportStatus;
 
 /**
- * Provides access to the SWPC_OBSERVATION_TYPE database table
+ * Provides access to the SWPC_REPORT_STATUS database table
  * 
  * <pre>
  *
@@ -28,31 +28,31 @@ import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
  * @author jtravis
  * @version 1.0	
  */
-public class ObservationTypeDao extends CoreDao {
+public class ReportStatusDao extends CoreDao {
 
     /**
-     * Creates a new ObservationTypeDao
+     * Creates a new ReportStatusDao
      */
-    public ObservationTypeDao() {
-        super(DaoConfig.forClass(ObservationTypeDao.class));
+    public ReportStatusDao() {
+        super(DaoConfig.forClass(ReportStatusDao.class));
       
     }
 
     /**
-     * Retrieves Vector of all ObservationTypes
+     * Retrieves Vector of all ReportStatus instances
      * 
-     * @param type the ObservationType
-     * @return Vector of ObservationTypes
+     * @param type the ReportStatus
+     * @return Vector of ReportStatus instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<ObservationType> getObservationTypes(final ObservationType type) {
-        return (Vector<ObservationType>) txTemplate.execute(new TransactionCallback() {
+    public Vector<ReportStatus> getObservationTypes(final ReportStatus type) {
+        return (Vector<ReportStatus>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {
                 Session sess = getCurrentSession();                
-                Criteria crit = sess.createCriteria(ObservationType.class);
+                Criteria crit = sess.createCriteria(ReportStatus.class);
                 
-                Vector<ObservationType> results = new Vector<ObservationType>();
+                Vector<ReportStatus> results = new Vector<ReportStatus>();
                 results.addAll(crit.list());
                 
                 return results;

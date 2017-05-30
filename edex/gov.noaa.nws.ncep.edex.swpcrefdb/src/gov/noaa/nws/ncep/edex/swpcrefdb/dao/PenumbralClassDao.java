@@ -10,10 +10,10 @@ import org.springframework.transaction.support.TransactionCallback;
 import com.raytheon.uf.edex.database.dao.CoreDao;
 import com.raytheon.uf.edex.database.dao.DaoConfig;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
+import gov.noaa.nws.ncep.common.swpcrefdb.PenumbralClass;
 
 /**
- * Provides access to the SWPC_OBSERVATION_TYPE database table
+ * Provides access to the SWPC_PENUMBRAL_CLASS database table
  * 
  * <pre>
  *
@@ -28,31 +28,31 @@ import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
  * @author jtravis
  * @version 1.0	
  */
-public class ObservationTypeDao extends CoreDao {
+public class PenumbralClassDao extends CoreDao {
 
     /**
-     * Creates a new ObservationTypeDao
+     * Creates a new PenumbralClassDao
      */
-    public ObservationTypeDao() {
-        super(DaoConfig.forClass(ObservationTypeDao.class));
+    public PenumbralClassDao() {
+        super(DaoConfig.forClass(PenumbralClassDao.class));
       
     }
 
     /**
-     * Retrieves Vector of all ObservationTypes
+     * Retrieves Vector of all PenumbralClass instances
      * 
-     * @param type the ObservationType
-     * @return Vector of ObservationTypes
+     * @param type the PenumbralClass
+     * @return Vector of PenumbralClass instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<ObservationType> getObservationTypes(final ObservationType type) {
-        return (Vector<ObservationType>) txTemplate.execute(new TransactionCallback() {
+    public Vector<PenumbralClass> getObservationTypes(final PenumbralClass type) {
+        return (Vector<PenumbralClass>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {
                 Session sess = getCurrentSession();                
-                Criteria crit = sess.createCriteria(ObservationType.class);
+                Criteria crit = sess.createCriteria(PenumbralClass.class);
                 
-                Vector<ObservationType> results = new Vector<ObservationType>();
+                Vector<PenumbralClass> results = new Vector<PenumbralClass>();
                 results.addAll(crit.list());
                 
                 return results;
