@@ -45,7 +45,7 @@ public class ReportStatusDao extends CoreDao {
      * @return Vector of ReportStatus instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<ReportStatus> getObservationTypes(final ReportStatus type) {
+    public Vector<ReportStatus> getAllReportStatuses() {
         return (Vector<ReportStatus>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {

@@ -7,13 +7,16 @@ import com.raytheon.uf.common.serialization.comm.IServerRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 
 /**
@@ -49,6 +52,29 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
 
         switch (requestClassSimpleName) {
 
+        case "GetReferenceDataRequest":
+        	GetReferenceDataRequest getReferenceDataRequest = 
+        		(GetReferenceDataRequest) Class.forName(requestClassName).cast(request);
+        	
+        	GetReferenceDataResponse getReferenceDataResponse = null;
+        	
+        	if (!getReferenceDataRequest.isValid()) {
+        		getReferenceDataResponse = new GetReferenceDataResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                
+        	} else {
+        		
+            	GetReferenceDataCommand cmd = new GetReferenceDataCommand();
+
+            	cmd.setRequest(getReferenceDataRequest);
+
+                // create the response
+                getReferenceDataResponse = (GetReferenceDataResponse) cmd.execute();
+        	}
+        	
+        	return getReferenceDataResponse;
+        
         case "GetRegionReportsRequest":
             GetRegionReportsRequest getReportsRequest = (GetRegionReportsRequest) Class
                     .forName(requestClassName).cast(request);
@@ -56,10 +82,12 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             GetRegionReportsResponse getReportsResponse = null;
             
             if (!getReportsRequest.isValid()) {
+            	
                 getReportsResponse = new GetRegionReportsResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
                 getReportsResponse.setError(e);
+                
             } else {
  
             	GetRegionReportsCommand cmd = new GetRegionReportsCommand();

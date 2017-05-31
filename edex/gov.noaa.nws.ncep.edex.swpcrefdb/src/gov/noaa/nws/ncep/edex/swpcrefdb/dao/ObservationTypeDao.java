@@ -45,7 +45,7 @@ public class ObservationTypeDao extends CoreDao {
      * @return Vector of ObservationTypes
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<ObservationType> getObservationTypes(final ObservationType type) {
+    public Vector<ObservationType> getAllObservationTypes() {
         return (Vector<ObservationType>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {

@@ -45,7 +45,7 @@ public class PenumbralClassDao extends CoreDao {
      * @return Vector of PenumbralClass instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<PenumbralClass> getObservationTypes(final PenumbralClass type) {
+    public Vector<PenumbralClass> getAllPenumbralClasses() {
         return (Vector<PenumbralClass>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {

@@ -41,11 +41,10 @@ public class ObservationQualityDao extends CoreDao {
     /**
      * Retrieves Vector of all ObservationQuality instances
      * 
-     * @param type the ObservationQuality
      * @return Vector of ObservationQuality instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Vector<ObservationQuality> getObservationTypes(final ObservationQuality type) {
+    public Vector<ObservationQuality> getAllObservationQualities() {
         return (Vector<ObservationQuality>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {
