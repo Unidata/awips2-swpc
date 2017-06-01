@@ -311,6 +311,7 @@ public class EnterRegionReportDialog extends Dialog {
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
 
+        report.setStation(convertInt(getSelection(cmbStation)));
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
         report.setQuality(convertInt(getSelection(cmbQuality)));
@@ -460,7 +461,7 @@ public class EnterRegionReportDialog extends Dialog {
         // Station field
 
         cmbStation = addComboControl(composite, "Station",
-                new String[] { "Alpha", "Beta", "Delta" });
+                new String[] { "93402", "16320", "77269" });
 
         lblStation = addLabel(composite);
 
