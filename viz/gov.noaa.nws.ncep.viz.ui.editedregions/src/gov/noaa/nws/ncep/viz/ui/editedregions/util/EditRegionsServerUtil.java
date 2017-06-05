@@ -63,6 +63,7 @@ public final class EditRegionsServerUtil {
             throws EditedRegionsException {
         UpdateRegionReportRequest request = new UpdateRegionReportRequest();
         request.setRegionReport(report);
+        request.setRegionReportID(report.getId());
 
         if (request.isValid()) {
             UpdateRegionReportResponse response = Gateway.getInstance()

@@ -56,28 +56,29 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
         switch (requestClassSimpleName) {
 
         case "GetReferenceDataRequest":
-        	GetReferenceDataRequest getReferenceDataRequest = 
-        		(GetReferenceDataRequest) Class.forName(requestClassName).cast(request);
-        	
-        	GetReferenceDataResponse getReferenceDataResponse = null;
-        	
-        	if (!getReferenceDataRequest.isValid()) {
-        		getReferenceDataResponse = new GetReferenceDataResponse();
+            GetReferenceDataRequest getReferenceDataRequest = (GetReferenceDataRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            GetReferenceDataResponse getReferenceDataResponse = null;
+
+            if (!getReferenceDataRequest.isValid()) {
+                getReferenceDataResponse = new GetReferenceDataResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
-                
-        	} else {
-        		
-            	GetReferenceDataCommand cmd = new GetReferenceDataCommand();
 
-            	cmd.setRequest(getReferenceDataRequest);
+            } else {
+
+                GetReferenceDataCommand cmd = new GetReferenceDataCommand();
+
+                cmd.setRequest(getReferenceDataRequest);
 
                 // create the response
-                getReferenceDataResponse = (GetReferenceDataResponse) cmd.execute();
-        	}
-        	
-        	return getReferenceDataResponse;
-        
+                getReferenceDataResponse = (GetReferenceDataResponse) cmd
+                        .execute();
+            }
+
+            return getReferenceDataResponse;
+
         case "GetRegionReportsRequest":
             GetRegionReportsRequest getReportsRequest = (GetRegionReportsRequest) Class
                     .forName(requestClassName).cast(request);
@@ -85,12 +86,12 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             GetRegionReportsResponse getReportsResponse = null;
 
             if (!getReportsRequest.isValid()) {
-            	
+
                 getReportsResponse = new GetRegionReportsResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
                 getReportsResponse.setError(e);
-                
+
             } else {
 
                 GetRegionReportsCommand cmd = new GetRegionReportsCommand();
@@ -134,7 +135,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                     .forName(requestClassName).cast(request);
 
             UpdateRegionReportResponse updateRegionReportResponse = null;
-            if (updateRegionReportRequest.isValid()) {
+            if (!updateRegionReportRequest.isValid()) {
                 updateRegionReportResponse = new UpdateRegionReportResponse();
                 updateRegionReportResponse.setError(
                         new EditedRegionsException("ERROR - Invalid Request"));

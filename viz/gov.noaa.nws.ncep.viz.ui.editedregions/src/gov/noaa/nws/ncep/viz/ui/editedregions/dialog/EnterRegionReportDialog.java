@@ -308,6 +308,9 @@ public class EnterRegionReportDialog extends Dialog {
         Calendar calendar = Calendar
                 .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
         RegionReport report = new RegionReport();
+        if (getReportId() != null) {
+            report.setId(getReportId());
+        }
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
 
@@ -343,7 +346,7 @@ public class EnterRegionReportDialog extends Dialog {
         try {
             if (validateRegionReportData()) {
                 RegionReport report = buildRegionReport();
-                if (reportId != null) {
+                if (getReportId() != null) {
                     EditRegionsServerUtil.updateRegionReport(report);
                 } else {
                     EditRegionsServerUtil.saveNewRegionReport(report);
