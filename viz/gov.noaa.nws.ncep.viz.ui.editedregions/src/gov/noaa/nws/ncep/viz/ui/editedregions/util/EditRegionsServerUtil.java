@@ -4,12 +4,15 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDataResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 
@@ -74,6 +77,23 @@ public final class EditRegionsServerUtil {
                 UpdateRegionReportResults results = (UpdateRegionReportResults) response
                         .getResults();
                 return results.getReport();
+            }
+        }
+        return null;
+    }
+
+    public static GetReferenceDataResults getReferenceData()
+            throws EditedRegionsException {
+        GetReferenceDataRequest request = new GetReferenceDataRequest();
+        if (request.isValid()) {
+            GetReferenceDataResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                GetReferenceDataResults results = (GetReferenceDataResults) response
+                        .getResults();
+                return results;
             }
         }
         return null;
