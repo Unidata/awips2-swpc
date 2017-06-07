@@ -161,6 +161,7 @@ public class UpdateRegionReportCommand extends BaseCommand {
             this.regionReportsDao = new RegionReportsDao();
 
             RegionReport report = this.request.getRegionReport();
+            report.setId(this.request.getRegionReportID());
 
             this.regionReportsDao.update(report);
             updatedReport = (RegionReport) this.regionReportsDao

@@ -308,9 +308,13 @@ public class EnterRegionReportDialog extends Dialog {
         Calendar calendar = Calendar
                 .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
         RegionReport report = new RegionReport();
+        if (getReportId() != null) {
+            report.setId(getReportId());
+        }
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
 
+        report.setStation(convertInt(getSelection(cmbStation)));
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
         report.setQuality(convertInt(getSelection(cmbQuality)));
@@ -342,7 +346,7 @@ public class EnterRegionReportDialog extends Dialog {
         try {
             if (validateRegionReportData()) {
                 RegionReport report = buildRegionReport();
-                if (reportId != null) {
+                if (getReportId() != null) {
                     EditRegionsServerUtil.updateRegionReport(report);
                 } else {
                     EditRegionsServerUtil.saveNewRegionReport(report);
@@ -460,7 +464,7 @@ public class EnterRegionReportDialog extends Dialog {
         // Station field
 
         cmbStation = addComboControl(composite, "Station",
-                new String[] { "Alpha", "Beta", "Delta" });
+                new String[] { "93402", "16320", "77269" });
 
         lblStation = addLabel(composite);
 

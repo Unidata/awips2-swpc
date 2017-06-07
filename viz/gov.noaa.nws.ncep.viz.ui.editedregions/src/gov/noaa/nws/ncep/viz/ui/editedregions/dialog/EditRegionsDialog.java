@@ -11,8 +11,10 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.eclipse.jface.action.Action;
@@ -630,8 +632,23 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         try {
             GetRegionReportsResults results = EditRegionsServerUtil
                     .getRegionReports(true, true);
-            assignedReports = results.getAssignedRegionReports();
-            unassignedReports = results.getUnAssignedReports();
+
+            assignedReports = new ArrayList<>();
+            for (Map.Entry<Integer, RegionReport> entry : results
+                    .getAssignedRegionReports().entrySet()) {
+                RegionReport report = entry.getValue();
+                report.setId(entry.getKey());
+                assignedReports.add(report);
+            }
+
+            unassignedReports = new ArrayList<>();
+            for (Map.Entry<Integer, RegionReport> entry : results
+                    .getUnAssignedReports().entrySet()) {
+                RegionReport report = entry.getValue();
+                report.setId(entry.getKey());
+                unassignedReports.add(report);
+            }
+
         } catch (EditedRegionsException e) {
             statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
         }
@@ -704,7 +721,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             regionReportDlg.populateData(report);
             regionReportDlg.setReportId(report.getId());
             if (regionReportDlg.open() == Window.OK) {
-
+                refreshRegionTables();
             }
         }
     }

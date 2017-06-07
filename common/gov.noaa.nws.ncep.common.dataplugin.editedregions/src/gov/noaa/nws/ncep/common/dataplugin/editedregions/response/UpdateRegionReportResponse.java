@@ -13,10 +13,10 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
@@ -35,7 +35,7 @@ public class UpdateRegionReportResponse
      * The original request
      */
     @DynamicSerializeElement
-    private CreateRegionReportRequest request = null;
+    private UpdateRegionReportRequest request = null;
 
     /**
      * The error
@@ -47,7 +47,7 @@ public class UpdateRegionReportResponse
      * The results from the CreateRegionReportResults
      */
     @DynamicSerializeElement
-    private CreateRegionReportResults results = null;
+    private UpdateRegionReportResults results = null;
 
     /**
      * The time in milliseconds to complete round trip of client --> request -->
@@ -113,7 +113,7 @@ public class UpdateRegionReportResponse
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (CreateRegionReportResults) results;
+        this.results = (UpdateRegionReportResults) results;
     }
 
     /*
@@ -188,7 +188,7 @@ public class UpdateRegionReportResponse
 
     @Override
     public void setRequest(IRequest request) {
-        this.request = (CreateRegionReportRequest) request;
+        this.request = (UpdateRegionReportRequest) request;
     }
 
     /*

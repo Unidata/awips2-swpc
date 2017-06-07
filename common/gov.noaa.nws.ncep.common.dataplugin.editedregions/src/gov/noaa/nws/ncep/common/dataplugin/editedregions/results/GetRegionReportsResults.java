@@ -1,6 +1,6 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 
-import java.util.List;
+import java.util.Map;
 
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
@@ -10,12 +10,12 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 @DynamicSerialize
 public class GetRegionReportsResults implements IResults {
-    
-	@DynamicSerializeElement
-    private List<RegionReport> unAssignedReports = null;
-	
-	@DynamicSerializeElement
-    private List<RegionReport> assignedRegionReports = null;
+
+    @DynamicSerializeElement
+    private Map<Integer, RegionReport> unAssignedReports = null;
+
+    @DynamicSerializeElement
+    private Map<Integer, RegionReport> assignedRegionReports = null;
 
     /**
      * Constructor
@@ -24,40 +24,44 @@ public class GetRegionReportsResults implements IResults {
 
     }
 
-	/**
-	 * @return the unAssignedReports
-	 */
-	public List<RegionReport> getUnAssignedReports() {
-		return unAssignedReports;
-	}
+    /**
+     * @return the unAssignedReports
+     */
+    public Map<Integer, RegionReport> getUnAssignedReports() {
+        return unAssignedReports;
+    }
 
-	/**
-	 * @param unAssignedReports the unAssignedReports to set
-	 */
-	public void setUnAssignedReports(List<RegionReport> unAssignedReports) {
-		this.unAssignedReports = unAssignedReports;
-	}
+    /**
+     * @param unAssignedReports
+     *            the unAssignedReports to set
+     */
+    public void setUnAssignedReports(
+            Map<Integer, RegionReport> unAssignedReports) {
+        this.unAssignedReports = unAssignedReports;
+    }
 
-	/**
-	 * @return the assignedRegionReports
-	 */
-	public List<RegionReport> getAssignedRegionReports() {
-		return assignedRegionReports;
-	}
+    /**
+     * @return the assignedRegionReports
+     */
+    public Map<Integer, RegionReport> getAssignedRegionReports() {
+        return assignedRegionReports;
+    }
 
-	/**
-	 * @param assignedRegionReports the assignedRegionReports to set
-	 */
-	public void setAssignedRegionReports(List<RegionReport> assignedRegionReports) {
-		this.assignedRegionReports = assignedRegionReports;
-	}
-	
+    /**
+     * @param assignedRegionReports
+     *            the assignedRegionReports to set
+     */
+    public void setAssignedRegionReports(
+            Map<Integer, RegionReport> assignedRegionReports) {
+        this.assignedRegionReports = assignedRegionReports;
+    }
+
     @Override
     public int numResults() {
-    	
-    	int resultCount = this.unAssignedReports.size() +
-    						this.assignedRegionReports.size();
-    	
+
+        int resultCount = this.unAssignedReports.size()
+                + this.assignedRegionReports.size();
+
         return resultCount;
     }
 
