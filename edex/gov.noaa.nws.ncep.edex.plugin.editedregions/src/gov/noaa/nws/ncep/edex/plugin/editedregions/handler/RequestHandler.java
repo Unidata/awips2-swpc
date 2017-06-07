@@ -65,6 +65,8 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                 getReferenceDataResponse = new GetReferenceDataResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
+                
+                getReferenceDataResponse.setError(e);
 
             } else {
 
