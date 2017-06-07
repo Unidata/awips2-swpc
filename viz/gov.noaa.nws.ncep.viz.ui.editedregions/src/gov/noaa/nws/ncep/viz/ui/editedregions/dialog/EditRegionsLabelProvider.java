@@ -17,6 +17,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
@@ -126,7 +127,8 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return convertToDisplay(report.getType());
 
         case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
-            return convertToDisplay(report.getQuality());
+            return EditRegionsServerUtil
+                    .getObservationQuality(report.getQuality());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REGION:
             return convertToDisplay(report.getRegion());
@@ -162,7 +164,8 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return convertToDisplay(report.getZurich());
 
         case EditRegionsUIConstants.COLUMN_INDEX_PENUMBRA:
-            return convertToDisplay(report.getPenumbra());
+            return EditRegionsServerUtil
+                    .getPenumbralClass(report.getPenumbra());
 
         case EditRegionsUIConstants.COLUMN_INDEX_COMPACT:
             return convertToDisplay(report.getCompact());
@@ -177,10 +180,11 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return convertToDisplay(report.getMagclass());
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSID:
-            return convertToDisplay(report.getObsid());
+            return EditRegionsServerUtil.getObservationType(report.getObsid());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_STATUS:
-            return convertToDisplay(report.getReportStatus());
+            return EditRegionsServerUtil
+                    .getReportStatus(report.getReportStatus());
 
         case EditRegionsUIConstants.COLUMN_INDEX_VALID_SPOT_CLASS:
             return convertToDisplay(report.isValidSpotClass());

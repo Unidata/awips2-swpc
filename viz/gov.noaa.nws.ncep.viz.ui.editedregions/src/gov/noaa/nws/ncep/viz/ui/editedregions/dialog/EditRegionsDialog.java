@@ -63,7 +63,6 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDataResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
@@ -121,16 +120,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // a new interface.
     private EditRegionsLabelProvider labelProvider = null;
 
-    private Map<String, Integer> observationQualityRefData = Collections
-            .emptyMap();
-
-    private Map<String, Integer> observationTypeRefData = Collections
-            .emptyMap();
-
-    private Map<String, Integer> penumbralClassRefData = Collections.emptyMap();
-
-    private Map<String, Integer> reportStatusRefData = Collections.emptyMap();
-
     /**
      * Creates a EditEventsDialog instance
      * 
@@ -141,19 +130,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.MAX | SWT.MIN | SWT.RESIZE
                 | SWT.MODELESS);
-
-        try {
-            GetReferenceDataResults results = EditRegionsServerUtil
-                    .getReferenceData();
-            this.observationQualityRefData = results
-                    .getObservationQualityResults();
-            this.observationTypeRefData = results.getObservationTypeResults();
-            this.penumbralClassRefData = results.getPenumbralClassResults();
-            this.reportStatusRefData = results.getReportStatusResults();
-
-        } catch (EditedRegionsException ex) {
-            statusHandler.error("Error loading reference data", ex);
-        }
 
     }
 

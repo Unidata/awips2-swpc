@@ -1,5 +1,12 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
+import java.util.Collections;
+import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
+
+import com.raytheon.uf.common.status.IUFStatusHandler;
+import com.raytheon.uf.common.status.UFStatus;
+
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -21,6 +28,23 @@ public final class EditRegionsServerUtil {
         throw new Error(String.format("Cannot create instance of %s!",
                 EditRegionsServerUtil.class));
     }
+
+    private static final IUFStatusHandler statusHandler = UFStatus
+            .getHandler(EditRegionsServerUtil.class);
+
+    private static Map<String, Integer> observationQualityRefData = Collections
+            .emptyMap();
+
+    private static Map<String, Integer> observationTypeRefData = Collections
+            .emptyMap();
+
+    private static Map<String, Integer> penumbralClassRefData = Collections
+            .emptyMap();
+
+    private static Map<String, Integer> reportStatusRefData = Collections
+            .emptyMap();
+
+    private static final ReentrantLock lock = new ReentrantLock();
 
     public static GetRegionReportsResults getRegionReports(
             boolean bAssignedReports, boolean bUnassignedReports)
@@ -82,7 +106,7 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
-    public static GetReferenceDataResults getReferenceData()
+    private static GetReferenceDataResults getReferenceData()
             throws EditedRegionsException {
         GetReferenceDataRequest request = new GetReferenceDataRequest();
         if (request.isValid()) {
@@ -97,5 +121,56 @@ public final class EditRegionsServerUtil {
             }
         }
         return null;
+    }
+
+    private static void loadReferenceData() {
+        try {
+            GetReferenceDataResults results = getReferenceData();
+            observationQualityRefData = results.getObservationQualityResults();
+            observationTypeRefData = results.getObservationTypeResults();
+            penumbralClassRefData = results.getPenumbralClassResults();
+            reportStatusRefData = results.getReportStatusResults();
+        } catch (EditedRegionsException ex) {
+            statusHandler.error("Error loading reference data", ex);
+        }
+    }
+
+    private static <K, V> K getKeyForValue(Map<? extends K, ? extends V> map,
+            V value) {
+        for (Map.Entry<? extends K, ? extends V> entry : map.entrySet()) {
+            if (value.equals(entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
+    }
+
+    public static String getObservationQuality(int id) {
+
+        if (observationQualityRefData.isEmpty()) {
+            loadReferenceData();
+        }
+        return getKeyForValue(observationQualityRefData, id);
+    }
+
+    public static String getObservationType(int id) {
+        if (observationTypeRefData.isEmpty()) {
+            loadReferenceData();
+        }
+        return getKeyForValue(observationTypeRefData, id);
+    }
+
+    public static String getPenumbralClass(int id) {
+        if (penumbralClassRefData.isEmpty()) {
+            loadReferenceData();
+        }
+        return getKeyForValue(penumbralClassRefData, id);
+    }
+
+    public static String getReportStatus(int id) {
+        if (reportStatusRefData.isEmpty()) {
+            loadReferenceData();
+        }
+        return getKeyForValue(reportStatusRefData, id);
     }
 }
