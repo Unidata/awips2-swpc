@@ -156,6 +156,10 @@ public final class EditRegionsServerUtil {
         return getKeyForValue(observationQualityRefData, id);
     }
 
+    public static Integer getObservationQualityId(String text) {
+        return observationQualityRefData.get(text);
+    }
+
     public static NavigableSet<String> getObservationTypeRefData() {
         return new TreeSet<>(observationTypeRefData.keySet());
     }
@@ -165,6 +169,10 @@ public final class EditRegionsServerUtil {
             loadReferenceData();
         }
         return getKeyForValue(observationTypeRefData, id);
+    }
+
+    public static Integer getObservationTypeId(String text) {
+        return observationTypeRefData.get(text);
     }
 
     public static NavigableSet<String> getPenumbralClassRefData() {
@@ -178,6 +186,10 @@ public final class EditRegionsServerUtil {
         return getKeyForValue(penumbralClassRefData, id);
     }
 
+    public static Integer getPenumbralClassId(String text) {
+        return penumbralClassRefData.get(text);
+    }
+
     public static NavigableSet<String> getReportStatusRefData() {
         return new TreeSet<>(reportStatusRefData.keySet());
     }
@@ -187,5 +199,9 @@ public final class EditRegionsServerUtil {
             loadReferenceData();
         }
         return getKeyForValue(reportStatusRefData, id);
+    }
+
+    public static Integer getReportStatusId(String text) {
+        return reportStatusRefData.get(text);
     }
 }

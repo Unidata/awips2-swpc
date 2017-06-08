@@ -236,8 +236,6 @@ public class EnterRegionReportDialog extends Dialog {
     private boolean validateRegionReportData() {
         boolean pass = true;
 
-        pass &= EditRegionsValidationUtil.validateInteger(cmbQuality.getText(),
-                lblQuality);
         pass &= EditRegionsValidationUtil.validateInteger(txtRegion.getText(),
                 lblRegion);
         pass &= EditRegionsValidationUtil.validateInteger(txtLatitude.getText(),
@@ -256,14 +254,10 @@ public class EnterRegionReportDialog extends Dialog {
                 lblNumspots);
         pass &= EditRegionsValidationUtil.validateInteger(cmbZurich.getText(),
                 lblZurich);
-        pass &= EditRegionsValidationUtil.validateInteger(cmbPenumbra.getText(),
-                lblPenumbra);
         pass &= EditRegionsValidationUtil.validateInteger(cmbMagcode.getText(),
                 lblMagcode);
         pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
                 lblExtent);
-        pass &= EditRegionsValidationUtil
-                .validateInteger(cmbReportStatus.getText(), lblReportStatus);
         pass &= EditRegionsValidationUtil.validateInteger(
                 cmbValidSpotClass.getText(), lblValidSpotClass);
 
@@ -318,7 +312,8 @@ public class EnterRegionReportDialog extends Dialog {
         report.setStation(convertInt(getSelection(cmbStation)));
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
-        report.setQuality(convertInt(getSelection(cmbQuality)));
+        report.setQuality(EditRegionsServerUtil
+                .getObservationQualityId(getSelection(cmbQuality)));
         report.setRegion(convertInt(txtRegion.getText()));
         report.setLatitude(convertInt(txtLatitude.getText()));
         report.setReportLongitude(convertInt(txtReportLongitude.getText()));
@@ -330,13 +325,16 @@ public class EnterRegionReportDialog extends Dialog {
         report.setArea(convertInt(txtArea.getText()));
         report.setNumspots(convertInt(txtNumspots.getText()));
         report.setZurich(convertInt(getSelection(cmbZurich)));
-        report.setPenumbra(convertInt(getSelection(cmbPenumbra)));
+        report.setPenumbra(EditRegionsServerUtil
+                .getPenumbralClassId(getSelection(cmbPenumbra)));
         report.setCompact(getSelection(cmbCompact));
         report.setSpotclass(txtSpotClass.getText());
         report.setMagcode(convertInt(getSelection(cmbMagcode)));
         report.setMagclass(getSelection(cmbMagclass));
-        report.setObsid(convertInt(getSelection(cmbObsid)));
-        report.setReportStatus(convertInt(getSelection(cmbReportStatus)));
+        report.setObsid(EditRegionsServerUtil
+                .getObservationTypeId(getSelection(cmbObsid)));
+        report.setReportStatus(EditRegionsServerUtil
+                .getReportStatusId(getSelection(cmbReportStatus)));
         report.setValidSpotClass(!"0".equals(getSelection(cmbValidSpotClass)));
 
         return report;
