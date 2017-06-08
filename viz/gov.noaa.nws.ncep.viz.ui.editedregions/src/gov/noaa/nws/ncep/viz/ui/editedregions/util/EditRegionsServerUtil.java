@@ -2,7 +2,8 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -43,8 +44,6 @@ public final class EditRegionsServerUtil {
 
     private static Map<String, Integer> reportStatusRefData = Collections
             .emptyMap();
-
-    private static final ReentrantLock lock = new ReentrantLock();
 
     public static GetRegionReportsResults getRegionReports(
             boolean bAssignedReports, boolean bUnassignedReports)
@@ -145,12 +144,20 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    public static NavigableSet<String> getObservationQualityRefData() {
+        return new TreeSet<>(observationQualityRefData.keySet());
+    }
+
     public static String getObservationQuality(int id) {
 
         if (observationQualityRefData.isEmpty()) {
             loadReferenceData();
         }
         return getKeyForValue(observationQualityRefData, id);
+    }
+
+    public static NavigableSet<String> getObservationTypeRefData() {
+        return new TreeSet<>(observationTypeRefData.keySet());
     }
 
     public static String getObservationType(int id) {
@@ -160,11 +167,19 @@ public final class EditRegionsServerUtil {
         return getKeyForValue(observationTypeRefData, id);
     }
 
+    public static NavigableSet<String> getPenumbralClassRefData() {
+        return new TreeSet<>(penumbralClassRefData.keySet());
+    }
+
     public static String getPenumbralClass(int id) {
         if (penumbralClassRefData.isEmpty()) {
             loadReferenceData();
         }
         return getKeyForValue(penumbralClassRefData, id);
+    }
+
+    public static NavigableSet<String> getReportStatusRefData() {
+        return new TreeSet<>(reportStatusRefData.keySet());
     }
 
     public static String getReportStatus(int id) {

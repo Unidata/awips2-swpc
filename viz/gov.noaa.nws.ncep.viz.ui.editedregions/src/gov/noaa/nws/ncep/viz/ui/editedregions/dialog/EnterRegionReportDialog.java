@@ -1,6 +1,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -437,6 +438,22 @@ public class EnterRegionReportDialog extends Dialog {
     }
 
     /**
+     * Adds a new row with a combo selection widget and the provided label.
+     * 
+     * @param parent
+     * @param label
+     * @return the Combo control
+     */
+    private Combo addComboControl(Composite parent, String label,
+            Collection<String> items) {
+        new Label(parent, SWT.LEFT).setText(label);
+        Combo combo = new Combo(parent, SWT.DROP_DOWN ^ SWT.READ_ONLY);
+        combo.setItems(items.toArray(new String[0]));
+        combo.select(0);
+        return combo;
+    }
+
+    /**
      * Adds a new Label control to the parent composite.
      * 
      * @param parent
@@ -481,7 +498,7 @@ public class EnterRegionReportDialog extends Dialog {
 
         // Quality field
         cmbQuality = addComboControl(composite, "Quality",
-                new String[] { "4", "5" });
+                EditRegionsServerUtil.getObservationQualityRefData());
 
         lblQuality = addLabel(composite);
 
@@ -543,7 +560,7 @@ public class EnterRegionReportDialog extends Dialog {
 
         // Penumbra field
         cmbPenumbra = addComboControl(composite, "Penumbra",
-                new String[] { "0", "1", "2", "3", "4", "5" });
+                EditRegionsServerUtil.getPenumbralClassRefData());
 
         lblPenumbra = addLabel(composite);
 
@@ -572,13 +589,13 @@ public class EnterRegionReportDialog extends Dialog {
 
         // Obsid field
         cmbObsid = addComboControl(composite, "Obsid",
-                new String[] { "1", "2", "3", "4" });
+                EditRegionsServerUtil.getObservationTypeRefData());
 
         lblObsid = addLabel(composite);
 
         // Report Status field
         cmbReportStatus = addComboControl(composite, "Report Status",
-                new String[] { "1", "2", "3", "4" });
+                EditRegionsServerUtil.getReportStatusRefData());
 
         lblReportStatus = addLabel(composite);
 
