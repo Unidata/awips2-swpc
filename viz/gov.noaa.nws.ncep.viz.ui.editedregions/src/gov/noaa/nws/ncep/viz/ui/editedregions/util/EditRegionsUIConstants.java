@@ -38,60 +38,36 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
 public interface EditRegionsUIConstants {
 
-    public static final String[] COLUMNS = new String[] { "Station",
-            "Observatory", "Type", "Quality", "Region", "Latitude",
-            "Report Longitude", "Longitude", "Report Location", "Location",
-            "Carlon", "Extent", "Area", "Numspots", "Zurich", "Penumbra",
-            "Compact", "Spotclass", "Magcode", "Magclass", "Obsid",
-            "Report Status", "Valid Spot Class" };
+    public static final String[] COLUMNS = new String[] { "Observation Time",
+            "Observatory", "Quality", "Region", "Report Location",
+            "00Z Location", "Carlon", "Extent", "Area", "Numspots", "Spotclass",
+            "Magclass" };
 
     public static final String[] TOOLTIPS = COLUMNS.clone();
 
-    public static final int COLUMN_COUNT = 23;
+    public static final int COLUMN_COUNT = 12;
 
-    public static final int COLUMN_INDEX_STATION = 0;
+    public static final int COLUMN_INDEX_REPORT_TIME = 0;
 
     public static final int COLUMN_INDEX_OBSERVATORY = 1;
 
-    public static final int COLUMN_INDEX_TYPE = 2;
+    public static final int COLUMN_INDEX_QUALITY = 2;
 
-    public static final int COLUMN_INDEX_QUALITY = 3;
+    public static final int COLUMN_INDEX_REGION = 3;
 
-    public static final int COLUMN_INDEX_REGION = 4;
+    public static final int COLUMN_INDEX_REPORT_LOCATION = 4;
 
-    public static final int COLUMN_INDEX_LATITUDE = 5;
+    public static final int COLUMN_INDEX_LOCATION = 5;
 
-    public static final int COLUMN_INDEX_REPORT_LONGITUDE = 6;
+    public static final int COLUMN_INDEX_CARLON = 6;
 
-    public static final int COLUMN_INDEX_LONGITUDE = 7;
+    public static final int COLUMN_INDEX_EXTENT = 7;
 
-    public static final int COLUMN_INDEX_REPORT_LOCATION = 8;
+    public static final int COLUMN_INDEX_AREA = 8;
 
-    public static final int COLUMN_INDEX_LOCATION = 9;
+    public static final int COLUMN_INDEX_NUMSPOTS = 9;
 
-    public static final int COLUMN_INDEX_CARLON = 10;
+    public static final int COLUMN_INDEX_SPOTCLASS = 10;
 
-    public static final int COLUMN_INDEX_EXTENT = 11;
-
-    public static final int COLUMN_INDEX_AREA = 12;
-
-    public static final int COLUMN_INDEX_NUMSPOTS = 13;
-
-    public static final int COLUMN_INDEX_ZURICH = 14;
-
-    public static final int COLUMN_INDEX_PENUMBRA = 15;
-
-    public static final int COLUMN_INDEX_COMPACT = 16;
-
-    public static final int COLUMN_INDEX_SPOTCLASS = 17;
-
-    public static final int COLUMN_INDEX_MAGCODE = 18;
-
-    public static final int COLUMN_INDEX_MAGCLASS = 19;
-
-    public static final int COLUMN_INDEX_OBSID = 20;
-
-    public static final int COLUMN_INDEX_REPORT_STATUS = 21;
-
-    public static final int COLUMN_INDEX_VALID_SPOT_CLASS = 22;
+    public static final int COLUMN_INDEX_MAGCLASS = 11;
 }

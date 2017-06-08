@@ -1,5 +1,8 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -117,14 +120,13 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
 
         switch (columnIndex) {
 
-        case EditRegionsUIConstants.COLUMN_INDEX_STATION:
-            return convertToDisplay(report.getStation());
+        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_TIME:
+            ZonedDateTime dateTime = report.getInsertTime().getTime()
+                    .toInstant().atZone(ZoneOffset.UTC);
+            return DateTimeFormatter.ISO_ZONED_DATE_TIME.format(dateTime);
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
             return convertToDisplay(report.getObservatory());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_TYPE:
-            return convertToDisplay(report.getType());
 
         case EditRegionsUIConstants.COLUMN_INDEX_QUALITY:
             return EditRegionsServerUtil
@@ -132,15 +134,6 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
 
         case EditRegionsUIConstants.COLUMN_INDEX_REGION:
             return convertToDisplay(report.getRegion());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_LATITUDE:
-            return convertToDisplay(report.getLatitude());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LONGITUDE:
-            return convertToDisplay(report.getReportLongitude());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_LONGITUDE:
-            return convertToDisplay(report.getLongitude());
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_LOCATION:
             return convertToDisplay(report.getReportLocation());
@@ -160,34 +153,11 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         case EditRegionsUIConstants.COLUMN_INDEX_NUMSPOTS:
             return convertToDisplay(report.getNumspots());
 
-        case EditRegionsUIConstants.COLUMN_INDEX_ZURICH:
-            return convertToDisplay(report.getZurich());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_PENUMBRA:
-            return EditRegionsServerUtil
-                    .getPenumbralClass(report.getPenumbra());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_COMPACT:
-            return convertToDisplay(report.getCompact());
-
         case EditRegionsUIConstants.COLUMN_INDEX_SPOTCLASS:
             return convertToDisplay(report.getSpotclass());
 
-        case EditRegionsUIConstants.COLUMN_INDEX_MAGCODE:
-            return convertToDisplay(report.getMagcode());
-
         case EditRegionsUIConstants.COLUMN_INDEX_MAGCLASS:
             return convertToDisplay(report.getMagclass());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_OBSID:
-            return EditRegionsServerUtil.getObservationType(report.getObsid());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_REPORT_STATUS:
-            return EditRegionsServerUtil
-                    .getReportStatus(report.getReportStatus());
-
-        case EditRegionsUIConstants.COLUMN_INDEX_VALID_SPOT_CLASS:
-            return convertToDisplay(report.isValidSpotClass());
 
         default:
             return "";
