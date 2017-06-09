@@ -32,10 +32,6 @@ public class EnterRegionReportDialog extends Dialog {
 
     // Input fields
 
-    private Combo cmbStation;
-
-    private Label lblStation;
-
     private Combo cmbObservatory;
 
     private Label lblObservatory;
@@ -51,18 +47,6 @@ public class EnterRegionReportDialog extends Dialog {
     private Text txtRegion;
 
     private Label lblRegion;
-
-    private Text txtLatitude;
-
-    private Label lblLatitude;
-
-    private Text txtReportLongitude;
-
-    private Label lblReportLongitude;
-
-    private Text txtLongitude;
-
-    private Label lblLongitude;
 
     private Text txtReportLocation;
 
@@ -88,41 +72,13 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Label lblNumspots;
 
-    private Combo cmbZurich;
-
-    private Label lblZurich;
-
-    private Combo cmbPenumbra;
-
-    private Label lblPenumbra;
-
-    private Combo cmbCompact;
-
-    private Label lblCompact;
-
     private Text txtSpotClass;
 
     private Label lblSpotClass;
 
-    private Combo cmbMagcode;
-
-    private Label lblMagcode;
-
     private Combo cmbMagclass;
 
     private Label lblMagclass;
-
-    private Combo cmbObsid;
-
-    private Label lblObsid;
-
-    private Combo cmbReportStatus;
-
-    private Label lblReportStatus;
-
-    private Combo cmbValidSpotClass;
-
-    private Label lblValidSpotClass;
 
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterRegionReportDialog.class);
@@ -196,28 +152,15 @@ public class EnterRegionReportDialog extends Dialog {
      * @param report
      */
     public void populateData(RegionReport report) {
-        selectItem(cmbStation, report.getStation());
         selectItem(cmbObservatory, report.getObservatory());
         txtType.setText(report.getType());
         selectItem(cmbQuality, report.getQuality());
-        txtRegion.setText(convertToString(report.getRegion()));
-        txtLatitude.setText(convertToString(report.getLatitude()));
-        txtReportLongitude
-                .setText(convertToString(report.getReportLongitude()));
-        txtLongitude.setText(convertToString(report.getLongitude()));
         txtReportLocation.setText(convertToString(report.getReportLocation()));
         txtLocation.setText(convertToString(report.getLocation()));
         txtCarlon.setText(convertToString(report.getCarlon()));
         txtExtent.setText(convertToString(report.getExtent()));
         txtArea.setText(convertToString(report.getArea()));
-        txtNumspots.setText(convertToString(report.getNumspots()));
-        selectItem(cmbZurich, report.getZurich());
-        selectItem(cmbPenumbra, report.getPenumbra());
-        selectItem(cmbCompact, report.getCompact());
         txtSpotClass.setText(convertToString(report.getSpotclass()));
-        selectItem(cmbObsid, report.getObsid());
-        selectItem(cmbReportStatus, report.getReportStatus());
-        selectItem(cmbValidSpotClass, report.isValidSpotClass() ? "1" : "0");
     }
 
     public Integer getReportId() {
@@ -238,12 +181,6 @@ public class EnterRegionReportDialog extends Dialog {
 
         pass &= EditRegionsValidationUtil.validateInteger(txtRegion.getText(),
                 lblRegion);
-        pass &= EditRegionsValidationUtil.validateInteger(txtLatitude.getText(),
-                lblLatitude);
-        pass &= EditRegionsValidationUtil.validateInteger(
-                txtReportLongitude.getText(), lblReportLongitude);
-        pass &= EditRegionsValidationUtil
-                .validateInteger(txtLongitude.getText(), lblLongitude);
         pass &= EditRegionsValidationUtil.validateInteger(txtCarlon.getText(),
                 lblCarlon);
         pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
@@ -252,14 +189,8 @@ public class EnterRegionReportDialog extends Dialog {
                 lblArea);
         pass &= EditRegionsValidationUtil.validateInteger(txtNumspots.getText(),
                 lblNumspots);
-        pass &= EditRegionsValidationUtil.validateInteger(cmbZurich.getText(),
-                lblZurich);
-        pass &= EditRegionsValidationUtil.validateInteger(cmbMagcode.getText(),
-                lblMagcode);
         pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
                 lblExtent);
-        pass &= EditRegionsValidationUtil.validateInteger(
-                cmbValidSpotClass.getText(), lblValidSpotClass);
 
         this.getShell().layout(true, true);
 
@@ -309,33 +240,33 @@ public class EnterRegionReportDialog extends Dialog {
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
 
-        report.setStation(convertInt(getSelection(cmbStation)));
+        // report.setStation(convertInt(getSelection(cmbStation)));
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
         report.setQuality(EditRegionsServerUtil
                 .getObservationQualityId(getSelection(cmbQuality)));
         report.setRegion(convertInt(txtRegion.getText()));
-        report.setLatitude(convertInt(txtLatitude.getText()));
-        report.setReportLongitude(convertInt(txtReportLongitude.getText()));
-        report.setLongitude(convertInt(txtLongitude.getText()));
+        // report.setLatitude(convertInt(txtLatitude.getText()));
+        // report.setReportLongitude(convertInt(txtReportLongitude.getText()));
+        // report.setLongitude(convertInt(txtLongitude.getText()));
         report.setReportLocation(txtReportLocation.getText());
         report.setLocation(txtLocation.getText());
         report.setCarlon(convertInt(txtCarlon.getText()));
         report.setExtent(convertInt(txtExtent.getText()));
         report.setArea(convertInt(txtArea.getText()));
         report.setNumspots(convertInt(txtNumspots.getText()));
-        report.setZurich(convertInt(getSelection(cmbZurich)));
-        report.setPenumbra(EditRegionsServerUtil
-                .getPenumbralClassId(getSelection(cmbPenumbra)));
-        report.setCompact(getSelection(cmbCompact));
+        // report.setZurich(convertInt(getSelection(cmbZurich)));
+        // report.setPenumbra(EditRegionsServerUtil
+        // .getPenumbralClassId(getSelection(cmbPenumbra)));
+        // report.setCompact(getSelection(cmbCompact));
         report.setSpotclass(txtSpotClass.getText());
-        report.setMagcode(convertInt(getSelection(cmbMagcode)));
+        // report.setMagcode(convertInt(getSelection(cmbMagcode)));
         report.setMagclass(getSelection(cmbMagclass));
-        report.setObsid(EditRegionsServerUtil
-                .getObservationTypeId(getSelection(cmbObsid)));
-        report.setReportStatus(EditRegionsServerUtil
-                .getReportStatusId(getSelection(cmbReportStatus)));
-        report.setValidSpotClass(!"0".equals(getSelection(cmbValidSpotClass)));
+        // report.setObsid(EditRegionsServerUtil
+        // .getObservationTypeId(getSelection(cmbObsid)));
+        // report.setReportStatus(EditRegionsServerUtil
+        // .getReportStatusId(getSelection(cmbReportStatus)));
+        // report.setValidSpotClass(!"0".equals(getSelection(cmbValidSpotClass)));
 
         return report;
     }
@@ -476,13 +407,6 @@ public class EnterRegionReportDialog extends Dialog {
         composite.setLayoutData(
                 new GridData(GridData.FILL, GridData.FILL, true, true));
 
-        // Station field
-
-        cmbStation = addComboControl(composite, "Station",
-                new String[] { "93402", "16320", "77269" });
-
-        lblStation = addLabel(composite);
-
         // Observatory field
         cmbObservatory = addComboControl(composite, "Observatory",
                 new String[] { "APLM", "KHMN", "LISS" });
@@ -504,21 +428,6 @@ public class EnterRegionReportDialog extends Dialog {
         txtRegion = addTextControl(composite, "Region");
 
         lblRegion = addLabel(composite);
-
-        // Latitude field
-        txtLatitude = addTextControl(composite, "Latitude");
-
-        lblLatitude = addLabel(composite);
-
-        // Report Longitude field
-        txtReportLongitude = addTextControl(composite, "Report Longitude");
-
-        lblReportLongitude = addLabel(composite);
-
-        // Longitude field
-        txtLongitude = addTextControl(composite, "Longitude");
-
-        lblLongitude = addLabel(composite);
 
         // Report Location field
         txtReportLocation = addTextControl(composite, "Report Location");
@@ -550,58 +459,16 @@ public class EnterRegionReportDialog extends Dialog {
 
         lblNumspots = addLabel(composite);
 
-        // Zurich field
-        cmbZurich = addComboControl(composite, "Zurich",
-                new String[] { "1", "2", "3", "4", "5", "6", "7" });
-
-        lblZurich = addLabel(composite);
-
-        // Penumbra field
-        cmbPenumbra = addComboControl(composite, "Penumbra",
-                EditRegionsServerUtil.getPenumbralClassRefData());
-
-        lblPenumbra = addLabel(composite);
-
-        // Compact field
-        cmbCompact = addComboControl(composite, "Compact",
-                new String[] { "/", "7", "8", "9" });
-
-        lblCompact = addLabel(composite);
-
         // Spotclass field
         txtSpotClass = addTextControl(composite, "Spot class");
 
         lblSpotClass = addLabel(composite);
-
-        // Magcode field
-        cmbMagcode = addComboControl(composite, "Magcode",
-                new String[] { "1", "2", "3", "4", "5", "6", "7" });
-
-        lblMagcode = addLabel(composite);
 
         // Magclass field
         cmbMagclass = addComboControl(composite, "Magclass",
                 new String[] { "A", "B", "BG", "G", "BD", "BDG", "GD" });
 
         lblMagclass = addLabel(composite);
-
-        // Obsid field
-        cmbObsid = addComboControl(composite, "Obsid",
-                EditRegionsServerUtil.getObservationTypeRefData());
-
-        lblObsid = addLabel(composite);
-
-        // Report Status field
-        cmbReportStatus = addComboControl(composite, "Report Status",
-                EditRegionsServerUtil.getReportStatusRefData());
-
-        lblReportStatus = addLabel(composite);
-
-        // ValidSpotClass field
-        cmbValidSpotClass = addComboControl(composite, "Valid Spot Class",
-                new String[] { "0", "1" });
-
-        lblValidSpotClass = addLabel(composite);
 
     }
 
