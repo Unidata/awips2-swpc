@@ -121,8 +121,8 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         switch (columnIndex) {
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_TIME:
-            ZonedDateTime dateTime = report.getInsertTime().getTime()
-                    .toInstant().atZone(ZoneOffset.UTC);
+            ZonedDateTime dateTime = report.getObservationTime().toInstant()
+                    .atZone(ZoneOffset.UTC);
             return DateTimeFormatter.ISO_ZONED_DATE_TIME.format(dateTime);
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
