@@ -1,11 +1,14 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -48,6 +51,7 @@ public class RegionReport extends PersistablePluginDataObject {
     // private static final String TYPE = "type";
     // private static final String QUALITY = "quality";
     public static final String REGION = "region";
+
     // private static final String LATITUDE = "latitude";
     // private static final String REPORT_LONGITUDE = "reportLongitude";
     // private static final String LONGITUDE = "longitude";
@@ -66,6 +70,10 @@ public class RegionReport extends PersistablePluginDataObject {
     // private static final String OBS_ID = "obsid";
     // private static final String REPORT_STATUS = "reportStatus";
     // private static final String VALID_SPOT_CLASS = "validSpotClass";
+    @Column
+    @DynamicSerializeElement
+    @XmlAttribute(name = "time-tag")
+    private Date observationTime;
 
     @Column
     @DynamicSerializeElement
@@ -185,6 +193,23 @@ public class RegionReport extends PersistablePluginDataObject {
     @Override
     public String getPluginName() {
         return EditedRegionsConstants.PLUGIN_NAME;
+    }
+
+    /**
+     * 
+     * @return the observation time
+     */
+    public Date getObservationTime() {
+        return this.observationTime;
+    }
+
+    /**
+     * 
+     * @param observationTime
+     *            the observation time to set
+     */
+    public void setObservationTime(Date observationTime) {
+        this.observationTime = observationTime;
     }
 
     /**
