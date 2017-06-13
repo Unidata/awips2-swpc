@@ -6,20 +6,29 @@ import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetLatestRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
 
 /**
@@ -54,6 +63,84 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
         String requestClassSimpleName = request.getClass().getSimpleName();
 
         switch (requestClassSimpleName) {
+        
+        case "GetLatestRegionRequest":
+        	GetLatestRegionRequest getLatestRegionRequest = 
+        		(GetLatestRegionRequest) Class.forName(requestClassName).cast(request);
+        	
+        	GetLatestRegionResponse getLatestRegionResponse = null;
+        	
+        	if (!getLatestRegionRequest.isValid()) {
+        		getLatestRegionResponse = new GetLatestRegionResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                
+                getLatestRegionResponse.setError(e);
+                
+        	} else {
+        		
+                GetLatestRegionCommand cmd = new GetLatestRegionCommand();
+
+                cmd.setRequest(getLatestRegionRequest);
+
+                // create the response
+                getLatestRegionResponse = (GetLatestRegionResponse) cmd.execute();
+        		
+        	}
+        	
+        	return getLatestRegionResponse;
+        	
+        case "GetRegionsRequest":
+        	GetRegionsRequest getRegionsRequest = 
+        		(GetRegionsRequest) Class.forName(requestClassName).cast(request);
+        	
+        	GetRegionsResponse getRegionsResponse = null;
+        	
+        	if (!getRegionsRequest.isValid()) {
+        		getRegionsResponse = new GetRegionsResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                
+                getRegionsResponse.setError(e);
+                
+        	} else {
+        		
+                GetRegionsCommand cmd = new GetRegionsCommand();
+
+                cmd.setRequest(getRegionsRequest);
+
+                // create the response
+                getRegionsResponse = (GetRegionsResponse) cmd.execute();
+        		
+        	}
+        	
+        	return getRegionsResponse;
+        	
+        case "CreateRegionRequest":
+        	CreateRegionRequest createRegionRequest = 
+        		(CreateRegionRequest) Class.forName(requestClassName).cast(request);
+        	
+        	CreateRegionResponse createRegionResponse = null;
+        	
+        	if (!createRegionRequest.isValid()) {
+        		createRegionResponse = new CreateRegionResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                
+                createRegionResponse.setError(e);
+                
+        	} else {
+        		
+                CreateRegionCommand cmd = new CreateRegionCommand();
+
+                cmd.setRequest(createRegionRequest);
+
+                // create the response
+                createRegionResponse = (CreateRegionResponse) cmd.execute();
+        		
+        	}
+        	
+        	return createRegionResponse;
 
         case "GetReferenceDataRequest":
             GetReferenceDataRequest getReferenceDataRequest = (GetReferenceDataRequest) Class
@@ -149,32 +236,6 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                         .execute();
             }
             return updateRegionReportResponse;
-
-        case "CreateRegionRequest":
-            // UpdateEventRequest updateEventRequest = (UpdateEventRequest)
-            // Class.forName(requestClassName).cast(request);
-            //
-            // UpdateEventResponse updateEventResponse = null;
-            //
-            // if (!updateEventRequest.isValid()) {
-            // updateEventResponse = new UpdateEventResponse();
-            // EditedEventsException e = new EditedEventsException("ERROR -
-            // Request Is Invalid");
-            // updateEventResponse.setError(e);
-            // } else {
-            // // build the command which includes adding
-            // // the request to the command in the event
-            // // the request had parameters necessary to satisfy
-            // // the command
-            // UpdateEventCommand updateEventCommand = new UpdateEventCommand();
-            // updateEventCommand.setRequest(updateEventRequest);
-            //
-            // // create the response
-            // updateEventResponse = (UpdateEventResponse)
-            // updateEventCommand.execute();
-            // }
-            //
-            // return updateEventResponse;
 
         case "SaveRequest":
             // SaveRequest saveRequest = (SaveRequest) Class

@@ -3,15 +3,19 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
+import com.raytheon.uf.edex.database.DataAccessLayerException;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
 /**
  * The command class that is executed to create a new Region
@@ -33,7 +37,7 @@ public class CreateRegionCommand extends BaseCommand {
      * 
      * TODO - change to use the RegionDao
      */
-    private RegionReportsDao regionReportsDao = null;
+    private RegionsDao regionsDao = null;
     
     /**
 	 * Logger
@@ -167,42 +171,36 @@ public class CreateRegionCommand extends BaseCommand {
         
         try {
         	
-	        this.regionReportsDao = new RegionReportsDao();
+	        this.regionsDao = new RegionsDao();
 	        
 	        region = this.request.getRegion();
-	
-	        // TODO - add the logic to persist the region and obtain the
-	        // unique id
-
-//			reportId = this.regionReportsDao.persist(region);
+	        
+	        reportId = this.regionsDao.persist(region);
 
         
         } catch (PluginException e) {
-        	
-        	EditedRegionsException ex = new EditedRegionsException(e);
-        	
+        	EditedRegionsException er = new EditedRegionsException(e);
+        } catch (DataAccessLayerException e) {
+        	EditedRegionsException er = new EditedRegionsException(e);
         }
-//        } catch (DataAccessLayerException e) {
-//        	EditedRegionsException ex = new EditedRegionsException(e);
-//        }
 
         this.setEndTime();
 
-        return this.createResponse(region);
+        return this.createResponse(reportId);
     }
 
     /**
      * @param results
      * @return IResponse
      */
-    private IResponse createResponse(Region region) {
-        CreateRegionReportResponse response = new CreateRegionReportResponse();
+    private IResponse createResponse(int reportId) {
+        CreateRegionResponse response = new CreateRegionResponse();
 
         if (this.hasError()) {
             response.setError(this.getError());
         } else {
-            CreateRegionReportResults results = new CreateRegionReportResults();
-            results.setReportID(region.getId());
+            CreateRegionResults results = new CreateRegionResults();
+            results.setCreatedRegion(reportId);
             response.setResults(results);
         }
 
