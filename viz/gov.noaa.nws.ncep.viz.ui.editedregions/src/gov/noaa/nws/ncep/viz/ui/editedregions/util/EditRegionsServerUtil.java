@@ -1,6 +1,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.NavigableSet;
 import java.util.TreeSet;
@@ -8,20 +9,30 @@ import java.util.TreeSet;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDataResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 
 public final class EditRegionsServerUtil {
@@ -100,6 +111,72 @@ public final class EditRegionsServerUtil {
                 UpdateRegionReportResults results = (UpdateRegionReportResults) response
                         .getResults();
                 return results.getReport();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @return The latest region id to be created.
+     * @throws EditedRegionsException
+     */
+    public static Integer getLatestRegion() throws EditedRegionsException {
+        GetLatestRegionRequest request = new GetLatestRegionRequest();
+        if (request.isValid()) {
+            GetLatestRegionResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                GetLatestRegionResults results = (GetLatestRegionResults) response
+                        .getResults();
+                return results.getLatestRegion();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 
+     * @return A list of all valid region ids.
+     * @throws EditedRegionsException
+     */
+    public static List<Integer> getAllRegions() throws EditedRegionsException {
+        GetRegionsRequest request = new GetRegionsRequest();
+        if (request.isValid()) {
+            GetRegionsResponse response = Gateway.getInstance().submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                GetRegionsResults results = (GetRegionsResults) response
+                        .getResults();
+                return results.getRegions();
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    /**
+     * Persists the region object to the backend.
+     * 
+     * @param region
+     *            The region object
+     * @return The region id.
+     * @throws EditedRegionsException
+     */
+    public static Integer createRegion(Region region)
+            throws EditedRegionsException {
+        CreateRegionRequest request = new CreateRegionRequest();
+        if (request.isValid()) {
+            CreateRegionResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                CreateRegionResults results = (CreateRegionResults) response
+                        .getResults();
+                return results.getCreatedRegion();
             }
         }
         return null;
