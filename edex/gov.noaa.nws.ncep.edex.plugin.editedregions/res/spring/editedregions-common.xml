@@ -19,4 +19,21 @@
         <constructor-arg ref="regionsPluginName"/>
         <constructor-arg ref="regionsProperties"/>
     </bean>
+    
+    <!--  code below is for TEST ONLY  -->
+    <bean id="regionsListPluginName" class="java.lang.String">
+        <constructor-arg type="java.lang.String" value="editedregionstable" />
+    </bean>
+    
+    <bean id="regionsListProperties" class="com.raytheon.uf.common.dataplugin.PluginProperties">
+        <property name="pluginName" ref="regionsListPluginName" />
+        <property name="pluginFQN" value="gov.noaa.nws.ncep.common.dataplugin.editedregions" />
+        <property name="dao" value="gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao" />
+        <property name="record" value="gov.noaa.nws.ncep.common.dataplugin.editedregions.Region" />
+    </bean>
+    
+    <bean id="regionsListRegistered" factory-bean="pluginRegistry" factory-method="register"> <!-- depends-on="textRegistered" -->
+        <constructor-arg ref="regionsListPluginName"/>
+        <constructor-arg ref="regionsListProperties"/>
+    </bean>
 </beans>

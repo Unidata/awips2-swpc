@@ -4,13 +4,17 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import com.raytheon.uf.common.dataplugin.persist.PersistablePluginDataObject;
+import com.raytheon.uf.common.dataplugin.PluginDataObject;
+import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
@@ -20,17 +24,17 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @DynamicSerialize
-public class Region extends PersistablePluginDataObject {
+public class Region extends PersistableDataObject {
 
 	private static final long serialVersionUID = 6589298851235632930L;
 
-	@Override
-    public String getPluginName() {
-        // TODO: Use constant.
-        return "editedregions";
-    }
+    @Id
+    @DynamicSerializeElement
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_regions_seq_gen")
+    @SequenceGenerator(name = "swpc_regions_seq_gen", sequenceName = "SWPC_REGIONS_SEQ")
+    @Column(name = "ID", unique = true, nullable = false)
+    private long id = 0;
 	
-	@Id
 	@Column
 	@DynamicSerializeElement
 	private Integer regionID;
@@ -39,6 +43,14 @@ public class Region extends PersistablePluginDataObject {
     @DynamicSerializeElement
     private Date createTime;
 
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+    
 	/**
 	 * @return the regionID
 	 */
