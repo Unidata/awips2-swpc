@@ -51,28 +51,24 @@ public class RegionsDao extends PluginDao {
      * Persist the Region and return the ID
      *
      * @param region
-     * @return id
+     * @return id the generated unique identifier for this region (NOT the
+     *         region number)
      * 
      * @throws DataAccessLayerException
      */
-    public Integer persist(final Region region)
-            throws DataAccessLayerException {
-        int id = 0;
+    public Long persist(final Region region) throws DataAccessLayerException {
         try {
             // Get a session and create a new criteria instance
-            id = txTemplate.execute(new TransactionCallback<Integer>() {
-
-                public Integer doInTransaction(TransactionStatus status) {
-
-                    return (Integer) getCurrentSession().save(region);
+            return (Long) txTemplate.execute(new TransactionCallback<Long>() {
+                @Override
+                public Long doInTransaction(TransactionStatus status) {
+                    return (Long) getCurrentSession().save(region);
                 }
             });
 
         } catch (TransactionException e) {
             throw new DataAccessLayerException("Transaction failed", e);
         }
-
-        return id;
 
     }
 

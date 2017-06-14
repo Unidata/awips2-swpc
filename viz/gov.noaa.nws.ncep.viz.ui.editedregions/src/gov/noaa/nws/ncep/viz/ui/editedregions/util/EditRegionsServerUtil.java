@@ -161,10 +161,10 @@ public final class EditRegionsServerUtil {
      * 
      * @param region
      *            The region object
-     * @return The region id.
+     * @return The region object identifier.
      * @throws EditedRegionsException
      */
-    public static Integer createRegion(Integer regionID)
+    public static Long createRegion(Integer regionID)
             throws EditedRegionsException {
         CreateRegionRequest request = new CreateRegionRequest();
         request.setRegionID(regionID);

@@ -3,7 +3,6 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.request;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 
 /**
@@ -21,12 +20,6 @@ public class CreateRegionRequest extends Request<CreateRegionRequest>
      */
     @DynamicSerializeElement
     private final long id;
-
-    /**
-     * The region to create
-     */
-    @DynamicSerializeElement
-    private Region region = null;
 
     /**
      * The region ID of the region report that is persisted/updated TODO do we
@@ -64,7 +57,7 @@ public class CreateRegionRequest extends Request<CreateRegionRequest>
     public boolean isValid() {
         boolean valid = false;
 
-        if (this.region != null) {
+        if (this.regionID != null) {
             valid = true;
         }
 

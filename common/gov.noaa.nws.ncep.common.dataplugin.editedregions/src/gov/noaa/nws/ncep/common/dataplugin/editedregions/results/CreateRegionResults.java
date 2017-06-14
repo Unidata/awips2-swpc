@@ -9,7 +9,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 public class CreateRegionResults implements IResults {
 
     @DynamicSerializeElement
-    private Integer createdRegion = null;
+    private Long createdRegion = null;
 
     /**
      * Constructor
@@ -17,31 +17,36 @@ public class CreateRegionResults implements IResults {
     public CreateRegionResults() {
 
     }
-    
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults#numResults()
-	 */
-	@Override
-	public int numResults() {
-		if (this.createdRegion == null) {
-			return 0;
-		} else {
-			return 1;
-		}
-	}
 
-	/**
-	 * @return the createdRegion
-	 */
-	public Integer getCreatedRegion() {
-		return this.createdRegion;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults#
+     * numResults()
+     */
+    @Override
+    public int numResults() {
+        if (this.createdRegion == null) {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
 
-	/**
-	 * @param createdRegion the createdRegion to set
-	 */
-	public void setCreatedRegion(Integer createdRegion) {
-		this.createdRegion = createdRegion;
-	}
+    /**
+     * @return the createdRegion
+     */
+    public Long getCreatedRegion() {
+        return this.createdRegion;
+    }
+
+    /**
+     * @param createdRegion
+     *            the createdRegion to set
+     */
+    public void setCreatedRegion(Long createdRegion) {
+        this.createdRegion = createdRegion;
+    }
 
 }

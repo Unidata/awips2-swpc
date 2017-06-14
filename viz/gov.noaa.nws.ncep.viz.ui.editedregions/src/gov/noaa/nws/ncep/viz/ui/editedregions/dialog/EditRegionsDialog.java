@@ -688,6 +688,15 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void createNewRegion() {
         try {
             Integer latestRegion = EditRegionsServerUtil.getLatestRegion();
+            if (latestRegion == null) {
+                MessageBox noRegionIdDlg = new MessageBox(this.getShell(),
+                        SWT.OK | SWT.ICON_ERROR);
+                noRegionIdDlg.setText("No region ids.");
+                noRegionIdDlg.setMessage(
+                        "The system was unable to determine an initial region id. Please populate the region table and try again.");
+                noRegionIdDlg.open();
+                return;
+            }
             Integer newRegion = latestRegion + 1;
             MessageBox newRegionDlg = new MessageBox(this.getShell(),
                     SWT.OK | SWT.CANCEL);
@@ -697,6 +706,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             if (newRegionDlg.open() == SWT.OK) {
                 EditRegionsServerUtil.createRegion(newRegion);
+                refreshDialog();
             }
         } catch (EditedRegionsException ex) {
             statusHandler.error("Error creating new region", ex);

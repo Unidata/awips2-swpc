@@ -164,16 +164,16 @@ public class CreateRegionCommand extends BaseCommand {
     public IResponse execute() {
         this.setStartTime();
 
-        int regionId = 0;
+        long id = 0;
 
         try {
 
             this.regionsDao = new RegionsDao();
-            regionId = this.request.getRegionID();
+            int regionId = this.request.getRegionID();
             Region region = new Region();
             region.setRegionID(regionId);
 
-            regionId = this.regionsDao.persist(region);
+            id = this.regionsDao.persist(region);
 
         } catch (PluginException e) {
             setError(new EditedRegionsException(e));
@@ -183,14 +183,14 @@ public class CreateRegionCommand extends BaseCommand {
 
         this.setEndTime();
 
-        return this.createResponse(regionId);
+        return this.createResponse(id);
     }
 
     /**
      * @param results
      * @return IResponse
      */
-    private IResponse createResponse(int regionId) {
+    private IResponse createResponse(long regionId) {
         CreateRegionResponse response = new CreateRegionResponse();
 
         if (this.hasError()) {
