@@ -174,7 +174,9 @@ public class GetLatestRegionCommand extends BaseCommand {
 			regionsDao = new RegionsDao();
 			Region latestRegion = regionsDao.getLatestRegion();
 			
-			results.setLatestRegion(latestRegion.getRegionID());
+			if (latestRegion != null) {
+				results.setLatestRegion(latestRegion.getRegionID());
+			}
 		
         } catch (PluginException e) {
 			this.setError(new EditedRegionsException(e));
