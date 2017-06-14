@@ -58,6 +58,7 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -100,6 +101,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private TableViewer assignedRegionTableViewer = null;
 
     private TableViewer unassignedRegionTableViewer = null;
+
+    // The region combo selector
+    private Combo regionCombo;
 
     /**
      * The ID for the event which is to be selected
@@ -203,7 +207,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         parent.pack(true);
 
-        refreshRegionTables();
+        refreshDialog();
 
     }
 
@@ -367,7 +371,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             public void afterEditorDeactivated(
                     ColumnViewerEditorDeactivationEvent event) {
 
-                refreshRegionTables();
+                refreshDialog();
             }
 
             @Override
@@ -411,11 +415,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         new Label(regionComp, SWT.LEAD).setText("Region:");
 
-        Combo regionCombo = new Combo(regionComp,
-                SWT.READ_ONLY | SWT.DROP_DOWN);
-        regionCombo
-                .setItems(new String[] { "Region 1", "Region 2", "Region 3" });
-        regionCombo.select(0);
+        regionCombo = new Combo(regionComp, SWT.READ_ONLY | SWT.DROP_DOWN);
 
         Button newRegionButton = new Button(regionComp, SWT.PUSH);
         newRegionButton.setText("New Region");
@@ -423,7 +423,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         newRegionButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent ev) {
-                refreshRegionTables();
+                createNewRegion();
             }
         });
 
@@ -507,7 +507,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             }
             return super.close();
         } else {
-            refreshRegionTables();
+            refreshDialog();
             return false;
         }
 
@@ -620,14 +620,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     /**
-     * Refresh the events list in the table display. Also, refresh the binCombo
-     * to get the latest bins.
+     * Refreshes all items in the dialog, including the lists of assigned and
+     * unassigned region reports, along with the list of valid regions.
      * 
      * TODO this comment needs to change
      */
-    private void refreshRegionTables() {
+    private void refreshDialog() {
         List<RegionReport> assignedReports = Collections.emptyList();
         List<RegionReport> unassignedReports = Collections.emptyList();
+
+        List<Integer> regionIDs = Collections.emptyList();
 
         try {
             GetRegionReportsResults results = EditRegionsServerUtil
@@ -649,6 +651,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 unassignedReports.add(report);
             }
 
+            regionIDs = EditRegionsServerUtil.getAllRegions();
+
         } catch (EditedRegionsException e) {
             statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(), e);
         }
@@ -660,6 +664,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
+
+        regionCombo.setItems(
+                regionIDs.stream().map(String::valueOf).toArray(String[]::new));
+        regionCombo.select(0);
     }
 
     /**
@@ -670,9 +678,32 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         EnterRegionReportDialog regionReportDlg = new EnterRegionReportDialog(
                 getShell());
         if (regionReportDlg.open() == Window.OK) {
-            refreshRegionTables();
+            refreshDialog();
         }
 
+    }
+
+    /**
+     * Create a new region.
+     */
+    private void createNewRegion() {
+        try {
+            Integer latestRegion = EditRegionsServerUtil.getLatestRegion();
+            Integer newRegion = latestRegion + 1;
+            MessageBox newRegionDlg = new MessageBox(this.getShell(),
+                    SWT.OK | SWT.CANCEL);
+            newRegionDlg.setText("New region.");
+            newRegionDlg.setMessage(String
+                    .format("Do you wish to create region %d?", newRegion));
+
+            if (newRegionDlg.open() == SWT.OK) {
+                Region region = new Region();
+                region.setRegionID(newRegion);
+                EditRegionsServerUtil.createRegion(region);
+            }
+        } catch (EditedRegionsException ex) {
+            statusHandler.error("Error creating new region", ex);
+        }
     }
 
     /**
@@ -721,7 +752,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             regionReportDlg.populateData(report);
             regionReportDlg.setReportId(report.getId());
             if (regionReportDlg.open() == Window.OK) {
-                refreshRegionTables();
+                refreshDialog();
             }
         }
     }
