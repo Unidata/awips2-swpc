@@ -21,8 +21,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 
 /**
- * Data Access Object (DAO) class to interact with swpc_region database
- * table.
+ * Data Access Object (DAO) class to interact with swpc_region database table.
  * 
  * @author jtravis
  * @version 1.0
@@ -101,49 +100,48 @@ public class RegionsDao extends PluginDao {
     // }
     // });
     // }
-    
+
     /**
-    * Retrieves the latest region that was created
-    *
-    * @return Region
-    */
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public List<Region> getRegions() {
-   	 return (List<Region>) txTemplate.execute(new TransactionCallback() {
-   		 @Override
-   		 public Object doInTransaction(TransactionStatus status) {
-   			 
-   			 Session sess = getCurrentSession();
-   			 Criteria crit = sess.createCriteria(Region.class);
-   
-   			 return crit.list();
-   		 }
-   	 });
-    }
-    
-     /**
      * Retrieves the latest region that was created
      *
      * @return Region
      */
-     @SuppressWarnings({ "unchecked", "rawtypes" })
-     public Region getLatestRegion() {
-    	 return (Region) txTemplate.execute(new TransactionCallback() {
-    		 @Override
-    		 public Object doInTransaction(TransactionStatus status) {
-    			 DetachedCriteria maxId = 
-    					 DetachedCriteria.forClass(Region.class).setProjection(Projections.max("id"));
-    			 
-    			 
-    			 Session sess = getCurrentSession();
-    			 Criteria crit = sess.createCriteria(Region.class);
-    			 crit.add(Property.forName("id").eq(maxId));
-    
-    			 return crit.list();
-    		 }
-    	 });
-     }
-    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public List<Region> getRegions() {
+        return (List<Region>) txTemplate.execute(new TransactionCallback() {
+            @Override
+            public Object doInTransaction(TransactionStatus status) {
+
+                Session sess = getCurrentSession();
+                Criteria crit = sess.createCriteria(Region.class);
+
+                return crit.list();
+            }
+        });
+    }
+
+    /**
+     * Retrieves the latest region that was created
+     *
+     * @return Region
+     */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public Region getLatestRegion() {
+        return (Region) txTemplate.execute(new TransactionCallback() {
+            @Override
+            public Object doInTransaction(TransactionStatus status) {
+                DetachedCriteria maxId = DetachedCriteria.forClass(Region.class)
+                        .setProjection(Projections.max("id"));
+
+                Session sess = getCurrentSession();
+                Criteria crit = sess.createCriteria(Region.class);
+                crit.add(Property.forName("id").eq(maxId));
+
+                return crit.uniqueResult();
+            }
+        });
+    }
+
     // /**
     // * Retrieves list of events that occur before the start
     // * date

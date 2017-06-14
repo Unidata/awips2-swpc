@@ -13,8 +13,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @version 1.0
  */
 @DynamicSerialize
-public class CreateRegionRequest
-        extends Request<CreateRegionRequest> implements IRequest {
+public class CreateRegionRequest extends Request<CreateRegionRequest>
+        implements IRequest {
 
     /**
      * The Requests ID
@@ -29,8 +29,8 @@ public class CreateRegionRequest
     private Region region = null;
 
     /**
-     * The region ID of the region report that is persisted/updated TODO
-     * do we need this?
+     * The region ID of the region report that is persisted/updated TODO do we
+     * need this?
      */
     @DynamicSerializeElement
     private Integer regionID = null;
@@ -85,20 +85,6 @@ public class CreateRegionRequest
     }
 
     /**
-     * @return the region
-     */
-    public Region getRegion() {
-        return this.region;
-    }
-
-    /**
-     * @param
-     */
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    /**
      * @return the regionID
      */
     public Integer getRegionID() {
@@ -106,7 +92,8 @@ public class CreateRegionRequest
     }
 
     /**
-     * @param regionID the regionID to set
+     * @param regionID
+     *            the regionID to set
      */
     public void setRegionID(Integer regionID) {
         this.regionID = regionID;

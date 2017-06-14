@@ -9,7 +9,6 @@ import java.util.TreeSet;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -165,9 +164,10 @@ public final class EditRegionsServerUtil {
      * @return The region id.
      * @throws EditedRegionsException
      */
-    public static Integer createRegion(Region region)
+    public static Integer createRegion(Integer regionID)
             throws EditedRegionsException {
         CreateRegionRequest request = new CreateRegionRequest();
+        request.setRegionID(regionID);
         if (request.isValid()) {
             CreateRegionResponse response = Gateway.getInstance()
                     .submit(request);

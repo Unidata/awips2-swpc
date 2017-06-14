@@ -9,12 +9,9 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
 /**
@@ -31,18 +28,19 @@ public class CreateRegionCommand extends BaseCommand {
      * command
      */
     private CreateRegionRequest request = null;
-    
+
     /**
      * Dao for Region
      * 
      * TODO - change to use the RegionDao
      */
     private RegionsDao regionsDao = null;
-    
+
     /**
-	 * Logger
-	 */
-    private static final IUFStatusHandler statusHandler = UFStatus.getHandler(CreateRegionCommand.class);
+     * Logger
+     */
+    private static final IUFStatusHandler statusHandler = UFStatus
+            .getHandler(CreateRegionCommand.class);
 
     /**
      * Default Constructor
@@ -165,42 +163,41 @@ public class CreateRegionCommand extends BaseCommand {
     @Override
     public IResponse execute() {
         this.setStartTime();
-        
-        Region region = null;
-        int reportId = 0;
-        
-        try {
-        	
-	        this.regionsDao = new RegionsDao();
-	        
-	        region = this.request.getRegion();
-	        
-	        reportId = this.regionsDao.persist(region);
 
-        
+        int regionId = 0;
+
+        try {
+
+            this.regionsDao = new RegionsDao();
+            regionId = this.request.getRegionID();
+            Region region = new Region();
+            region.setRegionID(regionId);
+
+            regionId = this.regionsDao.persist(region);
+
         } catch (PluginException e) {
-        	EditedRegionsException er = new EditedRegionsException(e);
+            setError(new EditedRegionsException(e));
         } catch (DataAccessLayerException e) {
-        	EditedRegionsException er = new EditedRegionsException(e);
+            setError(new EditedRegionsException(e));
         }
 
         this.setEndTime();
 
-        return this.createResponse(reportId);
+        return this.createResponse(regionId);
     }
 
     /**
      * @param results
      * @return IResponse
      */
-    private IResponse createResponse(int reportId) {
+    private IResponse createResponse(int regionId) {
         CreateRegionResponse response = new CreateRegionResponse();
 
         if (this.hasError()) {
             response.setError(this.getError());
         } else {
             CreateRegionResults results = new CreateRegionResults();
-            results.setCreatedRegion(reportId);
+            results.setCreatedRegion(regionId);
             response.setResults(results);
         }
 

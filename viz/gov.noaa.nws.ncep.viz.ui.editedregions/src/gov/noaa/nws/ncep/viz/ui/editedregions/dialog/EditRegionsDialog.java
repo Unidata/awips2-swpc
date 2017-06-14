@@ -58,7 +58,6 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -697,9 +696,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .format("Do you wish to create region %d?", newRegion));
 
             if (newRegionDlg.open() == SWT.OK) {
-                Region region = new Region();
-                region.setRegionID(newRegion);
-                EditRegionsServerUtil.createRegion(region);
+                EditRegionsServerUtil.createRegion(newRegion);
             }
         } catch (EditedRegionsException ex) {
             statusHandler.error("Error creating new region", ex);
