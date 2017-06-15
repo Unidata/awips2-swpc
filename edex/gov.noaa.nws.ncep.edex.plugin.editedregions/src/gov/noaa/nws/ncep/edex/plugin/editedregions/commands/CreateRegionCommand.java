@@ -1,5 +1,7 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.util.Calendar;
+
 import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -12,6 +14,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
 /**
@@ -172,6 +175,12 @@ public class CreateRegionCommand extends BaseCommand {
             int regionId = this.request.getRegionID();
             Region region = new Region();
             region.setRegionID(regionId);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.clear();
+            calendar.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            region.setCreateTime(calendar.getTime());
 
             id = this.regionsDao.persist(region);
 
