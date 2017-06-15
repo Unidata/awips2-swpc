@@ -1,5 +1,7 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.util.Calendar;
+
 import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -12,6 +14,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -28,16 +31,17 @@ public class CreateRegionReportCommand extends BaseCommand {
      * command
      */
     private CreateRegionReportRequest request = null;
-    
+
     /**
      * Dao for EventBin records
      */
     private RegionReportsDao regionReportsDao = null;
-    
+
     /**
-	 * Logger
-	 */
-    private static final IUFStatusHandler statusHandler = UFStatus.getHandler(CreateRegionReportCommand.class);
+     * Logger
+     */
+    private static final IUFStatusHandler statusHandler = UFStatus
+            .getHandler(CreateRegionReportCommand.class);
 
     /**
      * Default Constructor
@@ -160,28 +164,29 @@ public class CreateRegionReportCommand extends BaseCommand {
     @Override
     public IResponse execute() {
         this.setStartTime();
-        
+
         RegionReport report = null;
         int reportId = 0;
-        
+
         try {
-        	
-	        this.regionReportsDao = new RegionReportsDao();
-	        
-	        report = this.request.getRegionReport();
-	
-	        // TODO - add the logic to persist the region report and obtain the
-	        // unique id
 
-			reportId = this.regionReportsDao.persist(report);
+            this.regionReportsDao = new RegionReportsDao();
 
-        
+            report = this.request.getRegionReport();
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+            calendar.setTimeInMillis(System.currentTimeMillis());
+            report.setObservationTime(calendar.getTime());
+
+            // TODO - add the logic to persist the region report and obtain the
+            // unique id
+
+            reportId = this.regionReportsDao.persist(report);
+
         } catch (PluginException e) {
-        	
-        	EditedRegionsException ex = new EditedRegionsException(e);
-        	
+            setError(new EditedRegionsException(e));
         } catch (DataAccessLayerException e) {
-        	EditedRegionsException ex = new EditedRegionsException(e);
+            setError(new EditedRegionsException(e));
         }
 
         this.setEndTime();

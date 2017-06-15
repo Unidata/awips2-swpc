@@ -30,6 +30,7 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsValidationUtil;
 
 public class EnterRegionReportDialog extends Dialog {
 
+    private static final String NO_REGION = "None";
     // Input fields
 
     private Combo cmbObservatory;
@@ -44,7 +45,7 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Label lblQuality;
 
-    private Text txtRegion;
+    private Combo cmbRegion;
 
     private Label lblRegion;
 
@@ -152,6 +153,7 @@ public class EnterRegionReportDialog extends Dialog {
      * @param report
      */
     public void populateData(RegionReport report) {
+        selectItem(cmbRegion, report.getRegion());
         selectItem(cmbObservatory, report.getObservatory());
         txtType.setText(report.getType());
         selectItem(cmbQuality, report.getQuality());
@@ -179,8 +181,6 @@ public class EnterRegionReportDialog extends Dialog {
     private boolean validateRegionReportData() {
         boolean pass = true;
 
-        pass &= EditRegionsValidationUtil.validateInteger(txtRegion.getText(),
-                lblRegion);
         pass &= EditRegionsValidationUtil.validateInteger(txtCarlon.getText(),
                 lblCarlon);
         pass &= EditRegionsValidationUtil.validateInteger(txtExtent.getText(),
@@ -240,12 +240,18 @@ public class EnterRegionReportDialog extends Dialog {
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
 
+        String region = getSelection(cmbRegion);
+        if (region.equals(NO_REGION)) {
+            report.setRegion(null);
+        } else {
+            report.setRegion(convertInt(region));
+        }
+
         // report.setStation(convertInt(getSelection(cmbStation)));
         report.setObservatory(getSelection(cmbObservatory));
         report.setType(txtType.getText());
         report.setQuality(EditRegionsServerUtil
                 .getObservationQualityId(getSelection(cmbQuality)));
-        report.setRegion(convertInt(txtRegion.getText()));
         // report.setLatitude(convertInt(txtLatitude.getText()));
         // report.setReportLongitude(convertInt(txtReportLongitude.getText()));
         // report.setLongitude(convertInt(txtLongitude.getText()));
@@ -425,7 +431,18 @@ public class EnterRegionReportDialog extends Dialog {
         lblQuality = addLabel(composite);
 
         // Region field
-        txtRegion = addTextControl(composite, "Region");
+        String[] regions = new String[0];
+        try {
+            String[] tmp = EditRegionsServerUtil.getAllRegions().stream()
+                    .map(String::valueOf).toArray(String[]::new);
+            regions = new String[tmp.length + 1];
+            regions[0] = NO_REGION;
+            System.arraycopy(tmp, 0, regions, 1, tmp.length);
+        } catch (EditedRegionsException e) {
+            statusHandler.error("Error retreiving region ids.", e);
+        }
+
+        cmbRegion = addComboControl(composite, "Region", regions);
 
         lblRegion = addLabel(composite);
 
