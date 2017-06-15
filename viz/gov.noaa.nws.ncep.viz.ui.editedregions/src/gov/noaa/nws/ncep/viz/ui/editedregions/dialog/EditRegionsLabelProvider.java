@@ -151,7 +151,7 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return convertToDisplay(report.getArea());
 
         case EditRegionsUIConstants.COLUMN_INDEX_NUMSPOTS:
-            return convertToDisplay(report.getNumspots());
+            return convertToDisplay(report.getNumspot());
 
         case EditRegionsUIConstants.COLUMN_INDEX_SPOTCLASS:
             return convertToDisplay(report.getSpotclass());

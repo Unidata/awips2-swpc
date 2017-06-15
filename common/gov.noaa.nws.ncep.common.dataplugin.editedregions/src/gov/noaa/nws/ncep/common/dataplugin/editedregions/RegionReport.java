@@ -142,8 +142,8 @@ public class RegionReport extends PersistablePluginDataObject {
 
     @Column
     @DynamicSerializeElement
-    @XmlElement
-    private Integer numspots;
+    @XmlElement(name = "Numspot")
+    private Integer numspot;
 
     @Column
     @DynamicSerializeElement
@@ -410,16 +410,16 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the numspots
      */
-    public Integer getNumspots() {
-        return this.numspots;
+    public Integer getNumspot() {
+        return this.numspot;
     }
 
     /**
      * @param numspots
      *            the numspots to set
      */
-    public void setNumspots(Integer numspots) {
-        this.numspots = numspots;
+    public void setNumspot(Integer numspots) {
+        this.numspot = numspots;
     }
 
     /**

@@ -260,7 +260,7 @@ public class EnterRegionReportDialog extends Dialog {
         report.setCarlon(convertInt(txtCarlon.getText()));
         report.setExtent(convertInt(txtExtent.getText()));
         report.setArea(convertInt(txtArea.getText()));
-        report.setNumspots(convertInt(txtNumspots.getText()));
+        report.setNumspot(convertInt(txtNumspots.getText()));
         // report.setZurich(convertInt(getSelection(cmbZurich)));
         // report.setPenumbra(EditRegionsServerUtil
         // .getPenumbralClassId(getSelection(cmbPenumbra)));
