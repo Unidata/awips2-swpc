@@ -185,8 +185,12 @@ public class GetRegionsCommand extends BaseCommand {
 			while (it.hasNext()) {
 				results.setRegion(it.next().getRegionID().intValue());
 			}
-		
-        } catch (PluginException e) {
+		// TODO correct this...do not catch a generic exception!!!
+//        } catch (PluginException e) {
+//			this.setError(new EditedRegionsException(e));
+//		}
+			
+        } catch (Exception e) {
 			this.setError(new EditedRegionsException(e));
 		}
         

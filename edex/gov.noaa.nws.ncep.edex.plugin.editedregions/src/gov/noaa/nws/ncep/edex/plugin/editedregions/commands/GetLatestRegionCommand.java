@@ -177,10 +177,14 @@ public class GetLatestRegionCommand extends BaseCommand {
 			if (latestRegion != null) {
 				results.setLatestRegion(latestRegion.getRegionID());
 			}
-		
-        } catch (PluginException e) {
-			this.setError(new EditedRegionsException(e));
-		}
+			// TODO correct this...do not catch a generic exception!!!
+//        } catch (PluginException e) {
+//			this.setError(new EditedRegionsException(e));
+//		}
+        
+        } catch (Exception e) {
+        	this.setError(new EditedRegionsException(e));
+        }
         
         this.setEndTime();
         

@@ -184,10 +184,16 @@ public class CreateRegionCommand extends BaseCommand {
 
             id = this.regionsDao.persist(region);
 
-        } catch (PluginException e) {
-            setError(new EditedRegionsException(e));
-        } catch (DataAccessLayerException e) {
-            setError(new EditedRegionsException(e));
+            
+    		// TODO correct this...do not catch a generic exception!!!
+//        } catch (PluginException e) {
+//            setError(new EditedRegionsException(e));
+//        } catch (DataAccessLayerException e) {
+//            setError(new EditedRegionsException(e));
+//        }
+        
+        } catch (Exception e) {
+        	setError(new EditedRegionsException(e));
         }
 
         this.setEndTime();

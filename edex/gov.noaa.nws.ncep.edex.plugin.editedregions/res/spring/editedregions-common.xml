@@ -20,7 +20,16 @@
         <constructor-arg ref="regionsProperties"/>
     </bean>
     
-    <!--  code below is for TEST ONLY  -->
+    <!-- 
+    Configuration below made the Region class considered as part of a plugin
+    which meant that it was scheduled to be purged.  This was not acceptable nor
+    required.  Comparing the EventBin class in Edited Events showed that there was a more
+    appropriate way to create the Region class in the Edited Regions application.
+    
+    The configuration below is commented out below for now and should be removed prior
+    to release 1.0 of ER.
+     -->
+    <!--  
     <bean id="regionsListPluginName" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="editedregionstable" />
     </bean>
@@ -32,8 +41,11 @@
         <property name="record" value="gov.noaa.nws.ncep.common.dataplugin.editedregions.Region" />
     </bean>
     
-    <bean id="regionsListRegistered" factory-bean="pluginRegistry" factory-method="register"> <!-- depends-on="textRegistered" -->
+    <bean id="regionsListRegistered" factory-bean="pluginRegistry" factory-method="register">
         <constructor-arg ref="regionsListPluginName"/>
         <constructor-arg ref="regionsListProperties"/>
     </bean>
+    
+    -->
+
 </beans>

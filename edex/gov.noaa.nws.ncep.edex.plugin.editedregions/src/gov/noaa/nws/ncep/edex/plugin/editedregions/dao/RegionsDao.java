@@ -11,14 +11,11 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
-import com.raytheon.uf.common.dataplugin.persist.IPersistable;
-import com.raytheon.uf.common.datastorage.IDataStore;
 import com.raytheon.uf.edex.database.DataAccessLayerException;
-import com.raytheon.uf.edex.database.plugin.PluginDao;
+import com.raytheon.uf.edex.database.dao.CoreDao;
+import com.raytheon.uf.edex.database.dao.DaoConfig;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 
 /**
  * Data Access Object (DAO) class to interact with swpc_region database table.
@@ -26,26 +23,14 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
  * @author jtravis
  * @version 1.0
  */
-public class RegionsDao extends PluginDao {
-
-    /**
-     * Creates a new RegionReportsDAO
-     *
-     * @throws PluginException
-     */
-    public RegionsDao() throws PluginException {
-        super(EditedRegionsConstants.PLUGIN_NAME);
-    }
-
-    /**
-     * Creates a new RegionReportsDao
-     * 
-     * @param pluginName
-     * @throws PluginException
-     */
-    public RegionsDao(String pluginName) throws PluginException {
-        super(pluginName);
-    }
+public class RegionsDao extends CoreDao {
+	
+	/**
+	 * Creates a new EventBinDao
+	 */
+	public RegionsDao() {
+		super(DaoConfig.forClass(RegionsDao.class));
+	}
 
     /**
      * Persist the Region and return the ID
@@ -687,12 +672,8 @@ public class RegionsDao extends PluginDao {
     //
     // }
     //
-    @Override
-    protected IDataStore populateDataStore(IDataStore dataStore,
-            IPersistable obj) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    
+    
     //
     // // TODO - add methods to perform queries
     //
