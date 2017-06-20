@@ -689,12 +689,11 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         try {
             Integer latestRegion = EditRegionsServerUtil.getLatestRegion();
             if (latestRegion == null) {
-                MessageBox noRegionIdDlg = new MessageBox(this.getShell(),
-                        SWT.OK | SWT.ICON_ERROR);
-                noRegionIdDlg.setText("No region ids.");
-                noRegionIdDlg.setMessage(
-                        "The system was unable to determine an initial region id. Please populate the region table and try again.");
-                noRegionIdDlg.open();
+                EnterNewRegionDialog newRegionDialog = new EnterNewRegionDialog(
+                        this.getShell());
+                if (newRegionDialog.open() == Window.OK) {
+                    refreshDialog();
+                }
                 return;
             }
             Integer newRegion = latestRegion + 1;
