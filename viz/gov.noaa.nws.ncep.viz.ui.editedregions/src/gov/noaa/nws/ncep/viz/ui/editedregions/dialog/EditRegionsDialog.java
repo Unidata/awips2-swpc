@@ -757,6 +757,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             regionReportDlg.create();
             regionReportDlg.populateData(report);
             regionReportDlg.setReportId(report.getId());
+            regionReportDlg.setObservationTime(report.getObservationTime());
             if (regionReportDlg.open() == Window.OK) {
                 refreshDialog();
             }

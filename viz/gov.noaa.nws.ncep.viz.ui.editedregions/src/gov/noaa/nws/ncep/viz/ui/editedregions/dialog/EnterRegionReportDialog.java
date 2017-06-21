@@ -2,6 +2,7 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -31,6 +32,7 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsValidationUtil;
 public class EnterRegionReportDialog extends Dialog {
 
     private static final String NO_REGION = "None";
+
     // Input fields
 
     private Combo cmbObservatory;
@@ -85,6 +87,8 @@ public class EnterRegionReportDialog extends Dialog {
             .getHandler(EnterRegionReportDialog.class);
 
     private Integer reportId = null;
+
+    private Date observationTime = null;
 
     protected EnterRegionReportDialog(Shell parent) {
         super(parent);
@@ -165,12 +169,38 @@ public class EnterRegionReportDialog extends Dialog {
         txtSpotClass.setText(convertToString(report.getSpotclass()));
     }
 
+    /**
+     * 
+     * @return The report id
+     */
     public Integer getReportId() {
         return this.reportId;
     }
 
+    /**
+     * 
+     * @param reportId
+     *            The report id to set
+     */
     public void setReportId(Integer reportId) {
         this.reportId = reportId;
+    }
+
+    /**
+     * 
+     * @return The observation time
+     */
+    public Date getObservationTime() {
+        return this.observationTime;
+    }
+
+    /**
+     * 
+     * @param observationTime
+     *            The observation time to set.
+     */
+    public void setObservationTime(Date observationTime) {
+        this.observationTime = observationTime;
     }
 
     /**
@@ -239,6 +269,7 @@ public class EnterRegionReportDialog extends Dialog {
         }
         report.setDataTime(new DataTime(calendar));
         report.setPersistenceTime(calendar.getTime());
+        report.setObservationTime(getObservationTime());
 
         String region = getSelection(cmbRegion);
         if (region.equals(NO_REGION)) {
