@@ -55,6 +55,10 @@ public final class EditRegionsServerUtil {
     private static Map<String, Integer> reportStatusRefData = Collections
             .emptyMap();
 
+    static {
+        loadReferenceData();
+    }
+
     public static GetRegionReportsResults getRegionReports(
             boolean bAssignedReports, boolean bUnassignedReports)
                     throws EditedRegionsException {
@@ -225,11 +229,7 @@ public final class EditRegionsServerUtil {
         return new TreeSet<>(observationQualityRefData.keySet());
     }
 
-    public static String getObservationQuality(int id) {
-
-        if (observationQualityRefData.isEmpty()) {
-            loadReferenceData();
-        }
+    public static String getObservationQuality(Integer id) {
         return getKeyForValue(observationQualityRefData, id);
     }
 
@@ -241,10 +241,7 @@ public final class EditRegionsServerUtil {
         return new TreeSet<>(observationTypeRefData.keySet());
     }
 
-    public static String getObservationType(int id) {
-        if (observationTypeRefData.isEmpty()) {
-            loadReferenceData();
-        }
+    public static String getObservationType(Integer id) {
         return getKeyForValue(observationTypeRefData, id);
     }
 
@@ -257,9 +254,6 @@ public final class EditRegionsServerUtil {
     }
 
     public static String getPenumbralClass(int id) {
-        if (penumbralClassRefData.isEmpty()) {
-            loadReferenceData();
-        }
         return getKeyForValue(penumbralClassRefData, id);
     }
 
@@ -271,10 +265,7 @@ public final class EditRegionsServerUtil {
         return new TreeSet<>(reportStatusRefData.keySet());
     }
 
-    public static String getReportStatus(int id) {
-        if (reportStatusRefData.isEmpty()) {
-            loadReferenceData();
-        }
+    public static String getReportStatus(Integer id) {
         return getKeyForValue(reportStatusRefData, id);
     }
 
