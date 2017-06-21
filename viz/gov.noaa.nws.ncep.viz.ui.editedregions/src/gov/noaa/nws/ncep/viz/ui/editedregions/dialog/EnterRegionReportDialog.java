@@ -167,6 +167,7 @@ public class EnterRegionReportDialog extends Dialog {
         txtExtent.setText(convertToString(report.getExtent()));
         txtArea.setText(convertToString(report.getArea()));
         txtSpotClass.setText(convertToString(report.getSpotclass()));
+        txtNumspots.setText(convertToString(report.getNumspot()));
     }
 
     /**
