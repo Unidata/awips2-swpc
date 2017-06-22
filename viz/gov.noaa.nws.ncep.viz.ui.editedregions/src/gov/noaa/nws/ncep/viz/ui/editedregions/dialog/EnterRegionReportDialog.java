@@ -319,12 +319,6 @@ public class EnterRegionReportDialog extends Dialog {
                 } else {
                     EditRegionsServerUtil.saveNewRegionReport(report);
                 }
-
-                MessageBox mb = new MessageBox(this.getShell(),
-                        SWT.ICON_INFORMATION ^ SWT.OK);
-                mb.setText("Saved");
-                mb.setMessage("Your region report data has been saved!");
-                mb.open();
             } else {
                 MessageBox mb = new MessageBox(this.getShell(),
                         SWT.ICON_ERROR ^ SWT.OK);
