@@ -754,10 +754,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             EnterRegionReportDialog regionReportDlg = new EnterRegionReportDialog(
                     EditRegionsDialog.this.getShell());
-            regionReportDlg.create();
-            regionReportDlg.populateData(report);
             regionReportDlg.setReportId(report.getId());
             regionReportDlg.setObservationTime(report.getObservationTime());
+            regionReportDlg.create();
+            regionReportDlg.populateData(report);
             if (regionReportDlg.open() == Window.OK) {
                 refreshDialog();
             }

@@ -54,10 +54,6 @@ public class EnterNewRegionDialog extends Dialog {
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
-    private String ENTER_EVENT_LABEL = "Enter Event";
-
-    private String CLOSE_ABEL = "Close";
-
     private Text txtRegion = null;
 
     private Integer newRegionId = null;
@@ -98,7 +94,7 @@ public class EnterNewRegionDialog extends Dialog {
      */
     private void initializeComponents(Composite parent) {
 
-        this.getShell().setText("Select Event Type");
+        this.getShell().setText("New Region Dialog.");
 
         Composite composite = new Composite(parent, SWT.None);
         composite.setLayout(new GridLayout(1, false));
