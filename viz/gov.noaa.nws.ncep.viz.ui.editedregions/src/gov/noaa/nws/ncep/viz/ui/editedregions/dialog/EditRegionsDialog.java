@@ -200,9 +200,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 "Unassigned Regions");
 
         createConsensusControls(sashForm);
-        createArrowControls(sashForm);
 
-        sashForm.setWeights(new int[] { 4, 1, 6, 1, 6, 6, 2 });
+        createCloseControl(sashForm);
+
+        sashForm.setWeights(new int[] { 2, 1, 6, 1, 6, 6, 2 });
 
         parent.pack(true);
 
@@ -258,16 +259,23 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    private void createArrowControls(Composite parent) {
-        Composite arrowComp = new Composite(parent, SWT.NONE);
-        arrowComp.setLayout(new GridLayout(2, false));
+    private void createCloseControl(Composite parent) {
+        Composite closeComp = new Composite(parent, SWT.NONE);
+        closeComp.setLayout(new GridLayout(1, false));
 
-        Button btnLeft = new Button(arrowComp, SWT.PUSH);
-        Button btnRight = new Button(arrowComp, SWT.PUSH);
+        GridData gridData = new GridData();
+        gridData.horizontalAlignment = SWT.END;
+        gridData.verticalAlignment = SWT.END;
 
-        btnLeft.setText("<--");
-        btnRight.setText("-->");
-
+        Button closeButton = new Button(closeComp, SWT.PUSH);
+        closeButton.setText("Close");
+        closeButton.setLayoutData(gridData);
+        closeButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                close();
+            }
+        });
     }
 
     /**
@@ -395,20 +403,17 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite regionComp = new Composite(regionGroup, SWT.None);
 
-        GridLayout gridLayout = new GridLayout(9, false);
+        GridLayout gridLayout = new GridLayout(11, false);
 
         regionComp.setLayout(gridLayout);
         regionComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
 
-        Button closeButton = new Button(regionComp, SWT.PUSH);
-        closeButton.setText("Close");
-        closeButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                close();
-            }
-        });
+        Button btnLeft = new Button(regionComp, SWT.PUSH);
+        Button btnRight = new Button(regionComp, SWT.PUSH);
+
+        btnLeft.setText("<--");
+        btnRight.setText("-->");
 
         new Label(regionComp, SWT.LEAD).setText("");
 
@@ -441,14 +446,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         new Label(regionComp, SWT.LEAD).setText("");
 
-        new Label(regionComp, SWT.LEAD).setText("Region data for:");
-
         DateTimeFormatter formatter = DateTimeFormatter
                 .ofPattern("dd MMM yyyy");
         LocalDate date = LocalDate.now(ZoneOffset.UTC);
 
         Text dateText = new Text(regionComp, SWT.BORDER);
         dateText.setText(formatter.format(date));
+        dateText.setEditable(false);
 
     }
 
