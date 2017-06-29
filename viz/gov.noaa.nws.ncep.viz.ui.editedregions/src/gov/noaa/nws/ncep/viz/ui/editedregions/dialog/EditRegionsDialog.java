@@ -260,16 +260,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     }
 
     private void createCloseControl(Composite parent) {
+
         Composite closeComp = new Composite(parent, SWT.NONE);
         closeComp.setLayout(new GridLayout(1, false));
 
-        GridData gridData = new GridData();
-        gridData.horizontalAlignment = SWT.END;
-        gridData.verticalAlignment = SWT.END;
-
         Button closeButton = new Button(closeComp, SWT.PUSH);
-        closeButton.setText("Close");
-        closeButton.setLayoutData(gridData);
+        closeButton.setText("    Close    ");
+        closeButton.setLayoutData(
+                new GridData(SWT.RIGHT, SWT.CENTER, true, true, 1, 1));
         closeButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
