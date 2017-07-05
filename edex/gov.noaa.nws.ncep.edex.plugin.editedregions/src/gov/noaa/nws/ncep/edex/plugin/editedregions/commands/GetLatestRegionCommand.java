@@ -1,6 +1,5 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
@@ -164,6 +163,8 @@ public class GetLatestRegionCommand extends BaseCommand {
     @Override
     public IResponse execute() {
     	
+    	statusHandler.info("Starting Executing " + this.getClass().getSimpleName());
+    	
     	this.setStartTime();
     	
         GetLatestRegionResponse response = new GetLatestRegionResponse();
@@ -187,6 +188,8 @@ public class GetLatestRegionCommand extends BaseCommand {
         }
         
         this.setEndTime();
+        
+        statusHandler.info("Finishing Executing " + this.getClass().getSimpleName());
         
         // add the results instance to the response;
     	response.setResults(results);

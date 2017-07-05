@@ -3,19 +3,15 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 import java.util.Iterator;
 import java.util.List;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
@@ -170,6 +166,8 @@ public class GetRegionsCommand extends BaseCommand {
     @Override
     public IResponse execute() {
     	
+    	statusHandler.info("Starting Executing " + this.getClass().getSimpleName());
+    	
     	this.setStartTime();
     	
         GetRegionsResponse response = new GetRegionsResponse();
@@ -195,6 +193,8 @@ public class GetRegionsCommand extends BaseCommand {
 		}
         
         this.setEndTime();
+        
+        statusHandler.info("Finishing Executing " + this.getClass().getSimpleName());
         
         // add the results instance to the response;
     	response.setResults(results);

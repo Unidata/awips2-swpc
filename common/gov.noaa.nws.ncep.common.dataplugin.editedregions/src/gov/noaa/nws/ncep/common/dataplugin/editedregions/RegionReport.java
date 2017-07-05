@@ -19,6 +19,12 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 
+/**
+ * Class representing a Region Report
+ * 
+ * @author jtravis
+ *
+ */
 @Entity
 @SequenceGenerator(initialValue = 1, name = PluginDataObject.ID_GEN, sequenceName = "SWPC_REGION_REPORTS_SEQ")
 @Table(name = "SWPC_REGION_REPORTS")

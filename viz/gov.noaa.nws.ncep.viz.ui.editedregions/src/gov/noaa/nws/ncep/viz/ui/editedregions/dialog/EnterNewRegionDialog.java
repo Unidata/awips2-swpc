@@ -54,10 +54,6 @@ public class EnterNewRegionDialog extends Dialog {
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
-    private String ENTER_EVENT_LABEL = "Enter Event";
-
-    private String CLOSE_ABEL = "Close";
-
     private Text txtRegion = null;
 
     private Integer newRegionId = null;

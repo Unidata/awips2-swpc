@@ -169,6 +169,8 @@ public class GetRegionReportsCommand extends BaseCommand {
     @Override
     public IResponse execute() {
 
+    	statusHandler.info("Starting Executing " + this.getClass().getSimpleName());
+    	
         this.setStartTime();
 
         List<RegionReport> unAssignedRegionReports = new ArrayList<>();
@@ -213,6 +215,8 @@ public class GetRegionReportsCommand extends BaseCommand {
         }
 
         this.setEndTime();
+        
+        statusHandler.info("Finishing Executing " + this.getClass().getSimpleName());
 
         return response;
     }

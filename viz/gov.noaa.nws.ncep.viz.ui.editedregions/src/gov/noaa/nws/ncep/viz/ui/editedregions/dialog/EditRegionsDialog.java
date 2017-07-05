@@ -104,6 +104,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // The region combo selector
     private Combo regionCombo;
 
+    private String CLOSE_BUTTON_TITLE = "Close";
+    
     /**
      * The ID for the event which is to be selected
      */
@@ -402,7 +404,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
 
         Button closeButton = new Button(regionComp, SWT.PUSH);
-        closeButton.setText("Close");
+        closeButton.setText(this.CLOSE_BUTTON_TITLE);
         closeButton.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {

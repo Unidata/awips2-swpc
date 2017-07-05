@@ -2,10 +2,8 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.Calendar;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
-import com.raytheon.uf.edex.database.DataAccessLayerException;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
@@ -165,6 +163,9 @@ public class CreateRegionCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
+    	
+    	statusHandler.info("Begin Executing " + this.getClass().getSimpleName());
+    	
         this.setStartTime();
 
         long id = 0;
@@ -198,6 +199,8 @@ public class CreateRegionCommand extends BaseCommand {
 
         this.setEndTime();
 
+        statusHandler.info("Finish Executing " + this.getClass().getSimpleName());
+        
         return this.createResponse(id);
     }
 

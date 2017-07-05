@@ -4,7 +4,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand;
 
 /**
- * The Base Command class from which all Edited Event commands
+ * The Base Command class from which all Edited Regions commands
  * must extend
  *  
  * <pre>

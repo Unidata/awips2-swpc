@@ -187,6 +187,8 @@ public class GetReferenceDataCommand extends BaseCommand {
     @Override
     public IResponse execute() {
     	
+    	statusHandler.info("Starting Executing " + this.getClass().getSimpleName());
+    	
     	this.setStartTime();
     	
         GetReferenceDataResponse response = new GetReferenceDataResponse();
@@ -262,6 +264,8 @@ public class GetReferenceDataCommand extends BaseCommand {
         	
         
         this.setEndTime();
+        
+        statusHandler.info("Finishing Executing " + this.getClass().getSimpleName());
         
         return response;
     }

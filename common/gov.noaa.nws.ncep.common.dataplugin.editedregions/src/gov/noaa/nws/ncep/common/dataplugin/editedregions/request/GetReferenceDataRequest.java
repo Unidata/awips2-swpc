@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.request;
 
-import java.util.Hashtable;
-
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
@@ -24,9 +22,6 @@ public class GetReferenceDataRequest extends
     @DynamicSerializeElement
     private final long id;
     
-    private Hashtable<String, Hashtable<String, String>> results = 
-    		new Hashtable<String, Hashtable<String, String>>();
-    
 	/**
 	 *  Constructor
 	 */
@@ -47,6 +42,8 @@ public class GetReferenceDataRequest extends
 
     /*
      * (non-Javadoc)
+     * 
+     * TODO currently no validation performed as the request requires no parameters which could be used for validation revisit in ER v2.0
      * 
      * @see
      * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.IRequest#isValid
@@ -80,21 +77,5 @@ public class GetReferenceDataRequest extends
     	// TODO - verify this
     	;;
     }
-
-//	/**
-//	 * @return the results
-//	 */
-//	public Hashtable<String, Hashtable<String, String>> getResults() {
-//		return this.results;
-//	}
-//
-//	/**
-//	 * TODO this method may not be needed since the client will not supply a hashtable to store results
-//	 * 
-//	 * @param results the results to set
-//	 */
-//	public void setResults(Hashtable<String, Hashtable<String, String>> results) {
-////		this.results = results;
-//	}
     
 }
