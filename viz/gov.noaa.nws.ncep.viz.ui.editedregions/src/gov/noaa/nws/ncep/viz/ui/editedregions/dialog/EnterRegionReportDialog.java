@@ -333,12 +333,6 @@ public class EnterRegionReportDialog extends Dialog {
                 } else {
                     EditRegionsServerUtil.saveNewRegionReport(report);
                 }
-
-                MessageBox mb = new MessageBox(this.getShell(),
-                        SWT.ICON_INFORMATION ^ SWT.OK);
-                mb.setText("Saved");
-                mb.setMessage("Your region report data has been saved!");
-                mb.open();
             } else {
                 MessageBox mb = new MessageBox(this.getShell(),
                         SWT.ICON_ERROR ^ SWT.OK);
@@ -362,7 +356,14 @@ public class EnterRegionReportDialog extends Dialog {
      *            The parent composite
      */
     private void initializeComponents(Composite parent) {
-        getShell().setText("Enter new region report.");
+        String title;
+        if (getReportId() != null) {
+            title = "Update region report.";
+        } else {
+            title = "Enter new region report.";
+        }
+
+        getShell().setText(title);
 
         Composite composite = new Composite(parent, SWT.None);
         composite.setLayout(new GridLayout(1, false));

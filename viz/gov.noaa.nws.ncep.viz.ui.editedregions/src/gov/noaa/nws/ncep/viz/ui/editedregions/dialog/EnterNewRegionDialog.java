@@ -94,7 +94,7 @@ public class EnterNewRegionDialog extends Dialog {
      */
     private void initializeComponents(Composite parent) {
 
-        this.getShell().setText("Select Event Type");
+        this.getShell().setText("New Region Dialog.");
 
         Composite composite = new Composite(parent, SWT.None);
         composite.setLayout(new GridLayout(1, false));
@@ -144,12 +144,6 @@ public class EnterNewRegionDialog extends Dialog {
                 // Validation passes. Create the new Region.
                 Integer regionId = Integer.parseInt(region);
                 EditRegionsServerUtil.createRegion(regionId);
-                MessageBox confirmDlg = new MessageBox(this.getShell(),
-                        SWT.OK | SWT.ICON_INFORMATION);
-                confirmDlg.setText("Success.");
-                confirmDlg.setMessage(String
-                        .format("Region %d successfully created!", regionId));
-                confirmDlg.open();
             } else {
                 // Validation failed. Get the user to correct errors.
                 MessageBox errorDlg = new MessageBox(this.getShell(),
