@@ -18,7 +18,6 @@ import java.util.TimeZone;
  * @author jtravis
  * @version 1.0
  */
-
 public class EditedRegionsConstants {
 
     /**
@@ -36,21 +35,23 @@ public class EditedRegionsConstants {
      */
     public static final Integer MISSING_REGION_VAL = null;
 
+    /**
+     * The version of the application
+     */
     public static final String VERSION_NUMBER = "1.0";
 
     // TODO - may not need
     public static enum REGION_REPORT_STATUS {
-    	ASSIGNED("Assigned"),
-    	UNASSIGNED("Un-Assigned");
-    	
-    	private String type;
-    	
-    	REGION_REPORT_STATUS(String type) {
-    		this.type = type;
-    	}
-    	
-    	public String getType() {
-    		return type;
-    	}
+        ASSIGNED("Assigned"), UNASSIGNED("Un-Assigned");
+
+        private String type;
+
+        REGION_REPORT_STATUS(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return type;
+        }
     }
 }

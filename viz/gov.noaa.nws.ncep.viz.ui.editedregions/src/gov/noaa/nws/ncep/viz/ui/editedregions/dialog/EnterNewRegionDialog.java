@@ -58,14 +58,23 @@ public class EnterNewRegionDialog extends Dialog {
 
     private Integer newRegionId = null;
 
+    /**
+     * @param parent
+     */
     public EnterNewRegionDialog(Shell parent) {
         super(parent);
         setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.MAX | SWT.MIN | SWT.RESIZE
                 | SWT.MODELESS);
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Creates the dialog area
+     * 
+     * @see
+     * org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets
+     * .Composite)
      */
     @Override
     public Control createDialogArea(Composite parent) {
@@ -132,9 +141,12 @@ public class EnterNewRegionDialog extends Dialog {
 
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Open the EnterNewRegionDialog
-     *
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#okPressed()
      */
     @Override
     protected void okPressed() {

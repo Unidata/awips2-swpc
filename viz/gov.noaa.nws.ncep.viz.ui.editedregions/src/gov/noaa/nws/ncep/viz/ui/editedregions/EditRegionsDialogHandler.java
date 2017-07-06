@@ -9,12 +9,12 @@
  **/
 package gov.noaa.nws.ncep.viz.ui.editedregions;
 
-import gov.noaa.nws.ncep.viz.ui.display.NcDisplayMngr;
-import gov.noaa.nws.ncep.viz.ui.editedregions.dialog.EditRegionsDialog;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+
+import gov.noaa.nws.ncep.viz.ui.display.NcDisplayMngr;
+import gov.noaa.nws.ncep.viz.ui.editedregions.dialog.EditRegionsDialog;
 
 /**
  * Handler to pop up the edit events window in CAVE.
@@ -31,21 +31,19 @@ import org.eclipse.core.commands.ExecutionException;
  * @version 1.0
  * 
  */
-
 public class EditRegionsDialogHandler extends AbstractHandler {
 
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.commands
-     * .ExecutionEvent)
+     * @see org.eclipse.core.commands.AbstractHandler#execute(org.eclipse.core.
+     * commands .ExecutionEvent)
      */
     @Override
     public Object execute(ExecutionEvent arg0) throws ExecutionException {
 
-        EditRegionsDialog dlg = EditRegionsDialog.getInstance(NcDisplayMngr
-                .getCaveShell());
+        EditRegionsDialog dlg = EditRegionsDialog
+                .getInstance(NcDisplayMngr.getCaveShell());
         dlg.open();
         return null;
 

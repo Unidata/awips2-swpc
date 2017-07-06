@@ -4,10 +4,10 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
 /**
- *  
+ * 
  * <pre>
  * 
- * SOFTWARE HISTORY
+ * SOFTWARE HISTORY 
  * 
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
@@ -22,9 +22,9 @@ import com.raytheon.uf.common.serialization.comm.IServerRequest;
 public class Request<T> implements IServerRequest {
 
     /**
-	 * 
-	 */
-    public Request() {       
+     * 
+     */
+    public Request() {
     }
 
 }

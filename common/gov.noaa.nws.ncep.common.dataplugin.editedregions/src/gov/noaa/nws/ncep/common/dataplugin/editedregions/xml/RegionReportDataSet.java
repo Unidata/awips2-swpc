@@ -13,11 +13,28 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 
+/**
+ * TODO Review as it my not be needed in subsequent releases of ER
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 @DynamicSerialize
 @XmlAccessorType(XmlAccessType.NONE)
 @XmlRootElement(name = "dataset")
 public class RegionReportDataSet {
+
     /**
+     * 
      * List of region reports.
      */
     @DynamicSerializeElement

@@ -30,7 +30,8 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsValidationUtil;
 
 /**
- * TODO the class level Label parameters are unused but will be used in subsequent releases...added suppress warnings for now
+ * TODO the class level Label parameters are unused but will be used in
+ * subsequent releases...added suppress warnings for now
  * 
  * @author Ada
  *
@@ -44,7 +45,7 @@ public class EnterRegionReportDialog extends Dialog {
     private Combo cmbObservatory;
 
     @SuppressWarnings("unused")
-	private Label lblObservatory;
+    private Label lblObservatory;
 
     private Text txtType;
 
@@ -536,6 +537,9 @@ public class EnterRegionReportDialog extends Dialog {
 
     }
 
+    /**
+     * 
+     */
     private void initializeControlsWithDefaultValues() {
         // TODO: add implementation
     }

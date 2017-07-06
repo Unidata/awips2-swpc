@@ -1,7 +1,7 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.sql;
 
 /**
- * Class that defines the SQL queries
+ * Class that defines the SQL queries.
  * 
  * <pre>
  *

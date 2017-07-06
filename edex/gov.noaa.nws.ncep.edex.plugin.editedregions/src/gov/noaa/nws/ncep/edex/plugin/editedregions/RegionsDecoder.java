@@ -33,6 +33,9 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RegionsDecoderUtil;
  */
 public class RegionsDecoder {
 
+    /**
+     * Logger
+     */
     private static final IUFStatusHandler statusHandler = UFStatus
             .getHandler(RegionsDecoder.class);
 
@@ -124,11 +127,11 @@ public class RegionsDecoder {
                 List<RegionReport> reports = dataSet.getRegionReports();
 
                 int reportCount = reports.size();
-                
+
                 if (reportCount <= 0) {
                     return new PluginDataObject[0];
                 }
-                
+
                 pdos = RegionsDecoderUtil.convertRegionReportsPDOs(reports);
 
             }

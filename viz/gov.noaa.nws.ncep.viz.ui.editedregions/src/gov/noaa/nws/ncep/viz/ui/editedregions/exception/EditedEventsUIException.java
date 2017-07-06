@@ -10,8 +10,8 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.exception;
 
 /**
- * Custom exception class for wrapping all exceptions that
- * can occur during Edited Events UI actions
+ * Custom exception class for wrapping all exceptions that can occur during
+ * Edited Events UI actions
  * 
  * <pre>
  *
@@ -24,50 +24,53 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.exception;
  * </pre>
  *
  * @author sgurung
- * @version 1.0	
+ * @version 1.0
  */
 
 public class EditedEventsUIException extends Exception {
 
-	private static final long serialVersionUID = -1326274117436067321L;
+    /**
+     * Serial Version UID
+     */
+    private static final long serialVersionUID = -1326274117436067321L;
 
-	/**
-	 * 
-	 */
-	public EditedEventsUIException() {
-	}
+    /**
+     * 
+     */
+    public EditedEventsUIException() {
+    }
 
-	/**
-	 * @param message
-	 */
-	public EditedEventsUIException(String message) {
-		super(message);
-	}
+    /**
+     * @param message
+     */
+    public EditedEventsUIException(String message) {
+        super(message);
+    }
 
-	/**
-	 * @param cause
-	 */
-	public EditedEventsUIException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * @param cause
+     */
+    public EditedEventsUIException(Throwable cause) {
+        super(cause);
+    }
 
-	/**
-	 * @param message
-	 * @param cause
-	 */
-	public EditedEventsUIException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * @param message
+     * @param cause
+     */
+    public EditedEventsUIException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
-	/**
-	 * @param message
-	 * @param cause
-	 * @param enableSuppression
-	 * @param writableStackTrace
-	 */
-	public EditedEventsUIException(String message, Throwable cause,
-			boolean enableSuppression, boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-	}
+    /**
+     * @param message
+     * @param cause
+     * @param enableSuppression
+     * @param writableStackTrace
+     */
+    public EditedEventsUIException(String message, Throwable cause,
+            boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 
 }

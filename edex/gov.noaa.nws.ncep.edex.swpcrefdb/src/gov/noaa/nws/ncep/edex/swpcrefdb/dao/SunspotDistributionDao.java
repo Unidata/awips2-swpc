@@ -14,7 +14,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.SunspotDistribution;
 
 /**
- * Provides access to the SWPC_SUNSPOT_DISTRIBUTION database table
+ * Provides access to the SWPC_SUNSPOT_DISTRIBUTION database table.
  * 
  * <pre>
  *

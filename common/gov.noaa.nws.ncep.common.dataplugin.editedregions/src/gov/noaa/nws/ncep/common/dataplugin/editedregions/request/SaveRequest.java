@@ -9,7 +9,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * 
  * <pre>
  * 
- * SOFTWARE HISTORY
+ * SOFTWARE HISTORY 
  * 
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
@@ -28,7 +28,7 @@ public class SaveRequest extends Request<SaveRequest> implements IRequest {
      */
     @DynamicSerializeElement
     private final long id;
-    
+
     /**
      * The start of the date time range to process events
      */
@@ -40,27 +40,35 @@ public class SaveRequest extends Request<SaveRequest> implements IRequest {
      */
     @DynamicSerializeElement
     private long endDTTM = 0L;
-	
-	/**
-	 * 
-	 */
-	public SaveRequest() {
-		this.id = System.currentTimeMillis();
-	}
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#getId()
-	 */
-	@Override
-	public long getId() {
-		return this.id;
-	}
+    /**
+     * 
+     */
+    public SaveRequest() {
+        this.id = System.currentTimeMillis();
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#setId(long)
-	 */
-	@Override
-	public void setId(long Id) {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#
+     * getId()
+     */
+    @Override
+    public long getId() {
+        return this.id;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#
+     * setId(long)
+     */
+    @Override
+    public void setId(long Id) {
         // The id is set when the request is initialized
         // but the system still requires the method for
         // serialization / deserialization through the gateway.
@@ -70,71 +78,75 @@ public class SaveRequest extends Request<SaveRequest> implements IRequest {
         // TODO - verify this
         ;
         ;
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#isValid()
-	 */
-	@Override
-	public boolean isValid() {
-		// TODO - not sure what validation is needed...might just return true and be done with it
-		return false;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest#
+     * isValid()
+     */
+    @Override
+    public boolean isValid() {
+        // TODO - not sure what validation is needed...might just return true
+        // and be done with it
+        return false;
+    }
 
-	/**
-     * Get the start date time range used for filtering
-     * which events should be processed
+    /**
+     * Get the start date time range used for filtering which events should be
+     * processed
      * 
      * @return long
      */
-	public long getBeginDTTM() {
-		return this.beginDTTM;
-	}
+    public long getBeginDTTM() {
+        return this.beginDTTM;
+    }
 
-	  /**
-     * Set the start date time range for filtering which
-     * events should be processed
+    /**
+     * Set the start date time range for filtering which events should be
+     * processed
      * 
      * @param beginDTTM
      */
-	public void setBeginDTTM(long beginDTTM) {
-		
-		// only set the begin data time if
-		// the begin date time has not been
-		// set yet
-		
-		if (this.beginDTTM == 0L) {
-			this.beginDTTM = beginDTTM;
-		}
-		
-		
-	}
+    public void setBeginDTTM(long beginDTTM) {
 
-	 /**
-     * Get the end date time range used for filtering
-     * which events should be processed
+        // only set the begin data time if
+        // the begin date time has not been
+        // set yet
+
+        if (this.beginDTTM == 0L) {
+            this.beginDTTM = beginDTTM;
+        }
+
+    }
+
+    /**
+     * Get the end date time range used for filtering which events should be
+     * processed
      * 
      * @return Calendar
      */
-	public long getEndDTTM() {
-		return this.endDTTM;
-	}
+    public long getEndDTTM() {
+        return this.endDTTM;
+    }
 
-	 /**
-     * Set the end date time range for filtering which
-     * events should be processed
+    /**
+     * Set the end date time range for filtering which events should be
+     * processed
      * 
      * @param endDTTM
      */
-	public void setEndDTTM(long endDTTM) {
-		
-		// only set the end data time if
-		// the end date time has not been
-		// set yet
-		
-		if (this.endDTTM == 0L) {
-			this.endDTTM = endDTTM;
-		}
-	}
+    public void setEndDTTM(long endDTTM) {
+
+        // only set the end data time if
+        // the end date time has not been
+        // set yet
+
+        if (this.endDTTM == 0L) {
+            this.endDTTM = endDTTM;
+        }
+    }
 
 }

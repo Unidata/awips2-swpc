@@ -1,8 +1,5 @@
 package gov.noaa.nws.ncep.edex.swpcrefdb.dao;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.Station;
-import gov.noaa.nws.ncep.common.swpcrefdb.StationType;
-
 import java.util.Vector;
 
 import org.hibernate.Criteria;
@@ -16,8 +13,11 @@ import org.springframework.transaction.support.TransactionCallback;
 import com.raytheon.uf.edex.database.dao.CoreDao;
 import com.raytheon.uf.edex.database.dao.DaoConfig;
 
+import gov.noaa.nws.ncep.common.swpcrefdb.Station;
+import gov.noaa.nws.ncep.common.swpcrefdb.StationType;
+
 /**
- * Provides access to the SWPC_STATION database table
+ * Provides access to the SWPC_STATION database table.
  * 
  * <pre>
  *
@@ -30,7 +30,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
  * </pre>
  *
  * @author sgurung
- * @version 1.0	
+ * @version 1.0
  */
 public class StationDao extends CoreDao {
 
@@ -39,13 +39,14 @@ public class StationDao extends CoreDao {
      */
     public StationDao() {
         super(DaoConfig.forClass(StationDao.class));
-      
+
     }
 
     /**
      * Retrieves list of stations with a given type
      * 
-     * @param type the station type
+     * @param type
+     *            the station type
      * @return list of stations
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -53,13 +54,12 @@ public class StationDao extends CoreDao {
         return (Vector<Station>) txTemplate.execute(new TransactionCallback() {
             @Override
             public Object doInTransaction(TransactionStatus status) {
-                Session sess = getCurrentSession();                
+                Session sess = getCurrentSession();
                 Criteria crit = sess.createCriteria(Station.class);
-                Criterion where1 = Restrictions.eq(
-                        Station.TYPE, type);
-                crit.add(where1);                
+                Criterion where1 = Restrictions.eq(Station.TYPE, type);
+                crit.add(where1);
                 crit.addOrder(Order.asc(Station.DESIGNATION));
-                
+
                 Vector<Station> stations = new Vector<Station>();
                 stations.addAll(crit.list());
                 return stations;

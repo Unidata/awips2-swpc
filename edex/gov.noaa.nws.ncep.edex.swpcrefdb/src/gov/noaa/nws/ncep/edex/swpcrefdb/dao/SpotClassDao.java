@@ -14,7 +14,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.SpotClass;
 
 /**
- * Provides access to the SWPC_SPOT_CLASS database table
+ * Provides access to the SWPC_SPOT_CLASS database table.
  * 
  * <pre>
  *

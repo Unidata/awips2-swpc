@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,8 @@ import javax.persistence.Table;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the Station_Type table.
@@ -34,13 +34,14 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Table(name = "SWPC_STATION_TYPE")
 @DynamicSerialize
 @SuppressWarnings("rawtypes")
-public class StationType extends PersistableDataObject implements ISWPCBaseTable {
+public class StationType extends PersistableDataObject
+        implements ISWPCBaseTable {
 
-    private static final long serialVersionUID = -6844546214516368769L;  
+    private static final long serialVersionUID = -6844546214516368769L;
 
-    public static final String ID = "id"; 
+    public static final String ID = "id";
 
-    public static final String DESCRIPTION = "description"; 
+    public static final String DESCRIPTION = "description";
 
     @Id
     @DynamicSerializeElement
@@ -53,16 +54,26 @@ public class StationType extends PersistableDataObject implements ISWPCBaseTable
     private String description = null;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public StationType() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

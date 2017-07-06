@@ -5,6 +5,21 @@ import java.util.regex.Pattern;
 
 import org.eclipse.swt.widgets.Label;
 
+/**
+ * TODO Add Description
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 public final class EditRegionsValidationUtil {
 
     private static final Pattern PATTERN_INTEGER = Pattern.compile("^\\d*$");

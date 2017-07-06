@@ -13,7 +13,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * 
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
- * Mar 12, 2016  R9583     jtravis     Initial creation
+ * Mar 12, 2016  R9583     jtravis      Initial creation
  * 
  * </pre>
  * 

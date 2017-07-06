@@ -16,7 +16,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
 /**
- * The command class that is executed to create a new Region
+ * The command class that is executed to create a new Region.
  * 
  * 
  * @author jtravis
@@ -163,9 +163,10 @@ public class CreateRegionCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
-    	
-    	statusHandler.info("Begin Executing " + this.getClass().getSimpleName());
-    	
+
+        statusHandler
+                .info("Begin Executing " + this.getClass().getSimpleName());
+
         this.setStartTime();
 
         long id = 0;
@@ -185,22 +186,22 @@ public class CreateRegionCommand extends BaseCommand {
 
             id = this.regionsDao.persist(region);
 
-            
-    		// TODO correct this...do not catch a generic exception!!!
-//        } catch (PluginException e) {
-//            setError(new EditedRegionsException(e));
-//        } catch (DataAccessLayerException e) {
-//            setError(new EditedRegionsException(e));
-//        }
-        
+            // TODO correct this...do not catch a generic exception!!!
+            // } catch (PluginException e) {
+            // setError(new EditedRegionsException(e));
+            // } catch (DataAccessLayerException e) {
+            // setError(new EditedRegionsException(e));
+            // }
+
         } catch (Exception e) {
-        	setError(new EditedRegionsException(e));
+            setError(new EditedRegionsException(e));
         }
 
         this.setEndTime();
 
-        statusHandler.info("Finish Executing " + this.getClass().getSimpleName());
-        
+        statusHandler
+                .info("Finish Executing " + this.getClass().getSimpleName());
+
         return this.createResponse(id);
     }
 

@@ -97,18 +97,19 @@ public class EditedRegionsUtil {
             if (xsdSchemaFile == null) {
                 return false;
             } else {
-            
-            	// create a SchemaFactory capable of understanding WXS schemas
-            	SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            	// load a WXS schema, represented by a Schema instance
-            	Source schemaFile = new StreamSource(xsdSchemaFile);
-            	Schema schema = factory.newSchema(schemaFile);
+                // create a SchemaFactory capable of understanding WXS schemas
+                SchemaFactory factory = SchemaFactory
+                        .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-            	// create a Validator instance, which can be used to validate an
-            	// instance document
-            	Validator validator = schema.newValidator();
-            	validator.validate(new DOMSource(document));
+                // load a WXS schema, represented by a Schema instance
+                Source schemaFile = new StreamSource(xsdSchemaFile);
+                Schema schema = factory.newSchema(schemaFile);
+
+                // create a Validator instance, which can be used to validate an
+                // instance document
+                Validator validator = schema.newValidator();
+                validator.validate(new DOMSource(document));
             }
 
         } catch (Exception e) {
@@ -142,10 +143,12 @@ public class EditedRegionsUtil {
         String xsdPath = "";
 
         try {
-            xsdPath = pathMgr.getFile(
-                    commonStaticBase,
-                    "ncep" + File.separator + EditedRegionsConstants.PLUGIN_NAME
-                            + File.separator + xsdFileName).getCanonicalPath();
+            xsdPath = pathMgr
+                    .getFile(commonStaticBase,
+                            "ncep" + File.separator
+                                    + EditedRegionsConstants.PLUGIN_NAME
+                                    + File.separator + xsdFileName)
+                    .getCanonicalPath();
 
         } catch (Exception e) {
             throw new EditedRegionsException(

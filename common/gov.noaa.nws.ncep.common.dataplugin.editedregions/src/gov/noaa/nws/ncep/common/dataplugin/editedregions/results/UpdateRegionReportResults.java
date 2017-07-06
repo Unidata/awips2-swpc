@@ -6,6 +6,21 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
+/**
+ * Results class holding results from executing the UpdateRegionReport command
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 @DynamicSerialize
 public class UpdateRegionReportResults implements IResults {
 

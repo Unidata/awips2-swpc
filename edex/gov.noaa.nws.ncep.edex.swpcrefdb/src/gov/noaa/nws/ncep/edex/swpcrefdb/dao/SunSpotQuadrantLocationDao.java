@@ -14,7 +14,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.SunSpotQuadrantLocation;
 
 /**
- * Provides access to the SWPC_SUNSPOT_QUADRANT_LOCATION database table
+ * Provides access to the SWPC_SUNSPOT_QUADRANT_LOCATION database table.
  * 
  * <pre>
  *

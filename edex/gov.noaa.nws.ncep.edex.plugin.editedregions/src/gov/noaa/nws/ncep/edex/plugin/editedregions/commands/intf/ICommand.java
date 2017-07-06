@@ -5,7 +5,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 
 /**
- * The Command Interface
+ * The Command Interface.
  * 
  * <pre>
  * 

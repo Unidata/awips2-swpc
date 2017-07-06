@@ -39,7 +39,7 @@ public class SpotClass extends PersistableDataObject implements ISWPCBaseTable {
     private static final long serialVersionUID = -2052838874371396188L;
 
     public static final String ID = "id";
-    
+
     public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
@@ -55,7 +55,7 @@ public class SpotClass extends PersistableDataObject implements ISWPCBaseTable {
     @DynamicSerializeElement
     private String code = null;
 
- //   @Embedded
+    // @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
     @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
@@ -67,11 +67,21 @@ public class SpotClass extends PersistableDataObject implements ISWPCBaseTable {
     public SpotClass() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

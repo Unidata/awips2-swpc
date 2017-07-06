@@ -13,7 +13,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.ObservationQuality;
 
 /**
- * Provides access to the SWPC_OBSERVATION_QUALITY database table
+ * Provides access to the SWPC_OBSERVATION_QUALITY database table.
  * 
  * <pre>
  *
@@ -26,7 +26,7 @@ import gov.noaa.nws.ncep.common.swpcrefdb.ObservationQuality;
  * </pre>
  *
  * @author jtravis
- * @version 1.0	
+ * @version 1.0
  */
 public class ObservationQualityDao extends CoreDao {
 
@@ -35,7 +35,7 @@ public class ObservationQualityDao extends CoreDao {
      */
     public ObservationQualityDao() {
         super(DaoConfig.forClass(ObservationQualityDao.class));
-      
+
     }
 
     /**
@@ -45,18 +45,20 @@ public class ObservationQualityDao extends CoreDao {
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Vector<ObservationQuality> getAllObservationQualities() {
-        return (Vector<ObservationQuality>) txTemplate.execute(new TransactionCallback() {
-            @Override
-            public Object doInTransaction(TransactionStatus status) {
-                Session sess = getCurrentSession();                
-                Criteria crit = sess.createCriteria(ObservationQuality.class);
-                
-                Vector<ObservationQuality> results = new Vector<ObservationQuality>();
-                results.addAll(crit.list());
-                
-                return results;
-            }
-        });
+        return (Vector<ObservationQuality>) txTemplate
+                .execute(new TransactionCallback() {
+                    @Override
+                    public Object doInTransaction(TransactionStatus status) {
+                        Session sess = getCurrentSession();
+                        Criteria crit = sess
+                                .createCriteria(ObservationQuality.class);
+
+                        Vector<ObservationQuality> results = new Vector<ObservationQuality>();
+                        results.addAll(crit.list());
+
+                        return results;
+                    }
+                });
     }
 
 }

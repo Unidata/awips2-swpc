@@ -5,6 +5,21 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
+/**
+ * Class that holds the results from execution of the CreateRegion command
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 @DynamicSerialize
 public class CreateRegionResults implements IResults {
 

@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -17,6 +15,8 @@ import javax.persistence.Table;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the SWPC_STATION table.
@@ -40,16 +40,16 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Table(name = "SWPC_STATION")
 public class Station extends PersistableDataObject implements ISWPCBaseTable {
 
-    private static final long serialVersionUID = -2052838874371396178L;   
+    private static final long serialVersionUID = -2052838874371396178L;
 
-    public static final String ID = "id"; 
+    public static final String ID = "id";
 
-    public static final String DESIGNATION = "designation"; 
+    public static final String DESIGNATION = "designation";
 
-    public static final String NAME = "name"; 
+    public static final String NAME = "name";
 
     public static final String TYPE = "type";
-    
+
     @Id
     @DynamicSerializeElement
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "swpc_station_seq_gen")
@@ -71,61 +71,74 @@ public class Station extends PersistableDataObject implements ISWPCBaseTable {
     private StationType type;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public Station() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;
     }
 
-	/**
-	 * @return the designation
-	 */
-	public String getDesignation() {
-		return designation;
-	}
+    /**
+     * @return the designation
+     */
+    public String getDesignation() {
+        return designation;
+    }
 
-	/**
-	 * @param designation the designation to set
-	 */
-	public void setDesignation(String designation) {
-		this.designation = designation;
-	}
+    /**
+     * @param designation
+     *            the designation to set
+     */
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @param name
+     *            the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return the type
-	 */
-	public StationType getType() {
-		return type;
-	}
+    /**
+     * @return the type
+     */
+    public StationType getType() {
+        return type;
+    }
 
-	/**
-	 * @param type the type to set
-	 */
-	public void setType(StationType type) {
-		this.type = type;
-	}
+    /**
+     * @param type
+     *            the type to set
+     */
+    public void setType(StationType type) {
+        this.type = type;
+    }
 
 }

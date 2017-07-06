@@ -8,12 +8,33 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
+/**
+ * Class holding results from executing the GetRegionReports command
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 @DynamicSerialize
 public class GetRegionReportsResults implements IResults {
 
+    /**
+     * Holds the unassigned region reports
+     */
     @DynamicSerializeElement
     private Map<Integer, RegionReport> unAssignedReports = null;
 
+    /**
+     * Holds the assigned region reports
+     */
     @DynamicSerializeElement
     private Map<Integer, RegionReport> assignedRegionReports = null;
 
@@ -56,6 +77,13 @@ public class GetRegionReportsResults implements IResults {
         this.assignedRegionReports = assignedRegionReports;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults#
+     * numResults()
+     */
     @Override
     public int numResults() {
 
