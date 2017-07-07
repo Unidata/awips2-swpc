@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +17,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the Station_Instrument join table.
@@ -40,8 +40,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Table(name = "SWPC_STATION_INSTRUMENT")
 @DynamicSerialize
 @SuppressWarnings("rawtypes")
-public class StationInstrument extends PersistableDataObject implements
-        ISWPCBaseTable {
+public class StationInstrument extends PersistableDataObject
+        implements ISWPCBaseTable {
 
     private static final long serialVersionUID = -4024472156331641898L;
 
@@ -63,16 +63,26 @@ public class StationInstrument extends PersistableDataObject implements
     private Instrument instrument = null;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public StationInstrument() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

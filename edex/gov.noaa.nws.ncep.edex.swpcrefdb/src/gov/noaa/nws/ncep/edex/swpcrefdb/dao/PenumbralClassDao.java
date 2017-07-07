@@ -13,7 +13,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.PenumbralClass;
 
 /**
- * Provides access to the SWPC_PENUMBRAL_CLASS database table
+ * Provides access to the SWPC_PENUMBRAL_CLASS database table.
  * 
  * <pre>
  *
@@ -26,7 +26,7 @@ import gov.noaa.nws.ncep.common.swpcrefdb.PenumbralClass;
  * </pre>
  *
  * @author jtravis
- * @version 1.0	
+ * @version 1.0
  */
 public class PenumbralClassDao extends CoreDao {
 
@@ -35,29 +35,32 @@ public class PenumbralClassDao extends CoreDao {
      */
     public PenumbralClassDao() {
         super(DaoConfig.forClass(PenumbralClassDao.class));
-      
+
     }
 
     /**
      * Retrieves Vector of all PenumbralClass instances
      * 
-     * @param type the PenumbralClass
+     * @param type
+     *            the PenumbralClass
      * @return Vector of PenumbralClass instances
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Vector<PenumbralClass> getAllPenumbralClasses() {
-        return (Vector<PenumbralClass>) txTemplate.execute(new TransactionCallback() {
-            @Override
-            public Object doInTransaction(TransactionStatus status) {
-                Session sess = getCurrentSession();                
-                Criteria crit = sess.createCriteria(PenumbralClass.class);
-                
-                Vector<PenumbralClass> results = new Vector<PenumbralClass>();
-                results.addAll(crit.list());
-                
-                return results;
-            }
-        });
+        return (Vector<PenumbralClass>) txTemplate
+                .execute(new TransactionCallback() {
+                    @Override
+                    public Object doInTransaction(TransactionStatus status) {
+                        Session sess = getCurrentSession();
+                        Criteria crit = sess
+                                .createCriteria(PenumbralClass.class);
+
+                        Vector<PenumbralClass> results = new Vector<PenumbralClass>();
+                        results.addAll(crit.list());
+
+                        return results;
+                    }
+                });
     }
 
 }

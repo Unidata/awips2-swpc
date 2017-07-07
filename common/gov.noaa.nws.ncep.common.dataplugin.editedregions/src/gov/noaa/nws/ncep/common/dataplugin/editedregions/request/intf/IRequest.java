@@ -38,5 +38,5 @@ public interface IRequest extends IServerRequest {
      * @return boolean
      */
     public boolean isValid();
-  
+
 }

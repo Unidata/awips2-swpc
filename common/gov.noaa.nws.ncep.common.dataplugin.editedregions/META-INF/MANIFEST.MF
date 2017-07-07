@@ -15,7 +15,6 @@ Export-Package: gov.noaa.nws.ncep.common.dataplugin.editedregions;uses:="com.ray
  gov.noaa.nws.ncep.common.dataplugin.editedregions.exception,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway;uses:="gov.noaa.nws.ncep.common.dataplugin.editedregions.request",
  gov.noaa.nws.ncep.common.dataplugin.editedregions.request;uses:="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf,gov.noaa.nws.ncep.common.dataplugin.editedregions,com.raytheon.uf.common.serialization.comm",
- gov.noaa.nws.ncep.common.dataplugin.editedregions.request.criteria,
  gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf;uses:="com.raytheon.uf.common.serialization.comm",
  gov.noaa.nws.ncep.common.dataplugin.editedregions.response;
   uses:="gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf,

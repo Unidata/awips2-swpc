@@ -35,7 +35,6 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.util;
  * @author sgurung
  * @version 1.0
  */
-
 public interface EditRegionsUIConstants {
 
     public static final String[] COLUMNS = new String[] { "Observation Time",

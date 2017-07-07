@@ -18,12 +18,11 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf;
  */
 public interface IResults {
 
-	/**
-	 * The number of results
-	 * 
-	 * @return int
-	 */
-	public int numResults();
-	
-	
+    /**
+     * The number of results
+     * 
+     * @return int
+     */
+    public int numResults();
+
 }

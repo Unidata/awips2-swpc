@@ -40,7 +40,6 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
  * @author sgurung
  * @version 1.0
  */
-
 public class EditRegionsLabelProvider implements ITableLabelProvider {
 
     private long beginDTTM = 0L;
@@ -75,6 +74,13 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.jface.viewers.IBaseLabelProvider#removeListener(org.eclipse.
+     * jface.viewers.ILabelProviderListener)
+     */
     @Override
     public void removeListener(ILabelProviderListener listener) {
         // TODO Auto-generated method stub
@@ -226,6 +232,12 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             }
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.eclipse.jface.viewers.EditingSupport#canEdit(java.lang.Object)
+         */
         @Override
         protected boolean canEdit(Object element) {
             // Event event = (Event) element;
@@ -237,6 +249,13 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return true;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.eclipse.jface.viewers.EditingSupport#getCellEditor(java.lang.
+         * Object)
+         */
         @Override
         protected CellEditor getCellEditor(Object element) {
 
@@ -256,6 +275,12 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return null;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.eclipse.jface.viewers.EditingSupport#getValue(java.lang.Object)
+         */
         @Override
         protected Object getValue(Object element) {
             // Event event = (Event) element;
@@ -269,6 +294,13 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
             return null;
         }
 
+        /*
+         * (non-Javadoc)
+         * 
+         * @see
+         * org.eclipse.jface.viewers.EditingSupport#setValue(java.lang.Object,
+         * java.lang.Object)
+         */
         @Override
         protected void setValue(Object element, Object value) {
 

@@ -177,6 +177,8 @@ public class UpdateRegionReportCommand extends BaseCommand {
     }
 
     /**
+     * Create the response that will be returned from executing the request
+     * 
      * @param results
      * @return IResponse
      */

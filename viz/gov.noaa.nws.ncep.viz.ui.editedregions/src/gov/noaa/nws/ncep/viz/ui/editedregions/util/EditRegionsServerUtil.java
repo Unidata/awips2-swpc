@@ -34,6 +34,21 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReport
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 
+/**
+ * TODO Add Description
+ * 
+ * <pre>
+ *
+ * SOFTWARE HISTORY
+ *
+ * Date         Ticket#    Engineer    Description
+ * ------------ ---------- ----------- --------------------------
+ * Jul 6, 2017            jtravis     Initial creation
+ *
+ * </pre>
+ *
+ * @author jtravis
+ */
 public final class EditRegionsServerUtil {
     private EditRegionsServerUtil() {
         throw new Error(String.format("Cannot create instance of %s!",

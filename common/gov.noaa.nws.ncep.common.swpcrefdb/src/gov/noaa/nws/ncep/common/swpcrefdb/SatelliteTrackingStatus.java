@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +11,8 @@ import javax.persistence.Table;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the Satellite_Tracking_Status table
@@ -34,8 +34,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Table(name = "SWPC_SATELLITE_TRACKING_STATUS")
 @DynamicSerialize
 @SuppressWarnings("rawtypes")
-public class SatelliteTrackingStatus extends PersistableDataObject implements
-        ISWPCBaseTable {
+public class SatelliteTrackingStatus extends PersistableDataObject
+        implements ISWPCBaseTable {
 
     private static final long serialVersionUID = 7492449766451782615L;
 
@@ -50,16 +50,26 @@ public class SatelliteTrackingStatus extends PersistableDataObject implements
     private String description = null;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public SatelliteTrackingStatus() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

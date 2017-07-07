@@ -28,8 +28,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * @version 1.0
  */
 @DynamicSerialize
-public class GetReferenceDataResponse extends
-        BaseResponse<GetReferenceDataResponse> implements IResponse {
+public class GetReferenceDataResponse
+        extends BaseResponse<GetReferenceDataResponse> implements IResponse {
 
     /**
      * The original request

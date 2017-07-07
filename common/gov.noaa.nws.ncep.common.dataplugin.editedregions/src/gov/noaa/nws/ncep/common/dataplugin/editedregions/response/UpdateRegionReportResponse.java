@@ -21,7 +21,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained from the execution of the
- * CreateRegionReportCommand
+ * CreateRegionReportCommand.
  * 
  * 
  * @author
@@ -63,8 +63,8 @@ public class UpdateRegionReportResponse
     private long processingTime;
 
     /**
-    * 
-    */
+     * 
+     */
     public UpdateRegionReportResponse() {
         // TODO Auto-generated constructor stub
     }

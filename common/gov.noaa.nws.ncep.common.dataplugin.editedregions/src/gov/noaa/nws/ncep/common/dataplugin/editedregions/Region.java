@@ -17,6 +17,16 @@ import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
+/**
+ * The definition of a Region
+ * 
+ * TODO Region class extents PersistableDataObject which requires an
+ * identifier...find out what that is in ER v2.0
+ * 
+ * @author jtravis
+ *
+ */
+@SuppressWarnings("rawtypes")
 @Entity
 // @SequenceGenerator(initialValue = 1, name = PluginDataObject.ID_GEN,
 // sequenceName = "SWPC_REGIONS_SEQ")

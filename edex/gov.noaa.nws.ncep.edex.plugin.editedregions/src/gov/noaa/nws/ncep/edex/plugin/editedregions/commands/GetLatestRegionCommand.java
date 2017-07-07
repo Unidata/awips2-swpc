@@ -1,6 +1,5 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
@@ -14,8 +13,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegion
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionsDao;
 
 /**
- * The command class that is executed to obtain the latest
- * region that was created
+ * The command class that is executed to obtain the latest region that was
+ * created.
  * 
  * 
  * @author jtravis
@@ -28,12 +27,12 @@ public class GetLatestRegionCommand extends BaseCommand {
      * command
      */
     private GetLatestRegionRequest request = null;
-    
+
     /**
      * Dao for ReportStatus
      */
     private RegionsDao regionsDao = null;
-    
+
     /**
      * Logger
      */
@@ -163,36 +162,42 @@ public class GetLatestRegionCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
-    	
-    	this.setStartTime();
-    	
+
+        statusHandler
+                .info("Starting Executing " + this.getClass().getSimpleName());
+
+        this.setStartTime();
+
         GetLatestRegionResponse response = new GetLatestRegionResponse();
         GetLatestRegionResults results = new GetLatestRegionResults();
 
         try {
-        	
-			regionsDao = new RegionsDao();
-			Region latestRegion = regionsDao.getLatestRegion();
-			
-			if (latestRegion != null) {
-				results.setLatestRegion(latestRegion.getRegionID());
-			}
-			// TODO correct this...do not catch a generic exception!!!
-//        } catch (PluginException e) {
-//			this.setError(new EditedRegionsException(e));
-//		}
-        
+
+            regionsDao = new RegionsDao();
+            Region latestRegion = regionsDao.getLatestRegion();
+
+            if (latestRegion != null) {
+                results.setLatestRegion(latestRegion.getRegionID());
+            }
+            // TODO correct this...do not catch a generic exception!!!
+            // } catch (PluginException e) {
+            // this.setError(new EditedRegionsException(e));
+            // }
+
         } catch (Exception e) {
-        	this.setError(new EditedRegionsException(e));
+            this.setError(new EditedRegionsException(e));
         }
-        
+
         this.setEndTime();
-        
+
+        statusHandler
+                .info("Finishing Executing " + this.getClass().getSimpleName());
+
         // add the results instance to the response;
-    	response.setResults(results);
-    	response.setError(this.getError());
-    	response.setProcessingTime(this.getProcessingTime());
-        
+        response.setResults(results);
+        response.setError(this.getError());
+        response.setProcessingTime(this.getProcessingTime());
+
         return response;
     }
 

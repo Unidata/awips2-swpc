@@ -24,7 +24,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * CreateRegionReportCommand
  * 
  * 
- * @author
+ * @author jtravis
  * @version 1.0
  */
 @DynamicSerialize

@@ -1,9 +1,7 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.sql;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
-
 /**
- * Class that defines the SQL queries
+ * Class that defines the SQL queries.
  * 
  * <pre>
  *

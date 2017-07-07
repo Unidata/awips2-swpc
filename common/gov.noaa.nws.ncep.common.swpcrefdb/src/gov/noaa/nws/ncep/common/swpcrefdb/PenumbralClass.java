@@ -56,7 +56,7 @@ public class PenumbralClass extends PersistableDataObject
     @DynamicSerializeElement
     private String code = null;
 
-//    @Embedded
+    // @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
     @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
@@ -68,11 +68,21 @@ public class PenumbralClass extends PersistableDataObject
     public PenumbralClass() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;
@@ -87,7 +97,8 @@ public class PenumbralClass extends PersistableDataObject
     }
 
     /**
-     * @param type the type to set
+     * @param type
+     *            the type to set
      */
     public void setType(String type) {
         this.code = type;
@@ -101,7 +112,8 @@ public class PenumbralClass extends PersistableDataObject
     }
 
     /**
-     * @param description the description to set
+     * @param description
+     *            the description to set
      */
     public void setDescription(String description) {
         this.description = description;

@@ -15,6 +15,9 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * The command class that is executed to perform certain operations when the
  * Edited Events application is closed.
  * 
+ * Currently not being used. The command exists because in the future logic will
+ * be performed when the ER application is closed.
+ * 
  * 
  * <pre>
  * 
@@ -168,6 +171,9 @@ public class ExitCommand extends BaseCommand {
     @Override
     public IResponse execute() {
 
+        statusHandler
+                .info("Starting Executing " + this.getClass().getSimpleName());
+
         this.setStartTime();
 
         ExitResults results = new ExitResults();
@@ -197,6 +203,9 @@ public class ExitCommand extends BaseCommand {
         // }
 
         this.setEndTime();
+
+        statusHandler
+                .info("Finish Executing " + this.getClass().getSimpleName());
 
         return createResponse(results);
     }

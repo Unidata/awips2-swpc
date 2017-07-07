@@ -71,6 +71,13 @@ public class UpdateRegionReportRequest
         return valid;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest#
+     * setId(long)
+     */
     @Override
     public void setId(long ID) {
         // The id is set when the request is initialized

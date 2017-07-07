@@ -12,8 +12,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @version 1.0
  */
 @DynamicSerialize
-public class GetLatestRegionRequest
-        extends Request<GetLatestRegionRequest> implements IRequest {
+public class GetLatestRegionRequest extends Request<GetLatestRegionRequest>
+        implements IRequest {
 
     /**
      * The Requests ID
@@ -42,8 +42,8 @@ public class GetLatestRegionRequest
     /*
      * (non-Javadoc)
      * 
-     * Currently there is no items on the request to check to determine
-     * the validity of the request.  Setting to always return true for now.
+     * Currently there is no items on the request to check to determine the
+     * validity of the request. Setting to always return true for now.
      * 
      * @see
      * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.IRequest#isValid
@@ -51,7 +51,7 @@ public class GetLatestRegionRequest
      */
     @Override
     public boolean isValid() {
-    	return true;
+        return true;
     }
 
     @Override

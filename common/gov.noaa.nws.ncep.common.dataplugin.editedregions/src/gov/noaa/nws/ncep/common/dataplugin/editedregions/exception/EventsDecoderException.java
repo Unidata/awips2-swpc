@@ -1,8 +1,8 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.exception;
 
 /**
- * The top level Edited Events exception class used to hold all exceptions
- * that can be thrown by the Edited Events application
+ * The top level Edited Events exception class used to hold all exceptions that
+ * can be thrown by the Edited Events application
  * 
  * <pre>
  * 
@@ -26,23 +26,23 @@ public class EventsDecoderException extends Exception {
      * 
      */
     public EventsDecoderException() {
-	// TODO Auto-generated constructor stub
+        // TODO Auto-generated constructor stub
     }
 
     /**
      * @param message
      */
     public EventsDecoderException(String message) {
-	super(message);
-	// TODO Auto-generated constructor stub
+        super(message);
+        // TODO Auto-generated constructor stub
     }
 
     /**
      * @param cause
      */
     public EventsDecoderException(Throwable cause) {
-	super(cause);
-	// TODO Auto-generated constructor stub
+        super(cause);
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -50,8 +50,8 @@ public class EventsDecoderException extends Exception {
      * @param cause
      */
     public EventsDecoderException(String message, Throwable cause) {
-	super(message, cause);
-	// TODO Auto-generated constructor stub
+        super(message, cause);
+        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -61,9 +61,9 @@ public class EventsDecoderException extends Exception {
      * @param writableStackTrace
      */
     public EventsDecoderException(String message, Throwable cause,
-	    boolean enableSuppression, boolean writableStackTrace) {
-	super(message, cause, enableSuppression, writableStackTrace);
-	// TODO Auto-generated constructor stub
+            boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+        // TODO Auto-generated constructor stub
     }
 
 }

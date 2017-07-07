@@ -1,7 +1,6 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,7 +41,7 @@ public class ObservationType extends PersistableDataObject
 
     public static final String ID = "id";
 
-//    public static final String CODE = "code";
+    // public static final String CODE = "code";
 
     public static final String DESCRIPTION = "description";
 
@@ -53,11 +52,11 @@ public class ObservationType extends PersistableDataObject
     @Column(name = "ID", unique = true, nullable = false)
     private long id = 0;
 
-//    @Column(name = "CODE", unique = true, nullable = false)
-//    @DynamicSerializeElement
-//    private Integer code = null;
+    // @Column(name = "CODE", unique = true, nullable = false)
+    // @DynamicSerializeElement
+    // private Integer code = null;
 
-//    @Embedded
+    // @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
     @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
@@ -69,37 +68,26 @@ public class ObservationType extends PersistableDataObject
     public ObservationType() {
     }
 
-    /**
-     * @return
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
      */
     @Override
     public long getId() {
         return this.id;
     }
 
-    /**
-     * @param id
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
      */
     @Override
     public void setId(long id) {
         this.id = id;
 
     }
-
-//    /**
-//     * @return the type
-//     */
-//    public Integer getType() {
-//        return code;
-//    }
-//
-//    /**
-//     * @param type
-//     *            the type to set
-//     */
-//    public void setType(Integer type) {
-//        this.code = type;
-//    }
 
     /**
      * @return the description

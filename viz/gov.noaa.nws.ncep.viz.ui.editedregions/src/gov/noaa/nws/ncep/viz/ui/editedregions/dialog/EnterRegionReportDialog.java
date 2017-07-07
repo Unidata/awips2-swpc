@@ -29,6 +29,13 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsValidationUtil;
 
+/**
+ * TODO the class level Label parameters are unused but will be used in
+ * subsequent releases...added suppress warnings for now
+ * 
+ * @author Ada
+ *
+ */
 public class EnterRegionReportDialog extends Dialog {
 
     private static final String NO_REGION = "None";
@@ -37,26 +44,32 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Combo cmbObservatory;
 
+    @SuppressWarnings("unused")
     private Label lblObservatory;
 
     private Text txtType;
 
+    @SuppressWarnings("unused")
     private Label lblType;
 
     private Combo cmbQuality;
 
+    @SuppressWarnings("unused")
     private Label lblQuality;
 
     private Combo cmbRegion;
 
+    @SuppressWarnings("unused")
     private Label lblRegion;
 
     private Text txtReportLocation;
 
+    @SuppressWarnings("unused")
     private Label lblReportLocation;
 
     private Text txtLocation;
 
+    @SuppressWarnings("unused")
     private Label lblLocation;
 
     private Text txtCarlon;
@@ -77,10 +90,12 @@ public class EnterRegionReportDialog extends Dialog {
 
     private Text txtSpotClass;
 
+    @SuppressWarnings("unused")
     private Label lblSpotClass;
 
     private Combo cmbMagclass;
 
+    @SuppressWarnings("unused")
     private Label lblMagclass;
 
     private final IUFStatusHandler statusHandler = UFStatus
@@ -522,6 +537,9 @@ public class EnterRegionReportDialog extends Dialog {
 
     }
 
+    /**
+     * 
+     */
     private void initializeControlsWithDefaultValues() {
         // TODO: add implementation
     }

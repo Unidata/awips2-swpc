@@ -13,7 +13,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
 
 /**
- * Provides access to the SWPC_OBSERVATION_TYPE database table
+ * Provides access to the SWPC_OBSERVATION_TYPE database table.
  * 
  * <pre>
  *
@@ -26,7 +26,7 @@ import gov.noaa.nws.ncep.common.swpcrefdb.ObservationType;
  * </pre>
  *
  * @author jtravis
- * @version 1.0	
+ * @version 1.0
  */
 public class ObservationTypeDao extends CoreDao {
 
@@ -35,29 +35,32 @@ public class ObservationTypeDao extends CoreDao {
      */
     public ObservationTypeDao() {
         super(DaoConfig.forClass(ObservationTypeDao.class));
-      
+
     }
 
     /**
      * Retrieves Vector of all ObservationTypes
      * 
-     * @param type the ObservationType
+     * @param type
+     *            the ObservationType
      * @return Vector of ObservationTypes
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Vector<ObservationType> getAllObservationTypes() {
-        return (Vector<ObservationType>) txTemplate.execute(new TransactionCallback() {
-            @Override
-            public Object doInTransaction(TransactionStatus status) {
-                Session sess = getCurrentSession();                
-                Criteria crit = sess.createCriteria(ObservationType.class);
-                
-                Vector<ObservationType> results = new Vector<ObservationType>();
-                results.addAll(crit.list());
-                
-                return results;
-            }
-        });
+        return (Vector<ObservationType>) txTemplate
+                .execute(new TransactionCallback() {
+                    @Override
+                    public Object doInTransaction(TransactionStatus status) {
+                        Session sess = getCurrentSession();
+                        Criteria crit = sess
+                                .createCriteria(ObservationType.class);
+
+                        Vector<ObservationType> results = new Vector<ObservationType>();
+                        results.addAll(crit.list());
+
+                        return results;
+                    }
+                });
     }
 
 }

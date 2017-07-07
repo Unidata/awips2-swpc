@@ -8,6 +8,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse
 /**
  * The command class that is executed to save any changes
  * 
+ * TODO may not be necessary. Revisit in ER v2.0 development
+ * 
  * 
  * <pre>
  *
@@ -155,7 +157,7 @@ public class SaveCommand extends BaseCommand {
     }
 
     /**
-     * Create the response
+     * Create the response that will be returned from executing the request
      * 
      * @return IResponse
      */

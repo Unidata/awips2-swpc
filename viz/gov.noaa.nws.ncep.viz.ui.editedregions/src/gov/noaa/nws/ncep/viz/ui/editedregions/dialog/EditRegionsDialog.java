@@ -81,7 +81,6 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
  * @author sgurung
  * 
  */
-
 public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     // singleton instance
@@ -103,6 +102,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     // The region combo selector
     private Combo regionCombo;
+
+    private String CLOSE_BUTTON_TITLE = "Close";
 
     /**
      * The ID for the event which is to be selected
@@ -152,8 +153,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Creates the dialog area
+     * 
+     * @see
+     * org.eclipse.jface.dialogs.Dialog#createDialogArea(org.eclipse.swt.widgets
+     * .Composite)
      */
     @Override
     public Control createDialogArea(Composite parent) {
@@ -211,8 +218,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Do not create Ok/Cancel buttons for this dialog.
+     * 
+     * @see
+     * org.eclipse.jface.dialogs.Dialog#createButtonBar(org.eclipse.swt.widgets.
+     * Composite)
      */
     @Override
     public Control createButtonBar(Composite parent) {
@@ -259,6 +272,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
+    /**
+     * @param parent
+     */
     private void createCloseControl(Composite parent) {
 
         Composite closeComp = new Composite(parent, SWT.NONE);
@@ -354,6 +370,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
+    /**
+     * @param tableViewer
+     * @return
+     */
     private ColumnViewerEditorActivationListener createEditorActivationListener(
             TableViewer tableViewer) {
         final Table t = tableViewer.getTable();
@@ -412,6 +432,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         btnLeft.setText("<--");
         btnRight.setText("-->");
+        Button closeButton = new Button(regionComp, SWT.PUSH);
+        closeButton.setText(this.CLOSE_BUTTON_TITLE);
+        closeButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                close();
+            }
+        });
 
         new Label(regionComp, SWT.LEAD).setText("");
 
@@ -454,8 +482,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Set the location and size of the dialog
+     * 
+     * @see org.eclipse.jface.window.Window#open()
      */
     @Override
     public int open() {
@@ -471,21 +503,31 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         return super.open();
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Get the last used size of the dialog.
      * 
      * @return
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#getInitialSize()
      */
     @Override
     protected Point getInitialSize() {
         return (lastSize == null) ? super.getInitialSize() : lastSize;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Get the last used location of the dialog.
      * 
      * @param size
+     * 
      * @return
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#getInitialLocation(org.eclipse.swt.
+     * graphics.Point)
      */
     @Override
     protected Point getInitialLocation(Point size) {
@@ -493,8 +535,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 : lastLocation;
     }
 
-    /**
+    /*
+     * (non-Javadoc)
+     * 
      * Save location and size of the dialog.
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#close()
      */
     @Override
     public boolean close() {

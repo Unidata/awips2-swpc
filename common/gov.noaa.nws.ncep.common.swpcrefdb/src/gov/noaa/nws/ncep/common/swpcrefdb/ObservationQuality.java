@@ -37,12 +37,24 @@ import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 public class ObservationQuality extends PersistableDataObject
         implements ISWPCBaseTable {
 
+    /**
+     * Serial Version UID
+     */
     private static final long serialVersionUID = -2052838874371396178L;
 
+    /**
+     *
+     */
     public static final String ID = "id";
 
+    /**
+     *
+     */
     public static final String CODE = "code";
 
+    /**
+     *
+     */
     public static final String DESCRIPTION = "description";
 
     @Id
@@ -56,7 +68,7 @@ public class ObservationQuality extends PersistableDataObject
     @DynamicSerializeElement
     private Integer code = null;
 
-    //@Embedded
+    // @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
     @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement

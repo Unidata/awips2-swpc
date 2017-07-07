@@ -13,6 +13,9 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * Class representing the response returned when an instance of a SaveCommand is
  * executed.
  * 
+ * TODO in the next release the Save response may not be needed since the Save
+ * request might be removed
+ * 
  * <pre>
  * 
  * SOFTWARE HISTORY

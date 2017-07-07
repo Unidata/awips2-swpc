@@ -3,7 +3,6 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.response;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
-
 /**
  * Base response class
  * 
@@ -23,31 +22,32 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @DynamicSerialize
 public class BaseResponse<U> {
 
-	/**
-	 * A message to provide more meaningful information
-	 * than that of a stack trace.
-	 */
-	@DynamicSerializeElement
-	protected String message = null;
-	
     /**
-	 * 
-	 */
+     * A message to provide more meaningful information than that of a stack
+     * trace.
+     */
+    @DynamicSerializeElement
+    protected String message = null;
+
+    /**
+     * 
+     */
     public BaseResponse() {
     }
 
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+        return message;
+    }
 
-	/**
-	 * @param message the message to set
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    /**
+     * @param message
+     *            the message to set
+     */
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
 }

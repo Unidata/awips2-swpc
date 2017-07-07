@@ -11,8 +11,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ExitResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
- * The response class holding the results obtained
- * from the execution of the Exit command
+ * The response class holding the results obtained from the execution of the
+ * Exit command
  * 
  * <pre>
  *
@@ -25,204 +25,260 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * </pre>
  *
  * @author sgurung
- * @version 1.0	
+ * @version 1.0
  */
 @DynamicSerialize
-public class ExitResponse extends BaseResponse<ExitResponse> implements IResponse {
+public class ExitResponse extends BaseResponse<ExitResponse>
+        implements IResponse {
 
-	/**
-	 * The error
-	 */
-	@DynamicSerializeElement
-	private EditedRegionsException error = null;
-	
-	/**
-	 * The original request
-	 */
-	@DynamicSerializeElement
-	private ExitRequest request = null;
-	
-	/**
-	 * The results from the AddBinCommand
-	 */
-	@DynamicSerializeElement
-	private ExitResults results = null;
-	
-	/**
-	 * Time in milliseconds to complete round
-     * trip of client --> request --> gateway --> command --> response --> client
-	 */
-	@DynamicSerializeElement
-	private long responseTime;
-	
-	/**
-	 * The time in milliseconds it took to execute all
-	 * tasks required to satisfy the request.  Its the
-	 * time it took for the command to execute.
-	 */
-	@DynamicSerializeElement
-	private long processingTime;		
+    /**
+     * The error
+     */
+    @DynamicSerializeElement
+    private EditedRegionsException error = null;
 
-	/**
-	 * 
-	 */
-	@DynamicSerializeElement
-	private boolean responseTimeSet = false;
-	
-	/**
-	 * 
-	 */
-	@DynamicSerializeElement
-	private boolean processingTimeSet = false;
-	
-	
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#getError()
-	 */
-	@Override
-	public EditedRegionsException getError() {
-		 return this.error;
-	}
+    /**
+     * The original request
+     */
+    @DynamicSerializeElement
+    private ExitRequest request = null;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setError(gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.EditedEventsException)
-	 */
-	@Override
-	public void setError(EditedRegionsException exception) {
-		this.error = exception;
-	}
+    /**
+     * The results from the AddBinCommand
+     */
+    @DynamicSerializeElement
+    private ExitResults results = null;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setMessage(java.lang.String)
-	 */
-	@Override
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    /**
+     * Time in milliseconds to complete round trip of client --> request -->
+     * gateway --> command --> response --> client
+     */
+    @DynamicSerializeElement
+    private long responseTime;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#getResults()
-	 */
-	@Override
-	public IResults getResults() {
-		return results;
-	}
+    /**
+     * The time in milliseconds it took to execute all tasks required to satisfy
+     * the request. Its the time it took for the command to execute.
+     */
+    @DynamicSerializeElement
+    private long processingTime;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setResults(gov.noaa.nws.ncep.common.dataplugin.editedevents.results.intf.IResults)
-	 */
-	@Override
-	public void setResults(IResults results) {
-		  this.results = (ExitResults) results;
-	}
+    /**
+     * 
+     */
+    @DynamicSerializeElement
+    private boolean responseTimeSet = false;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#getResponseTime()
-	 */
-	@Override
-	public long getResponseTime() {
-		return this.responseTime;
-	}
+    /**
+     * 
+     */
+    @DynamicSerializeElement
+    private boolean processingTimeSet = false;
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setResponseTime(long)
-	 */
-	@Override
-	public void setResponseTime(long timeInMillis) {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * getError()
+     */
+    @Override
+    public EditedRegionsException getError() {
+        return this.error;
+    }
 
-    	if (!this.responseTimeSet) {
-    		this.responseTime = timeInMillis;
-    		this.processingTimeSet = true;
-    	}
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setError(gov.noaa.nws.ncep.common.dataplugin.editedevents.exception.
+     * EditedEventsException)
+     */
+    @Override
+    public void setError(EditedRegionsException exception) {
+        this.error = exception;
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#getProcessingTime()
-	 */
-	@Override
-	public long getProcessingTime() {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setMessage(java.lang.String)
+     */
+    @Override
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * getResults()
+     */
+    @Override
+    public IResults getResults() {
+        return results;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setResults(gov.noaa.nws.ncep.common.dataplugin.editedevents.results.intf.
+     * IResults)
+     */
+    @Override
+    public void setResults(IResults results) {
+        this.results = (ExitResults) results;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * getResponseTime()
+     */
+    @Override
+    public long getResponseTime() {
+        return this.responseTime;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setResponseTime(long)
+     */
+    @Override
+    public void setResponseTime(long timeInMillis) {
+
+        if (!this.responseTimeSet) {
+            this.responseTime = timeInMillis;
+            this.processingTimeSet = true;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * getProcessingTime()
+     */
+    @Override
+    public long getProcessingTime() {
 
         return this.processingTime;
-	}
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setProcessingTime(long)
-	 */
-	@Override
-	public void setProcessingTime(long timeInMillis) {
-		if (!this.processingTimeSet) {
-    		this.processingTime = timeInMillis;
-    		this.processingTimeSet = true;
-    	}		
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setProcessingTime(long)
+     */
+    @Override
+    public void setProcessingTime(long timeInMillis) {
+        if (!this.processingTimeSet) {
+            this.processingTime = timeInMillis;
+            this.processingTimeSet = true;
+        }
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#getRequest()
-	 */
-	@Override
-	public IRequest getRequest() {
-		return this.request;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * getRequest()
+     */
+    @Override
+    public IRequest getRequest() {
+        return this.request;
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#setRequest(gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.IRequest)
-	 */
-	@Override
-	public void setRequest(IRequest request) {
-		this.request = (ExitRequest) request;
-	}	
-	
-	/**
-	 * @return the responseTimeSet
-	 */
-	public boolean isResponseTimeSet() {
-		return responseTimeSet;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * setRequest(gov.noaa.nws.ncep.common.dataplugin.editedevents.request.intf.
+     * IRequest)
+     */
+    @Override
+    public void setRequest(IRequest request) {
+        this.request = (ExitRequest) request;
+    }
 
-	/**
-	 * @param responseTimeSet the responseTimeSet to set
-	 */
-	public void setResponseTimeSet(boolean responseTimeSet) {
-		this.responseTimeSet = responseTimeSet;
-	}
-	
-	/**
-	 * @return the processingTimeSet
-	 */
-	public boolean isProcessingTimeSet() {
-		return processingTimeSet;
-	}
+    /**
+     * @return the responseTimeSet
+     */
+    public boolean isResponseTimeSet() {
+        return responseTimeSet;
+    }
 
-	/**
-	 * @param processingTimeSet the processingTimeSet to set
-	 */
-	public void setProcessingTimeSet(boolean processingTimeSet) {
-		this.processingTimeSet = processingTimeSet;
-	}
+    /**
+     * @param responseTimeSet
+     *            the responseTimeSet to set
+     */
+    public void setResponseTimeSet(boolean responseTimeSet) {
+        this.responseTimeSet = responseTimeSet;
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#hasErrors()
-	 */
-	@Override
-	public boolean hasErrors() {
+    /**
+     * @return the processingTimeSet
+     */
+    public boolean isProcessingTimeSet() {
+        return processingTimeSet;
+    }
+
+    /**
+     * @param processingTimeSet
+     *            the processingTimeSet to set
+     */
+    public void setProcessingTimeSet(boolean processingTimeSet) {
+        this.processingTimeSet = processingTimeSet;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * hasErrors()
+     */
+    @Override
+    public boolean hasErrors() {
 
         if (this.error == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#hasResults()
-	 */
-	@Override
-	public boolean hasResults() {
-		if (this.results == null) {
             return false;
         } else {
             return true;
         }
-	}
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.response.intf.IResponse#
+     * hasResults()
+     */
+    @Override
+    public boolean hasResults() {
+        if (this.results == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 }

@@ -18,7 +18,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
- * The command class that is executed to add a region report
+ * The command class that is executed to add a region report.
  * 
  * 
  * @author jtravis
@@ -163,6 +163,10 @@ public class CreateRegionReportCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
+
+        statusHandler
+                .info("Starting Executing " + this.getClass().getSimpleName());
+
         this.setStartTime();
 
         RegionReport report = null;
@@ -182,6 +186,7 @@ public class CreateRegionReportCommand extends BaseCommand {
             // unique id
 
             reportId = this.regionReportsDao.persist(report);
+            report.setId(reportId);
 
         } catch (PluginException e) {
             setError(new EditedRegionsException(e));
@@ -190,6 +195,9 @@ public class CreateRegionReportCommand extends BaseCommand {
         }
 
         this.setEndTime();
+
+        statusHandler
+                .info("Finish Executing " + this.getClass().getSimpleName());
 
         return this.createResponse(report);
     }

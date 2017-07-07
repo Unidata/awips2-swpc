@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -15,6 +13,8 @@ import javax.persistence.Table;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the HouseKeeping table
@@ -36,8 +36,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Entity
 @Table(name = "SWPC_HOUSEKEEPING")
 @DynamicSerialize
-public class HouseKeeping extends PersistableDataObject implements
-        ISWPCBaseTable {
+public class HouseKeeping extends PersistableDataObject
+        implements ISWPCBaseTable {
 
     private static final long serialVersionUID = 6219793648190812889L;
 
@@ -105,17 +105,27 @@ public class HouseKeeping extends PersistableDataObject implements
     private String description = null;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public HouseKeeping() {
         // TODO Auto-generated constructor stub
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

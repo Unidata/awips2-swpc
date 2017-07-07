@@ -22,8 +22,7 @@ import gov.noaa.nws.ncep.edex.swpcrefdb.dao.PenumbralClassDao;
 import gov.noaa.nws.ncep.edex.swpcrefdb.dao.ReportStatusDao;
 
 /**
- * The command class that is executed to obtain all
- * reference data parameters
+ * The command class that is executed to obtain all reference data parameters.
  * 
  * 
  * @author jtravis
@@ -36,27 +35,27 @@ public class GetReferenceDataCommand extends BaseCommand {
      * command
      */
     private GetReferenceDataRequest request = null;
-    
+
     /**
      * Dao for ObservationQuality
      */
     private ObservationQualityDao observationQualityDao = null;
-    
+
     /**
      * Dao for ObservationType
      */
     private ObservationTypeDao observationTypeDao = null;
-    
+
     /**
      * Dao for PenumbralClass
      */
     private PenumbralClassDao penumbralClassDao = null;
-    
+
     /**
      * Dao for ReportStatus
      */
     private ReportStatusDao reportStatusDao = null;
-    
+
     /**
      * Logger
      */
@@ -186,12 +185,15 @@ public class GetReferenceDataCommand extends BaseCommand {
      */
     @Override
     public IResponse execute() {
-    	
-    	this.setStartTime();
-    	
+
+        statusHandler
+                .info("Starting Executing " + this.getClass().getSimpleName());
+
+        this.setStartTime();
+
         GetReferenceDataResponse response = new GetReferenceDataResponse();
         GetReferenceDataResults results = new GetReferenceDataResults();
-        
+
         Hashtable<String, Integer> observationQualityResults = new Hashtable<String, Integer>();
         Hashtable<String, Integer> observationTypeResults = new Hashtable<String, Integer>();
         Hashtable<String, Integer> penumbralClassResults = new Hashtable<String, Integer>();
@@ -203,53 +205,51 @@ public class GetReferenceDataCommand extends BaseCommand {
         reportStatusDao = new ReportStatusDao();
 
         // obtain all of the ref-data values
-        Vector<ObservationQuality> observationQualities = 
-        		observationQualityDao.getAllObservationQualities();
-        Vector<ObservationType> observationTypes = 
-        		observationTypeDao.getAllObservationTypes();
-        Vector<PenumbralClass> penumbralClasses = 
-        		penumbralClassDao.getAllPenumbralClasses();
-        Vector<ReportStatus> reportStatuses = 
-        		reportStatusDao.getAllReportStatuses();
-        
-        
+        Vector<ObservationQuality> observationQualities = observationQualityDao
+                .getAllObservationQualities();
+        Vector<ObservationType> observationTypes = observationTypeDao
+                .getAllObservationTypes();
+        Vector<PenumbralClass> penumbralClasses = penumbralClassDao
+                .getAllPenumbralClasses();
+        Vector<ReportStatus> reportStatuses = reportStatusDao
+                .getAllReportStatuses();
+
         // itterate over the ObservationQualities and add to the
         // hashtable of ObservationQualities
-        for (int i = 0; i <= observationQualities.size() -1; i++) {
-        	ObservationQuality oq = observationQualities.get(i);
-        	int id = Integer.valueOf(String.valueOf(oq.getId())).intValue();
-        	String description = oq.getDescription();
-        	observationQualityResults.put(description, id);
+        for (int i = 0; i <= observationQualities.size() - 1; i++) {
+            ObservationQuality oq = observationQualities.get(i);
+            int id = Integer.valueOf(String.valueOf(oq.getId())).intValue();
+            String description = oq.getDescription();
+            observationQualityResults.put(description, id);
         }
-        
+
         // itterate over the ObservationTypes and add to the
         // hashtable of ObservationTypes
-        for (int i = 0; i <= observationTypes.size() -1; i++) {
-        	ObservationType ot = observationTypes.get(i);
-        	int id = Integer.valueOf(String.valueOf(ot.getId())).intValue();
-        	String description = ot.getDescription();
-        	observationTypeResults.put(description, id);
+        for (int i = 0; i <= observationTypes.size() - 1; i++) {
+            ObservationType ot = observationTypes.get(i);
+            int id = Integer.valueOf(String.valueOf(ot.getId())).intValue();
+            String description = ot.getDescription();
+            observationTypeResults.put(description, id);
         }
-        
+
         // itterate over the PenumbralClasses and add to the
         // hashtable of PenumbralClasses
-        for (int i = 0; i <= penumbralClasses.size() -1; i++) {
-        	PenumbralClass pc = penumbralClasses.get(i);
-        	int id = Integer.valueOf(String.valueOf(pc.getId())).intValue();
-        	String description = pc.getDescription();
-        	penumbralClassResults.put(description, id);
+        for (int i = 0; i <= penumbralClasses.size() - 1; i++) {
+            PenumbralClass pc = penumbralClasses.get(i);
+            int id = Integer.valueOf(String.valueOf(pc.getId())).intValue();
+            String description = pc.getDescription();
+            penumbralClassResults.put(description, id);
         }
-        
+
         // itterate over the ReportStatuses and add to the
         // hashtable of ReportStatuses
-        for (int i = 0; i <= reportStatuses.size() -1; i++) {
-        	ReportStatus rs = reportStatuses.get(i);
-        	int id = Integer.valueOf(String.valueOf(rs.getId())).intValue();
-        	String description = rs.getDescription();
-        	reportStatusResults.put(description, id);
+        for (int i = 0; i <= reportStatuses.size() - 1; i++) {
+            ReportStatus rs = reportStatuses.get(i);
+            int id = Integer.valueOf(String.valueOf(rs.getId())).intValue();
+            String description = rs.getDescription();
+            reportStatusResults.put(description, id);
         }
-        
-        
+
         // add the hashtables holding the refdata to the
         // results object
         results.setObservationQualityResults(observationQualityResults);
@@ -258,11 +258,13 @@ public class GetReferenceDataCommand extends BaseCommand {
         results.setReportStatusResults(reportStatusResults);
 
         // add the results instance to the response;
-    	response.setResults(results);
-        	
-        
+        response.setResults(results);
+
         this.setEndTime();
-        
+
+        statusHandler
+                .info("Finishing Executing " + this.getClass().getSimpleName());
+
         return response;
     }
 

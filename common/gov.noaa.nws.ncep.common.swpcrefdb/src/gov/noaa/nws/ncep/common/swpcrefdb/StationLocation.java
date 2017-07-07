@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.swpcrefdb;
 
-import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +17,8 @@ import org.hibernate.annotations.OnDeleteAction;
 import com.raytheon.uf.common.dataplugin.persist.PersistableDataObject;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
+
+import gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable;
 
 /**
  * Class representing the Station_Location table.
@@ -40,7 +40,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 @Table(name = "SWPC_STATION_LOCATION")
 @DynamicSerialize
 @SuppressWarnings("rawtypes")
-public class StationLocation extends PersistableDataObject implements ISWPCBaseTable {
+public class StationLocation extends PersistableDataObject
+        implements ISWPCBaseTable {
 
     private static final long serialVersionUID = -3486030257088385045L;
 
@@ -69,16 +70,26 @@ public class StationLocation extends PersistableDataObject implements ISWPCBaseT
     private String description = null;
 
     /**
-	 * 
-	 */
+     * 
+     */
     public StationLocation() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

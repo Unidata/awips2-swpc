@@ -25,20 +25,24 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 @DynamicSerialize
 public class SaveResults implements IResults {
 
-	/**
-	 * 
-	 */
-	public SaveResults() {
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * 
+     */
+    public SaveResults() {
+        // TODO Auto-generated constructor stub
+    }
 
-	/* (non-Javadoc)
-	 * @see gov.noaa.nws.ncep.common.dataplugin.editedevents.results.intf.IResults#numResults()
-	 */
-	@Override
-	public int numResults() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.noaa.nws.ncep.common.dataplugin.editedevents.results.intf.IResults#
+     * numResults()
+     */
+    @Override
+    public int numResults() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
 }

@@ -33,7 +33,7 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCo
 
 /**
  * Class that provides the capability to initialize commands based on requests
- * provided by client components and execute the commands
+ * provided by client components and execute the commands.
  * 
  * 
  * @author jtravis
@@ -63,84 +63,85 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
         String requestClassSimpleName = request.getClass().getSimpleName();
 
         switch (requestClassSimpleName) {
-        
+
         case "GetLatestRegionRequest":
-        	GetLatestRegionRequest getLatestRegionRequest = 
-        		(GetLatestRegionRequest) Class.forName(requestClassName).cast(request);
-        	
-        	GetLatestRegionResponse getLatestRegionResponse = null;
-        	
-        	if (!getLatestRegionRequest.isValid()) {
-        		getLatestRegionResponse = new GetLatestRegionResponse();
+            GetLatestRegionRequest getLatestRegionRequest = (GetLatestRegionRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            GetLatestRegionResponse getLatestRegionResponse = null;
+
+            if (!getLatestRegionRequest.isValid()) {
+                getLatestRegionResponse = new GetLatestRegionResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
-                
+
                 getLatestRegionResponse.setError(e);
-                
-        	} else {
-        		
+
+            } else {
+
                 GetLatestRegionCommand cmd = new GetLatestRegionCommand();
 
                 cmd.setRequest(getLatestRegionRequest);
 
                 // create the response
-                getLatestRegionResponse = (GetLatestRegionResponse) cmd.execute();
-        		
-        	}
-        	
-        	return getLatestRegionResponse;
-        	
+                getLatestRegionResponse = (GetLatestRegionResponse) cmd
+                        .execute();
+
+            }
+
+            return getLatestRegionResponse;
+
         case "GetRegionsRequest":
-        	GetRegionsRequest getRegionsRequest = 
-        		(GetRegionsRequest) Class.forName(requestClassName).cast(request);
-        	
-        	GetRegionsResponse getRegionsResponse = null;
-        	
-        	if (!getRegionsRequest.isValid()) {
-        		getRegionsResponse = new GetRegionsResponse();
+            GetRegionsRequest getRegionsRequest = (GetRegionsRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            GetRegionsResponse getRegionsResponse = null;
+
+            if (!getRegionsRequest.isValid()) {
+                getRegionsResponse = new GetRegionsResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
-                
+
                 getRegionsResponse.setError(e);
-                
-        	} else {
-        		
+
+            } else {
+
                 GetRegionsCommand cmd = new GetRegionsCommand();
 
                 cmd.setRequest(getRegionsRequest);
 
                 // create the response
                 getRegionsResponse = (GetRegionsResponse) cmd.execute();
-        		
-        	}
-        	
-        	return getRegionsResponse;
-        	
+
+            }
+
+            return getRegionsResponse;
+
         case "CreateRegionRequest":
-        	CreateRegionRequest createRegionRequest = 
-        		(CreateRegionRequest) Class.forName(requestClassName).cast(request);
-        	
-        	CreateRegionResponse createRegionResponse = null;
-        	
-        	if (!createRegionRequest.isValid()) {
-        		createRegionResponse = new CreateRegionResponse();
+            CreateRegionRequest createRegionRequest = (CreateRegionRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            CreateRegionResponse createRegionResponse = null;
+
+            if (!createRegionRequest.isValid()) {
+                createRegionResponse = new CreateRegionResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
-                
+
                 createRegionResponse.setError(e);
-                
-        	} else {
-        		
+
+            } else {
+
                 CreateRegionCommand cmd = new CreateRegionCommand();
 
                 cmd.setRequest(createRegionRequest);
 
                 // create the response
                 createRegionResponse = (CreateRegionResponse) cmd.execute();
-        		
-        	}
-        	
-        	return createRegionResponse;
+
+            }
+
+            return createRegionResponse;
 
         case "GetReferenceDataRequest":
             GetReferenceDataRequest getReferenceDataRequest = (GetReferenceDataRequest) Class
@@ -152,7 +153,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
                 getReferenceDataResponse = new GetReferenceDataResponse();
                 EditedRegionsException e = new EditedRegionsException(
                         "ERROR - " + "Request Is Invalid");
-                
+
                 getReferenceDataResponse.setError(e);
 
             } else {

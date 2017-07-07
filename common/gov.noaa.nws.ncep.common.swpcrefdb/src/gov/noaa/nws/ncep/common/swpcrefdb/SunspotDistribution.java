@@ -42,7 +42,7 @@ public class SunspotDistribution extends PersistableDataObject
     public static final String ID = "id";
 
     public static final String CODE = "code";
-    
+
     public static final String DESCRIPTION = "description";
 
     @Id
@@ -56,7 +56,7 @@ public class SunspotDistribution extends PersistableDataObject
     @DynamicSerializeElement
     private String code = null;
 
-//    @Embedded
+    // @Embedded
     // @ManyToOne(cascade = { CascadeType.REFRESH })
     @Column(name = "DESCRIPTION", unique = false, nullable = false)
     @DynamicSerializeElement
@@ -68,11 +68,21 @@ public class SunspotDistribution extends PersistableDataObject
     public SunspotDistribution() {
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#getId()
+     */
     @Override
     public long getId() {
         return this.id;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.noaa.nws.ncep.common.swpcrefdb.intf.ISWPCBaseTable#setId(long)
+     */
     @Override
     public void setId(long id) {
         this.id = id;

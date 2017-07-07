@@ -20,7 +20,7 @@ import com.raytheon.uf.common.time.DataTime;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 
 /**
- * Utility class for the EventsDecoder
+ * Utility class for the EventsDecoder.
  * 
  * <pre>
  * 
@@ -37,204 +37,35 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
  */
 
 public class RegionsDecoderUtil {
-    
-     public static PluginDataObject[] convertRegionReportsPDOs(List<RegionReport> reports) {
-    
-    	 List<PluginDataObject> pdos = new ArrayList<>();
-    	 RegionReport report = null;
-    
-    	 for (int i = 0; i < reports.size(); i++) {
-    
-    		 report = updateRegionReport(reports.get(i));
-    		 pdos.add(report);
-    
-    	 }
-    	 return pdos.toArray(new PluginDataObject[pdos.size()]);
-    
-     }
-    
-     // @TODO -fix the naming of this method
-     // @TODO -why on earth do we have to have a method to populate the DataTime parameter??
-     public static RegionReport updateRegionReport(
-	     RegionReport report) {
-    	 
-//	     Event record = new Event();
-//	     Calendar cal = Calendar.getInstance();
-	    
-    	 report.setDataTime(new DataTime(Calendar.getInstance().getTime()));
-    	 
-    	 System.out.println("Station: " + report.getStation());
-    	 
-//	     record.setObservatory(xrayEvent.getSource());
-//	     record.setType(EditedEventsConstants.EventType.XRA.getType());
-//	     record.setQuality("5");
-//	     record.setCodedType(1);
-//	     record.setFrequency(EditedEventsConstants.GOES_XRA_EVENTS_FREQUENCY);
-//	     record.setChangeFlag(0);
-//	     record.setAge(null);
-//	     record.setRegion(null);
-//	     record.setBin(null);
-//	     record.setStatusCd(null);
-//	     record.setStatusText(null);
-//	     record.setPutdmsd(null);
-//	     record.setPutdmss(null);
-//	     record.setLocation(null);
-//	     record.setObsid(null);
-	    
-//	     // Set begin date and time
-//	     if (xrayEvent.getBeginTime() != null) {
-//	     cal.clear();
-//	     cal.setTime(xrayEvent.getBeginTime());
-//	     record.setBeginDate(cal);
-//	    
-//	     record.setBeginTime(ERCommandUtil.getHourAndMinuteCombination(cal));
-//	     } else {
-//	     record.setBeginDate(null);
-//	     record.setBeginTime(null);
-//	     }
-//	    
-//	     record.setBegInq(null);
-//	    
-//	     // Set end date and time
-//	     if (xrayEvent.getEndTime() != null) {
-//	     cal = Calendar.getInstance();
-//	     cal.clear();
-//	     cal.setTime(xrayEvent.getEndTime());
-//	     record.setEndDate(cal);
-//	    
-//	     record.setEndTime(ERCommandUtil.getHourAndMinuteCombination(cal));
-//	     } else {
-//	     record.setEndDate(null);
-//	     record.setEndTime(null);
-//	     }
-//	    
-//	     record.setEndq(null);
-//	    
-//	     // Set begin date and time
-//	     if (xrayEvent.getMaxTime() != null) {
-//	     cal = Calendar.getInstance();
-//	     cal.clear();
-//	     cal.setTime(xrayEvent.getMaxTime());
-//	     record.setMaxDate(cal);
-//	    
-//	     record.setMaxTime(ERCommandUtil.getHourAndMinuteCombination(cal));
-//	     } else {
-//	     record.setMaxDate(null);
-//	     record.setMaxTime(null);
-//	     }
-//	    
-//	     record.setMaxq(null);
-//	    
-//	     // Set Particulars
-//	     String maxClass = (xrayEvent.getMaxClass() != null) ? xrayEvent
-//	     .getMaxClass().toString() : null;
-//	     String curIntXrLong = (xrayEvent.getCurrentIntXrLong() != null) ?
-//	     xrayEvent
-//	     .getCurrentIntXrLong().toString() : null;
-//	     String maxtemp = (xrayEvent.getMaxTemp() != null) ? xrayEvent
-//	     .getMaxTemp().toString() : null;
-//	     String maxEmissionMeas = (xrayEvent.getMaxEmissionMeas() != null) ?
-//	     xrayEvent
-//	     .getMaxEmissionMeas().toString() : null;
-//	     String maxXrLong = (xrayEvent.getMaxXrLong() != null) ? xrayEvent
-//	     .getMaxXrLong().toString() : null;
-//	    
-//	     record.setParticulars1(maxClass);
-//	     record.setParticulars2(curIntXrLong);
-//	     record.setParticulars3(maxtemp);
-//	     record.setParticulars4(maxEmissionMeas);
-//	     record.setParticulars5(null);
-//	     record.setParticulars6(null);
-//	     record.setParticulars7(null);
-//	     record.setParticulars8(null);
-//	     record.setParticulars9(null);
-//	     record.setParticulars10(maxXrLong);
-	    
-	     return report;
-     }
-    //
-    // public static PluginDataObject[] convertGoesXrayEventsToGoesXrayPDOs(
-    // List<GoesXrayEvent> xrayEvents) {
-    //
-    // List<PluginDataObject> pdos = new ArrayList<PluginDataObject>();
-    // GOESXrayEvent record = null;
-    //
-    // for (int i = 0; i < xrayEvents.size(); i++) {
-    //
-    // record = convertGoesXrayEventToRecord(xrayEvents.get(i));
-    // pdos.add(record);
-    //
-    // }
-    // return pdos.toArray(new PluginDataObject[pdos.size()]);
-    //
-    // }
-    //
-    // public static GOESXrayEvent convertGoesXrayEventToRecord(
-    // GoesXrayEvent xrayEvent) {
-    //
-    // GOESXrayEvent record = new GOESXrayEvent();
-    //
-    // record.setDataTime(new DataTime(xrayEvent.getCurrentTime()));
-    //
-    // Calendar cal = Calendar.getInstance();
-    // cal.clear();
-    // cal.setTime(xrayEvent.getInsertTime());
-    // record.setInsertTime(Calendar.getInstance());
-    // record.setInsertDTTM(cal);
-    //
-    // String satellite[] = xrayEvent.getSource().toUpperCase().split("-");
-    // String satelliteDesignation = satellite[0].charAt(0) + satellite[1];
-    // record.setSatellite(satelliteDesignation);
-    //
-    // // Set begin date and time
-    // if (xrayEvent.getBeginTime() != null) {
-    // cal = Calendar.getInstance();
-    // cal.clear();
-    // cal.setTime(xrayEvent.getBeginTime());
-    // record.setBeginDTTM(cal);
-    //
-    // }
-    //
-    // record.setBeginXRShort(xrayEvent.getBeginXrShort());
-    // record.setBeginXRLong(xrayEvent.getBeginXrLong());
-    // record.setBeginXRatio(xrayEvent.getBeginXRatio());
-    //
-    // cal = Calendar.getInstance();
-    // cal.clear();
-    // cal.setTime(xrayEvent.getCurrentTime());
-    // record.setCurrentDTTM(cal);
-    // record.setCurrentXRShort(xrayEvent.getCurrentXrShort());
-    // record.setCurrentXRLong(xrayEvent.getCurrentXrLong());
-    // record.setCurrentXRatio(xrayEvent.getCurrentXRatio());
-    //
-    // record.setCurrentIntXRShort(xrayEvent.getCurrentIntXrShort());
-    // record.setCurrentIntXRLong(xrayEvent.getCurrentIntXrLong());
-    //
-    // // Set max date and time
-    // if (xrayEvent.getMaxTime() != null) {
-    // cal = Calendar.getInstance();
-    // cal.clear();
-    // cal.setTime(xrayEvent.getMaxTime());
-    // record.setMaxDTTM(cal);
-    // }
-    // record.setMaxClass((xrayEvent.getMaxClass() !=
-    // null)?xrayEvent.getMaxClass():null);
-    //
-    // // Set end date and time
-    // if (xrayEvent.getEndTime() != null) {
-    // cal = Calendar.getInstance();
-    // cal.clear();
-    // cal.setTime(xrayEvent.getEndTime());
-    // record.setEndDTTM(cal);
-    // }
-    //
-    // record.setMaxTemp(xrayEvent.getMaxTemp());
-    // record.setMaxEmissionMeas(xrayEvent.getMaxEmissionMeas());
-    // record.setMaxXRLong(xrayEvent.getMaxXrLong());
-    //
-    // record.setDescription("GOES Xray event");
-    //
-    // return record;
-    // }
-    //
+
+    public static PluginDataObject[] convertRegionReportsPDOs(
+            List<RegionReport> reports) {
+
+        List<PluginDataObject> pdos = new ArrayList<>();
+        RegionReport report = null;
+
+        for (int i = 0; i < reports.size(); i++) {
+
+            report = updateRegionReport(reports.get(i));
+            pdos.add(report);
+
+        }
+        return pdos.toArray(new PluginDataObject[pdos.size()]);
+
+    }
+
+    // @TODO -fix the naming of this method
+    // @TODO -why on earth do we have to have a method to populate the DataTime
+    // parameter??
+    public static RegionReport updateRegionReport(RegionReport report) {
+
+        // Event record = new Event();
+        // Calendar cal = Calendar.getInstance();
+
+        report.setDataTime(new DataTime(Calendar.getInstance().getTime()));
+
+        System.out.println("Station: " + report.getStation());
+
+        return report;
+    }
 }

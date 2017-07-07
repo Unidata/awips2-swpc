@@ -20,7 +20,7 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
  * The command class that is executed to obtain all region reports regardless of
- * if they have been assigned or unassigned to a specific region
+ * if they have been assigned or unassigned to a specific region.
  * 
  * 
  * @author jtravis
@@ -169,6 +169,9 @@ public class GetRegionReportsCommand extends BaseCommand {
     @Override
     public IResponse execute() {
 
+        statusHandler
+                .info("Starting Executing " + this.getClass().getSimpleName());
+
         this.setStartTime();
 
         List<RegionReport> unAssignedRegionReports = new ArrayList<>();
@@ -213,6 +216,9 @@ public class GetRegionReportsCommand extends BaseCommand {
         }
 
         this.setEndTime();
+
+        statusHandler
+                .info("Finishing Executing " + this.getClass().getSimpleName());
 
         return response;
     }
