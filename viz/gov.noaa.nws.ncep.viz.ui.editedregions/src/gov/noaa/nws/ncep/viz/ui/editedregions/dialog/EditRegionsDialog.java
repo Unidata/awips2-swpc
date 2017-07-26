@@ -768,9 +768,14 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         // add a popup menu for the selected row
         MenuManager menuManager = new MenuManager();
+
         IAction updateRegionReportAction = new UpdateRegionReportAction(
                 tableViewer.getTable());
         menuManager.add(updateRegionReportAction);
+
+        IAction viewRegionReportHistoryAction = new ViewRegionReportHistoryAction(
+                tableViewer.getTable());
+        menuManager.add(viewRegionReportHistoryAction);
 
         Menu menu = menuManager.createContextMenu(tableViewer.getTable());
         tableViewer.getTable().setMenu(menu);
@@ -809,6 +814,30 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             if (regionReportDlg.open() == Window.OK) {
                 refreshDialog();
             }
+        }
+    }
+
+    private final class ViewRegionReportHistoryAction extends Action {
+        private final Table table;
+
+        public ViewRegionReportHistoryAction(Table table) {
+            super("View report history");
+            this.table = Objects.requireNonNull(table, "table");
+        }
+
+        @Override
+        public void run() {
+            int index = this.table.getSelectionIndex();
+            if (index < 0) {
+                return;
+            }
+
+            TableItem item = this.table.getItem(index);
+            RegionReport report = (RegionReport) item.getData();
+
+            ViewRegionReportHistoryDialog dialog = new ViewRegionReportHistoryDialog(
+                    EditRegionsDialog.this.getShell(), report.getId());
+            dialog.open();
         }
     }
 
