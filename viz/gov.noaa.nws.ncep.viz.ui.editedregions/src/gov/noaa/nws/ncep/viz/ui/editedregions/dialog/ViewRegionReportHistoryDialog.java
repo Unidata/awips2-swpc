@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridData;
@@ -14,6 +15,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -128,11 +130,86 @@ public class ViewRegionReportHistoryDialog extends Dialog {
                 SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
         tableViewer.setContentProvider(new ArrayContentProvider());
 
-        // TODO: Add columns and data
+        createColumns(tableViewer);
 
         Table table = tableViewer.getTable();
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
+
+        resizeTable(tableViewer);
+        tableViewer.refresh();
+    }
+
+    /**
+     * Create the columns for the events list table
+     */
+    private void createColumns(TableViewer tableViewer) {
+
+        String[] titles = new String[] { "Foo", "Bar", "Baz" };
+        int[] bounds = new int[] { 50, 50, 50 };
+
+        for (int i = 0; i < titles.length; i++) {
+            TableViewerColumn col = createTableViewerColumn(tableViewer,
+                    titles[i], bounds[i], i);
+
+        }
+
+    }
+
+    /**
+     * Create a column of a table viewer
+     * 
+     * @param title
+     *            - column title
+     * @param bound
+     *            - column width
+     * @param colNumber
+     *            - column number
+     * @return TableViewerColumn
+     */
+    private TableViewerColumn createTableViewerColumn(TableViewer tableViewer,
+            String title, int bound, final int colNumber) {
+        final TableViewerColumn viewerColumn = new TableViewerColumn(
+                tableViewer, SWT.NONE);
+
+        final TableColumn column = viewerColumn.getColumn();
+        column.setText(title);
+        column.setWidth(bound);
+        column.setResizable(true);
+        column.setMoveable(true);
+
+        // column.addSelectionListener(new SelectionAdapter() {
+        //
+        // @Override
+        // public void widgetSelected(SelectionEvent e) {
+        // ((EventViewerSorter) eventTableViewer.getSorter())
+        // .setColumn(colNumber);
+        // ((EventViewerSorter) eventTableViewer.getSorter())
+        // .doSort(colNumber);
+        //
+        // int dir = ((EventViewerSorter) eventTableViewer.getSorter())
+        // .getDirection();
+        // eventTableViewer.getTable().setSortColumn(column);
+        // eventTableViewer.getTable().setSortDirection(dir);
+        //
+        // // set sort direction
+        // eventsListTable.setSortDirection(eventTableViewer.getTable()
+        // .getSortDirection() == 0 ? SWT.UP : SWT.DOWN);
+        //
+        // eventTableViewer.refresh();
+        // eventsListTable.setRedraw(true);
+        // }
+        // });
+
+        return viewerColumn;
+    }
+
+    /**
+     * Resizes the events list table
+     */
+    private void resizeTable(TableViewer tableViewer) {
+        for (TableColumn tc : tableViewer.getTable().getColumns())
+            tc.pack();
     }
 
 }
