@@ -37,12 +37,13 @@ import com.raytheon.uf.common.status.UFStatus;
  *
  * @author alockleigh
  */
-@SuppressWarnings("unused")
-public class ViewRegionReportHistoryDialog extends Dialog {
 
+public class ViewRegionReportHistoryDialog extends Dialog {
+    @SuppressWarnings("unused")
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
+    @SuppressWarnings("unused")
     private final Integer reportId;
 
     public ViewRegionReportHistoryDialog(Shell shell, Integer reportId) {
