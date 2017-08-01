@@ -12,6 +12,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
@@ -115,9 +116,15 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         topGroup.setLayoutData(gd);
 
         this.createTableViewer(topGroup);
+        this.getShell().setMinimumSize(500, 500);
 
-        parent.layout(true, true);
-
+        Display.getCurrent().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                ViewRegionReportHistoryDialog.this.getShell().layout(true,
+                        true);
+            }
+        });
     }
 
     /**
@@ -129,6 +136,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
 
         Composite composite = new Composite(parent, SWT.None);
         composite.setLayout(new GridLayout(1, false));
+        composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
         GridData sashGd = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -158,8 +166,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         int[] bounds = new int[] { 50, 50, 50 };
 
         for (int i = 0; i < titles.length; i++) {
-            TableViewerColumn col = createTableViewerColumn(tableViewer,
-                    titles[i], bounds[i], i);
+            createTableViewerColumn(tableViewer, titles[i], bounds[i], i);
 
         }
 
