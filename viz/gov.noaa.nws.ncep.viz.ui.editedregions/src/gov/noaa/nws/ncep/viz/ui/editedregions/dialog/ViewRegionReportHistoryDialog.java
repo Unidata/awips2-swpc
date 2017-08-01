@@ -5,6 +5,7 @@ import java.util.Objects;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridData;
@@ -14,6 +15,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -35,16 +37,18 @@ import com.raytheon.uf.common.status.UFStatus;
  *
  * @author alockleigh
  */
-@SuppressWarnings("unused")
-public class ViewRegionReportHistoryDialog extends Dialog {
 
+public class ViewRegionReportHistoryDialog extends Dialog {
+    @SuppressWarnings("unused")
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
+    @SuppressWarnings("unused")
     private final Integer reportId;
 
     public ViewRegionReportHistoryDialog(Shell shell, Integer reportId) {
         super(shell);
+
         this.reportId = Objects.requireNonNull(reportId, "Report ID");
         setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.MAX | SWT.MIN | SWT.RESIZE
                 | SWT.MODELESS);
@@ -60,7 +64,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
      * .Composite)
      */
     @Override
-    public Control createDialogArea(Composite parent) {
+    protected Control createDialogArea(Composite parent) {
 
         Composite top = (Composite) super.createDialogArea(parent);
 
@@ -71,10 +75,10 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         mainLayout.marginWidth = 1;
         top.setLayout(mainLayout);
 
+        this.getShell().setSize(500, 500);
+
         // Initialize all of the controls, and layouts
         initializeComponents(top);
-
-        top.setSize(350, 200);
 
         return top;
 
@@ -92,7 +96,6 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         composite.setLayout(new GridLayout(1, false));
 
         GridData gd = new GridData();
-        gd = new GridData();
         gd.grabExcessHorizontalSpace = true;
         gd.grabExcessVerticalSpace = true;
         gd.horizontalAlignment = GridData.FILL;
@@ -101,22 +104,30 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         composite.setLayoutData(gd);
 
         Group topGroup = new Group(composite, SWT.SHADOW_NONE);
-        GridLayout groupLayout = new GridLayout(2, false);
+        GridLayout groupLayout = new GridLayout(1, false);
         topGroup.setLayout(groupLayout);
-        topGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, true));
 
-        this.createControls(topGroup);
+        gd = new GridData();
+        gd.grabExcessHorizontalSpace = true;
+        gd.grabExcessVerticalSpace = true;
+        gd.horizontalAlignment = GridData.FILL;
+        gd.verticalAlignment = GridData.FILL;
+        topGroup.setLayoutData(gd);
+
+        this.createTableViewer(topGroup);
+
+        parent.layout(true, true);
 
     }
 
     /**
-     * Creates controls for other fields
+     * Creates the TableViewer object containing the history data
      * 
-     * @param group
+     * @param parent
      */
-    private void createControls(Group group) {
+    private void createTableViewer(Composite parent) {
 
-        Composite composite = new Composite(group, SWT.None);
+        Composite composite = new Composite(parent, SWT.None);
         composite.setLayout(new GridLayout(1, false));
 
         SashForm sashForm = new SashForm(composite, SWT.HORIZONTAL);
@@ -128,11 +139,86 @@ public class ViewRegionReportHistoryDialog extends Dialog {
                 SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
         tableViewer.setContentProvider(new ArrayContentProvider());
 
-        // TODO: Add columns and data
+        createColumns(tableViewer);
 
         Table table = tableViewer.getTable();
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
+
+        resizeTable(tableViewer);
+        tableViewer.refresh();
+    }
+
+    /**
+     * Create the columns for the events list table
+     */
+    private void createColumns(TableViewer tableViewer) {
+
+        String[] titles = new String[] { "Foo", "Bar", "Baz" };
+        int[] bounds = new int[] { 50, 50, 50 };
+
+        for (int i = 0; i < titles.length; i++) {
+            TableViewerColumn col = createTableViewerColumn(tableViewer,
+                    titles[i], bounds[i], i);
+
+        }
+
+    }
+
+    /**
+     * Create a column of a table viewer
+     * 
+     * @param title
+     *            - column title
+     * @param bound
+     *            - column width
+     * @param colNumber
+     *            - column number
+     * @return TableViewerColumn
+     */
+    private TableViewerColumn createTableViewerColumn(TableViewer tableViewer,
+            String title, int bound, final int colNumber) {
+        final TableViewerColumn viewerColumn = new TableViewerColumn(
+                tableViewer, SWT.NONE);
+
+        final TableColumn column = viewerColumn.getColumn();
+        column.setText(title);
+        column.setWidth(bound);
+        column.setResizable(true);
+        column.setMoveable(true);
+
+        // column.addSelectionListener(new SelectionAdapter() {
+        //
+        // @Override
+        // public void widgetSelected(SelectionEvent e) {
+        // ((EventViewerSorter) eventTableViewer.getSorter())
+        // .setColumn(colNumber);
+        // ((EventViewerSorter) eventTableViewer.getSorter())
+        // .doSort(colNumber);
+        //
+        // int dir = ((EventViewerSorter) eventTableViewer.getSorter())
+        // .getDirection();
+        // eventTableViewer.getTable().setSortColumn(column);
+        // eventTableViewer.getTable().setSortDirection(dir);
+        //
+        // // set sort direction
+        // eventsListTable.setSortDirection(eventTableViewer.getTable()
+        // .getSortDirection() == 0 ? SWT.UP : SWT.DOWN);
+        //
+        // eventTableViewer.refresh();
+        // eventsListTable.setRedraw(true);
+        // }
+        // });
+
+        return viewerColumn;
+    }
+
+    /**
+     * Resizes the events list table
+     */
+    private void resizeTable(TableViewer tableViewer) {
+        for (TableColumn tc : tableViewer.getTable().getColumns())
+            tc.pack();
     }
 
 }
