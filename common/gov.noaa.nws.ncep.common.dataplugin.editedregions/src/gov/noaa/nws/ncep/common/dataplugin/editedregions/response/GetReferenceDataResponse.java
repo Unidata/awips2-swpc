@@ -23,7 +23,6 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * The response class holding the results obtained from the execution of the
  * GetReferenceDataCommand
  * 
- * 
  * @author
  * @version 1.0
  */
