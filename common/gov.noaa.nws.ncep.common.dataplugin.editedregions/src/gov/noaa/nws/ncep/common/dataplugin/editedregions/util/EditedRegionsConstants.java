@@ -44,14 +44,29 @@ public class EditedRegionsConstants {
     public static enum REGION_REPORT_STATUS {
         ASSIGNED("Assigned"), UNASSIGNED("Un-Assigned");
 
-        private String type;
+        private final String type;
 
         REGION_REPORT_STATUS(String type) {
             this.type = type;
         }
 
         public String getType() {
-            return type;
+            return this.type;
         }
+    }
+
+    public static enum REGION_REPORT_CHANGE_TYPE {
+        CREATE("Create"), UPDATE("Update"), DELETE("Delete");
+
+        private final String type;
+
+        REGION_REPORT_CHANGE_TYPE(String type) {
+            this.type = type;
+        }
+
+        public String getType() {
+            return this.type;
+        }
+
     }
 }
