@@ -103,8 +103,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // The region combo selector
     private Combo regionCombo;
 
-    private String CLOSE_BUTTON_TITLE = "Close";
-
     /**
      * The ID for the event which is to be selected
      */
@@ -432,14 +430,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         btnLeft.setText("<--");
         btnRight.setText("-->");
-        Button closeButton = new Button(regionComp, SWT.PUSH);
-        closeButton.setText(this.CLOSE_BUTTON_TITLE);
-        closeButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                close();
-            }
-        });
 
         new Label(regionComp, SWT.LEAD).setText("");
 
