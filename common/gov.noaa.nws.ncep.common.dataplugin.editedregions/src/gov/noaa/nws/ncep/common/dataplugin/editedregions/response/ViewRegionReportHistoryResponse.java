@@ -13,17 +13,15 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDataResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained from the execution of the
- * GetRegionReportHistoryCommand
- * 
- * TODO complete this
+ * GetRegionReportHistoryCommand.
  * 
  * @author
  * @version 1.0
@@ -36,7 +34,7 @@ public class ViewRegionReportHistoryResponse extends
      * The original request
      */
     @DynamicSerializeElement
-    private GetReferenceDataRequest request = null;
+    private ViewRegionReportHistoryRequest request = null;
 
     /**
      * The error
@@ -48,7 +46,7 @@ public class ViewRegionReportHistoryResponse extends
      * The results from the GetReferenceDataCommand
      */
     @DynamicSerializeElement
-    private GetReferenceDataResults results = null;
+    private ViewRegionReportHistoryResults results = null;
 
     /**
      * The time in milliseconds to complete round trip of client --> request -->
@@ -67,7 +65,6 @@ public class ViewRegionReportHistoryResponse extends
     * 
     */
     public ViewRegionReportHistoryResponse() {
-        // TODO Auto-generated constructor stub
     }
 
     /*
@@ -114,7 +111,7 @@ public class ViewRegionReportHistoryResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (GetReferenceDataResults) results;
+        this.results = (ViewRegionReportHistoryResults) results;
     }
 
     /*
@@ -189,7 +186,7 @@ public class ViewRegionReportHistoryResponse extends
 
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetReferenceDataRequest) request;
+        this.request = (ViewRegionReportHistoryRequest) request;
     }
 
     /*

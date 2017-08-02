@@ -24,6 +24,8 @@ public class ViewRegionReportHistoryRequest
     @DynamicSerializeElement
     private final long id;
 
+    private Integer reportId;
+
     /**
      * Constructor
      */
@@ -54,19 +56,7 @@ public class ViewRegionReportHistoryRequest
      */
     @Override
     public boolean isValid() {
-        boolean valid = true;
-
-        // for this request there is no input parameter that must be
-        // supplied by the client for the request to be performed so there
-        // is nothing to validate against. Just return true.
-
-        // // the request is valid only if at least one report type is being
-        // // requested.
-        // if (this.obtainAssignedReports || this.obtainUnassignedReports) {
-        // valid = true;
-        // }
-
-        return valid;
+        return this.reportId != null;
     }
 
     @Override
@@ -80,6 +70,14 @@ public class ViewRegionReportHistoryRequest
         // TODO - verify this
         ;
         ;
+    }
+
+    public Integer getReportId() {
+        return reportId;
+    }
+
+    public void setReportId(Integer reportId) {
+        this.reportId = reportId;
     }
 
 }

@@ -29,7 +29,7 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCo
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetLatestRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportHistoryCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ViewRegionReportHistoryCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
@@ -82,7 +82,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
 
             } else {
 
-                GetRegionReportHistoryCommand cmd = new GetRegionReportHistoryCommand();
+                ViewRegionReportHistoryCommand cmd = new ViewRegionReportHistoryCommand();
 
                 cmd.setRequest(viewRegionReportHistoryRequest);
 
