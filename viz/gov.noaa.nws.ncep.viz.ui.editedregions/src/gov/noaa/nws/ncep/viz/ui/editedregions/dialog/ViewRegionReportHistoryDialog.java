@@ -3,13 +3,17 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 import java.util.Objects;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -83,6 +87,19 @@ public class ViewRegionReportHistoryDialog extends Dialog {
 
         return top;
 
+    }
+
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        createButton(parent, IDialogConstants.CLOSE_ID,
+                IDialogConstants.CLOSE_LABEL, true);
+
+        Button closeBtn = getButton(IDialogConstants.CLOSE_ID);
+        closeBtn.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent ev) {
+                ViewRegionReportHistoryDialog.this.close();
+            }
+        });
     }
 
     /**
