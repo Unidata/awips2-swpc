@@ -11,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -44,6 +45,16 @@ import com.raytheon.uf.common.status.UFStatus;
  */
 
 public class ViewRegionReportHistoryDialog extends Dialog {
+
+    private static final String[] COLUMNS = new String[] { "Region Report ID",
+            "Modified Field", "Value Before", "Current Value", "Time of Change",
+            "Type of Change" };
+
+    private static final int[] BOUNDS = new int[] { 50, 100, 100, 100, 100,
+            50 };
+
+    private static final Point DIALOG_SIZE = new Point(700, 500);
+
     @SuppressWarnings("unused")
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
@@ -80,7 +91,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         mainLayout.marginWidth = 1;
         top.setLayout(mainLayout);
 
-        this.getShell().setSize(500, 500);
+        this.getShell().setSize(DIALOG_SIZE);
 
         // Initialize all of the controls, and layouts
         initializeComponents(top);
@@ -133,7 +144,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         topGroup.setLayoutData(gd);
 
         this.createTableViewer(topGroup);
-        this.getShell().setMinimumSize(500, 500);
+        this.getShell().setMinimumSize(DIALOG_SIZE);
 
         Display.getCurrent().asyncExec(new Runnable() {
             @Override
@@ -179,11 +190,8 @@ public class ViewRegionReportHistoryDialog extends Dialog {
      */
     private void createColumns(TableViewer tableViewer) {
 
-        String[] titles = new String[] { "Foo", "Bar", "Baz" };
-        int[] bounds = new int[] { 50, 50, 50 };
-
-        for (int i = 0; i < titles.length; i++) {
-            createTableViewerColumn(tableViewer, titles[i], bounds[i], i);
+        for (int i = 0; i < COLUMNS.length; i++) {
+            createTableViewerColumn(tableViewer, COLUMNS[i], BOUNDS[i], i);
 
         }
 
