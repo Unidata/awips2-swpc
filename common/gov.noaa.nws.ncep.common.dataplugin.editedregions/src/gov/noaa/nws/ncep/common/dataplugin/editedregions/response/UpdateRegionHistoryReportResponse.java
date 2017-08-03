@@ -13,28 +13,29 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionHistoryReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionHistoryReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained from the execution of the
- * GetRegionReportHistoryCommand.
+ * CreateRegionReportCommand.
+ * 
  * 
  * @author
  * @version 1.0
  */
 @DynamicSerialize
-public class ViewRegionReportHistoryResponse extends
-        BaseResponse<ViewRegionReportHistoryResponse> implements IResponse {
+public class UpdateRegionHistoryReportResponse extends
+        BaseResponse<UpdateRegionHistoryReportResponse> implements IResponse {
 
     /**
      * The original request
      */
     @DynamicSerializeElement
-    private ViewRegionReportHistoryRequest request = null;
+    private UpdateRegionHistoryReportRequest request = null;
 
     /**
      * The error
@@ -43,10 +44,10 @@ public class ViewRegionReportHistoryResponse extends
     private EditedRegionsException error = null;
 
     /**
-     * The results from the ViewRegionReportHistoryCommand
+     * The results from the CreateRegionReportResults
      */
     @DynamicSerializeElement
-    private ViewRegionReportHistoryResults results = null;
+    private UpdateRegionHistoryReportResults results = null;
 
     /**
      * The time in milliseconds to complete round trip of client --> request -->
@@ -62,9 +63,9 @@ public class ViewRegionReportHistoryResponse extends
     private long processingTime;
 
     /**
-    * 
-    */
-    public ViewRegionReportHistoryResponse() {
+     * 
+     */
+    public UpdateRegionHistoryReportResponse() {
     }
 
     /*
@@ -111,7 +112,7 @@ public class ViewRegionReportHistoryResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (ViewRegionReportHistoryResults) results;
+        this.results = (UpdateRegionHistoryReportResults) results;
     }
 
     /*
@@ -186,7 +187,7 @@ public class ViewRegionReportHistoryResponse extends
 
     @Override
     public void setRequest(IRequest request) {
-        this.request = (ViewRegionReportHistoryRequest) request;
+        this.request = (UpdateRegionHistoryReportRequest) request;
     }
 
     /*
