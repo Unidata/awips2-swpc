@@ -1,5 +1,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -25,6 +27,10 @@ import org.eclipse.swt.widgets.TableColumn;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 
 /**
  * 
@@ -55,12 +61,14 @@ public class ViewRegionReportHistoryDialog extends Dialog {
 
     private static final Point DIALOG_SIZE = new Point(700, 500);
 
-    @SuppressWarnings("unused")
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
     @SuppressWarnings("unused")
     private final Integer reportId;
+
+    @SuppressWarnings("unused")
+    private final List<RegionHistoryReport> reports;
 
     public ViewRegionReportHistoryDialog(Shell shell, Integer reportId) {
         super(shell);
@@ -68,6 +76,15 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         this.reportId = Objects.requireNonNull(reportId, "Report ID");
         setShellStyle(SWT.TITLE | SWT.CLOSE | SWT.MAX | SWT.MIN | SWT.RESIZE
                 | SWT.MODELESS);
+        List<RegionHistoryReport> tmpReports = Collections.emptyList();
+
+        try {
+            tmpReports = EditRegionsServerUtil.getReportHistory(reportId);
+        } catch (EditedRegionsException ex) {
+            statusHandler.error("Error retrieving report history", ex);
+        }
+
+        this.reports = tmpReports;
     }
 
     /*
