@@ -1,14 +1,21 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
 
 /**
  * The command class that is executed to obtain all history for a given Region
@@ -21,6 +28,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionRepor
  * @version 1.0
  */
 public class ViewRegionReportHistoryCommand extends BaseCommand {
+
+    private final RegionHistoryReportDao historyReportDao = new RegionHistoryReportDao();
 
     /**
      * The request from the client that resulted in creating an instance of the
@@ -163,15 +172,34 @@ public class ViewRegionReportHistoryCommand extends BaseCommand {
 
         this.setStartTime();
 
-        // TODO: Actual logic goes here.
-
         ViewRegionReportHistoryResponse response = new ViewRegionReportHistoryResponse();
         ViewRegionReportHistoryResults results = new ViewRegionReportHistoryResults();
-        response.setResults(results);
+
+        if (this.request.isValid()) {
+            Integer reportId = this.request.getReportId();
+            List<RegionHistoryReport> reports = historyReportDao
+                    .getHistoryReports(reportId);
+            Collections.sort(reports, new Comparator<RegionHistoryReport>() {
+
+                @Override
+                public int compare(RegionHistoryReport lhs,
+                        RegionHistoryReport rhs) {
+                    return Long.compare(lhs.getTimeOfChange(),
+                            rhs.getTimeOfChange());
+                }
+            });
+
+            LinkedHashMap<Integer, RegionHistoryReport> reportsMap = new LinkedHashMap<>();
+            for (RegionHistoryReport report : reports) {
+                reportsMap.put(report.getHistoryId(), report);
+            }
+            results.setHistoryReportsMap(reportsMap);
+            response.setResults(results);
+        }
+        this.setEndTime();
+
         response.setError(this.getError());
         response.setProcessingTime(this.getProcessingTime());
-
-        this.setEndTime();
 
         statusHandler
                 .info("Finishing Executing " + this.getClass().getSimpleName());
