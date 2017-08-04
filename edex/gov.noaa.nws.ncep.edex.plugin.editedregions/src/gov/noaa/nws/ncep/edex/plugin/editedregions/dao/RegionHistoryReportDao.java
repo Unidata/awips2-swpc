@@ -112,7 +112,6 @@ public class RegionHistoryReportDao extends CoreDao {
     public List<RegionHistoryReport> getHistoryReports(final Integer reportId) {
         return txTemplate
                 .execute(new TransactionCallback<List<RegionHistoryReport>>() {
-
                     @Override
                     public List<RegionHistoryReport> doInTransaction(
                             TransactionStatus status) {

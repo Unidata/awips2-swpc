@@ -180,7 +180,6 @@ public class ViewRegionReportHistoryCommand extends BaseCommand {
             List<RegionHistoryReport> reports = historyReportDao
                     .getHistoryReports(reportId);
             Collections.sort(reports, new Comparator<RegionHistoryReport>() {
-
                 @Override
                 public int compare(RegionHistoryReport lhs,
                         RegionHistoryReport rhs) {
