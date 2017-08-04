@@ -1,8 +1,6 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
@@ -179,18 +177,10 @@ public class ViewRegionReportHistoryCommand extends BaseCommand {
             Integer reportId = this.request.getReportId();
             List<RegionHistoryReport> reports = historyReportDao
                     .getHistoryReports(reportId);
-            Collections.sort(reports, new Comparator<RegionHistoryReport>() {
-                @Override
-                public int compare(RegionHistoryReport lhs,
-                        RegionHistoryReport rhs) {
-                    return Long.compare(lhs.getTimeOfChange(),
-                            rhs.getTimeOfChange());
-                }
-            });
 
-            LinkedHashMap<Integer, RegionHistoryReport> reportsMap = new LinkedHashMap<>();
+            HashMap<Integer, RegionHistoryReport> reportsMap = new HashMap<>();
             for (RegionHistoryReport report : reports) {
-                reportsMap.put(report.getHistoryId(), report);
+                reportsMap.put(report.getId(), report);
             }
             results.setHistoryReportsMap(reportsMap);
             response.setResults(results);

@@ -53,11 +53,6 @@ public class RegionHistoryReport extends PersistablePluginDataObject {
 
     @Column
     @DynamicSerializeElement
-    @XmlAttribute(name = "HistoryID")
-    private Integer historyId; // PK
-
-    @Column
-    @DynamicSerializeElement
     @XmlAttribute(name = "RegionReportID")
     private Integer regionReportId; // fk
 
@@ -90,21 +85,6 @@ public class RegionHistoryReport extends PersistablePluginDataObject {
     @Override
     public String getPluginName() {
         return EditedRegionsConstants.PLUGIN_NAME;
-    }
-
-    /**
-     * @return the historyId
-     */
-    public Integer getHistoryId() {
-        return this.historyId;
-    }
-
-    /**
-     * @param historyId
-     *            the historyId to set
-     */
-    public void setHistoryId(Integer historyId) {
-        this.historyId = historyId;
     }
 
     /**

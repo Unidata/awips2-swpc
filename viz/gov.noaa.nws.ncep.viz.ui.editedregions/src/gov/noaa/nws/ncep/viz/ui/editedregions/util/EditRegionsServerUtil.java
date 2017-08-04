@@ -1,6 +1,8 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.NavigableSet;
@@ -9,6 +11,7 @@ import java.util.TreeSet;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -19,6 +22,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDat
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
@@ -26,6 +30,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDa
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
@@ -33,6 +38,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDat
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
 
 /**
  * TODO Add Description
@@ -44,7 +50,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionRep
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
  * Jul 6, 2017            jtravis     Initial creation
- *
+ *RegionHistoryReport
  * </pre>
  *
  * @author jtravis
@@ -199,6 +205,41 @@ public final class EditRegionsServerUtil {
             }
         }
         return null;
+    }
+
+    public static List<RegionHistoryReport> getReportHistory(Integer reportId)
+            throws EditedRegionsException {
+        ViewRegionReportHistoryRequest request = new ViewRegionReportHistoryRequest();
+        request.setReportId(reportId);
+        if (request.isValid()) {
+            ViewRegionReportHistoryResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.getResults() != null) {
+                ViewRegionReportHistoryResults results = (ViewRegionReportHistoryResults) response
+                        .getResults();
+                List<RegionHistoryReport> reports = new ArrayList<>();
+                for (Map.Entry<Integer, RegionHistoryReport> entry : results
+                        .getHistoryReportsMap().entrySet()) {
+                    RegionHistoryReport report = entry.getValue();
+                    report.setId(entry.getKey());
+                    reports.add(report);
+                }
+                Collections.sort(reports,
+                        new Comparator<RegionHistoryReport>() {
+                            @Override
+                            public int compare(RegionHistoryReport lhs,
+                                    RegionHistoryReport rhs) {
+                                return Long.compare(lhs.getTimeOfChange(),
+                                        rhs.getTimeOfChange());
+                            }
+                        });
+                return reports;
+            }
+        }
+        return Collections.emptyList();
+
     }
 
     private static GetReferenceDataResults getReferenceData()
