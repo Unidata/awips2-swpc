@@ -34,7 +34,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConst
 @DynamicSerialize
 public class RegionHistoryReport extends PersistablePluginDataObject {
 
-    public static final String REGION_REPORT_ID = "RegionReportID";
+    public static final String REGION_REPORT_ID = "regionReportId";
 
     // NOTE: if have a value that is an instance of class
     // that is backed by a db table use the following

@@ -24,6 +24,7 @@ public class ViewRegionReportHistoryRequest
     @DynamicSerializeElement
     private final long id;
 
+    @DynamicSerializeElement
     private Integer reportId;
 
     /**
