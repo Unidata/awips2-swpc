@@ -37,31 +37,6 @@ public class RegionHistoryReportDao extends CoreDao {
     }
 
     /**
-     * Persist the Region and return the ID
-     *
-     * @param region
-     * @return id the generated unique identifier for this region (NOT the
-     *         region number)
-     * 
-     * @throws DataAccessLayerException
-     */
-    public Long persist(final Region region) throws DataAccessLayerException {
-        try {
-            // Get a session and create a new criteria instance
-            return (Long) txTemplate.execute(new TransactionCallback<Long>() {
-                @Override
-                public Long doInTransaction(TransactionStatus status) {
-                    return (Long) getCurrentSession().save(region);
-                }
-            });
-
-        } catch (TransactionException e) {
-            throw new DataAccessLayerException("Transaction failed", e);
-        }
-
-    }
-
-    /**
      * Retrieves the latest region that was created
      *
      * @return Region
@@ -125,6 +100,25 @@ public class RegionHistoryReportDao extends CoreDao {
                     }
 
                 });
+    }
+
+    /**
+     * 
+     * @param report
+     * @return
+     */
+    public int persist(final RegionHistoryReport report)
+            throws DataAccessLayerException {
+        try {
+            return txTemplate.execute(new TransactionCallback<Integer>() {
+                @Override
+                public Integer doInTransaction(TransactionStatus status) {
+                    return (Integer) getCurrentSession().save(report);
+                }
+            });
+        } catch (TransactionException e) {
+            throw new DataAccessLayerException("Transaction failed", e);
+        }
     }
 
 }
