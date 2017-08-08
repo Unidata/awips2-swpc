@@ -182,11 +182,17 @@ public class CreateRegionReportCommand extends BaseCommand {
             calendar.setTimeInMillis(System.currentTimeMillis());
             report.setObservationTime(calendar.getTime());
 
-            // TODO - add the logic to persist the region report and obtain the
-            // unique id
-
             reportId = this.regionReportsDao.persist(report);
             report.setId(reportId);
+
+            // TODO - add logic to add a Region History Report indicating
+            // that the Region Report was created
+            //
+            // CreateRegionHistoryReportCommand cmd = new
+            // CreateRegionHistoryReportCommand();
+            // supply the required request parameters
+            // response = cmd.execute()
+            // if (response.success) {
 
         } catch (PluginException e) {
             setError(new EditedRegionsException(e));
@@ -198,6 +204,9 @@ public class CreateRegionReportCommand extends BaseCommand {
 
         statusHandler
                 .info("Finish Executing " + this.getClass().getSimpleName());
+
+        // change return statemet to this:
+        // return this.createResponse(report, reportHistoryCreated)
 
         return this.createResponse(report);
     }

@@ -1,5 +1,8 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
+import java.util.List;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionHistoryReportRequest;
@@ -7,6 +10,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -146,9 +150,15 @@ public class UpdateRegionHistoryReportCommand extends BaseCommand {
      * 
      * @see gov.noaa.nws.ncep.edex.plugin.editedregions.commands.intf.ICommand#
      * execute()
+     * 
+     * TODO - complete this
      */
     @Override
     public IResponse execute() {
+
+        RegionHistoryReportDao dao = null;
+        List<RegionHistoryReport> historyReport = null;
+
         this.setStartTime();
 
         // RegionReport updatedReport = null;
@@ -161,6 +171,14 @@ public class UpdateRegionHistoryReportCommand extends BaseCommand {
         // this.regionReportsDao.update(report);
         // updatedReport = (RegionReport) this.regionReportsDao
         // .queryById(report.getId());
+        dao = new RegionHistoryReportDao();
+
+        // first obtain the region history report(s) from the
+        // the request which will contain the change that has
+        // been performed
+        historyReport = dao.getHistoryReports(request.getHistoryReportID());
+
+        //
 
         this.setEndTime();
 
