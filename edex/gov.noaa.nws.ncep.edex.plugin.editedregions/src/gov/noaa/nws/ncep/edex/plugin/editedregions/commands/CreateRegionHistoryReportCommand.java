@@ -199,6 +199,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -214,6 +216,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -229,6 +233,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -243,6 +249,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -257,6 +265,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -271,6 +281,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -285,6 +297,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -300,6 +314,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -314,6 +330,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -329,6 +347,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -343,6 +363,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -357,6 +379,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -371,6 +395,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -385,6 +411,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -399,6 +427,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -413,6 +443,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -427,6 +459,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -441,6 +475,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -455,6 +491,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -469,6 +507,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -483,6 +523,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -497,6 +539,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -512,6 +556,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }
@@ -527,6 +573,8 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
+                historyReport
+                        .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
             }

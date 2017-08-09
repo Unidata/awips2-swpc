@@ -176,6 +176,7 @@ public class UpdateRegionReportCommand extends BaseCommand {
             CreateRegionHistoryReportRequest historyRequest = new CreateRegionHistoryReportRequest();
             historyRequest.setOldReport(oldReport);
             historyRequest.setNewReport(updatedReport);
+            historyRequest.setRegionReportId(this.request.getRegionReportID());
 
             CreateRegionHistoryReportCommand historyCommand = new CreateRegionHistoryReportCommand();
             historyCommand.setRequest(historyRequest);

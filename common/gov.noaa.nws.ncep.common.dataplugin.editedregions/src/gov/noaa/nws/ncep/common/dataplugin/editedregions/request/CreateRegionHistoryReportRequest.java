@@ -34,6 +34,8 @@ public class CreateRegionHistoryReportRequest
      */
     private RegionReport newReport = null;
 
+    private Integer regionReportId = null;
+
     /**
      * 
      */
@@ -53,7 +55,7 @@ public class CreateRegionHistoryReportRequest
     }
 
     /*
-     * (non-Javadoc)
+     * (non-Javadoc) (this.request.getNewReport()
      * 
      * @see
      * gov.noaa.nws.ncep.common.dataplugin.editedevents.request.IRequest#isValid
@@ -98,6 +100,14 @@ public class CreateRegionHistoryReportRequest
 
     public void setNewReport(RegionReport newReport) {
         this.newReport = newReport;
+    }
+
+    public Integer getRegionReportId() {
+        return regionReportId;
+    }
+
+    public void setRegionReportId(Integer regionReportId) {
+        this.regionReportId = regionReportId;
     }
 
 }
