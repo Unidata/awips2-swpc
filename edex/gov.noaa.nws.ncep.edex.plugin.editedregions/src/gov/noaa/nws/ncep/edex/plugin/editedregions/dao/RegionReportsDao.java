@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
@@ -75,7 +76,20 @@ public class RegionReportsDao extends PluginDao {
         }
 
         return id;
+    }
 
+    public RegionReport getRegionReport(final Integer reportId) {
+        return txTemplate.execute(new TransactionCallback<RegionReport>() {
+            @Override
+            public RegionReport doInTransaction(TransactionStatus status) {
+                Session session = getCurrentSession();
+                Criteria crit = session.createCriteria(RegionReport.class);
+                crit.add(Property.forName("id").eq(reportId));
+
+                return (RegionReport) crit.uniqueResult();
+            }
+
+        });
     }
 
     /**

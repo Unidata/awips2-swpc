@@ -1,8 +1,10 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import com.raytheon.uf.common.time.DataTime;
 import com.raytheon.uf.edex.database.DataAccessLayerException;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
@@ -13,9 +15,9 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHistoryReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
  * The sub-command class that is executed to add a region history report item.
@@ -43,9 +45,9 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
     private CreateRegionHistoryReportRequest request = null;
 
     /**
-     * Dao for EventBin records
+     * Dao for accessing the swpc_region_history_reports tables.
      */
-    private RegionReportsDao regionReportsDao = null;
+    private final RegionHistoryReportDao regionHistoryReportsDao = new RegionHistoryReportDao();
 
     /**
      * Default Constructor
@@ -170,13 +172,18 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
     @Override
     public IResponse execute() {
 
-        RegionHistoryReportDao dao = null;
         List<RegionHistoryReport> historyReports = new ArrayList<>();
         RegionHistoryReport historyReport = null;
 
         boolean success = false;
 
         this.setStartTime();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+        calendar.setTimeInMillis(this.getStartTime());
+
+        DataTime dataTime = new DataTime(calendar);
         try {
             // Build out the RegionHistoryReport items.
             RegionReport oldReport = this.request.getOldReport();
@@ -191,6 +198,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getStation()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -205,6 +213,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getObservationTime()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -219,6 +228,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getObservatory()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -232,6 +242,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getType()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -245,6 +256,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getQuality()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -258,6 +270,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getRegion()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -271,6 +284,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getLatitude()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -285,6 +299,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getReportLongitude()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -298,6 +313,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getLongitude()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -312,6 +328,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getReportLocation()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -325,6 +342,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getLocation()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -338,6 +356,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getCarlon()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -351,6 +370,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getExtent()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -364,6 +384,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getArea()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -377,6 +398,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getNumspot()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -390,6 +412,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getZurich()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -403,6 +426,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getPenumbra()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -416,6 +440,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getCompact()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -429,6 +454,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getSpotclass()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -442,6 +468,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getMagcode()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -455,6 +482,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getMagclass()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -468,6 +496,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getObsid()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -482,6 +511,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.getReportStatus()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -496,6 +526,7 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(newReport.isValidSpotClass()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setDataTime(dataTime);
 
                 historyReports.add(historyReport);
             }
@@ -510,10 +541,9 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
             // this.regionReportsDao.update(report);
             // updatedReport = (RegionReport) this.regionReportsDao
             // .queryById(report.getId());
-            dao = new RegionHistoryReportDao();
 
             for (RegionHistoryReport hr : historyReports) {
-                dao.persist(hr);
+                regionHistoryReportsDao.persist(hr);
             }
 
             success = true;
