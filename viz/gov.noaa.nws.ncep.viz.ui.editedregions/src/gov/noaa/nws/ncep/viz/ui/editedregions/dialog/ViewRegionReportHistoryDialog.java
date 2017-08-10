@@ -207,6 +207,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
 
+        tableViewer.setInput(reports);
         resizeTable(tableViewer);
         tableViewer.refresh();
     }
