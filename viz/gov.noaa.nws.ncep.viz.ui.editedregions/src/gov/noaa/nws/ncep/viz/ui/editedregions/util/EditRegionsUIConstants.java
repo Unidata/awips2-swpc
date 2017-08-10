@@ -37,6 +37,7 @@ package gov.noaa.nws.ncep.viz.ui.editedregions.util;
  */
 public interface EditRegionsUIConstants {
 
+    // Edit Regions Constants
     public static final String[] COLUMNS = new String[] { "Observation Time",
             "Observatory", "Quality", "Region", "Report Location",
             "00Z Location", "Carlon", "Extent", "Area", "Numspots", "Spotclass",
@@ -69,4 +70,17 @@ public interface EditRegionsUIConstants {
     public static final int COLUMN_INDEX_SPOTCLASS = 10;
 
     public static final int COLUMN_INDEX_MAGCLASS = 11;
+
+    // Report history constants
+    public static final int COLUMN_INDEX_HIST_REGION_REPORT_ID = 0;
+
+    public static final int COLUMN_INDEX_HIST_MODIFIED_FIELD = 1;
+
+    public static final int COLUMN_INDEX_HIST_VALUE_OLD = 2;
+
+    public static final int COLUMN_INDEX_HIST_VALUE_NEW = 3;
+
+    public static final int COLUMN_INDEX_HIST_TIME_OF_CHANGE = 4;
+
+    public static final int COLUMN_INDEX_HIST_CHANGE_TYPE = 5;
 }

@@ -179,13 +179,14 @@ public class ViewRegionReportHistoryCommand extends BaseCommand {
                     .getHistoryReports(reportId);
 
             HashMap<Integer, RegionHistoryReport> reportsMap = new HashMap<>();
-            for (RegionHistoryReport report : reports) {
-                reportsMap.put(report.getId(), report);
-            }
+            // for (RegionHistoryReport report : reports) {
+            // reportsMap.put(report.getId(), report);
+            // }
 
-            reportsMap = new HashMap<>();
-            RegionHistoryReport tmp = reports.get(0);
-            reportsMap.put(tmp.getId(), tmp);
+            if (!reports.isEmpty()) {
+                RegionHistoryReport tmp = reports.get(0);
+                reportsMap.put(tmp.getId(), tmp);
+            }
 
             results.setHistoryReportsMap(reportsMap);
             response.setResults(results);

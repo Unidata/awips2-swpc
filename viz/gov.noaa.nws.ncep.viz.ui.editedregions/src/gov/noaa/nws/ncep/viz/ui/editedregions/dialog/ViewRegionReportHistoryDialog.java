@@ -64,11 +64,19 @@ public class ViewRegionReportHistoryDialog extends Dialog {
     private final IUFStatusHandler statusHandler = UFStatus
             .getHandler(EnterNewRegionDialog.class);
 
+    /**
+     * The id of the region report
+     */
     @SuppressWarnings("unused")
     private final Integer reportId;
 
+    /**
+     * The list of region history report records.
+     */
     @SuppressWarnings("unused")
     private final List<RegionHistoryReport> reports;
+
+    private final ViewRegionReportHistoryLabelProvider labelProvider = new ViewRegionReportHistoryLabelProvider();
 
     public ViewRegionReportHistoryDialog(Shell shell, Integer reportId) {
         super(shell);
@@ -191,6 +199,7 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         TableViewer tableViewer = new TableViewer(sashForm,
                 SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
         tableViewer.setContentProvider(new ArrayContentProvider());
+        tableViewer.setLabelProvider(labelProvider);
 
         createColumns(tableViewer);
 
