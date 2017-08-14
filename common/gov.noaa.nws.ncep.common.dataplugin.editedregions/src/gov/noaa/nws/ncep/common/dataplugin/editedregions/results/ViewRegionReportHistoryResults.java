@@ -1,6 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 
-import java.util.Collections;
 import java.util.Map;
 
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
@@ -29,8 +28,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 public class ViewRegionReportHistoryResults implements IResults {
 
     @DynamicSerializeElement
-    private Map<Integer, RegionHistoryReport> historyReportsMap = Collections
-            .emptyMap();
+    private Map<Integer, RegionHistoryReport> historyReportsMap = null;
 
     @Override
     public int numResults() {
