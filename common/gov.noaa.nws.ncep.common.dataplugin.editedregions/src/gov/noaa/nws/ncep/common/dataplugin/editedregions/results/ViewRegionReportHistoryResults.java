@@ -1,11 +1,11 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 
+import java.util.List;
 import java.util.Map;
 
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
@@ -28,20 +28,20 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 public class ViewRegionReportHistoryResults implements IResults {
 
     @DynamicSerializeElement
-    private Map<Integer, RegionHistoryReport> historyReportsMap = null;
+    private List<Map<String, String>> historyReportList = null;
 
     @Override
     public int numResults() {
-        return (historyReportsMap != null) ? historyReportsMap.size() : 0;
+        return (historyReportList != null) ? historyReportList.size() : 0;
     }
 
-    public Map<Integer, RegionHistoryReport> getHistoryReportsMap() {
-        return historyReportsMap;
+    public List<Map<String, String>> getHistoryReportList() {
+        return historyReportList;
     }
 
-    public void setHistoryReportsMap(
-            Map<Integer, RegionHistoryReport> historyReportsMap) {
-        this.historyReportsMap = historyReportsMap;
+    public void setHistoryReportList(
+            List<Map<String, String>> historyReportList) {
+        this.historyReportList = historyReportList;
     }
 
 }

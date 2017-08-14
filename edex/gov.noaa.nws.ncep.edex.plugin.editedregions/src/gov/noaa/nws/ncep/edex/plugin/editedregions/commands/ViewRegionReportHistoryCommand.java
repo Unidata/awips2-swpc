@@ -1,7 +1,8 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -13,6 +14,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.RegionHistoryReportUtility;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
 
 /**
@@ -178,17 +180,14 @@ public class ViewRegionReportHistoryCommand extends BaseCommand {
             List<RegionHistoryReport> reports = historyReportDao
                     .getHistoryReports(reportId);
 
-            HashMap<Integer, RegionHistoryReport> reportsMap = new HashMap<>();
-            // for (RegionHistoryReport report : reports) {
-            // reportsMap.put(report.getId(), report);
-            // }
-
-            if (!reports.isEmpty()) {
-                RegionHistoryReport tmp = reports.get(0);
-                reportsMap.put(tmp.getId(), tmp);
+            List<Map<String, String>> reportsList = new ArrayList<>();
+            for (RegionHistoryReport report : reports) {
+                Map<String, String> reportMap = RegionHistoryReportUtility
+                        .convertToMap(report);
+                reportsList.add(reportMap);
             }
 
-            results.setHistoryReportsMap(reportsMap);
+            results.setHistoryReportList(reportsList);
             response.setResults(results);
 
         }

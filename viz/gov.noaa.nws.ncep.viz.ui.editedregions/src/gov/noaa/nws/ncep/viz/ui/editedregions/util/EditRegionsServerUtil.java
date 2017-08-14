@@ -39,6 +39,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReport
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.RegionHistoryReportUtility;
 
 /**
  * TODO Add Description
@@ -220,12 +221,13 @@ public final class EditRegionsServerUtil {
                 ViewRegionReportHistoryResults results = (ViewRegionReportHistoryResults) response
                         .getResults();
                 List<RegionHistoryReport> reports = new ArrayList<>();
-                for (Map.Entry<Integer, RegionHistoryReport> entry : results
-                        .getHistoryReportsMap().entrySet()) {
-                    RegionHistoryReport report = entry.getValue();
-                    report.setId(entry.getKey());
-                    reports.add(report);
+                for (Map<String, String> reportMap : results
+                        .getHistoryReportList()) {
+                    RegionHistoryReport historyReport = RegionHistoryReportUtility
+                            .convertToObject(reportMap);
+                    reports.add(historyReport);
                 }
+
                 Collections.sort(reports,
                         new Comparator<RegionHistoryReport>() {
                             @Override

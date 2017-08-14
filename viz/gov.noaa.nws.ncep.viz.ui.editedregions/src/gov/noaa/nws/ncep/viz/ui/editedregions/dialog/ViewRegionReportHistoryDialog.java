@@ -73,7 +73,6 @@ public class ViewRegionReportHistoryDialog extends Dialog {
     /**
      * The list of region history report records.
      */
-    @SuppressWarnings("unused")
     private final List<RegionHistoryReport> reports;
 
     private final ViewRegionReportHistoryLabelProvider labelProvider = new ViewRegionReportHistoryLabelProvider();
@@ -199,7 +198,6 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         TableViewer tableViewer = new TableViewer(sashForm,
                 SWT.V_SCROLL | SWT.H_SCROLL | SWT.FULL_SELECTION);
         tableViewer.setContentProvider(new ArrayContentProvider());
-        tableViewer.setLabelProvider(labelProvider);
 
         createColumns(tableViewer);
 
@@ -207,8 +205,10 @@ public class ViewRegionReportHistoryDialog extends Dialog {
         table.setLinesVisible(true);
         table.setHeaderVisible(true);
 
+        tableViewer.setLabelProvider(labelProvider);
         tableViewer.setInput(reports);
         resizeTable(tableViewer);
+
         tableViewer.refresh();
     }
 

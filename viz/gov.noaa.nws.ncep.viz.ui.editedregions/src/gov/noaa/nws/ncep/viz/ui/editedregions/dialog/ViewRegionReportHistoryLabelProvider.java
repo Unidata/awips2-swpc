@@ -137,7 +137,7 @@ public class ViewRegionReportHistoryLabelProvider
             return convertToDisplay(historyReport.getFieldValueBefore());
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_TIME_OF_CHANGE:
-            long timestamp = historyReport.getDataTime().getRefTime().getTime();
+            long timestamp = historyReport.getTimeOfChange();
             ZonedDateTime dateTime = Instant.ofEpochMilli(timestamp)
                     .atZone(ZoneOffset.UTC);
             return DateTimeFormatter.ISO_ZONED_DATE_TIME.format(dateTime);
