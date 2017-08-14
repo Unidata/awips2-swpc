@@ -32,7 +32,7 @@ public class ViewRegionReportHistoryResults implements IResults {
 
     @Override
     public int numResults() {
-        return historyReportsMap.size();
+        return (historyReportsMap != null) ? historyReportsMap.size() : 0;
     }
 
     public Map<Integer, RegionHistoryReport> getHistoryReportsMap() {
