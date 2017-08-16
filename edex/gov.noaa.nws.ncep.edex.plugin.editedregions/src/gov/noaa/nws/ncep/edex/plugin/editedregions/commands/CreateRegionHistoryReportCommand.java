@@ -189,22 +189,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
             RegionReport oldReport = this.request.getOldReport();
             RegionReport newReport = this.request.getNewReport();
 
-            if (!equals(oldReport.getStation(), newReport.getStation())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("station");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getStation()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getStation()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
             if (!equals(oldReport.getObservationTime(),
                     newReport.getObservationTime())) {
                 historyReport = new RegionHistoryReport();
@@ -239,22 +223,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReports.add(historyReport);
             }
 
-            if (!equals(oldReport.getType(), newReport.getType())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("type");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getType()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getType()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
             if (!equals(oldReport.getQuality(), newReport.getQuality())) {
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("quality");
@@ -278,55 +246,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(oldReport.getRegion()));
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getRegion()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getLatitude(), newReport.getLatitude())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("latitude");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getLatitude()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getLatitude()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getReportLongitude(),
-                    newReport.getReportLongitude())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("reportLongitude");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getReportLongitude()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getReportLongitude()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getLongitude(), newReport.getLongitude())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("longitude");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getLongitude()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getLongitude()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
@@ -433,54 +352,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReports.add(historyReport);
             }
 
-            if (!equals(oldReport.getZurich(), newReport.getZurich())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("zurich");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getZurich()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getZurich()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getPenumbra(), newReport.getPenumbra())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("penumbra");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getPenumbra()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getPenumbra()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getCompact(), newReport.getCompact())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("compact");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getCompact()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getCompact()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
             if (!equals(oldReport.getSpotclass(), newReport.getSpotclass())) {
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("spotclass");
@@ -497,22 +368,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                 historyReports.add(historyReport);
             }
 
-            if (!equals(oldReport.getMagcode(), newReport.getMagcode())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("magcode");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getMagcode()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getMagcode()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
             if (!equals(oldReport.getMagclass(), newReport.getMagclass())) {
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("magclass");
@@ -520,56 +375,6 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
                         String.valueOf(oldReport.getMagclass()));
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getMagclass()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getObsid(), newReport.getObsid())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("obsid");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getObsid()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getObsid()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getReportStatus(),
-                    newReport.getReportStatus())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("reportStatus");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getReportStatus()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getReportStatus()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.isValidSpotClass(),
-                    newReport.isValidSpotClass())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("validSpotClass");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.isValidSpotClass()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.isValidSpotClass()));
                 historyReport.setTimeOfChange(this.getStartTime());
                 historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
                 historyReport.setDataTime(dataTime);
