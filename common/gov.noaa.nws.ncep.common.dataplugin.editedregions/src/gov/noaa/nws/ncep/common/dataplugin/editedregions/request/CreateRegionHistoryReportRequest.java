@@ -5,6 +5,7 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 
 /**
  * Request class to allow forecasters to create a region report
@@ -36,6 +37,8 @@ public class CreateRegionHistoryReportRequest
 
     private Integer regionReportId = null;
 
+    private REGION_REPORT_CHANGE_TYPE changeType = null;
+
     /**
      * 
      */
@@ -63,7 +66,15 @@ public class CreateRegionHistoryReportRequest
      */
     @Override
     public boolean isValid() {
-        return this.oldReport != null && this.newReport != null;
+        switch (changeType) {
+        case CREATE:
+            return this.oldReport == null && this.newReport != null;
+        case UPDATE:
+            return this.oldReport != null && this.newReport != null;
+
+        default:
+            return false;
+        }
     }
 
     /*
@@ -108,6 +119,14 @@ public class CreateRegionHistoryReportRequest
 
     public void setRegionReportId(Integer regionReportId) {
         this.regionReportId = regionReportId;
+    }
+
+    public REGION_REPORT_CHANGE_TYPE getChangeType() {
+        return changeType;
+    }
+
+    public void setChangeType(REGION_REPORT_CHANGE_TYPE changeType) {
+        this.changeType = changeType;
     }
 
 }

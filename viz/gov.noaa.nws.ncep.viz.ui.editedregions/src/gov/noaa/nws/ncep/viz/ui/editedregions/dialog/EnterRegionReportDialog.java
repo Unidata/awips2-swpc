@@ -462,8 +462,10 @@ public class EnterRegionReportDialog extends Dialog {
                 new GridData(GridData.FILL, GridData.FILL, true, true));
 
         // Observatory field
+        // This is the UI codes as listed in Edited Regions FRD v3.0
+        // ICAO codes (APLM, KHMN, LISS) are not in use.
         cmbObservatory = addComboControl(composite, "Observatory",
-                new String[] { "APLM", "KHMN", "LISS" });
+                new String[] { "LEA", "HOL", "SVI" });
 
         lblObservatory = addLabel(composite);
 

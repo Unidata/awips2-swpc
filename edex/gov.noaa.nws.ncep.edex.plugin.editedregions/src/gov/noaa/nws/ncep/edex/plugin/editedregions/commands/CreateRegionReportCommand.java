@@ -9,12 +9,16 @@ import com.raytheon.uf.edex.database.DataAccessLayerException;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionHistoryReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHistoryReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -169,14 +173,15 @@ public class CreateRegionReportCommand extends BaseCommand {
 
         this.setStartTime();
 
-        RegionReport report = null;
+        RegionReport report = this.request.getRegionReport();
         int reportId = 0;
 
         try {
 
+            // Record the new RegionReport.
+
             this.regionReportsDao = new RegionReportsDao();
 
-            report = this.request.getRegionReport();
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -193,6 +198,25 @@ public class CreateRegionReportCommand extends BaseCommand {
             // supply the required request parameters
             // response = cmd.execute()
             // if (response.success) {
+
+            // Record the history
+
+            CreateRegionHistoryReportRequest historyRequest = new CreateRegionHistoryReportRequest();
+            historyRequest.setChangeType(REGION_REPORT_CHANGE_TYPE.CREATE);
+            historyRequest.setNewReport(report);
+            historyRequest.setRegionReportId(reportId);
+
+            CreateRegionHistoryReportCommand historyCommand = new CreateRegionHistoryReportCommand();
+            historyCommand.setRequest(historyRequest);
+            CreateRegionHistoryReportResponse historyResponse = (CreateRegionHistoryReportResponse) historyCommand
+                    .execute();
+            CreateRegionHistoryReportResults historyResults = (CreateRegionHistoryReportResults) historyResponse
+                    .getResults();
+
+            if (!historyResults.isSuccessful()) {
+                setError(new EditedRegionsException(
+                        "There was a problem recording history."));
+            }
 
         } catch (PluginException e) {
             setError(new EditedRegionsException(e));

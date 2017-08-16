@@ -188,200 +188,372 @@ public class CreateRegionHistoryReportCommand extends BaseCommand {
             // Build out the RegionHistoryReport items.
             RegionReport oldReport = this.request.getOldReport();
             RegionReport newReport = this.request.getNewReport();
+            REGION_REPORT_CHANGE_TYPE changeType = this.request.getChangeType();
 
-            if (!equals(oldReport.getObservationTime(),
-                    newReport.getObservationTime())) {
+            if (changeType == REGION_REPORT_CHANGE_TYPE.CREATE) {
+
+                // Observation time
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("observationTime");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getObservationTime()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getObservationTime()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getObservatory(),
-                    newReport.getObservatory())) {
+                // Observatory
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("observatory");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getObservatory()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getObservatory()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getQuality(), newReport.getQuality())) {
-                historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("quality");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getQuality()));
-                historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getQuality()));
-                historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
-                historyReport.setDataTime(dataTime);
-                historyReport
-                        .setRegionReportId(this.request.getRegionReportId());
-
-                historyReports.add(historyReport);
-            }
-
-            if (!equals(oldReport.getRegion(), newReport.getRegion())) {
+                // Region
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("region");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getRegion()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getRegion()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getReportLocation(),
-                    newReport.getReportLocation())) {
+                // Report Location
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("reportLocation");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getReportLocation()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getReportLocation()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getLocation(), newReport.getLocation())) {
+                // Location
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("location");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getLocation()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getLocation()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getCarlon(), newReport.getCarlon())) {
+                // Carlon
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("carlon");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getCarlon()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getCarlon()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getExtent(), newReport.getExtent())) {
+                // Extent
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("extent");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getExtent()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getExtent()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getArea(), newReport.getArea())) {
+                // Area
                 historyReport = new RegionHistoryReport();
-                historyReport.setModifiedField("area");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getArea()));
+                historyReport.setModifiedField("Area");
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
-                        String.valueOf(newReport.getArea()));
+                        String.valueOf(newReport.getExtent()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getNumspot(), newReport.getNumspot())) {
+                // Numspot
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("numspot");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getNumspot()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getNumspot()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getSpotclass(), newReport.getSpotclass())) {
+                // Spotclass
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("spotclass");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getSpotclass()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getSpotclass()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
-            }
 
-            if (!equals(oldReport.getMagclass(), newReport.getMagclass())) {
+                // Magclass
                 historyReport = new RegionHistoryReport();
                 historyReport.setModifiedField("magclass");
-                historyReport.setFieldValueBefore(
-                        String.valueOf(oldReport.getMagclass()));
+                historyReport.setFieldValueBefore("");
                 historyReport.setFieldValueCurrent(
                         String.valueOf(newReport.getMagclass()));
                 historyReport.setTimeOfChange(this.getStartTime());
-                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                historyReport.setTypeOfChange(REGION_REPORT_CHANGE_TYPE.CREATE);
                 historyReport.setDataTime(dataTime);
                 historyReport
                         .setRegionReportId(this.request.getRegionReportId());
 
                 historyReports.add(historyReport);
+            } else if (changeType == REGION_REPORT_CHANGE_TYPE.UPDATE) {
+
+                if (!equals(oldReport.getObservationTime(),
+                        newReport.getObservationTime())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("observationTime");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getObservationTime()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getObservationTime()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getObservatory(),
+                        newReport.getObservatory())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("observatory");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getObservatory()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getObservatory()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getQuality(), newReport.getQuality())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("quality");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getQuality()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getQuality()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getRegion(), newReport.getRegion())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("region");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getRegion()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getRegion()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getReportLocation(),
+                        newReport.getReportLocation())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("reportLocation");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getReportLocation()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getReportLocation()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getLocation(), newReport.getLocation())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("location");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getLocation()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getLocation()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getCarlon(), newReport.getCarlon())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("carlon");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getCarlon()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getCarlon()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getExtent(), newReport.getExtent())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("extent");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getExtent()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getExtent()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getArea(), newReport.getArea())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("area");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getArea()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getArea()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getNumspot(), newReport.getNumspot())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("numspot");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getNumspot()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getNumspot()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getSpotclass(),
+                        newReport.getSpotclass())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("spotclass");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getSpotclass()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getSpotclass()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
+
+                if (!equals(oldReport.getMagclass(), newReport.getMagclass())) {
+                    historyReport = new RegionHistoryReport();
+                    historyReport.setModifiedField("magclass");
+                    historyReport.setFieldValueBefore(
+                            String.valueOf(oldReport.getMagclass()));
+                    historyReport.setFieldValueCurrent(
+                            String.valueOf(newReport.getMagclass()));
+                    historyReport.setTimeOfChange(this.getStartTime());
+                    historyReport
+                            .setTypeOfChange(REGION_REPORT_CHANGE_TYPE.UPDATE);
+                    historyReport.setDataTime(dataTime);
+                    historyReport.setRegionReportId(
+                            this.request.getRegionReportId());
+
+                    historyReports.add(historyReport);
+                }
             }
 
             // RegionReport updatedReport = null;

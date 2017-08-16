@@ -12,6 +12,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionRe
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -174,6 +175,7 @@ public class UpdateRegionReportCommand extends BaseCommand {
 
             // Record the history
             CreateRegionHistoryReportRequest historyRequest = new CreateRegionHistoryReportRequest();
+            historyRequest.setChangeType(REGION_REPORT_CHANGE_TYPE.UPDATE);
             historyRequest.setOldReport(oldReport);
             historyRequest.setNewReport(updatedReport);
             historyRequest.setRegionReportId(this.request.getRegionReportID());
