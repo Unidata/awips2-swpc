@@ -83,6 +83,7 @@ public class RegionsDecoderUtil {
             request.setNewReport(report);
 
             CreateRegionHistoryReportCommand command = new CreateRegionHistoryReportCommand();
+            command.setRequest(request);
 
             CreateRegionHistoryReportResponse response = (CreateRegionHistoryReportResponse) command
                     .execute();
