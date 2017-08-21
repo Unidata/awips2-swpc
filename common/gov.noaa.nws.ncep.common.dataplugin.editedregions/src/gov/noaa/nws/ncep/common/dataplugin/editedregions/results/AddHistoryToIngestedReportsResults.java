@@ -24,7 +24,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * @author alockleigh
  */
 @DynamicSerialize
-public class GetReportsWithoutHistoryResults implements IResults {
+public class AddHistoryToIngestedReportsResults implements IResults {
 
     @DynamicSerializeElement
     private List<Integer> reportIds;

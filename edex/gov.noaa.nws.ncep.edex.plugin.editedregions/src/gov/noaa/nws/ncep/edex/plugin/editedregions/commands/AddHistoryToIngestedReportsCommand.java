@@ -7,11 +7,11 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReportsWithoutHistoryRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReportsWithoutHistoryResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddHistoryToIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
 
@@ -33,13 +33,13 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
  * @author alockleigh
  * @version 1.0
  */
-public class GetReportsWithoutHistoryCommand extends BaseCommand {
+public class AddHistoryToIngestedReportsCommand extends BaseCommand {
 
     /**
      * The request from the client that resulted in creating an instance of the
      * command
      */
-    private GetReportsWithoutHistoryRequest request = null;
+    private AddHistoryToIngestedReportsRequest request = null;
 
     /**
      * 
@@ -50,9 +50,9 @@ public class GetReportsWithoutHistoryCommand extends BaseCommand {
      * Logger
      */
     private static final IUFStatusHandler statusHandler = UFStatus
-            .getHandler(GetReportsWithoutHistoryCommand.class);
+            .getHandler(AddHistoryToIngestedReportsCommand.class);
 
-    public GetReportsWithoutHistoryCommand() {
+    public AddHistoryToIngestedReportsCommand() {
 
     }
 
@@ -148,7 +148,7 @@ public class GetReportsWithoutHistoryCommand extends BaseCommand {
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (GetReportsWithoutHistoryRequest) request;
+        this.request = (AddHistoryToIngestedReportsRequest) request;
     }
 
     /*
@@ -177,7 +177,7 @@ public class GetReportsWithoutHistoryCommand extends BaseCommand {
 
         this.setStartTime();
 
-        GetReportsWithoutHistoryResults results = new GetReportsWithoutHistoryResults();
+        AddHistoryToIngestedReportsResults results = new AddHistoryToIngestedReportsResults();
         try {
             RegionHistoryReportDao historyDao = new RegionHistoryReportDao();
             List<Integer> reportIds = historyDao.getReportsWithoutHistory();
