@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 
-import java.util.List;
-
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
@@ -27,26 +25,26 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 public class AddHistoryToIngestedReportsResults implements IResults {
 
     @DynamicSerializeElement
-    private List<Integer> reportIds;
+    private boolean successful;
 
     @Override
     public int numResults() {
-        return (reportIds != null) ? reportIds.size() : 0;
+        return 1;
     }
 
     /**
-     * @return the reportIds
+     * @return the successful
      */
-    public List<Integer> getReportIds() {
-        return reportIds;
+    public boolean isSuccessful() {
+        return successful;
     }
 
     /**
-     * @param reportIds
-     *            the reportIds to set
+     * @param successful
+     *            the successful to set
      */
-    public void setReportIds(List<Integer> reportIds) {
-        this.reportIds = reportIds;
+    public void setSuccessful(boolean successful) {
+        this.successful = successful;
     }
 
 }

@@ -3,17 +3,23 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionHistoryReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.AddHistoryToIngestedReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHistoryReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddHistoryToIngestedReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
  * The command class that is executed to get region reports that do not have
@@ -178,13 +184,40 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
         this.setStartTime();
 
         AddHistoryToIngestedReportsResults results = new AddHistoryToIngestedReportsResults();
+        results.setSuccessful(true);
         try {
             RegionHistoryReportDao historyDao = new RegionHistoryReportDao();
-            List<Integer> reportIds = historyDao.getReportsWithoutHistory();
-            results.setReportIds(reportIds);
+            RegionReportsDao reportsDao = new RegionReportsDao();
 
-        } catch (SQLException ex) {
-            setError(new EditedRegionsException(ex));
+            List<Integer> reportIds = historyDao.getReportsWithoutHistory();
+
+            for (Integer reportId : reportIds) {
+                CreateRegionHistoryReportRequest historyRequest = new CreateRegionHistoryReportRequest();
+                historyRequest.setChangeType(REGION_REPORT_CHANGE_TYPE.CREATE);
+                historyRequest.setRegionReportId(reportId);
+                historyRequest
+                        .setNewReport(reportsDao.getRegionReport(reportId));
+
+                CreateRegionHistoryReportCommand historyCommand = new CreateRegionHistoryReportCommand();
+                historyCommand.setRequest(historyRequest);
+                CreateRegionHistoryReportResponse historyResponse = (CreateRegionHistoryReportResponse) historyCommand
+                        .execute();
+                CreateRegionHistoryReportResults historyResults = (CreateRegionHistoryReportResults) historyResponse
+                        .getResults();
+                if (!historyResults.isSuccessful()) {
+                    // Set flag to false
+                    results.setSuccessful(false);
+                    setError(new EditedRegionsException(
+                            "Error recording history."));
+                }
+            }
+
+        } catch (PluginException px) {
+            results.setSuccessful(false);
+            setError(new EditedRegionsException(px));
+        } catch (SQLException sqlEx) {
+            results.setSuccessful(false);
+            setError(new EditedRegionsException(sqlEx));
         }
         this.setEndTime();
 
@@ -201,7 +234,7 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
      * @return IResponse
      */
     private IResponse createResponse(IResults results) {
-        ExitResponse response = new ExitResponse();
+        AddHistoryToIngestedReportsResponse response = new AddHistoryToIngestedReportsResponse();
 
         if (this.hasError()) {
             response.setError(this.getError());

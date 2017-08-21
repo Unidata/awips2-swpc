@@ -5,6 +5,7 @@ import com.raytheon.uf.common.serialization.comm.IRequestHandler;
 import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
@@ -15,6 +16,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsReque
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.AddHistoryToIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
@@ -24,15 +26,16 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionRepor
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.AddHistoryToIngestedReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetLatestRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ViewRegionReportHistoryCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ViewRegionReportHistoryCommand;
 
 /**
  * Class that provides the capability to initialize commands based on requests
@@ -268,6 +271,23 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
             return updateRegionReportResponse;
 
+        case "AddHistoryToIngestedReportsRequest":
+            AddHistoryToIngestedReportsRequest historyRequest = AddHistoryToIngestedReportsRequest.class
+                    .cast(request);
+
+            AddHistoryToIngestedReportsResponse historyResponse = null;
+            if (!historyRequest.isValid()) {
+                historyResponse = new AddHistoryToIngestedReportsResponse();
+                historyResponse.setError(
+                        new EditedRegionsException("ERROR - Invalid request"));
+            } else {
+                AddHistoryToIngestedReportsCommand historyCommand = new AddHistoryToIngestedReportsCommand();
+                historyCommand.setRequest(historyRequest);
+                historyResponse = (AddHistoryToIngestedReportsResponse) historyCommand
+                        .execute();
+            }
+
+            return historyResponse;
         case "SaveRequest":
             // SaveRequest saveRequest = (SaveRequest) Class
             // .forName(requestClassName).cast(request);

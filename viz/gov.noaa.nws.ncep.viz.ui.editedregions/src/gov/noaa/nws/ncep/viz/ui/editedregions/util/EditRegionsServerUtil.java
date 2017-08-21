@@ -15,6 +15,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
@@ -23,6 +24,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReport
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.AddHistoryToIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
@@ -31,6 +33,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionRepor
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddHistoryToIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
@@ -78,13 +81,35 @@ public final class EditRegionsServerUtil {
             .emptyMap();
 
     static {
+        updateHistoryForIngestedReports();
         loadReferenceData();
+    }
+
+    private static void updateHistoryForIngestedReports() {
+        try {
+            AddHistoryToIngestedReportsRequest request = new AddHistoryToIngestedReportsRequest();
+            if (request.isValid()) {
+
+                AddHistoryToIngestedReportsResponse response = Gateway
+                        .getInstance().submit(request);
+                if (response.hasErrors()) {
+                    throw response.getError();
+                } else if (response.getResults() != null) {
+                    AddHistoryToIngestedReportsResults results = (AddHistoryToIngestedReportsResults) response
+                            .getResults();
+                    if (!results.isSuccessful()) {
+                        statusHandler.error("History could not be updated.");
+                    }
+                }
+            }
+        } catch (EditedRegionsException e) {
+            statusHandler.error("Error updating report history.", e);
+        }
     }
 
     public static GetRegionReportsResults getRegionReports(
             boolean bAssignedReports, boolean bUnassignedReports)
                     throws EditedRegionsException {
-        // TODO: verify implementation and make changes as appropriate
 
         GetRegionReportsRequest request = new GetRegionReportsRequest();
 
