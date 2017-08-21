@@ -1,5 +1,10 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.dao;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -9,6 +14,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
@@ -19,6 +25,7 @@ import com.raytheon.uf.edex.database.dao.DaoConfig;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.Region;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.sql.SqlQueries;
 
 /**
  * Data Access Object (DAO) class to interact with swpc_region_history_report
@@ -118,6 +125,21 @@ public class RegionHistoryReportDao extends CoreDao {
             });
         } catch (TransactionException e) {
             throw new DataAccessLayerException("Transaction failed", e);
+        }
+    }
+
+    public List<Integer> getReportsWithoutHistory() throws SQLException {
+        try (Connection conn = SessionFactoryUtils
+                .getDataSource(getSessionFactory()).getConnection()) {
+            try (Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery(
+                            SqlQueries.GET_REGION_REPORTS_WITHOUT_HISTORY)) {
+                List<Integer> reportIds = new ArrayList<>();
+                while (rs.next()) {
+                    reportIds.add(rs.getInt(1));
+                }
+                return reportIds;
+            }
         }
     }
 
