@@ -54,9 +54,15 @@
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest" />
         <constructor-arg ref="ERRequestHandler" />
   </bean>
-     <bean factory-bean="handlerRegistry" factory-method="register">
+  
+  <bean factory-bean="handlerRegistry" factory-method="register">
        <constructor-arg
         value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest" />
+        <constructor-arg ref="ERRequestHandler" />
+  </bean>
+  <bean factory-bean="handlerRegistry" factory-method="register">
+       <constructor-arg
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest" />
         <constructor-arg ref="ERRequestHandler" />
   </bean>
 </beans>
