@@ -134,8 +134,6 @@ public class RegionsDecoder {
 
                 pdos = RegionsDecoderUtil.convertRegionReportsPDOs(reports);
 
-                RegionsDecoderUtil.addRegionReportHistory(reports);
-
             }
 
         } catch (FileNotFoundException e) {

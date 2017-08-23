@@ -12,19 +12,12 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 
 import com.raytheon.uf.common.dataplugin.PluginDataObject;
 import com.raytheon.uf.common.time.DataTime;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionHistoryReportRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHistoryReportResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionHistoryReportCommand;
 
 /**
  * Utility class for the EventsDecoder.
@@ -72,29 +65,5 @@ public class RegionsDecoderUtil {
         report.setDataTime(new DataTime(Calendar.getInstance().getTime()));
 
         return report;
-    }
-
-    public static void addRegionReportHistory(Collection<RegionReport> reports)
-            throws EditedRegionsException {
-        for (RegionReport report : reports) {
-            CreateRegionHistoryReportRequest request = new CreateRegionHistoryReportRequest();
-            request.setChangeType(REGION_REPORT_CHANGE_TYPE.CREATE);
-            request.setRegionReportId(report.getId());
-            request.setNewReport(report);
-
-            CreateRegionHistoryReportCommand command = new CreateRegionHistoryReportCommand();
-            command.setRequest(request);
-
-            CreateRegionHistoryReportResponse response = (CreateRegionHistoryReportResponse) command
-                    .execute();
-
-            CreateRegionHistoryReportResults results = (CreateRegionHistoryReportResults) response
-                    .getResults();
-            if (!results.isSuccessful()) {
-                throw new EditedRegionsException(String.format(
-                        "History could not be saved for report %d",
-                        report.getId()));
-            }
-        }
     }
 }
