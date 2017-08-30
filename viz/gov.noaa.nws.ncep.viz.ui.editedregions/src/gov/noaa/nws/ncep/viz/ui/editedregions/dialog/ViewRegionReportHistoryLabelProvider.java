@@ -21,6 +21,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
@@ -122,6 +123,21 @@ public class ViewRegionReportHistoryLabelProvider
 
         RegionHistoryReport historyReport = (RegionHistoryReport) element;
 
+        String oldValue = historyReport.getFieldValueBefore();
+        String currentValue = historyReport.getFieldValueCurrent();
+
+        // Process display values
+        String modifiedField = historyReport.getModifiedField();
+        if ("quality".equals(modifiedField)) {
+            Integer oldQuality = Integer.parseInt(oldValue);
+            Integer currentQuality = Integer.parseInt(currentValue);
+
+            oldValue = EditRegionsServerUtil.getObservationQuality(oldQuality);
+            currentValue = EditRegionsServerUtil
+                    .getObservationQuality(currentQuality);
+
+        }
+
         switch (columnIndex) {
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_REGION_REPORT_ID:
@@ -131,10 +147,10 @@ public class ViewRegionReportHistoryLabelProvider
             return convertToDisplay(historyReport.getModifiedField());
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_VALUE_NEW:
-            return convertToDisplay(historyReport.getFieldValueCurrent());
+            return convertToDisplay(currentValue);
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_VALUE_OLD:
-            return convertToDisplay(historyReport.getFieldValueBefore());
+            return convertToDisplay(oldValue);
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_TIME_OF_CHANGE:
             long timestamp = historyReport.getTimeOfChange();
