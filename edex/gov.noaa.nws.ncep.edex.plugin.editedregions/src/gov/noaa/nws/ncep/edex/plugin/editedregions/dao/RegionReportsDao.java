@@ -150,6 +150,26 @@ public class RegionReportsDao extends PluginDao {
                 });
     }
 
+    /**
+     * Retrieves list of Region Reports that have not been assigned to a region
+     *
+     * @return list of events
+     */
+    @SuppressWarnings({ "unchecked" })
+    public List<RegionReport> getAllRegionReports() {
+        return (List<RegionReport>) txTemplate
+                .execute(new TransactionCallback<List<RegionReport>>() {
+
+                    @Override
+                    public List<RegionReport> doInTransaction(
+                            TransactionStatus status) {
+                        Session sess = getCurrentSession();
+                        Criteria crit = sess.createCriteria(RegionReport.class);
+                        return crit.list();
+                    }
+                });
+    }
+
     /*
      * (non-Javadoc)
      * 
