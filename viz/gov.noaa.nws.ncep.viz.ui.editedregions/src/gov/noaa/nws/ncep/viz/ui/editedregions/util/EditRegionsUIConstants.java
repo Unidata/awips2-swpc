@@ -72,15 +72,21 @@ public interface EditRegionsUIConstants {
     public static final int COLUMN_INDEX_MAGCLASS = 11;
 
     // Report history constants
+
+    public static final String[] HISTORY_COLUMNS = new String[] {
+            "Region Report ID", "Type of Change", "Modified Field",
+            "Value Before", "Current Value", "Time of Change", };
+
     public static final int COLUMN_INDEX_HIST_REGION_REPORT_ID = 0;
 
-    public static final int COLUMN_INDEX_HIST_MODIFIED_FIELD = 1;
+    public static final int COLUMN_INDEX_HIST_CHANGE_TYPE = 1;
 
-    public static final int COLUMN_INDEX_HIST_VALUE_OLD = 2;
+    public static final int COLUMN_INDEX_HIST_MODIFIED_FIELD = 2;
 
-    public static final int COLUMN_INDEX_HIST_VALUE_NEW = 3;
+    public static final int COLUMN_INDEX_HIST_VALUE_OLD = 3;
 
-    public static final int COLUMN_INDEX_HIST_TIME_OF_CHANGE = 4;
+    public static final int COLUMN_INDEX_HIST_VALUE_NEW = 4;
 
-    public static final int COLUMN_INDEX_HIST_CHANGE_TYPE = 5;
+    public static final int COLUMN_INDEX_HIST_TIME_OF_CHANGE = 5;
+
 }

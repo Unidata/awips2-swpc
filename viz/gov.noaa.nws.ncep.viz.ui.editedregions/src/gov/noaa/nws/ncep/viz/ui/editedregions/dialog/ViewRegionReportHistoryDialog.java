@@ -31,6 +31,7 @@ import com.raytheon.uf.common.status.UFStatus;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
+import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
 /**
  * 
@@ -51,10 +52,6 @@ import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
  */
 
 public class ViewRegionReportHistoryDialog extends Dialog {
-
-    private static final String[] COLUMNS = new String[] { "Region Report ID",
-            "Modified Field", "Value Before", "Current Value", "Time of Change",
-            "Type of Change" };
 
     private static final int[] BOUNDS = new int[] { 50, 100, 100, 100, 100,
             50 };
@@ -216,9 +213,9 @@ public class ViewRegionReportHistoryDialog extends Dialog {
      * Create the columns for the events list table
      */
     private void createColumns(TableViewer tableViewer) {
-
-        for (int i = 0; i < COLUMNS.length; i++) {
-            createTableViewerColumn(tableViewer, COLUMNS[i], BOUNDS[i], i);
+        String[] columns = EditRegionsUIConstants.HISTORY_COLUMNS;
+        for (int i = 0; i < columns.length; i++) {
+            createTableViewerColumn(tableViewer, columns[i], BOUNDS[i], i);
 
         }
 
