@@ -175,7 +175,8 @@ public class EnterRegionReportDialog extends Dialog {
         selectItem(cmbRegion, report.getRegion());
         selectItem(cmbObservatory, report.getObservatory());
         txtType.setText(report.getType());
-        selectItem(cmbQuality, report.getQuality());
+        selectItem(cmbQuality, EditRegionsServerUtil
+                .getObservationQuality(report.getQuality()));
         txtReportLocation.setText(convertToString(report.getReportLocation()));
         txtLocation.setText(convertToString(report.getLocation()));
         txtCarlon.setText(convertToString(report.getCarlon()));
