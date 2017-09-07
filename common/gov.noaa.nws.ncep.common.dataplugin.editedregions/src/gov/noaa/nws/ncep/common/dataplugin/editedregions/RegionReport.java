@@ -58,6 +58,8 @@ public class RegionReport extends PersistablePluginDataObject {
     // private static final String QUALITY = "quality";
     public static final String REGION = "region";
 
+    public static final String OBSERVATION_TIME = "observationTime";
+
     // private static final String LATITUDE = "latitude";
     // private static final String REPORT_LONGITUDE = "reportLongitude";
     // private static final String LONGITUDE = "longitude";
