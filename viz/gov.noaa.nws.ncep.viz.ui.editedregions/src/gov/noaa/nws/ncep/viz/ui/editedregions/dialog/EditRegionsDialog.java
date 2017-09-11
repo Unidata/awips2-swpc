@@ -252,14 +252,20 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         gridComp.setLayoutData(
                 new GridData(GridData.CENTER, SWT.TOP, true, true));
 
+        new Label(gridComp, SWT.CENTER).setText("");
+
+        for (String column : columnTitles) {
+            new Label(gridComp, SWT.CENTER | SWT.WRAP).setText(column);
+        }
+
         for (String rowLabel : new String[] { "Yesterday's report",
                 "Today's Consensus", "Today's Final" }) {
             new Label(gridComp, SWT.LEFT).setText(rowLabel);
 
             for (int i = 0; i < columnTitles.length; i++) {
-                Text text = new Text(gridComp, SWT.BORDER);
-                text.setLayoutData(new GridData(20, SWT.DEFAULT));
-                text.setEnabled(false);
+                Text text = new Text(gridComp, SWT.BORDER | SWT.READ_ONLY);
+                text.setLayoutData(
+                        new GridData(SWT.CENTER, SWT.TOP, true, true));
             }
         }
 
