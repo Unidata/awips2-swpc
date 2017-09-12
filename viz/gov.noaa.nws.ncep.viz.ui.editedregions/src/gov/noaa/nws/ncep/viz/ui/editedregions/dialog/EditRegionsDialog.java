@@ -44,6 +44,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
@@ -122,6 +123,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     // a new interface.
     private EditRegionsLabelProvider labelProvider = null;
 
+    private static final Point DIALOG_SIZE = new Point(1200, 900);
+
     /**
      * Creates a EditEventsDialog instance
      * 
@@ -172,12 +175,19 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         top.setLayout(mainLayout);
         top.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        // top.setSize(800, 900);
-        this.getShell().setSize(800, 900);
-
         // Initialize all of the controls, and layouts
         initializeComponents(top);
 
+        this.getShell().setSize(DIALOG_SIZE);
+
+        this.getShell().setMinimumSize(DIALOG_SIZE);
+
+        Display.getCurrent().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+                EditRegionsDialog.this.getShell().layout(true, true);
+            }
+        });
         return top;
 
     }
@@ -475,6 +485,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         Text dateText = new Text(regionComp, SWT.BORDER);
         dateText.setText(formatter.format(date));
         dateText.setEditable(false);
+
+        Button refreshButton = new Button(regionComp, SWT.PUSH);
+        refreshButton.setText("Refresh");
+
+        refreshButton.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent ev) {
+                refreshDialog();
+            }
+        });
 
     }
 
