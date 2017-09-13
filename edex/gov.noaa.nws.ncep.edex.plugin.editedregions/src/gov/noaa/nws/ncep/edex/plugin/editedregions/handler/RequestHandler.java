@@ -5,7 +5,6 @@ import com.raytheon.uf.common.serialization.comm.IRequestHandler;
 import com.raytheon.uf.common.serialization.comm.IServerRequest;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
@@ -13,10 +12,10 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegion
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.AddHistoryToIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
@@ -24,9 +23,9 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegio
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
-import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.AddHistoryToIngestedReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
@@ -34,6 +33,7 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetLatestRegionComma
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionsCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ProcessIngestedReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ViewRegionReportHistoryCommand;
 
@@ -271,19 +271,19 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
             return updateRegionReportResponse;
 
-        case "AddHistoryToIngestedReportsRequest":
-            AddHistoryToIngestedReportsRequest historyRequest = AddHistoryToIngestedReportsRequest.class
+        case "ProcessIngestedReportsRequest":
+            ProcessIngestedReportsRequest historyRequest = ProcessIngestedReportsRequest.class
                     .cast(request);
 
-            AddHistoryToIngestedReportsResponse historyResponse = null;
+            ProcessIngestedReportsResponse historyResponse = null;
             if (!historyRequest.isValid()) {
-                historyResponse = new AddHistoryToIngestedReportsResponse();
+                historyResponse = new ProcessIngestedReportsResponse();
                 historyResponse.setError(
                         new EditedRegionsException("ERROR - Invalid request"));
             } else {
-                AddHistoryToIngestedReportsCommand historyCommand = new AddHistoryToIngestedReportsCommand();
+                ProcessIngestedReportsCommand historyCommand = new ProcessIngestedReportsCommand();
                 historyCommand.setRequest(historyRequest);
-                historyResponse = (AddHistoryToIngestedReportsResponse) historyCommand
+                historyResponse = (ProcessIngestedReportsResponse) historyCommand
                         .execute();
             }
 

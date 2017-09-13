@@ -4,10 +4,10 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddHistoryToIngestedReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessToIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
@@ -28,8 +28,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * @version 1.0
  */
 @DynamicSerialize
-public class AddHistoryToIngestedReportsResponse extends
-        BaseResponse<AddHistoryToIngestedReportsResponse> implements IResponse {
+public class ProcessIngestedReportsResponse extends
+        BaseResponse<ProcessIngestedReportsResponse> implements IResponse {
 
     /**
      * The error
@@ -41,13 +41,13 @@ public class AddHistoryToIngestedReportsResponse extends
      * The original request
      */
     @DynamicSerializeElement
-    private AddHistoryToIngestedReportsRequest request = null;
+    private ProcessIngestedReportsRequest request = null;
 
     /**
      * The results from the AddBinCommand
      */
     @DynamicSerializeElement
-    private AddHistoryToIngestedReportsResults results = null;
+    private ProcessToIngestedReportsResults results = null;
 
     /**
      * Time in milliseconds to complete round trip of client --> request -->
@@ -134,7 +134,7 @@ public class AddHistoryToIngestedReportsResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (AddHistoryToIngestedReportsResults) results;
+        this.results = (ProcessToIngestedReportsResults) results;
     }
 
     /*
@@ -215,7 +215,7 @@ public class AddHistoryToIngestedReportsResponse extends
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (AddHistoryToIngestedReportsRequest) request;
+        this.request = (ProcessIngestedReportsRequest) request;
     }
 
     /**

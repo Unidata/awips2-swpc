@@ -22,13 +22,13 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @author alockleigh
  */
 @DynamicSerialize
-public class AddHistoryToIngestedReportsRequest
-        extends Request<AddHistoryToIngestedReportsRequest> implements IRequest {
+public class ProcessIngestedReportsRequest
+        extends Request<ProcessIngestedReportsRequest> implements IRequest {
 
     @DynamicSerializeElement
     private final long id;
 
-    public AddHistoryToIngestedReportsRequest() {
+    public ProcessIngestedReportsRequest() {
         this.id = System.currentTimeMillis();
     }
 

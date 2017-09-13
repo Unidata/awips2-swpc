@@ -8,22 +8,23 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionHistoryReportRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.AddHistoryToIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHistoryReportResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.AddHistoryToIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessToIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
- * The command class that is executed to get region reports that do not have
- * attached history items.
+ * The command class for processing region reports that have been ingested. This
+ * includes adding history, and populating the region table with new region ids
+ * as needed.
  * 
  * 
  * <pre>
@@ -39,13 +40,13 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
  * @author alockleigh
  * @version 1.0
  */
-public class AddHistoryToIngestedReportsCommand extends BaseCommand {
+public class ProcessIngestedReportsCommand extends BaseCommand {
 
     /**
      * The request from the client that resulted in creating an instance of the
      * command
      */
-    private AddHistoryToIngestedReportsRequest request = null;
+    private ProcessIngestedReportsRequest request = null;
 
     /**
      * 
@@ -56,9 +57,9 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
      * Logger
      */
     private static final IUFStatusHandler statusHandler = UFStatus
-            .getHandler(AddHistoryToIngestedReportsCommand.class);
+            .getHandler(ProcessIngestedReportsCommand.class);
 
-    public AddHistoryToIngestedReportsCommand() {
+    public ProcessIngestedReportsCommand() {
 
     }
 
@@ -154,7 +155,7 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
      */
     @Override
     public void setRequest(IRequest request) {
-        this.request = (AddHistoryToIngestedReportsRequest) request;
+        this.request = (ProcessIngestedReportsRequest) request;
     }
 
     /*
@@ -183,7 +184,7 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
 
         this.setStartTime();
 
-        AddHistoryToIngestedReportsResults results = new AddHistoryToIngestedReportsResults();
+        ProcessToIngestedReportsResults results = new ProcessToIngestedReportsResults();
         results.setSuccessful(true);
         try {
             RegionHistoryReportDao historyDao = new RegionHistoryReportDao();
@@ -234,7 +235,7 @@ public class AddHistoryToIngestedReportsCommand extends BaseCommand {
      * @return IResponse
      */
     private IResponse createResponse(IResults results) {
-        AddHistoryToIngestedReportsResponse response = new AddHistoryToIngestedReportsResponse();
+        ProcessIngestedReportsResponse response = new ProcessIngestedReportsResponse();
 
         if (this.hasError()) {
             response.setError(this.getError());
