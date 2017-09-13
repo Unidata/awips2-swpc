@@ -8,6 +8,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetConsensusRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
@@ -19,6 +20,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionRepor
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetConsensusResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
@@ -29,6 +31,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionRepo
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ExitCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetConsensusCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetLatestRegionCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
@@ -69,6 +72,32 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
         String requestClassSimpleName = request.getClass().getSimpleName();
 
         switch (requestClassSimpleName) {
+
+        case "GetConsensusRequest":
+            GetConsensusRequest getConsensusRequest = (GetConsensusRequest) Class
+                    .forName(requestClassName).cast(request);
+
+            GetConsensusResponse getConsensusResponse = null;
+
+            if (!getConsensusRequest.isValid()) {
+                getConsensusResponse = new GetConsensusResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+
+                getConsensusResponse.setError(e);
+
+            } else {
+
+                GetConsensusCommand cmd = new GetConsensusCommand();
+
+                cmd.setRequest(getConsensusRequest);
+
+                // create the response
+                getConsensusResponse = (GetConsensusResponse) cmd.execute();
+
+            }
+
+            return getConsensusResponse;
 
         case "ViewRegionReportHistoryRequest":
             ViewRegionReportHistoryRequest viewRegionReportHistoryRequest = (ViewRegionReportHistoryRequest) Class
