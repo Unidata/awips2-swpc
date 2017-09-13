@@ -22,7 +22,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * @author alockleigh
  */
 @DynamicSerialize
-public class AddHistoryToIngestedReportsResults implements IResults {
+public class ProcessToIngestedReportsResults implements IResults {
 
     @DynamicSerializeElement
     private boolean successful;
