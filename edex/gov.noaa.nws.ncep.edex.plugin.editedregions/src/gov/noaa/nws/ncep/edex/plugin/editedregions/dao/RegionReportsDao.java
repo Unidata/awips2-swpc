@@ -1,6 +1,6 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.dao;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -172,7 +172,7 @@ public class RegionReportsDao extends PluginDao {
     }
 
     @SuppressWarnings("unchecked")
-    public List<RegionReport> getRegionReports(final Date start, final Date end,
+    public List<RegionReport> getRegionReports(final Calendar start,
             final Integer regionId) {
         return (List<RegionReport>) txTemplate
                 .execute(new TransactionCallback<List<RegionReport>>() {
@@ -181,15 +181,13 @@ public class RegionReportsDao extends PluginDao {
                             TransactionStatus status) {
                         Session sess = getCurrentSession();
                         Criteria crit = sess.createCriteria(RegionReport.class);
-                        Criterion where1 = Restrictions
-                                .ge(RegionReport.OBSERVATION_TIME, start);
+                        Criterion where1 = Restrictions.eq(
+                                RegionReport.OBSERVATION_TIME, start.getTime());
                         crit.add(where1);
-                        Criterion where2 = Restrictions
-                                .lt(RegionReport.OBSERVATION_TIME, end);
-                        crit.add(where2);
-                        Criterion where3 = Restrictions.eq(RegionReport.REGION,
+                        Criterion where2 = Restrictions.eq(RegionReport.REGION,
                                 regionId);
-                        crit.add(where3);
+                        crit.add(where2);
+
                         return crit.list();
                     }
                 });

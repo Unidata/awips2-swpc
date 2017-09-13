@@ -9,14 +9,14 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 
 /**
  * Class for allowing the client to request the back-end to obtain the values
- * that make up yesterdays consensus
+ * that make up todays consensus
  * 
  * @author jtravis
  * @version 1.0
  */
 @DynamicSerialize
-public class GetYesterdaysConsensusRequest
-        extends Request<GetYesterdaysConsensusRequest> implements IRequest {
+public class GetConsensusRequest
+        extends Request<GetConsensusRequest> implements IRequest {
 
     /**
      * The Requests ID
@@ -39,7 +39,7 @@ public class GetYesterdaysConsensusRequest
     /**
      * 
      */
-    public GetYesterdaysConsensusRequest() {
+    public GetConsensusRequest() {
         this.id = System.currentTimeMillis();
     }
 
@@ -112,9 +112,7 @@ public class GetYesterdaysConsensusRequest
      */
     public void setDttm(Calendar date) {
 
-        if (date == null) {
-            this.dttm = 0L;
-        } else {
+        if (date != null) {
             this.dttm = date.getTimeInMillis();
         }
 
