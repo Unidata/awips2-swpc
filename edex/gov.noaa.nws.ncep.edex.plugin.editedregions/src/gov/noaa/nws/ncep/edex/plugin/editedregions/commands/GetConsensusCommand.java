@@ -206,9 +206,10 @@ public class GetConsensusCommand extends BaseCommand {
             // 2) Yesterdays Consensus
             // 3) Final Consensus
 
-            this.computeTodaysConsensus();
-            this.computeYesterdaysConsensus();
-            this.computeFinalConsensus();
+            todaysConsensusResults = this.computeTodaysConsensus(rsCurrentDay);
+            yesterdaysConsensusResults = this
+                    .computeYesterdaysConsensus(rsPreviousDay);
+            finalConsensusResults = this.computeFinalConsensus(rsCurrentDay);
 
             // if (latestRegion != null) {
             // results.setLatestRegion(latestRegion.getRegionID());
@@ -232,26 +233,38 @@ public class GetConsensusCommand extends BaseCommand {
         response.setError(this.getError());
         response.setProcessingTime(this.getProcessingTime());
 
+        response.setTodaysConsesusResults(todaysConsensusResults);
+        response.setYesterdaysConsensusResults(yesterdaysConsensusResults);
+        response.setFinalResults(finalConsensusResults);
+
         return response;
     }
 
     // TODO complete this stub
-    private GetConsensusTodaysResults computeTodaysConsensus() {
+    private GetConsensusTodaysResults computeTodaysConsensus(
+            List<RegionReport> reports) {
 
-        GetConsensusTodaysResults results = null;
+        GetConsensusTodaysResults results = new GetConsensusTodaysResults();
 
         return results;
 
     }
 
     // TODO complete this stub
-    private void computeYesterdaysConsensus() {
+    private GetConsensusYesterdaysResults computeYesterdaysConsensus(
+            List<RegionReport> reports) {
+        GetConsensusYesterdaysResults results = new GetConsensusYesterdaysResults();
 
+        return results;
     }
 
     // TODO complete this stub
-    private void computeFinalConsensus() {
+    // TODO Do we even need this method?
+    private GetConsensusFinalResults computeFinalConsensus(
+            List<RegionReport> repots) {
+        GetConsensusFinalResults results = new GetConsensusFinalResults();
 
+        return results;
     }
 
 }
