@@ -253,8 +253,10 @@ public class GetConsensusCommand extends BaseCommand {
         int longitudeSum = 0;
         int carlonSum = 0;
 
-        int zurich = Integer.MIN_VALUE;
-        int penumbra = Integer.MIN_VALUE;
+        int zurich = 0;
+        int penumbra = 0;
+        int magcode = 0;
+        int numSpots = 0;
 
         GetConsensusTodaysResults results = new GetConsensusTodaysResults();
         for (RegionReport report : reports) {
@@ -264,6 +266,8 @@ public class GetConsensusCommand extends BaseCommand {
 
             zurich = Math.max(zurich, report.getZurich());
             penumbra = Math.max(penumbra, report.getPenumbra());
+            magcode = Math.max(magcode, report.getMagcode());
+            numSpots = Math.max(numSpots, report.getNumspot());
         }
 
         results.setLatitude(latitudeSum / count);
@@ -272,6 +276,8 @@ public class GetConsensusCommand extends BaseCommand {
 
         results.setZurich(zurich);
         results.setPenumbra(penumbra);
+        results.setMagcode(magcode);
+        results.setNumspots(numSpots);
 
         return results;
 
