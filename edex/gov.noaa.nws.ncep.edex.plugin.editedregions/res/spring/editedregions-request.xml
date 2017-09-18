@@ -62,7 +62,7 @@
   </bean>
   <bean factory-bean="handlerRegistry" factory-method="register">
        <constructor-arg
-        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.AddHistoryToIngestedReportsRequest" />
+        value="gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest" />
         <constructor-arg ref="ERRequestHandler" />
   </bean>
 </beans>

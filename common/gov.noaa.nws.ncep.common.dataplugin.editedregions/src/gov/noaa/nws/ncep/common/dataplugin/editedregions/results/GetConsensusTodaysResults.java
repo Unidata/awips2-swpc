@@ -44,9 +44,13 @@ public class GetConsensusTodaysResults implements IResults {
 
     private Integer numspots;
 
-    private String spotclass;
+    private Integer magcode;
 
-    private String magclass;
+    private Integer penumbra;
+
+    private Integer zurich;
+
+    private Integer compact;
 
     /**
      * Constructor
@@ -218,33 +222,63 @@ public class GetConsensusTodaysResults implements IResults {
     }
 
     /**
-     * @return the spotclass
+     * @return the penumbra
      */
-    public String getSpotclass() {
-        return spotclass;
+    public Integer getPenumbra() {
+        return penumbra;
     }
 
     /**
-     * @param spotclass
-     *            the spotclass to set
+     * @param penumbra
+     *            the penumbra to set
      */
-    public void setSpotclass(String spotclass) {
-        this.spotclass = spotclass;
+    public void setPenumbra(Integer penumbra) {
+        this.penumbra = penumbra;
     }
 
     /**
-     * @return the magclass
+     * @return the zurich
      */
-    public String getMagclass() {
-        return magclass;
+    public Integer getZurich() {
+        return zurich;
     }
 
     /**
-     * @param magclass
-     *            the magclass to set
+     * @param zurich
+     *            the zurich to set
      */
-    public void setMagclass(String magclass) {
-        this.magclass = magclass;
+    public void setZurich(Integer zurich) {
+        this.zurich = zurich;
+    }
+
+    /**
+     * @return the compact
+     */
+    public Integer getCompact() {
+        return compact;
+    }
+
+    /**
+     * @param compact
+     *            the compact to set
+     */
+    public void setCompact(Integer compact) {
+        this.compact = compact;
+    }
+
+    /**
+     * @return the magcode
+     */
+    public Integer getMagcode() {
+        return magcode;
+    }
+
+    /**
+     * @param magcode
+     *            the magcode to set
+     */
+    public void setMagcode(Integer magcode) {
+        this.magcode = magcode;
     }
 
 }

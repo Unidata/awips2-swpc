@@ -15,6 +15,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusFinalResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusTodaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusYesterdaysResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 
 /**
@@ -184,7 +185,8 @@ public class GetConsensusCommand extends BaseCommand {
 
             // What region are we interested in
             int region = request.getRegion();
-            Calendar date = Calendar.getInstance();
+            Calendar date = Calendar
+                    .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
 
             date.clear();
             date.setTimeInMillis(request.getDttm());
@@ -243,8 +245,33 @@ public class GetConsensusCommand extends BaseCommand {
     // TODO complete this stub
     private GetConsensusTodaysResults computeTodaysConsensus(
             List<RegionReport> reports) {
+        // TODO: How do we want to handle having no reports available?
+
+        int count = reports.size();
+
+        int latitudeSum = 0;
+        int longitudeSum = 0;
+        int carlonSum = 0;
+
+        int zurich = Integer.MIN_VALUE;
+        int penumbra = Integer.MIN_VALUE;
 
         GetConsensusTodaysResults results = new GetConsensusTodaysResults();
+        for (RegionReport report : reports) {
+            latitudeSum += report.getLatitude();
+            longitudeSum += report.getLongitude();
+            carlonSum += report.getCarlon();
+
+            zurich = Math.max(zurich, report.getZurich());
+            penumbra = Math.max(penumbra, report.getPenumbra());
+        }
+
+        results.setLatitude(latitudeSum / count);
+        results.setLongitude(longitudeSum / count);
+        results.setCarlon(carlonSum / count);
+
+        results.setZurich(zurich);
+        results.setPenumbra(penumbra);
 
         return results;
 
@@ -261,7 +288,7 @@ public class GetConsensusCommand extends BaseCommand {
     // TODO complete this stub
     // TODO Do we even need this method?
     private GetConsensusFinalResults computeFinalConsensus(
-            List<RegionReport> repots) {
+            List<RegionReport> reports) {
         GetConsensusFinalResults results = new GetConsensusFinalResults();
 
         return results;
