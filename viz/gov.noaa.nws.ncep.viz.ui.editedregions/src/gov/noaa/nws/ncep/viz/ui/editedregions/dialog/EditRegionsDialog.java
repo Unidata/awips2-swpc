@@ -8,11 +8,9 @@
  **/
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -478,12 +476,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         new Label(regionComp, SWT.LEAD).setText("");
 
-        DateTimeFormatter formatter = DateTimeFormatter
-                .ofPattern("dd MMM yyyy");
-        LocalDate date = LocalDate.now(ZoneOffset.UTC);
+        Date date = new Date(System.currentTimeMillis());
 
         Text dateText = new Text(regionComp, SWT.BORDER);
-        dateText.setText(formatter.format(date));
+        dateText.setText(EditRegionsUIConstants.DATE_FORMAT.get().format(date));
         dateText.setEditable(false);
 
         Button refreshButton = new Button(regionComp, SWT.PUSH);

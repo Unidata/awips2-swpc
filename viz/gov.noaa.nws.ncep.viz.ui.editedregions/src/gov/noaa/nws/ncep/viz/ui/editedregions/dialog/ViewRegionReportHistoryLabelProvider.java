@@ -1,12 +1,9 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.eclipse.jface.viewers.CellEditor;
@@ -153,10 +150,8 @@ public class ViewRegionReportHistoryLabelProvider
             return convertToDisplay(oldValue);
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_TIME_OF_CHANGE:
-            long timestamp = historyReport.getTimeOfChange();
-            ZonedDateTime dateTime = Instant.ofEpochMilli(timestamp)
-                    .atZone(ZoneOffset.UTC);
-            return DateTimeFormatter.ISO_ZONED_DATE_TIME.format(dateTime);
+            Date date = new Date(historyReport.getTimeOfChange());
+            return EditRegionsUIConstants.DATE_TIME_FORMAT.get().format(date);
 
         case EditRegionsUIConstants.COLUMN_INDEX_HIST_CHANGE_TYPE:
             return convertToDisplay(historyReport.getTypeOfChange());

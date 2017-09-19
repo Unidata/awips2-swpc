@@ -19,6 +19,10 @@
  **/
 package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
+import java.text.SimpleDateFormat;
+
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+
 /**
  * TODO Add Description
  * 
@@ -88,5 +92,31 @@ public interface EditRegionsUIConstants {
     public static final int COLUMN_INDEX_HIST_VALUE_NEW = 4;
 
     public static final int COLUMN_INDEX_HIST_TIME_OF_CHANGE = 5;
+
+    // Format constants
+    /**
+     * A formatter with date format yyyy-MM-ddTHH:mm:ssZ
+     */
+    public static final ThreadLocal<SimpleDateFormat> DATE_TIME_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        public SimpleDateFormat initialValue() {
+            SimpleDateFormat format = new SimpleDateFormat(
+                    "yyyy-MM-dd'T'HH:mm:ss'Z'");
+            format.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+            return format;
+        }
+    };
+
+    /**
+     * A formatter with date format dd MMM yyyy
+     */
+    public static final ThreadLocal<SimpleDateFormat> DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        public SimpleDateFormat initialValue() {
+            SimpleDateFormat format = new SimpleDateFormat("dd MMM yyyy");
+            format.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+            return format;
+        }
+    };
 
 }

@@ -1,8 +1,5 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -127,9 +124,8 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
         switch (columnIndex) {
 
         case EditRegionsUIConstants.COLUMN_INDEX_REPORT_TIME:
-            ZonedDateTime dateTime = report.getObservationTime().toInstant()
-                    .atZone(ZoneOffset.UTC);
-            return DateTimeFormatter.ISO_ZONED_DATE_TIME.format(dateTime);
+            return EditRegionsUIConstants.DATE_TIME_FORMAT.get()
+                    .format(report.getObservationTime());
 
         case EditRegionsUIConstants.COLUMN_INDEX_OBSERVATORY:
             return convertToDisplay(report.getObservatory());
