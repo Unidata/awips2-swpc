@@ -264,16 +264,19 @@ public class GetConsensusCommand extends BaseCommand {
             longitudeSum += report.getLongitude();
             carlonSum += report.getCarlon();
 
+            // compute the max values
             zurich = Math.max(zurich, report.getZurich());
             penumbra = Math.max(penumbra, report.getPenumbra());
             magcode = Math.max(magcode, report.getMagcode());
             numSpots = Math.max(numSpots, report.getNumspot());
         }
 
+        // compute and set the mean values to the results object
         results.setLatitude(latitudeSum / count);
         results.setLongitude(longitudeSum / count);
         results.setCarlon(carlonSum / count);
 
+        // set the max values to the results object
         results.setZurich(zurich);
         results.setPenumbra(penumbra);
         results.setMagcode(magcode);
