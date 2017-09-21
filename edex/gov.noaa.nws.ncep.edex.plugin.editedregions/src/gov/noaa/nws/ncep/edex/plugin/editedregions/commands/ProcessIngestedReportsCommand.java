@@ -15,7 +15,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionHi
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionHistoryReportResults;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessToIngestedReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants.REGION_REPORT_CHANGE_TYPE;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionHistoryReportDao;
@@ -184,7 +184,7 @@ public class ProcessIngestedReportsCommand extends BaseCommand {
 
         this.setStartTime();
 
-        ProcessToIngestedReportsResults results = new ProcessToIngestedReportsResults();
+        ProcessIngestedReportsResults results = new ProcessIngestedReportsResults();
         results.setSuccessful(true);
         try {
             RegionHistoryReportDao historyDao = new RegionHistoryReportDao();

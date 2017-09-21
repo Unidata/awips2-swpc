@@ -7,7 +7,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegions
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessToIngestedReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
@@ -47,7 +47,7 @@ public class ProcessIngestedReportsResponse extends
      * The results from the AddBinCommand
      */
     @DynamicSerializeElement
-    private ProcessToIngestedReportsResults results = null;
+    private ProcessIngestedReportsResults results = null;
 
     /**
      * Time in milliseconds to complete round trip of client --> request -->
@@ -134,7 +134,7 @@ public class ProcessIngestedReportsResponse extends
      */
     @Override
     public void setResults(IResults results) {
-        this.results = (ProcessToIngestedReportsResults) results;
+        this.results = (ProcessIngestedReportsResults) results;
     }
 
     /*

@@ -33,7 +33,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionRepor
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessToIngestedReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
@@ -95,7 +95,7 @@ public final class EditRegionsServerUtil {
                 if (response.hasErrors()) {
                     throw response.getError();
                 } else if (response.getResults() != null) {
-                    ProcessToIngestedReportsResults results = (ProcessToIngestedReportsResults) response
+                    ProcessIngestedReportsResults results = (ProcessIngestedReportsResults) response
                             .getResults();
                     if (!results.isSuccessful()) {
                         statusHandler.error("History could not be updated.");
