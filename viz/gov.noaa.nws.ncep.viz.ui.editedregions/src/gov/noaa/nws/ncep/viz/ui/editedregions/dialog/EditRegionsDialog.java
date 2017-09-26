@@ -113,6 +113,80 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private int[] columnBounds = { 50, 50, 75, 50, 50, 50, 50, 50, 50, 50, 45,
             75, 65, 85, 85, 85, 85, 85, 85, 85, 50, 50, 50, 50 };
 
+    // Consensus text fields.
+
+    private Text textTodaysObservationTime;
+
+    private Text textTodaysObservatory;
+
+    private Text textTodaysQuality;
+
+    private Text textTodaysRegion;
+
+    private Text textTodaysReportLocation;
+
+    private Text textTodays00ZLocation;
+
+    private Text textTodaysCarlon;
+
+    private Text textTodaysExtent;
+
+    private Text textTodaysArea;
+
+    private Text textTodaysNumspots;
+
+    private Text textTodaysSpotclass;
+
+    private Text textTodaysMagclass;
+
+    private Text textYesterdaysObservationTime;
+
+    private Text textYesterdaysObservatory;
+
+    private Text textYesterdaysQuality;
+
+    private Text textYesterdaysRegion;
+
+    private Text textYesterdaysReportLocation;
+
+    private Text textYesterdays00ZLocation;
+
+    private Text textYesterdaysCarlon;
+
+    private Text textYesterdaysExtent;
+
+    private Text textYesterdaysArea;
+
+    private Text textYesterdaysNumspots;
+
+    private Text textYesterdaysSpotclass;
+
+    private Text textYesterdaysMagclass;
+
+    private Text textFinalObservationTime;
+
+    private Text textFinalObservatory;
+
+    private Text textFinalQuality;
+
+    private Text textFinalRegion;
+
+    private Text textFinalReportLocation;
+
+    private Text textFinal00ZLocation;
+
+    private Text textFinalCarlon;
+
+    private Text textFinalExtent;
+
+    private Text textFinalArea;
+
+    private Text textFinalNumspots;
+
+    private Text textFinalSpotclass;
+
+    private Text textFinalMagclass;
+
     /**
      * Label provider for the cells in the edit events table
      */
@@ -266,22 +340,59 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             new Label(gridComp, SWT.CENTER | SWT.WRAP).setText(column);
         }
 
-        for (String rowLabel : new String[] { "Yesterday's report",
-                "Today's Consensus", "Today's Final" }) {
-            new Label(gridComp, SWT.LEFT).setText(rowLabel);
+        new Label(gridComp, SWT.LEFT).setText("Yesterday's report");
+        textYesterdaysObservationTime = createConsensusTextControl(gridComp);
+        textYesterdaysObservatory = createConsensusTextControl(gridComp);
+        textYesterdaysQuality = createConsensusTextControl(gridComp);
+        textYesterdaysRegion = createConsensusTextControl(gridComp);
+        textYesterdaysReportLocation = createConsensusTextControl(gridComp);
+        textYesterdays00ZLocation = createConsensusTextControl(gridComp);
+        textYesterdaysCarlon = createConsensusTextControl(gridComp);
+        textYesterdaysExtent = createConsensusTextControl(gridComp);
+        textYesterdaysArea = createConsensusTextControl(gridComp);
+        textYesterdaysNumspots = createConsensusTextControl(gridComp);
+        textYesterdaysSpotclass = createConsensusTextControl(gridComp);
+        textYesterdaysMagclass = createConsensusTextControl(gridComp);
 
-            for (int i = 0; i < columnTitles.length; i++) {
-                Text text = new Text(gridComp, SWT.BORDER | SWT.READ_ONLY);
-                text.setLayoutData(
-                        new GridData(SWT.CENTER, SWT.TOP, true, true));
-            }
-        }
+        new Label(gridComp, SWT.LEFT).setText("Today's Consensus");
+        textTodaysObservationTime = createConsensusTextControl(gridComp);
+        textTodaysObservatory = createConsensusTextControl(gridComp);
+        textTodaysQuality = createConsensusTextControl(gridComp);
+        textTodaysRegion = createConsensusTextControl(gridComp);
+        textTodaysReportLocation = createConsensusTextControl(gridComp);
+        textTodays00ZLocation = createConsensusTextControl(gridComp);
+        textTodaysCarlon = createConsensusTextControl(gridComp);
+        textTodaysExtent = createConsensusTextControl(gridComp);
+        textTodaysArea = createConsensusTextControl(gridComp);
+        textTodaysNumspots = createConsensusTextControl(gridComp);
+        textTodaysSpotclass = createConsensusTextControl(gridComp);
+        textTodaysMagclass = createConsensusTextControl(gridComp);
+
+        new Label(gridComp, SWT.LEFT).setText("Today's Final");
+        textFinalObservationTime = createConsensusTextControl(gridComp);
+        textFinalObservatory = createConsensusTextControl(gridComp);
+        textFinalQuality = createConsensusTextControl(gridComp);
+        textFinalRegion = createConsensusTextControl(gridComp);
+        textFinalReportLocation = createConsensusTextControl(gridComp);
+        textFinal00ZLocation = createConsensusTextControl(gridComp);
+        textFinalCarlon = createConsensusTextControl(gridComp);
+        textFinalExtent = createConsensusTextControl(gridComp);
+        textFinalArea = createConsensusTextControl(gridComp);
+        textFinalNumspots = createConsensusTextControl(gridComp);
+        textFinalSpotclass = createConsensusTextControl(gridComp);
+        textFinalMagclass = createConsensusTextControl(gridComp);
 
         Composite checkboxComp = new Composite(consensusComp, SWT.NONE);
         checkboxComp.setLayout(new GridLayout(1, true));
         new Button(checkboxComp, SWT.CHECK).setText("Fix Final");
         new Button(checkboxComp, SWT.CHECK).setText("Inactivate");
 
+    }
+
+    private Text createConsensusTextControl(Composite parent) {
+        Text text = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
+        text.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, true, true));
+        return text;
     }
 
     /**
