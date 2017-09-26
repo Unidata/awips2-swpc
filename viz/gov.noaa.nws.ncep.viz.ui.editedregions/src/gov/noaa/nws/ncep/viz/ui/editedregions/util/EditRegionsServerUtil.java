@@ -1,6 +1,7 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.util;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -15,31 +16,33 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.CreateRegionRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetConsensusRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetLatestRegionRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDataRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetConsensusResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetLatestRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDataResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
-import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetLatestRegionResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetReferenceDataResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ProcessIngestedReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateRegionReportResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.ViewRegionReportHistoryResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.RegionHistoryReportUtility;
@@ -90,8 +93,8 @@ public final class EditRegionsServerUtil {
             ProcessIngestedReportsRequest request = new ProcessIngestedReportsRequest();
             if (request.isValid()) {
 
-                ProcessIngestedReportsResponse response = Gateway
-                        .getInstance().submit(request);
+                ProcessIngestedReportsResponse response = Gateway.getInstance()
+                        .submit(request);
                 if (response.hasErrors()) {
                     throw response.getError();
                 } else if (response.getResults() != null) {
@@ -267,6 +270,24 @@ public final class EditRegionsServerUtil {
         }
         return Collections.emptyList();
 
+    }
+
+    public static GetConsensusResponse getConsensus(Calendar date,
+            Integer region) throws EditedRegionsException {
+        GetConsensusRequest request = new GetConsensusRequest();
+        request.setDttm(date);
+        request.setRegion(region);
+
+        if (request.isValid()) {
+            GetConsensusResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            } else if (response.hasResults()) {
+                return response;
+            }
+        }
+        return null;
     }
 
     private static GetReferenceDataResults getReferenceData()

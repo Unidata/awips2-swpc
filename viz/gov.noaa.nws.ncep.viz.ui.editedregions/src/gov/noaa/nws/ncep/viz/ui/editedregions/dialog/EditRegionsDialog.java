@@ -9,8 +9,8 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -63,6 +63,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsUIConstants;
 
@@ -106,6 +107,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
      * The ID for the event which is to be selected
      */
     private Integer selectEventId = null;
+
+    private Calendar date;
 
     // TODO: Replace with columns for Edited Regions
     private String[] columnTitles = EditRegionsUIConstants.COLUMNS;
@@ -239,6 +242,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     public Control createDialogArea(Composite parent) {
 
         Composite top = (Composite) super.createDialogArea(parent);
+
+        date = Calendar.getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
 
         // Create the main layout for the shell.
         GridLayout mainLayout = new GridLayout(1, true);
@@ -587,10 +592,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         new Label(regionComp, SWT.LEAD).setText("");
 
-        Date date = new Date(System.currentTimeMillis());
-
         Text dateText = new Text(regionComp, SWT.BORDER);
-        dateText.setText(EditRegionsUIConstants.DATE_FORMAT.get().format(date));
+        dateText.setText(EditRegionsUIConstants.DATE_FORMAT.get()
+                .format(date.getTime()));
         dateText.setEditable(false);
 
         Button refreshButton = new Button(regionComp, SWT.PUSH);
@@ -838,6 +842,16 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         regionCombo.setItems(
                 regionIDs.stream().map(String::valueOf).toArray(String[]::new));
         regionCombo.select(0);
+
+        refreshConsensus();
+    }
+
+    /**
+     * Called when either the specified date is changed, or the specified region
+     * is changed.
+     */
+    private void refreshConsensus() {
+
     }
 
     /**
