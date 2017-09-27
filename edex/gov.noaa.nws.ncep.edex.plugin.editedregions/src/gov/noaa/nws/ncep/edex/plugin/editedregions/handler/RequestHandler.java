@@ -17,6 +17,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngested
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
@@ -26,6 +27,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDa
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UnknownRequestResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
@@ -255,6 +257,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
 
             return getReportsResponse;
+
         case "CreateRegionReportRequest":
 
             CreateRegionReportRequest createRegionReportRequest = (CreateRegionReportRequest) Class
@@ -317,6 +320,7 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
 
             return historyResponse;
+
         case "SaveRequest":
             // SaveRequest saveRequest = (SaveRequest) Class
             // .forName(requestClassName).cast(request);
@@ -369,24 +373,22 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
 
         default: // notify caller that the request is not a known request type
 
-            // long startDTTM = System.currentTimeMillis();
-            //
-            // IRequest unknownRequest = (IRequest)
-            // Class.forName(requestClassName).cast(request);
-            //
-            // UnknownRequestResponse unknownRequestResponse = new
-            // UnknownRequestResponse();
-            //
-            // unknownRequestResponse.setProcessingTime(System.currentTimeMillis()
-            // - startDTTM);
-            // unknownRequestResponse.setError(null);
-            // unknownRequestResponse.setResults(null);
-            // unknownRequestResponse.setRequest(unknownRequest);
-            // unknownRequestResponse.setResponseTime(System.currentTimeMillis()
-            // - startDTTM);
-            //
-            // return unknownRequestResponse;
-            return null;
+            long startDTTM = System.currentTimeMillis();
+
+            IRequest unknownRequest = (IRequest) Class.forName(requestClassName)
+                    .cast(request);
+
+            UnknownRequestResponse unknownRequestResponse = new UnknownRequestResponse();
+
+            unknownRequestResponse
+                    .setProcessingTime(System.currentTimeMillis() - startDTTM);
+            unknownRequestResponse.setError(null);
+            unknownRequestResponse.setResults(null);
+            unknownRequestResponse.setRequest(unknownRequest);
+            unknownRequestResponse
+                    .setResponseTime(System.currentTimeMillis() - startDTTM);
+
+            return unknownRequestResponse;
         }
     }
 }

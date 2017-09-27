@@ -88,6 +88,9 @@ public final class EditRegionsServerUtil {
         loadReferenceData();
     }
 
+    /**
+     * 
+     */
     private static void updateHistoryForIngestedReports() {
         try {
             ProcessIngestedReportsRequest request = new ProcessIngestedReportsRequest();
@@ -110,6 +113,14 @@ public final class EditRegionsServerUtil {
         }
     }
 
+    /**
+     * Obtain the region reports
+     * 
+     * @param bAssignedReports
+     * @param bUnassignedReports
+     * @return
+     * @throws EditedRegionsException
+     */
     public static GetRegionReportsResults getRegionReports(
             boolean bAssignedReports, boolean bUnassignedReports)
                     throws EditedRegionsException {
@@ -132,6 +143,13 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    /**
+     * 
+     * 
+     * @param report
+     * @return
+     * @throws EditedRegionsException
+     */
     public static Integer saveNewRegionReport(RegionReport report)
             throws EditedRegionsException {
         CreateRegionReportRequest request = new CreateRegionReportRequest();
@@ -149,6 +167,11 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    /**
+     * @param report
+     * @return
+     * @throws EditedRegionsException
+     */
     public static RegionReport updateRegionReport(RegionReport report)
             throws EditedRegionsException {
         UpdateRegionReportRequest request = new UpdateRegionReportRequest();
@@ -236,6 +259,11 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    /**
+     * @param reportId
+     * @return
+     * @throws EditedRegionsException
+     */
     public static List<RegionHistoryReport> getReportHistory(Integer reportId)
             throws EditedRegionsException {
         ViewRegionReportHistoryRequest request = new ViewRegionReportHistoryRequest();
@@ -272,6 +300,12 @@ public final class EditRegionsServerUtil {
 
     }
 
+    /**
+     * @param date
+     * @param region
+     * @return
+     * @throws EditedRegionsException
+     */
     public static GetConsensusResponse getConsensus(Calendar date,
             Integer region) throws EditedRegionsException {
         GetConsensusRequest request = new GetConsensusRequest();
@@ -290,6 +324,10 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    /**
+     * @return
+     * @throws EditedRegionsException
+     */
     private static GetReferenceDataResults getReferenceData()
             throws EditedRegionsException {
         GetReferenceDataRequest request = new GetReferenceDataRequest();
@@ -307,6 +345,9 @@ public final class EditRegionsServerUtil {
         return null;
     }
 
+    /**
+     * 
+     */
     private static void loadReferenceData() {
         try {
             GetReferenceDataResults results = getReferenceData();
@@ -319,6 +360,11 @@ public final class EditRegionsServerUtil {
         }
     }
 
+    /**
+     * @param map
+     * @param value
+     * @return
+     */
     private static <K, V> K getKeyForValue(Map<? extends K, ? extends V> map,
             V value) {
         for (Map.Entry<? extends K, ? extends V> entry : map.entrySet()) {
