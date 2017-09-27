@@ -839,8 +839,12 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
 
-        regionCombo.setItems(
-                regionIDs.stream().map(String::valueOf).toArray(String[]::new));
+        List<String> regionStrings = new ArrayList<String>();
+        for (Integer region : regionIDs) {
+            regionStrings.add(String.valueOf(region));
+        }
+
+        regionCombo.setItems(regionStrings.toArray(new String[0]));
         regionCombo.select(0);
 
         refreshConsensus();
