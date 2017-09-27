@@ -127,11 +127,11 @@ public class GetConsensusResponse extends BaseResponse<GetConsensusResponse>
     }
 
     public IResults getTodaysConsensusResults() {
-        return this.yesterdaysConsensusResults;
+        return this.todaysConsensusResults;
     }
 
     public IResults getFinalConsensusResults() {
-        return this.yesterdaysConsensusResults;
+        return this.finalConsensusResults;
     }
 
     /*
