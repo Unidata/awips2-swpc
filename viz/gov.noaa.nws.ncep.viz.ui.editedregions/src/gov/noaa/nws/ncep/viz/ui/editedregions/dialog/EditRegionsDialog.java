@@ -883,7 +883,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .setText(String.valueOf(todaysResults.getQuality()));
             textTodaysRegion.setText(String.valueOf(todaysResults.getRegion()));
             // textTodaysReportLocation.setText(String.valueOf(todaysResults.getArea()));
-            // textTodaysSpotclass.setText(String.valueOf(todaysResults.getArea()));
+            textTodaysSpotclass
+                    .setText(String.valueOf(todaysResults.getSpotClass()));
             // textTodays00ZLocation.setText(String.valueOf(todaysResults.getArea()));
 
         } catch (EditedRegionsException e) {
