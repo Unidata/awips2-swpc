@@ -17,6 +17,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusTod
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusYesterdaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RefCodes;
 
 /**
  * The command class that is executed to obtain the latest region that was
@@ -255,6 +256,7 @@ public class GetConsensusCommand extends BaseCommand {
 
         int zurich = 0;
         int penumbra = 0;
+        int compact = 0;
         int magcode = 0;
         int numSpots = 0;
 
@@ -267,6 +269,7 @@ public class GetConsensusCommand extends BaseCommand {
             // compute the max values
             zurich = Math.max(zurich, report.getZurich());
             penumbra = Math.max(penumbra, report.getPenumbra());
+            compact = Math.max(compact, report.getCompact());
             magcode = Math.max(magcode, report.getMagcode());
             numSpots = Math.max(numSpots, report.getNumspot());
         }
@@ -277,11 +280,15 @@ public class GetConsensusCommand extends BaseCommand {
         results.setCarlon(carlonSum / count);
 
         // set the max values to the results object
-        results.setZurich(zurich);
-        results.setPenumbra(penumbra);
         results.setMagcode(magcode);
         results.setNumspots(numSpots);
 
+        // Build out the spot class
+
+        String spotclass = RefCodes.getZurichCode(zurich)
+                + RefCodes.getPenumbraCode(penumbra)
+                + RefCodes.getCompactCode(compact);
+        results.setSpotClass(spotclass);
         return results;
 
     }

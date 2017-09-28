@@ -46,11 +46,11 @@ public class GetConsensusTodaysResults implements IResults {
 
     private Integer magcode;
 
-    private Integer penumbra;
+    private String reportLocation;
 
-    private Integer zurich;
+    private String report00ZLocation;
 
-    private Integer compact;
+    private String spotClass;
 
     /**
      * Constructor
@@ -222,51 +222,6 @@ public class GetConsensusTodaysResults implements IResults {
     }
 
     /**
-     * @return the penumbra
-     */
-    public Integer getPenumbra() {
-        return penumbra;
-    }
-
-    /**
-     * @param penumbra
-     *            the penumbra to set
-     */
-    public void setPenumbra(Integer penumbra) {
-        this.penumbra = penumbra;
-    }
-
-    /**
-     * @return the zurich
-     */
-    public Integer getZurich() {
-        return zurich;
-    }
-
-    /**
-     * @param zurich
-     *            the zurich to set
-     */
-    public void setZurich(Integer zurich) {
-        this.zurich = zurich;
-    }
-
-    /**
-     * @return the compact
-     */
-    public Integer getCompact() {
-        return compact;
-    }
-
-    /**
-     * @param compact
-     *            the compact to set
-     */
-    public void setCompact(Integer compact) {
-        this.compact = compact;
-    }
-
-    /**
      * @return the magcode
      */
     public Integer getMagcode() {
@@ -279,6 +234,51 @@ public class GetConsensusTodaysResults implements IResults {
      */
     public void setMagcode(Integer magcode) {
         this.magcode = magcode;
+    }
+
+    /**
+     * @return the reportLocation
+     */
+    public String getReportLocation() {
+        return reportLocation;
+    }
+
+    /**
+     * @param reportLocation
+     *            the reportLocation to set
+     */
+    public void setReportLocation(String reportLocation) {
+        this.reportLocation = reportLocation;
+    }
+
+    /**
+     * @return the report00ZLocation
+     */
+    public String getReport00ZLocation() {
+        return report00ZLocation;
+    }
+
+    /**
+     * @param report00zLocation
+     *            the report00ZLocation to set
+     */
+    public void setReport00ZLocation(String report00zLocation) {
+        report00ZLocation = report00zLocation;
+    }
+
+    /**
+     * @return the spotClass
+     */
+    public String getSpotClass() {
+        return spotClass;
+    }
+
+    /**
+     * @param spotClass
+     *            the spotClass to set
+     */
+    public void setSpotClass(String spotClass) {
+        this.spotClass = spotClass;
     }
 
 }

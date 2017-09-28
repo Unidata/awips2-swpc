@@ -166,7 +166,7 @@ public class RegionReport extends PersistablePluginDataObject {
     @Column
     @DynamicSerializeElement
     @XmlElement(name = "Compact")
-    private String compact;
+    private Integer compact;
 
     @Column
     @DynamicSerializeElement
@@ -463,7 +463,7 @@ public class RegionReport extends PersistablePluginDataObject {
     /**
      * @return the compact
      */
-    public String getCompact() {
+    public Integer getCompact() {
         return this.compact;
     }
 
@@ -471,7 +471,7 @@ public class RegionReport extends PersistablePluginDataObject {
      * @param compact
      *            the compact to set
      */
-    public void setCompact(String compact) {
+    public void setCompact(Integer compact) {
         this.compact = compact;
     }
 
