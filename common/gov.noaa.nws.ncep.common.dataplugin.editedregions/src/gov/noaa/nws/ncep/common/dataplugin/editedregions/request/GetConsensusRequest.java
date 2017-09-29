@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.request;
 
-import java.util.Calendar;
-
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
@@ -15,8 +13,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
  * @version 1.0
  */
 @DynamicSerialize
-public class GetConsensusRequest
-        extends Request<GetConsensusRequest> implements IRequest {
+public class GetConsensusRequest extends Request<GetConsensusRequest>
+        implements IRequest {
 
     /**
      * The Requests ID
@@ -87,8 +85,8 @@ public class GetConsensusRequest
     /**
      * @return the region
      */
-    public int getRegion() {
-        return region;
+    public Integer getRegion() {
+        return this.region;
     }
 
     /**
@@ -102,7 +100,7 @@ public class GetConsensusRequest
     /**
      * @return the dttm
      */
-    public long getDttm() {
+    public Long getDttm() {
         return this.dttm;
     }
 
@@ -110,12 +108,8 @@ public class GetConsensusRequest
      * @param the
      *            dttm to set
      */
-    public void setDttm(Calendar date) {
-
-        if (date != null) {
-            this.dttm = date.getTimeInMillis();
-        }
-
+    public void setDttm(Long date) {
+        this.dttm = date;
     }
 
 }

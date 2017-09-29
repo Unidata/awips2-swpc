@@ -309,7 +309,7 @@ public final class EditRegionsServerUtil {
     public static GetConsensusResponse getConsensus(Calendar date,
             Integer region) throws EditedRegionsException {
         GetConsensusRequest request = new GetConsensusRequest();
-        request.setDttm(date);
+        request.setDttm(date.getTimeInMillis());
         request.setRegion(region);
 
         if (request.isValid()) {
