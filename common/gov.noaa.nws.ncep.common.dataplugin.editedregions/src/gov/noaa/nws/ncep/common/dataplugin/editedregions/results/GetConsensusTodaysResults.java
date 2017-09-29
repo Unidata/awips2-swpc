@@ -3,6 +3,7 @@ package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 import java.util.Date;
 
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
+import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
@@ -23,33 +24,46 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  */
 @DynamicSerialize
 public class GetConsensusTodaysResults implements IResults {
-
+    @DynamicSerializeElement
     private Date observationTime;
 
+    @DynamicSerializeElement
     private String observatory;
 
+    @DynamicSerializeElement
     private Integer quality;
 
+    @DynamicSerializeElement
     private Integer region;
 
+    @DynamicSerializeElement
     private Integer latitude;
 
+    @DynamicSerializeElement
     private Integer longitude;
 
+    @DynamicSerializeElement
     private Integer carlon;
 
+    @DynamicSerializeElement
     private Integer extent;
 
+    @DynamicSerializeElement
     private Integer area;
 
+    @DynamicSerializeElement
     private Integer numspots;
 
+    @DynamicSerializeElement
     private Integer magcode;
 
+    @DynamicSerializeElement
     private String reportLocation;
 
+    @DynamicSerializeElement
     private String report00ZLocation;
 
+    @DynamicSerializeElement
     private String spotClass;
 
     /**
