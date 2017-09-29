@@ -176,9 +176,6 @@ public class GetConsensusCommand extends BaseCommand {
         this.setStartTime();
 
         GetConsensusResponse response = new GetConsensusResponse();
-        GetConsensusYesterdaysResults yesterdaysConsensusResults = new GetConsensusYesterdaysResults();
-        GetConsensusTodaysResults todaysConsensusResults = new GetConsensusTodaysResults();
-        GetConsensusFinalResults finalConsensusResults = new GetConsensusFinalResults();
 
         try {
 
@@ -209,18 +206,22 @@ public class GetConsensusCommand extends BaseCommand {
             // 2) Yesterdays Consensus
             // 3) Final Consensus
 
-            todaysConsensusResults = this.computeTodaysConsensus(rsCurrentDay);
-            yesterdaysConsensusResults = this
-                    .computeYesterdaysConsensus(rsPreviousDay);
-            finalConsensusResults = this.computeFinalConsensus(rsCurrentDay);
+            if (rsCurrentDay.isEmpty() || rsPreviousDay.isEmpty()) {
+                response.setError(new EditedRegionsException(
+                        "No Records Found for Current and / or Previous Day.  Some consensus values may not have been computed."));
+            }
 
-            // if (latestRegion != null) {
-            // results.setLatestRegion(latestRegion.getRegionID());
-            // }
-            // TODO correct this...do not catch a generic exception!!!
-            // } catch (PluginException e) {
-            // this.setError(new EditedRegionsException(e));
-            // }
+            if (!rsCurrentDay.isEmpty()) {
+                response.setTodaysConsesusResults(
+                        this.computeTodaysConsensus(rsCurrentDay));
+                response.setFinalResults(
+                        this.computeFinalConsensus(rsCurrentDay));
+            }
+
+            if (!rsPreviousDay.isEmpty()) {
+                response.setYesterdaysConsensusResults(
+                        this.computeYesterdaysConsensus(rsPreviousDay));
+            }
 
         } catch (Exception e) {
             this.setError(new EditedRegionsException(e));
@@ -235,10 +236,6 @@ public class GetConsensusCommand extends BaseCommand {
         // response.setResults(results);
         response.setError(this.getError());
         response.setProcessingTime(this.getProcessingTime());
-
-        response.setTodaysConsesusResults(todaysConsensusResults);
-        response.setYesterdaysConsensusResults(yesterdaysConsensusResults);
-        response.setFinalResults(finalConsensusResults);
 
         return response;
     }
@@ -289,6 +286,7 @@ public class GetConsensusCommand extends BaseCommand {
                 + RefCodes.getPenumbraCode(penumbra)
                 + RefCodes.getCompactCode(compact);
         results.setSpotClass(spotclass);
+
         return results;
 
     }

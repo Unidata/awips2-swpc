@@ -257,6 +257,7 @@ public class GetConsensusResponse extends BaseResponse<GetConsensusResponse>
                 && this.finalConsensusResults == null) {
 
             return false;
+
         } else {
             return true;
         }
