@@ -1,7 +1,5 @@
 package gov.noaa.nws.ncep.common.dataplugin.editedregions.results;
 
-import java.util.Date;
-
 import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import com.raytheon.uf.common.serialization.annotations.DynamicSerializeElement;
 
@@ -25,7 +23,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 @DynamicSerialize
 public class GetConsensusTodaysResults implements IResults {
     @DynamicSerializeElement
-    private Date observationTime;
+    private Long observationTime;
 
     @DynamicSerializeElement
     private String observatory;
@@ -88,7 +86,7 @@ public class GetConsensusTodaysResults implements IResults {
     /**
      * @return the observationTime
      */
-    public Date getObservationTime() {
+    public Long getObservationTime() {
         return observationTime;
     }
 
@@ -96,7 +94,7 @@ public class GetConsensusTodaysResults implements IResults {
      * @param observationTime
      *            the observationTime to set
      */
-    public void setObservationTime(Date observationTime) {
+    public void setObservationTime(Long observationTime) {
         this.observationTime = observationTime;
     }
 

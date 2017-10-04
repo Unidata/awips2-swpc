@@ -207,21 +207,17 @@ public class GetConsensusCommand extends BaseCommand {
             // 3) Final Consensus
 
             if (rsCurrentDay.isEmpty() || rsPreviousDay.isEmpty()) {
-                response.setError(new EditedRegionsException(
-                        "No Records Found for Current and / or Previous Day.  Some consensus values may not have been computed."));
+                response.setErrorMessage(
+                        "No Records Found for Current and / or Previous Day.  Some consensus values may not have been computed.");
             }
 
-            if (!rsCurrentDay.isEmpty()) {
-                response.setTodaysConsesusResults(
-                        this.computeTodaysConsensus(rsCurrentDay));
-                response.setFinalResults(
-                        this.computeFinalConsensus(rsCurrentDay));
-            }
+            response.setTodaysConsensusResults(
+                    this.computeTodaysConsensus(rsCurrentDay));
+                    // response.setFinalResults(
+                    // this.computeFinalConsensus(rsCurrentDay));
 
-            if (!rsPreviousDay.isEmpty()) {
-                response.setYesterdaysConsensusResults(
-                        this.computeYesterdaysConsensus(rsPreviousDay));
-            }
+            // response.setYesterdaysConsensusResults(
+            // this.computeYesterdaysConsensus(rsPreviousDay));
 
         } catch (Exception e) {
             this.setError(new EditedRegionsException(e));
@@ -233,8 +229,9 @@ public class GetConsensusCommand extends BaseCommand {
                 .info("Finishing Executing " + this.getClass().getSimpleName());
 
         // add the results instance to the response;
+        response.setRequest(getRequest());
         // response.setResults(results);
-        response.setError(this.getError());
+        // response.setError(this.getError());
         response.setProcessingTime(this.getProcessingTime());
 
         return response;
@@ -244,8 +241,12 @@ public class GetConsensusCommand extends BaseCommand {
     private GetConsensusTodaysResults computeTodaysConsensus(
             List<RegionReport> reports) {
         // TODO: How do we want to handle having no reports available?
+        GetConsensusTodaysResults results = new GetConsensusTodaysResults();
 
         int count = reports.size();
+        if (count == 0) {
+            return results;
+        }
 
         int latitudeSum = 0;
         int longitudeSum = 0;
@@ -257,7 +258,6 @@ public class GetConsensusCommand extends BaseCommand {
         int magcode = 0;
         int numSpots = 0;
 
-        GetConsensusTodaysResults results = new GetConsensusTodaysResults();
         for (RegionReport report : reports) {
             latitudeSum += report.getLatitude();
             longitudeSum += report.getLongitude();
@@ -272,20 +272,20 @@ public class GetConsensusCommand extends BaseCommand {
         }
 
         // compute and set the mean values to the results object
-        results.setLatitude(latitudeSum / count);
-        results.setLongitude(longitudeSum / count);
-        results.setCarlon(carlonSum / count);
+        // results.setLatitude(latitudeSum / count);
+        // results.setLongitude(longitudeSum / count);
+        // results.setCarlon(carlonSum / count);
 
         // set the max values to the results object
-        results.setMagcode(magcode);
-        results.setNumspots(numSpots);
+        // results.setMagcode(magcode);
+        // results.setNumspots(numSpots);
 
         // Build out the spot class
 
         String spotclass = RefCodes.getZurichCode(zurich)
                 + RefCodes.getPenumbraCode(penumbra)
                 + RefCodes.getCompactCode(compact);
-        results.setSpotClass(spotclass);
+        // results.setSpotClass(spotclass);
 
         return results;
 
