@@ -263,9 +263,13 @@ public class GetConsensusCommand extends BaseCommand {
             return results;
         }
 
+        int regionId = 0;
+
         int latitudeSum = 0;
         int longitudeSum = 0;
         int carlonSum = 0;
+        int extentSum = 0;
+        int areaSum = 0;
 
         int zurich = 0;
         int penumbra = 0;
@@ -277,6 +281,8 @@ public class GetConsensusCommand extends BaseCommand {
             latitudeSum += report.getLatitude();
             longitudeSum += report.getLongitude();
             carlonSum += report.getCarlon();
+            extentSum += report.getExtent();
+            areaSum += report.getArea();
 
             // compute the max values
             zurich = Math.max(zurich, report.getZurich());
@@ -284,14 +290,18 @@ public class GetConsensusCommand extends BaseCommand {
             compact = Math.max(compact, report.getCompact());
             magcode = Math.max(magcode, report.getMagcode());
             numSpots = Math.max(numSpots, report.getNumspot());
+
+            regionId = report.getRegion();
         }
 
         // compute and set the mean values to the results object
-
         results.setReportLocation(
                 getLocation(latitudeSum / count, longitudeSum / count));
         results.setReport00ZLocation(
                 getLocation(latitudeSum / count, carlonSum / count));
+        results.setCarlon(carlonSum / count);
+        results.setExtent(extentSum / count);
+        results.setArea(areaSum / count);
 
         // set the max values to the results object
         results.setMagcode(magcode);
@@ -303,6 +313,9 @@ public class GetConsensusCommand extends BaseCommand {
                 + RefCodes.getPenumbraCode(penumbra)
                 + RefCodes.getCompactCode(compact);
         results.setSpotClass(spotclass);
+
+        // Compute other values
+        results.setRegion(regionId);
 
         return results;
 

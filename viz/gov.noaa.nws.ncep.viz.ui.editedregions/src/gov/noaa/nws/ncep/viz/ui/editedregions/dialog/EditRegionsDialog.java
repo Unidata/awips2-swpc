@@ -869,35 +869,25 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             GetConsensusTodaysResults todaysResults = (GetConsensusTodaysResults) response
                     .getTodaysConsensusResults();
 
-            String errorMessage = response.getErrorMessage();
-            if (errorMessage != null) {
-                statusHandler.error(errorMessage);
-                return;
-            }
+            textTodaysArea.setText(toString(todaysResults.getArea()));
+            textTodaysCarlon.setText(toString(todaysResults.getCarlon()));
+            textTodaysExtent.setText(toString(todaysResults.getExtent()));
 
-            textTodaysArea.setText(String.valueOf(todaysResults.getArea()));
-            textTodaysCarlon.setText(String.valueOf(todaysResults.getCarlon()));
-            textTodaysExtent.setText(String.valueOf(todaysResults.getExtent()));
-
-            textTodaysMagclass
-                    .setText(String.valueOf(todaysResults.getMagcode()));
-            textTodaysNumspots
-                    .setText(String.valueOf(todaysResults.getNumspots()));
-            textTodaysObservationTime.setText(
-                    String.valueOf(todaysResults.getObservationTime()));
+            textTodaysMagclass.setText(toString(todaysResults.getMagcode()));
+            textTodaysNumspots.setText(toString(todaysResults.getNumspots()));
+            textTodaysObservationTime
+                    .setText(toString(todaysResults.getObservationTime()));
             textTodaysObservatory
-                    .setText(String.valueOf(todaysResults.getObservatory()));
-            textTodaysQuality
-                    .setText(String.valueOf(todaysResults.getQuality()));
-            textTodaysRegion.setText(String.valueOf(todaysResults.getRegion()));
+                    .setText(toString(todaysResults.getObservatory()));
+            textTodaysQuality.setText(toString(todaysResults.getQuality()));
+            textTodaysRegion.setText(toString(todaysResults.getRegion()));
 
             textTodaysReportLocation
-                    .setText(String.valueOf(todaysResults.getReportLocation()));
-            textTodaysSpotclass
-                    .setText(String.valueOf(todaysResults.getSpotClass()));
+                    .setText(toString(todaysResults.getReportLocation()));
+            textTodaysSpotclass.setText(toString(todaysResults.getSpotClass()));
 
-            textTodays00ZLocation.setText(
-                    String.valueOf(todaysResults.getReport00ZLocation()));
+            textTodays00ZLocation
+                    .setText(toString(todaysResults.getReport00ZLocation()));
 
         } catch (EditedRegionsException e) {
             statusHandler.error("Error refreshing consensus.", e);
@@ -1034,6 +1024,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private void resizeTable(TableViewer tableViewer) {
         for (TableColumn tc : tableViewer.getTable().getColumns())
             tc.pack();
+    }
+
+    private static String toString(Object value) {
+        return (value != null) ? value.toString() : "";
     }
 
 }
