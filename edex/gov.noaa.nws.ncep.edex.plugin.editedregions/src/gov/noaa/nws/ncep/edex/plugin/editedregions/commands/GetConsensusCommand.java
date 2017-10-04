@@ -1,7 +1,9 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
@@ -28,6 +30,8 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RefCodes;
  * @version 1.0
  */
 public class GetConsensusCommand extends BaseCommand {
+
+    private static final long DAY_IN_MILLIS = TimeUnit.DAYS.toMillis(1);
 
     /**
      * The request from the client that resulted in creating an instance of the
@@ -189,17 +193,28 @@ public class GetConsensusCommand extends BaseCommand {
             date.clear();
             date.setTimeInMillis(request.getDttm());
 
+            Calendar cal = Calendar
+                    .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
+            cal.clear();
+            cal.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH),
+                    date.get(Calendar.DAY_OF_MONTH));
+
+            Date start = cal.getTime();
+            Date end = new Date(start.getTime() + DAY_IN_MILLIS);
+
             // obtain all region reports for the given region
             // and given date
             List<RegionReport> rsCurrentDay = regionReportsDao
-                    .getRegionReports(date, region);
+                    .getRegionReports(start, end, region);
 
             // obtain all region reports for the given region for the previous
             // day
-            date.set(Calendar.DAY_OF_YEAR,
-                    (date.get(Calendar.DAY_OF_YEAR) - 1));
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+            start = cal.getTime();
+            end = new Date(start.getTime() + DAY_IN_MILLIS);
+
             List<RegionReport> rsPreviousDay = regionReportsDao
-                    .getRegionReports(date, region);
+                    .getRegionReports(start, end, region);
 
             // compute the three consensus values
             // 1) Todays Consensus
@@ -272,20 +287,22 @@ public class GetConsensusCommand extends BaseCommand {
         }
 
         // compute and set the mean values to the results object
-        // results.setLatitude(latitudeSum / count);
-        // results.setLongitude(longitudeSum / count);
-        // results.setCarlon(carlonSum / count);
+
+        results.setReportLocation(
+                getLocation(latitudeSum / count, longitudeSum / count));
+        results.setReport00ZLocation(
+                getLocation(latitudeSum / count, carlonSum / count));
 
         // set the max values to the results object
-        // results.setMagcode(magcode);
-        // results.setNumspots(numSpots);
+        results.setMagcode(magcode);
+        results.setNumspots(numSpots);
 
         // Build out the spot class
 
         String spotclass = RefCodes.getZurichCode(zurich)
                 + RefCodes.getPenumbraCode(penumbra)
                 + RefCodes.getCompactCode(compact);
-        // results.setSpotClass(spotclass);
+        results.setSpotClass(spotclass);
 
         return results;
 
@@ -306,6 +323,18 @@ public class GetConsensusCommand extends BaseCommand {
         GetConsensusFinalResults results = new GetConsensusFinalResults();
 
         return results;
+    }
+
+    private static String getLocation(int latitude, int longitude) {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append((latitude < 0) ? "N" : "S");
+        sb.append(String.format("%02d", Math.abs(latitude)));
+
+        sb.append((longitude < 0) ? "W" : "E");
+        sb.append(String.format("%02d", Math.abs(longitude)));
+
+        return sb.toString();
     }
 
 }

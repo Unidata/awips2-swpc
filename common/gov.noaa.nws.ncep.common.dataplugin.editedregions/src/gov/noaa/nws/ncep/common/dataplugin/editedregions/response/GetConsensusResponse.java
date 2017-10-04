@@ -274,7 +274,11 @@ public class GetConsensusResponse extends BaseResponse<GetConsensusResponse>
      */
     @Override
     public boolean hasErrors() {
-        return error != null;
+        return this.error != null;
+    }
+
+    public boolean hasErrorMessage() {
+        return this.errorMessage != null;
     }
 
     @Override

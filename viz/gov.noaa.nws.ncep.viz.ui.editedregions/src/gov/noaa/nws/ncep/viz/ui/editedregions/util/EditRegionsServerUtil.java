@@ -317,6 +317,8 @@ public final class EditRegionsServerUtil {
                     .submit(request);
             if (response.hasErrors()) {
                 throw response.getError();
+            } else if (response.hasErrorMessage()) {
+                throw new EditedRegionsException(response.getErrorMessage());
             } else if (response.hasResults()) {
                 return response;
             }

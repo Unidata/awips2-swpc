@@ -875,28 +875,29 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                 return;
             }
 
-             textTodaysArea.setText(String.valueOf(todaysResults.getArea()));
-             textTodaysCarlon.setText(String.valueOf(todaysResults.getCarlon()));
-             textTodaysExtent.setText(String.valueOf(todaysResults.getExtent()));
-            
-             textTodaysMagclass.setText(String.valueOf(todaysResults.getArea()));
-             textTodaysNumspots
-             .setText(String.valueOf(todaysResults.getNumspots()));
+            textTodaysArea.setText(String.valueOf(todaysResults.getArea()));
+            textTodaysCarlon.setText(String.valueOf(todaysResults.getCarlon()));
+            textTodaysExtent.setText(String.valueOf(todaysResults.getExtent()));
+
+            textTodaysMagclass
+                    .setText(String.valueOf(todaysResults.getMagcode()));
+            textTodaysNumspots
+                    .setText(String.valueOf(todaysResults.getNumspots()));
             textTodaysObservationTime.setText(
                     String.valueOf(todaysResults.getObservationTime()));
-             textTodaysObservatory
-             .setText(String.valueOf(todaysResults.getObservatory()));
-             textTodaysQuality
-             .setText(String.valueOf(todaysResults.getQuality()));
-             textTodaysRegion.setText(String.valueOf(todaysResults.getRegion()));
-            
-             textTodaysReportLocation
-             .setText(String.valueOf(todaysResults.getArea()));
-             textTodaysSpotclass
-             .setText(String.valueOf(todaysResults.getSpotClass()));
-            
-             textTodays00ZLocation
-             .setText(String.valueOf(todaysResults.getArea()));
+            textTodaysObservatory
+                    .setText(String.valueOf(todaysResults.getObservatory()));
+            textTodaysQuality
+                    .setText(String.valueOf(todaysResults.getQuality()));
+            textTodaysRegion.setText(String.valueOf(todaysResults.getRegion()));
+
+            textTodaysReportLocation
+                    .setText(String.valueOf(todaysResults.getReportLocation()));
+            textTodaysSpotclass
+                    .setText(String.valueOf(todaysResults.getSpotClass()));
+
+            textTodays00ZLocation.setText(
+                    String.valueOf(todaysResults.getReport00ZLocation()));
 
         } catch (EditedRegionsException e) {
             statusHandler.error("Error refreshing consensus.", e);
