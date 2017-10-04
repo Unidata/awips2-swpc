@@ -53,7 +53,7 @@ public class GetConsensusTodaysResults implements IResults {
     private Integer numspots;
 
     @DynamicSerializeElement
-    private Integer magcode;
+    private String magclass;
 
     @DynamicSerializeElement
     private String reportLocation;
@@ -236,16 +236,16 @@ public class GetConsensusTodaysResults implements IResults {
     /**
      * @return the magcode
      */
-    public Integer getMagcode() {
-        return magcode;
+    public String getMagclass() {
+        return magclass;
     }
 
     /**
      * @param magcode
      *            the magcode to set
      */
-    public void setMagcode(Integer magcode) {
-        this.magcode = magcode;
+    public void setMagclass(String magclass) {
+        this.magclass = magclass;
     }
 
     /**

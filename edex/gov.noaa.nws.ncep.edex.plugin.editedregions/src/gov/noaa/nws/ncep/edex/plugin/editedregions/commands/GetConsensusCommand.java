@@ -304,7 +304,7 @@ public class GetConsensusCommand extends BaseCommand {
         results.setArea(areaSum / count);
 
         // set the max values to the results object
-        results.setMagcode(magcode);
+        results.setMagclass(RefCodes.getMagneticCode(magcode));
         results.setNumspots(numSpots);
 
         // Build out the spot class

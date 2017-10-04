@@ -40,11 +40,13 @@ import java.util.Hashtable;
  */
 public class RefCodes {
 
-    private static Hashtable<Integer, String> zurichCodes = new Hashtable<Integer, String>();
+    private static final Hashtable<Integer, String> zurichCodes = new Hashtable<Integer, String>();
 
-    private static Hashtable<Integer, String> penumbraCodes = new Hashtable<Integer, String>();
+    private static final Hashtable<Integer, String> penumbraCodes = new Hashtable<Integer, String>();
 
-    private static Hashtable<Integer, String> compactCodes = new Hashtable<Integer, String>();
+    private static final Hashtable<Integer, String> compactCodes = new Hashtable<Integer, String>();
+
+    private static final Hashtable<Integer, String> magneticCodes = new Hashtable<Integer, String>();
 
     /**
      * 
@@ -78,6 +80,15 @@ public class RefCodes {
         compactCodes.put(7, "o");
         compactCodes.put(8, "i");
         compactCodes.put(9, "c");
+
+        // populate magnetic codes
+        magneticCodes.put(1, "A");
+        magneticCodes.put(2, "B");
+        magneticCodes.put(3, "BG");
+        magneticCodes.put(4, "G");
+        magneticCodes.put(5, "BD");
+        magneticCodes.put(6, "BDG");
+        magneticCodes.put(7, "GD");
 
     }
 
@@ -164,6 +175,32 @@ public class RefCodes {
 
         return code;
 
+    }
+
+    /**
+     * Obtain the Alphabetic Magnetic class given the numeric Magnetic Code
+     * 
+     * If invalid numeric code supplied the return value will be a string
+     * specifying that no Compact value was found for that numeric code
+     * 
+     * @param value
+     * 
+     * @return code
+     */
+    public static String getMagneticCode(int value) {
+        String code = null;
+
+        if (!magneticCodes.containsKey(value)) {
+
+            code = "NO MAGNETIC CODE FOR VALUE: " + value;
+
+        } else {
+
+            code = magneticCodes.get(value);
+
+        }
+
+        return code;
     }
 
 }

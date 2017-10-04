@@ -873,7 +873,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
             textTodaysCarlon.setText(toString(todaysResults.getCarlon()));
             textTodaysExtent.setText(toString(todaysResults.getExtent()));
 
-            textTodaysMagclass.setText(toString(todaysResults.getMagcode()));
+            textTodaysMagclass.setText(toString(todaysResults.getMagclass()));
             textTodaysNumspots.setText(toString(todaysResults.getNumspots()));
             textTodaysObservationTime
                     .setText(toString(todaysResults.getObservationTime()));
