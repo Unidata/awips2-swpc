@@ -393,7 +393,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private Text createConsensusTextControl(Composite parent) {
         Text text = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
-        text.setLayoutData(new GridData(SWT.CENTER, SWT.TOP, true, true));
+        GridData gridData = new GridData();
+        gridData.widthHint = 75;
+        gridData.heightHint = 15;
+        text.setLayoutData(gridData);
         return text;
     }
 
