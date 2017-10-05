@@ -8,9 +8,11 @@
  **/
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -871,8 +873,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             textTodaysMagclass.setText(toString(todaysResults.getMagclass()));
             textTodaysNumspots.setText(toString(todaysResults.getNumspots()));
-            textTodaysObservationTime
-                    .setText(toString(todaysResults.getObservationTime()));
+            textTodaysObservationTime.setText(
+                    getObservationTime(todaysResults.getObservationTime()));
             textTodaysObservatory
                     .setText(toString(todaysResults.getObservatory()));
             textTodaysRegion.setText(toString(todaysResults.getRegion()));
@@ -895,8 +897,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .setText(toString(yesterdaysResults.getMagclass()));
             textYesterdaysNumspots
                     .setText(toString(yesterdaysResults.getNumspots()));
-            textYesterdaysObservationTime
-                    .setText(toString(yesterdaysResults.getObservationTime()));
+            textYesterdaysObservationTime.setText(
+                    getObservationTime(yesterdaysResults.getObservationTime()));
             textYesterdaysObservatory
                     .setText(toString(yesterdaysResults.getObservatory()));
             textYesterdaysRegion
@@ -1049,6 +1051,23 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private static String toString(Object value) {
         return (value != null) ? value.toString() : "";
+    }
+
+    public static final ThreadLocal<SimpleDateFormat> OBSERVATION_DATE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+        @Override
+        public SimpleDateFormat initialValue() {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            format.setTimeZone(EditedRegionsConstants.TIME_ZONE_UTC);
+            return format;
+        }
+    };
+
+    private static String getObservationTime(Long timestamp) {
+        Date date = new Date(timestamp.longValue());
+        String strDate = OBSERVATION_DATE_FORMAT.get().format(date);
+
+        return strDate + " 2400Z";
+
     }
 
 }

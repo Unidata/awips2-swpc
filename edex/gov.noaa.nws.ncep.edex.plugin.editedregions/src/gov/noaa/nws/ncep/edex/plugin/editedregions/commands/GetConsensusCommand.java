@@ -201,6 +201,7 @@ public class GetConsensusCommand extends BaseCommand {
 
             Date start = cal.getTime();
             Date end = new Date(start.getTime() + DAY_IN_MILLIS);
+            Calendar todaysCalendar = (Calendar) cal.clone();
 
             // obtain all region reports for the given region
             // and given date
@@ -212,6 +213,7 @@ public class GetConsensusCommand extends BaseCommand {
             cal.add(Calendar.DAY_OF_MONTH, -1);
             start = cal.getTime();
             end = new Date(start.getTime() + DAY_IN_MILLIS);
+            Calendar yesterdaysCalendar = (Calendar) cal.clone();
 
             List<RegionReport> rsPreviousDay = regionReportsDao
                     .getRegionReports(start, end, region);
@@ -227,12 +229,13 @@ public class GetConsensusCommand extends BaseCommand {
             }
 
             response.setTodaysConsensusResults(
-                    this.computeTodaysConsensus(rsCurrentDay));
+                    this.computeTodaysConsensus(todaysCalendar, rsCurrentDay));
             // response.setFinalResults(
             // this.computeFinalConsensus(rsCurrentDay));
 
             response.setYesterdaysConsensusResults(
-                    this.computeYesterdaysConsensus(rsPreviousDay));
+                    this.computeYesterdaysConsensus(yesterdaysCalendar,
+                            rsPreviousDay));
 
         } catch (Exception e) {
             this.setError(new EditedRegionsException(e));
@@ -253,7 +256,7 @@ public class GetConsensusCommand extends BaseCommand {
     }
 
     // TODO complete this stub
-    private GetConsensusTodaysResults computeTodaysConsensus(
+    private GetConsensusTodaysResults computeTodaysConsensus(Calendar date,
             List<RegionReport> reports) {
         GetConsensusTodaysResults results = new GetConsensusTodaysResults();
 
@@ -315,6 +318,8 @@ public class GetConsensusCommand extends BaseCommand {
 
         // Compute other values
         results.setRegion(regionId);
+        results.setObservatory("SWO");
+        results.setObservationTime(date.getTimeInMillis());
 
         return results;
 
@@ -322,7 +327,7 @@ public class GetConsensusCommand extends BaseCommand {
 
     // TODO complete this stub
     private GetConsensusYesterdaysResults computeYesterdaysConsensus(
-            List<RegionReport> reports) {
+            Calendar date, List<RegionReport> reports) {
 
         GetConsensusYesterdaysResults results = new GetConsensusYesterdaysResults();
 
@@ -384,7 +389,8 @@ public class GetConsensusCommand extends BaseCommand {
 
         // Compute other values
         results.setRegion(regionId);
-
+        results.setObservatory("SWO");
+        results.setObservationTime(date.getTimeInMillis());
         return results;
 
     }
