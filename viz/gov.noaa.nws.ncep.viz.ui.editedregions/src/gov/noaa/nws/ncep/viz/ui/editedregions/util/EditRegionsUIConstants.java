@@ -47,6 +47,11 @@ public interface EditRegionsUIConstants {
             "00Z Location", "Carlon", "Extent", "Area", "Numspots", "Spotclass",
             "Magclass" };
 
+    public static final String[] CONSENSUS_COLUMNS = new String[] {
+            "Observation Time", "Observatory", "Region", "Report Location",
+            "00Z Location", "Carlon", "Extent", "Area", "Numspots", "Spotclass",
+            "Magclass" };
+
     public static final String[] TOOLTIPS = COLUMNS.clone();
 
     public static final int COLUMN_COUNT = 12;

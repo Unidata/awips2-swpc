@@ -124,8 +124,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private Text textTodaysObservatory;
 
-    private Text textTodaysQuality;
-
     private Text textTodaysRegion;
 
     private Text textTodaysReportLocation;
@@ -148,8 +146,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     private Text textYesterdaysObservatory;
 
-    private Text textYesterdaysQuality;
-
     private Text textYesterdaysRegion;
 
     private Text textYesterdaysReportLocation;
@@ -171,8 +167,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     private Text textFinalObservationTime;
 
     private Text textFinalObservatory;
-
-    private Text textFinalQuality;
 
     private Text textFinalRegion;
 
@@ -335,7 +329,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite gridComp = new Composite(gridGroup, SWT.NONE);
 
-        GridLayout gridLayout = new GridLayout(columnTitles.length + 1, false);
+        GridLayout gridLayout = new GridLayout(
+                EditRegionsUIConstants.CONSENSUS_COLUMNS.length + 1, false);
 
         gridComp.setLayout(gridLayout);
         gridComp.setLayoutData(
@@ -343,14 +338,13 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         new Label(gridComp, SWT.CENTER).setText("");
 
-        for (String column : columnTitles) {
+        for (String column : EditRegionsUIConstants.CONSENSUS_COLUMNS) {
             new Label(gridComp, SWT.CENTER | SWT.WRAP).setText(column);
         }
 
         new Label(gridComp, SWT.LEFT).setText("Yesterday's report");
         textYesterdaysObservationTime = createConsensusTextControl(gridComp);
         textYesterdaysObservatory = createConsensusTextControl(gridComp);
-        textYesterdaysQuality = createConsensusTextControl(gridComp);
         textYesterdaysRegion = createConsensusTextControl(gridComp);
         textYesterdaysReportLocation = createConsensusTextControl(gridComp);
         textYesterdays00ZLocation = createConsensusTextControl(gridComp);
@@ -364,7 +358,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         new Label(gridComp, SWT.LEFT).setText("Today's Consensus");
         textTodaysObservationTime = createConsensusTextControl(gridComp);
         textTodaysObservatory = createConsensusTextControl(gridComp);
-        textTodaysQuality = createConsensusTextControl(gridComp);
         textTodaysRegion = createConsensusTextControl(gridComp);
         textTodaysReportLocation = createConsensusTextControl(gridComp);
         textTodays00ZLocation = createConsensusTextControl(gridComp);
@@ -378,7 +371,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         new Label(gridComp, SWT.LEFT).setText("Today's Final");
         textFinalObservationTime = createConsensusTextControl(gridComp);
         textFinalObservatory = createConsensusTextControl(gridComp);
-        textFinalQuality = createConsensusTextControl(gridComp);
         textFinalRegion = createConsensusTextControl(gridComp);
         textFinalReportLocation = createConsensusTextControl(gridComp);
         textFinal00ZLocation = createConsensusTextControl(gridComp);
@@ -879,7 +871,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .setText(toString(todaysResults.getObservationTime()));
             textTodaysObservatory
                     .setText(toString(todaysResults.getObservatory()));
-            textTodaysQuality.setText(toString(todaysResults.getQuality()));
             textTodaysRegion.setText(toString(todaysResults.getRegion()));
 
             textTodaysReportLocation

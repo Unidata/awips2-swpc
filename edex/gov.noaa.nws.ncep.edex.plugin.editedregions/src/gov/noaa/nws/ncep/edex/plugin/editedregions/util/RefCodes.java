@@ -76,10 +76,10 @@ public class RefCodes {
         penumbraCodes.put(5, "k");
 
         // populate compact codes
-        compactCodes.put(0, "x");
-        compactCodes.put(7, "o");
-        compactCodes.put(8, "i");
-        compactCodes.put(9, "c");
+        compactCodes.put(1, "x");
+        compactCodes.put(2, "o");
+        compactCodes.put(3, "i");
+        compactCodes.put(4, "c");
 
         // populate magnetic codes
         magneticCodes.put(1, "A");
