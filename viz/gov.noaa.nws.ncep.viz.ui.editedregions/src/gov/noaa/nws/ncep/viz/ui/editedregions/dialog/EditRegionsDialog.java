@@ -64,6 +64,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetConsensusResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusTodaysResults;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusYesterdaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
 import gov.noaa.nws.ncep.viz.ui.editedregions.util.EditRegionsServerUtil;
@@ -860,7 +861,10 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .getConsensus(date, region);
             GetConsensusTodaysResults todaysResults = (GetConsensusTodaysResults) response
                     .getTodaysConsensusResults();
+            GetConsensusYesterdaysResults yesterdaysResults = (GetConsensusYesterdaysResults) response
+                    .getYesterdaysConsensusResults();
 
+            // Process todays Consensus
             textTodaysArea.setText(toString(todaysResults.getArea()));
             textTodaysCarlon.setText(toString(todaysResults.getCarlon()));
             textTodaysExtent.setText(toString(todaysResults.getExtent()));
@@ -879,6 +883,32 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             textTodays00ZLocation
                     .setText(toString(todaysResults.getReport00ZLocation()));
+
+            // Process yesterdays Consensus
+            textYesterdaysArea.setText(toString(yesterdaysResults.getArea()));
+            textYesterdaysCarlon
+                    .setText(toString(yesterdaysResults.getCarlon()));
+            textYesterdaysExtent
+                    .setText(toString(yesterdaysResults.getExtent()));
+
+            textYesterdaysMagclass
+                    .setText(toString(yesterdaysResults.getMagclass()));
+            textYesterdaysNumspots
+                    .setText(toString(yesterdaysResults.getNumspots()));
+            textYesterdaysObservationTime
+                    .setText(toString(yesterdaysResults.getObservationTime()));
+            textYesterdaysObservatory
+                    .setText(toString(yesterdaysResults.getObservatory()));
+            textYesterdaysRegion
+                    .setText(toString(yesterdaysResults.getRegion()));
+
+            textYesterdaysReportLocation
+                    .setText(toString(yesterdaysResults.getReportLocation()));
+            textYesterdaysSpotclass
+                    .setText(toString(yesterdaysResults.getSpotClass()));
+
+            textYesterdays00ZLocation.setText(
+                    toString(yesterdaysResults.getReport00ZLocation()));
 
         } catch (EditedRegionsException e) {
             statusHandler.error("Error refreshing consensus.", e);

@@ -228,11 +228,11 @@ public class GetConsensusCommand extends BaseCommand {
 
             response.setTodaysConsensusResults(
                     this.computeTodaysConsensus(rsCurrentDay));
-                    // response.setFinalResults(
-                    // this.computeFinalConsensus(rsCurrentDay));
+            // response.setFinalResults(
+            // this.computeFinalConsensus(rsCurrentDay));
 
-            // response.setYesterdaysConsensusResults(
-            // this.computeYesterdaysConsensus(rsPreviousDay));
+            response.setYesterdaysConsensusResults(
+                    this.computeYesterdaysConsensus(rsPreviousDay));
 
         } catch (Exception e) {
             this.setError(new EditedRegionsException(e));
@@ -255,7 +255,6 @@ public class GetConsensusCommand extends BaseCommand {
     // TODO complete this stub
     private GetConsensusTodaysResults computeTodaysConsensus(
             List<RegionReport> reports) {
-        // TODO: How do we want to handle having no reports available?
         GetConsensusTodaysResults results = new GetConsensusTodaysResults();
 
         int count = reports.size();
@@ -324,9 +323,70 @@ public class GetConsensusCommand extends BaseCommand {
     // TODO complete this stub
     private GetConsensusYesterdaysResults computeYesterdaysConsensus(
             List<RegionReport> reports) {
+
         GetConsensusYesterdaysResults results = new GetConsensusYesterdaysResults();
 
+        int count = reports.size();
+        if (count == 0) {
+            return results;
+        }
+
+        int regionId = 0;
+
+        int latitudeSum = 0;
+        int longitudeSum = 0;
+        int carlonSum = 0;
+        int extentSum = 0;
+        int areaSum = 0;
+
+        int zurich = 0;
+        int penumbra = 0;
+        int compact = 0;
+        int magcode = 0;
+        int numSpots = 0;
+
+        for (RegionReport report : reports) {
+            latitudeSum += report.getLatitude();
+            longitudeSum += report.getLongitude();
+            carlonSum += report.getCarlon();
+            extentSum += report.getExtent();
+            areaSum += report.getArea();
+
+            // compute the max values
+            zurich = Math.max(zurich, report.getZurich());
+            penumbra = Math.max(penumbra, report.getPenumbra());
+            compact = Math.max(compact, report.getCompact());
+            magcode = Math.max(magcode, report.getMagcode());
+            numSpots = Math.max(numSpots, report.getNumspot());
+
+            regionId = report.getRegion();
+        }
+
+        // compute and set the mean values to the results object
+        results.setReportLocation(
+                getLocation(latitudeSum / count, longitudeSum / count));
+        results.setReport00ZLocation(
+                getLocation(latitudeSum / count, carlonSum / count));
+        results.setCarlon(carlonSum / count);
+        results.setExtent(extentSum / count);
+        results.setArea(areaSum / count);
+
+        // set the max values to the results object
+        results.setMagclass(RefCodes.getMagneticCode(magcode));
+        results.setNumspots(numSpots);
+
+        // Build out the spot class
+
+        String spotclass = RefCodes.getZurichCode(zurich)
+                + RefCodes.getPenumbraCode(penumbra)
+                + RefCodes.getCompactCode(compact);
+        results.setSpotClass(spotclass);
+
+        // Compute other values
+        results.setRegion(regionId);
+
         return results;
+
     }
 
     // TODO complete this stub

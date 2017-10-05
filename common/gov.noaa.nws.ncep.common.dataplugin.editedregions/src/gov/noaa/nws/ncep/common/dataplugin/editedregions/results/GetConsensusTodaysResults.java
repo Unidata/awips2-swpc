@@ -29,9 +29,6 @@ public class GetConsensusTodaysResults implements IResults {
     private String observatory;
 
     @DynamicSerializeElement
-    private Integer quality;
-
-    @DynamicSerializeElement
     private Integer region;
 
     @DynamicSerializeElement
@@ -111,21 +108,6 @@ public class GetConsensusTodaysResults implements IResults {
      */
     public void setObservatory(String observatory) {
         this.observatory = observatory;
-    }
-
-    /**
-     * @return the quality
-     */
-    public Integer getQuality() {
-        return quality;
-    }
-
-    /**
-     * @param quality
-     *            the quality to set
-     */
-    public void setQuality(Integer quality) {
-        this.quality = quality;
     }
 
     /**
