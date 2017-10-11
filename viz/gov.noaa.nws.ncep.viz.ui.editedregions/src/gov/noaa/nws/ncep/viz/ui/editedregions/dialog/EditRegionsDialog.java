@@ -65,6 +65,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ExitRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ExitResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetConsensusResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusFinalResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusTodaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusYesterdaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetRegionReportsResults;
@@ -868,6 +869,8 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     .getTodaysConsensusResults();
             GetConsensusYesterdaysResults yesterdaysResults = (GetConsensusYesterdaysResults) response
                     .getYesterdaysConsensusResults();
+            GetConsensusFinalResults finalResults = (GetConsensusFinalResults) response
+                    .getFinalConsensusResults();
 
             // Process todays Consensus
             textTodaysArea.setText(toString(todaysResults.getArea()));
@@ -914,6 +917,26 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
             textYesterdays00ZLocation.setText(
                     toString(yesterdaysResults.getReport00ZLocation()));
+
+            // Process final consensus
+            textFinalArea.setText(toString(finalResults.getArea()));
+            textFinalCarlon.setText(toString(finalResults.getCarlon()));
+            textFinalExtent.setText(toString(finalResults.getExtent()));
+
+            textFinalMagclass.setText(toString(finalResults.getMagclass()));
+            textFinalNumspots.setText(toString(finalResults.getNumspots()));
+            textFinalObservationTime.setText(
+                    getObservationTime(finalResults.getObservationTime()));
+            textFinalObservatory
+                    .setText(toString(finalResults.getObservatory()));
+            textFinalRegion.setText(toString(finalResults.getRegion()));
+
+            textFinalReportLocation
+                    .setText(toString(finalResults.getReportLocation()));
+            textFinalSpotclass.setText(toString(finalResults.getSpotClass()));
+
+            textFinal00ZLocation
+                    .setText(toString(finalResults.getReport00ZLocation()));
 
         } catch (EditedRegionsException e) {
             statusHandler.error("Error refreshing consensus.", e);
