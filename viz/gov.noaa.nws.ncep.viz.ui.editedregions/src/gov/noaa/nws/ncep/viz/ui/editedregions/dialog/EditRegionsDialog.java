@@ -347,43 +347,45 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         }
 
         new Label(gridComp, SWT.LEFT).setText("Yesterday's report");
-        textYesterdaysObservationTime = createConsensusTextControl(gridComp);
-        textYesterdaysObservatory = createConsensusTextControl(gridComp);
-        textYesterdaysRegion = createConsensusTextControl(gridComp);
-        textYesterdaysReportLocation = createConsensusTextControl(gridComp);
-        textYesterdays00ZLocation = createConsensusTextControl(gridComp);
-        textYesterdaysCarlon = createConsensusTextControl(gridComp);
-        textYesterdaysExtent = createConsensusTextControl(gridComp);
-        textYesterdaysArea = createConsensusTextControl(gridComp);
-        textYesterdaysNumspots = createConsensusTextControl(gridComp);
-        textYesterdaysSpotclass = createConsensusTextControl(gridComp);
-        textYesterdaysMagclass = createConsensusTextControl(gridComp);
+        textYesterdaysObservationTime = createConsensusTextControl(gridComp,
+                true);
+        textYesterdaysObservatory = createConsensusTextControl(gridComp, true);
+        textYesterdaysRegion = createConsensusTextControl(gridComp, true);
+        textYesterdaysReportLocation = createConsensusTextControl(gridComp,
+                true);
+        textYesterdays00ZLocation = createConsensusTextControl(gridComp, true);
+        textYesterdaysCarlon = createConsensusTextControl(gridComp, true);
+        textYesterdaysExtent = createConsensusTextControl(gridComp, true);
+        textYesterdaysArea = createConsensusTextControl(gridComp, true);
+        textYesterdaysNumspots = createConsensusTextControl(gridComp, true);
+        textYesterdaysSpotclass = createConsensusTextControl(gridComp, true);
+        textYesterdaysMagclass = createConsensusTextControl(gridComp, true);
 
         new Label(gridComp, SWT.LEFT).setText("Today's Consensus");
-        textTodaysObservationTime = createConsensusTextControl(gridComp);
-        textTodaysObservatory = createConsensusTextControl(gridComp);
-        textTodaysRegion = createConsensusTextControl(gridComp);
-        textTodaysReportLocation = createConsensusTextControl(gridComp);
-        textTodays00ZLocation = createConsensusTextControl(gridComp);
-        textTodaysCarlon = createConsensusTextControl(gridComp);
-        textTodaysExtent = createConsensusTextControl(gridComp);
-        textTodaysArea = createConsensusTextControl(gridComp);
-        textTodaysNumspots = createConsensusTextControl(gridComp);
-        textTodaysSpotclass = createConsensusTextControl(gridComp);
-        textTodaysMagclass = createConsensusTextControl(gridComp);
+        textTodaysObservationTime = createConsensusTextControl(gridComp, true);
+        textTodaysObservatory = createConsensusTextControl(gridComp, true);
+        textTodaysRegion = createConsensusTextControl(gridComp, true);
+        textTodaysReportLocation = createConsensusTextControl(gridComp, true);
+        textTodays00ZLocation = createConsensusTextControl(gridComp, true);
+        textTodaysCarlon = createConsensusTextControl(gridComp, true);
+        textTodaysExtent = createConsensusTextControl(gridComp, true);
+        textTodaysArea = createConsensusTextControl(gridComp, true);
+        textTodaysNumspots = createConsensusTextControl(gridComp, true);
+        textTodaysSpotclass = createConsensusTextControl(gridComp, true);
+        textTodaysMagclass = createConsensusTextControl(gridComp, true);
 
         new Label(gridComp, SWT.LEFT).setText("Today's Final");
-        textFinalObservationTime = createConsensusTextControl(gridComp);
-        textFinalObservatory = createConsensusTextControl(gridComp);
-        textFinalRegion = createConsensusTextControl(gridComp);
-        textFinalReportLocation = createConsensusTextControl(gridComp);
-        textFinal00ZLocation = createConsensusTextControl(gridComp);
-        textFinalCarlon = createConsensusTextControl(gridComp);
-        textFinalExtent = createConsensusTextControl(gridComp);
-        textFinalArea = createConsensusTextControl(gridComp);
-        textFinalNumspots = createConsensusTextControl(gridComp);
-        textFinalSpotclass = createConsensusTextControl(gridComp);
-        textFinalMagclass = createConsensusTextControl(gridComp);
+        textFinalObservationTime = createConsensusTextControl(gridComp, false);
+        textFinalObservatory = createConsensusTextControl(gridComp, false);
+        textFinalRegion = createConsensusTextControl(gridComp, false);
+        textFinalReportLocation = createConsensusTextControl(gridComp, false);
+        textFinal00ZLocation = createConsensusTextControl(gridComp, false);
+        textFinalCarlon = createConsensusTextControl(gridComp, false);
+        textFinalExtent = createConsensusTextControl(gridComp, false);
+        textFinalArea = createConsensusTextControl(gridComp, false);
+        textFinalNumspots = createConsensusTextControl(gridComp, false);
+        textFinalSpotclass = createConsensusTextControl(gridComp, false);
+        textFinalMagclass = createConsensusTextControl(gridComp, false);
 
         Composite checkboxComp = new Composite(consensusComp, SWT.NONE);
         checkboxComp.setLayout(new GridLayout(1, true));
@@ -392,8 +394,19 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
     }
 
-    private Text createConsensusTextControl(Composite parent) {
-        Text text = new Text(parent, SWT.BORDER | SWT.READ_ONLY);
+    /**
+     * 
+     * @param parent
+     *            the parent control
+     * @param readOnly
+     *            whether or not the text box will be read-only
+     * @return
+     */
+    private Text createConsensusTextControl(Composite parent,
+            boolean readOnly) {
+        int readOnlyInt = (readOnly) ? SWT.READ_ONLY : 0x00;
+        Text text = new Text(parent, SWT.BORDER | readOnlyInt);
+        text.setEnabled(!readOnly);
         GridData gridData = new GridData();
         gridData.widthHint = 75;
         gridData.heightHint = 15;
