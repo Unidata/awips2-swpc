@@ -853,7 +853,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         resizeTable(assignedRegionTableViewer);
         resizeTable(unassignedRegionTableViewer);
 
-        List<String> regionStrings = new ArrayList<String>();
+        List<String> regionStrings = new ArrayList<>();
         for (Integer region : regionIDs) {
             regionStrings.add(String.valueOf(region));
         }

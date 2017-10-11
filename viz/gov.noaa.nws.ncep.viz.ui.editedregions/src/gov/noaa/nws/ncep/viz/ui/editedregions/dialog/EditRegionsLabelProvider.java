@@ -1,10 +1,5 @@
 package gov.noaa.nws.ncep.viz.ui.editedregions.dialog;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor;
@@ -302,18 +297,6 @@ public class EditRegionsLabelProvider implements ITableLabelProvider {
 
             // TODO: add code, or nuke this subclass.
         }
-    }
-
-    /**
-     * Clean the array of strings to remove empty strings
-     * 
-     * @param v
-     * @return String[]
-     */
-    public static String[] clean(final String[] v) {
-        List<String> list = new ArrayList<String>(Arrays.asList(v));
-        list.removeAll(Collections.singleton(""));
-        return list.toArray(new String[list.size()]);
     }
 
     /**
