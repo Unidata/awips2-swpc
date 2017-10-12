@@ -1,6 +1,5 @@
 package gov.noaa.nws.ncep.edex.plugin.editedregions.dao;
 
-import java.sql.SQLException;
 import java.util.Calendar;
 
 import org.hibernate.Criteria;
@@ -10,7 +9,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.TransactionCallback;
 
-import com.raytheon.uf.common.dataplugin.PluginException;
 import com.raytheon.uf.edex.database.dao.CoreDao;
 import com.raytheon.uf.edex.database.dao.DaoConfig;
 
@@ -152,9 +150,14 @@ public class RegionConsensusDao extends CoreDao {
     //
     // return reportsWithoutHistory;
     // }
-
-    public RegionConsensus getYesterdaysReport(final Integer regionId)
-            throws SQLException, PluginException {
+    /**
+     * Get the consensus report for the previous UTC date.
+     * 
+     * @param regionId
+     *            the region ID.
+     * @return the consensus report, or null if it doesn't exist.
+     */
+    public RegionConsensus getYesterdaysReport(final Integer regionId) {
 
         long timeInMillis = System.currentTimeMillis();
         long millisInDay = 86400000L;
@@ -191,8 +194,14 @@ public class RegionConsensusDao extends CoreDao {
         });
     }
 
-    public RegionConsensus getTodaysFinal(final Integer regionId)
-            throws SQLException, PluginException {
+    /**
+     * Get the ConsensusReport for the current UTC date.
+     * 
+     * @param regionId
+     *            the region ID.
+     * @return the consensus report, or null if it doesn't exist.
+     */
+    public RegionConsensus getTodaysFinal(final Integer regionId) {
 
         long timeInMillis = System.currentTimeMillis();
         long millisInDay = 86400000L;
