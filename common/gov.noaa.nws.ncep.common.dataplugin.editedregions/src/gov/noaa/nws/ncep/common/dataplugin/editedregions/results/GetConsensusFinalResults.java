@@ -22,6 +22,8 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  */
 @DynamicSerialize
 public class GetConsensusFinalResults implements IResults {
+    @DynamicSerializeElement
+    private boolean populated;
 
     @DynamicSerializeElement
     private Long observationTime;
@@ -274,6 +276,21 @@ public class GetConsensusFinalResults implements IResults {
      */
     public void setSpotClass(String spotClass) {
         this.spotClass = spotClass;
+    }
+
+    /**
+     * @return the populated
+     */
+    public boolean isPopulated() {
+        return populated;
+    }
+
+    /**
+     * @param populated
+     *            the populated to set
+     */
+    public void setPopulated(boolean populated) {
+        this.populated = populated;
     }
 
 }
