@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionConsensus;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetConsensusRequest;
@@ -18,6 +19,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusFin
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusTodaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.GetConsensusYesterdaysResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.util.EditedRegionsConstants;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionConsensusDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionReportsDao;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.util.RefCodes;
 
@@ -43,6 +45,11 @@ public class GetConsensusCommand extends BaseCommand {
      * Dao for Region Reports
      */
     private RegionReportsDao regionReportsDao = null;
+
+    /**
+     * Dao for access to the SWPC_REGION_CONSENSUS table
+     */
+    private RegionConsensusDao regionConsensusDao = null;
 
     /**
      * Logger
@@ -184,9 +191,8 @@ public class GetConsensusCommand extends BaseCommand {
         try {
 
             regionReportsDao = new RegionReportsDao();
+            regionConsensusDao = new RegionConsensusDao();
 
-            // What region are we interested in
-            int region = request.getRegion();
             Calendar date = Calendar
                     .getInstance(EditedRegionsConstants.TIME_ZONE_UTC);
 
@@ -206,23 +212,21 @@ public class GetConsensusCommand extends BaseCommand {
             // obtain all region reports for the given region
             // and given date
             List<RegionReport> rsCurrentDay = regionReportsDao
-                    .getRegionReports(start, end, region);
+                    .getRegionReports(start, end, request.getRegion());
 
             // obtain all region reports for the given region for the previous
             // day
+            // TODO this goes away when logic to pull the previous days final
+            // report is completed
             cal.add(Calendar.DAY_OF_MONTH, -1);
             start = cal.getTime();
             end = new Date(start.getTime() + DAY_IN_MILLIS);
             Calendar yesterdaysCalendar = (Calendar) cal.clone();
 
             List<RegionReport> rsPreviousDay = regionReportsDao
-                    .getRegionReports(start, end, region);
+                    .getRegionReports(start, end, request.getRegion());
 
-            // compute the three consensus values
-            // 1) Todays Consensus
-            // 2) Yesterdays Consensus
-            // 3) Final Consensus
-
+            // compute the Todays Consensus values
             if (rsCurrentDay.isEmpty() || rsPreviousDay.isEmpty()) {
                 response.setErrorMessage(
                         "No Records Found for Current and / or Previous Day.  Some consensus values may not have been computed.");
@@ -231,9 +235,17 @@ public class GetConsensusCommand extends BaseCommand {
             response.setTodaysConsensusResults(
                     this.computeTodaysConsensus(todaysCalendar, rsCurrentDay));
 
+            // Obtain Yesterdays Report and add it to the
+            // GetConsensusResponse
+            RegionConsensus yesterdaysReport = regionConsensusDao
+                    .getYesterdaysReport(request.getRegion());
+
             response.setYesterdaysConsensusResults(
-                    this.computeYesterdaysConsensus(yesterdaysCalendar,
-                            rsPreviousDay));
+                    this.createYesterdaysResults(yesterdaysReport));
+
+            // TODO this will go away because the Final Consensus values are
+            // initiall
+            // the values for from Todays Consensus
             response.setFinalConsensusResults(
                     this.computeFinalConsensus(todaysCalendar, rsCurrentDay));
 
@@ -253,6 +265,46 @@ public class GetConsensusCommand extends BaseCommand {
         response.setProcessingTime(this.getProcessingTime());
 
         return response;
+    }
+
+    /**
+     * Convenience method to populate the values on the
+     * GetConsensusYesterdaysResults class with the values from the
+     * RegionConsensus instance that represents yesterdays report
+     * 
+     * @param yesterday
+     * 
+     * @return GetConsensusYesterdaysResults
+     */
+    private GetConsensusYesterdaysResults createYesterdaysResults(
+            RegionConsensus yesterday) {
+
+        GetConsensusYesterdaysResults yesterdaysResults = new GetConsensusYesterdaysResults();
+
+        if (yesterday == null) {
+            return yesterdaysResults;
+        } else { // populate yesterdays results
+
+            yesterdaysResults.setArea(yesterday.getArea());
+            yesterdaysResults
+                    .setObservationTime(yesterday.getObservationTime());
+            yesterdaysResults.setObservatory(yesterday.getObservatory());
+            yesterdaysResults.setRegion(yesterday.getRegion());
+            yesterdaysResults.setLatitude(yesterday.getLatitude());
+            yesterdaysResults.setLongitude(yesterday.getLongitude());
+            yesterdaysResults.setCarlon(yesterday.getCarlon());
+            yesterdaysResults.setExtent(yesterday.getExtent());
+            yesterdaysResults.setNumspots(yesterday.getNumspots());
+            yesterdaysResults.setMagclass(yesterday.getMagclass());
+            yesterdaysResults.setReportLocation(yesterday.getReportLocation());
+            yesterdaysResults
+                    .setReport00ZLocation(yesterday.getReport00ZLocation());
+            yesterdaysResults.setSpotClass(yesterday.getSpotClass());
+
+        }
+
+        return yesterdaysResults;
+
     }
 
     // TODO complete this stub
