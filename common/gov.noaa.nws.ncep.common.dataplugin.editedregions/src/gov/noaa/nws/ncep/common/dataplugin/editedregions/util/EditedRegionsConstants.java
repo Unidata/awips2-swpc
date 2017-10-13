@@ -23,7 +23,8 @@ public class EditedRegionsConstants {
     /**
      * UTC Time Zone
      */
-    public static final TimeZone TIME_ZONE_UTC = TimeZone.getTimeZone("UTC");
+    public static final TimeZone TIME_ZONE_UTC = TimeZone
+            .getTimeZone("Etc/UTC");
 
     /**
      * Plugin name

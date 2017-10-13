@@ -1102,6 +1102,9 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
     };
 
     private static String getObservationTime(Long timestamp) {
+        if (timestamp == null) {
+            return "";
+        }
         Date date = new Date(timestamp.longValue());
         String strDate = OBSERVATION_DATE_FORMAT.get().format(date);
 
