@@ -932,25 +932,49 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
                     toString(yesterdaysResults.getReport00ZLocation()));
 
             // Process final consensus
-            textFinalArea.setText(toString(finalResults.getArea()));
-            textFinalCarlon.setText(toString(finalResults.getCarlon()));
-            textFinalExtent.setText(toString(finalResults.getExtent()));
+            if (finalResults.isPopulated()) {
+                textFinalArea.setText(toString(finalResults.getArea()));
+                textFinalCarlon.setText(toString(finalResults.getCarlon()));
+                textFinalExtent.setText(toString(finalResults.getExtent()));
 
-            textFinalMagclass.setText(toString(finalResults.getMagclass()));
-            textFinalNumspots.setText(toString(finalResults.getNumspots()));
-            textFinalObservationTime.setText(
-                    getObservationTime(finalResults.getObservationTime()));
-            textFinalObservatory
-                    .setText(toString(finalResults.getObservatory()));
-            textFinalRegion.setText(toString(finalResults.getRegion()));
+                textFinalMagclass.setText(toString(finalResults.getMagclass()));
+                textFinalNumspots.setText(toString(finalResults.getNumspots()));
+                textFinalObservationTime.setText(
+                        getObservationTime(finalResults.getObservationTime()));
+                textFinalObservatory
+                        .setText(toString(finalResults.getObservatory()));
+                textFinalRegion.setText(toString(finalResults.getRegion()));
 
-            textFinalReportLocation
-                    .setText(toString(finalResults.getReportLocation()));
-            textFinalSpotclass.setText(toString(finalResults.getSpotClass()));
+                textFinalReportLocation
+                        .setText(toString(finalResults.getReportLocation()));
+                textFinalSpotclass
+                        .setText(toString(finalResults.getSpotClass()));
 
-            textFinal00ZLocation
-                    .setText(toString(finalResults.getReport00ZLocation()));
+                textFinal00ZLocation
+                        .setText(toString(finalResults.getReport00ZLocation()));
+            } else {
+                textFinalArea.setText(toString(todaysResults.getArea()));
+                textFinalCarlon.setText(toString(todaysResults.getCarlon()));
+                textFinalExtent.setText(toString(todaysResults.getExtent()));
 
+                textFinalMagclass
+                        .setText(toString(todaysResults.getMagclass()));
+                textFinalNumspots
+                        .setText(toString(todaysResults.getNumspots()));
+                textFinalObservationTime.setText(
+                        getObservationTime(todaysResults.getObservationTime()));
+                textFinalObservatory
+                        .setText(toString(todaysResults.getObservatory()));
+                textFinalRegion.setText(toString(todaysResults.getRegion()));
+
+                textFinalReportLocation
+                        .setText(toString(todaysResults.getReportLocation()));
+                textFinalSpotclass
+                        .setText(toString(todaysResults.getSpotClass()));
+
+                textFinal00ZLocation.setText(
+                        toString(todaysResults.getReport00ZLocation()));
+            }
         } catch (EditedRegionsException e) {
             statusHandler.error("Error refreshing consensus.", e);
         }
