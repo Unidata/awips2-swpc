@@ -214,21 +214,10 @@ public class GetConsensusCommand extends BaseCommand {
             List<RegionReport> rsCurrentDay = regionReportsDao
                     .getRegionReports(start, end, request.getRegion());
 
-            // obtain all region reports for the given region for the previous
-            // day
-            // TODO this goes away when logic to pull the previous days final
-            // report is completed
-            cal.add(Calendar.DAY_OF_MONTH, -1);
-            start = cal.getTime();
-            end = new Date(start.getTime() + DAY_IN_MILLIS);
-
-            List<RegionReport> rsPreviousDay = regionReportsDao
-                    .getRegionReports(start, end, request.getRegion());
-
             // compute the Todays Consensus values
-            if (rsCurrentDay.isEmpty() || rsPreviousDay.isEmpty()) {
+            if (rsCurrentDay.isEmpty()) {
                 response.setErrorMessage(
-                        "No Records Found for Current and / or Previous Day.  Some consensus values may not have been computed.");
+                        "No Records Found for Current Day.  Some consensus values may not have been computed.");
             }
 
             response.setTodaysConsensusResults(
