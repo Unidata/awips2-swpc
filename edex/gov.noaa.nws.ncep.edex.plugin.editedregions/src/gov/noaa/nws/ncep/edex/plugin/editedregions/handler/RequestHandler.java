@@ -15,6 +15,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReport
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UnknownRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateConsensusRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
@@ -28,6 +29,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionRepor
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UnknownRequestResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateConsensusResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.CreateRegionCommand;
@@ -39,6 +41,7 @@ import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetReferenceDataComm
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionReportsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.GetRegionsCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ProcessIngestedReportsCommand;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateConsensusCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.UpdateRegionReportCommand;
 import gov.noaa.nws.ncep.edex.plugin.editedregions.commands.ViewRegionReportHistoryCommand;
 
@@ -100,6 +103,25 @@ public class RequestHandler implements IRequestHandler<IServerRequest> {
             }
 
             return getConsensusResponse;
+
+        case "UpdateConsensusRequest":
+            UpdateConsensusRequest updateConsensusRequest = UpdateConsensusRequest.class
+                    .cast(request);
+            UpdateConsensusResponse updateConsensusResponse = null;
+
+            if (!updateConsensusRequest.isValid()) {
+                updateConsensusResponse = new UpdateConsensusResponse();
+                EditedRegionsException e = new EditedRegionsException(
+                        "ERROR - " + "Request Is Invalid");
+                updateConsensusResponse.setError(e);
+            } else {
+                UpdateConsensusCommand command = new UpdateConsensusCommand();
+                command.setRequest(updateConsensusRequest);
+                updateConsensusResponse = (UpdateConsensusResponse) command
+                        .execute();
+            }
+
+            return updateConsensusResponse;
 
         case "ViewRegionReportHistoryRequest":
             ViewRegionReportHistoryRequest viewRegionReportHistoryRequest = (ViewRegionReportHistoryRequest) Class
