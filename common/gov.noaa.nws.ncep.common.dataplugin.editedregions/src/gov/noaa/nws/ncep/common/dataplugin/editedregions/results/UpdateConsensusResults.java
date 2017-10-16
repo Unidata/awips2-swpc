@@ -5,10 +5,8 @@ import com.raytheon.uf.common.serialization.annotations.DynamicSerialize;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
- * Class used to hold any results from executing the ExitCommand
+ * Class used to hold any results from executing the UpdateConsensusCommand
  * 
- * TODO in subsequent releases this class may not be necessary...review in ER
- * 2.0
  * 
  * <pre>
  * 
@@ -16,7 +14,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  * 
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
- * Apr 10, 2016 R9583      sgurung     Initial creation
+ * Apr 10, 2016 R9583      alockleigh     Initial creation
  * 
  * </pre>
  * 

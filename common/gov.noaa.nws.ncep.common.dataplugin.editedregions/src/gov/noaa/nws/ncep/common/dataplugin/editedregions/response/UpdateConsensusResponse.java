@@ -12,7 +12,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
 
 /**
  * The response class holding the results obtained from the execution of the
- * Exit command
+ * Update Consensus command
  * 
  * <pre>
  *
@@ -20,7 +20,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
  *
  * Date         Ticket#    Engineer    Description
  * ------------ ---------- ----------- --------------------------
- * Apr 01, 2016 R9583       sgurung     Initial creation
+ * Apr 01, 2016 R9583       alockleigh     Initial creation
  *
  * </pre>
  *

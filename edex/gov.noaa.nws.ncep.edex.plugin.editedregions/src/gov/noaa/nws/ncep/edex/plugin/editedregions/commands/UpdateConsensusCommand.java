@@ -3,6 +3,7 @@ package gov.noaa.nws.ncep.edex.plugin.editedregions.commands;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionConsensus;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateConsensusRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.intf.IRequest;
@@ -10,6 +11,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateConsensu
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.intf.IResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.UpdateConsensusResults;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.intf.IResults;
+import gov.noaa.nws.ncep.edex.plugin.editedregions.dao.RegionConsensusDao;
 
 /**
  * 
@@ -36,6 +38,8 @@ public class UpdateConsensusCommand extends BaseCommand {
      * command
      */
     private UpdateConsensusRequest request = null;
+
+    private RegionConsensusDao regionConsensusDao = null;
 
     /**
      * 
@@ -173,31 +177,25 @@ public class UpdateConsensusCommand extends BaseCommand {
 
         this.setStartTime();
 
-        UpdateConsensusResults results = new UpdateConsensusResults();
+        regionConsensusDao = new RegionConsensusDao();
 
-        // try {
-        // eventsDao = new EventsDao();
-        //
-        // // Dump deleted events
-        // int numRecordsDeleted =
-        // eventsDao.removeDeletedEvents(this.request.getBeginDTTM());
-        //
-        // // Change events age to 'OLD' for events whose age is 'NEW' or 'COR'
-        // int numRecordsUpdated =
-        // eventsDao.setEventsAgeToOld(this.request.getBeginDTTM());
-        //
-        // // Set changeflag to 0
-        // numRecordsUpdated +=
-        // eventsDao.setChangeFlagToZero(this.request.getBeginDTTM());
-        //
-        // results.setNumRecordsDeleted(numRecordsDeleted);
-        // results.setNumRecordsUpdated(numRecordsUpdated);
-        //
-        // } catch (Exception e) {
-        // error = new EditedRegionsException(
-        // "ERROR - Exception occured while executing the ExitCommand.",e);
-        // e.printStackTrace();
-        // }
+        // Get the consensus objects.
+
+        RegionConsensus newConsensus = request.getConsensus();
+
+        RegionConsensus currentConsensus = regionConsensusDao
+                .getTodaysFinal(newConsensus.getRegion());
+
+        // If a consensus object exists in the database, attach it's id to the
+        // newConsensus object so that it gets overwritten with new data
+        // instead of adding a new record.
+        if (currentConsensus != null) {
+            newConsensus.setId(currentConsensus.getId());
+        }
+
+        regionConsensusDao.saveOrUpdate(newConsensus);
+
+        UpdateConsensusResults results = new UpdateConsensusResults();
 
         this.setEndTime();
 

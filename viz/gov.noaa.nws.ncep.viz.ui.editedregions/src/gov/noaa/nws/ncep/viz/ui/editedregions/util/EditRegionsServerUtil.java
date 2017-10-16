@@ -12,6 +12,7 @@ import java.util.TreeSet;
 import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionConsensus;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionHistoryReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
@@ -24,6 +25,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetReferenceDat
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionReportsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.GetRegionsRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ProcessIngestedReportsRequest;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateConsensusRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.UpdateRegionReportRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.request.ViewRegionReportHistoryRequest;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.CreateRegionReportResponse;
@@ -34,6 +36,7 @@ import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetReferenceDa
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionReportsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.GetRegionsResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ProcessIngestedReportsResponse;
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateConsensusResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.UpdateRegionReportResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.response.ViewRegionReportHistoryResponse;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.results.CreateRegionReportResults;
@@ -110,6 +113,21 @@ public final class EditRegionsServerUtil {
             }
         } catch (EditedRegionsException e) {
             statusHandler.error("Error updating report history.", e);
+        }
+    }
+
+    public static void saveTodaysFinal(RegionConsensus consensus)
+            throws EditedRegionsException {
+
+        UpdateConsensusRequest request = new UpdateConsensusRequest();
+        request.setConsensus(consensus);
+
+        if (request.isValid()) {
+            UpdateConsensusResponse response = Gateway.getInstance()
+                    .submit(request);
+            if (response.hasErrors()) {
+                throw response.getError();
+            }
         }
     }
 

@@ -59,6 +59,7 @@ import com.raytheon.uf.common.status.IUFStatusHandler;
 import com.raytheon.uf.common.status.UFStatus;
 import com.raytheon.uf.common.status.UFStatus.Priority;
 
+import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionConsensus;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.RegionReport;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.exception.EditedRegionsException;
 import gov.noaa.nws.ncep.common.dataplugin.editedregions.gateway.Gateway;
@@ -389,8 +390,72 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         Composite checkboxComp = new Composite(consensusComp, SWT.NONE);
         checkboxComp.setLayout(new GridLayout(1, true));
-        new Button(checkboxComp, SWT.CHECK).setText("Fix Final");
+
+        Button btnFixFinal = new Button(checkboxComp, SWT.CHECK);
+        btnFixFinal.setText("Fix Final");
+        btnFixFinal.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent ev) {
+                handleFixedFinal(btnFixFinal.getSelection());
+            }
+        });
+
         new Button(checkboxComp, SWT.CHECK).setText("Inactivate");
+
+    }
+
+    /**
+     * Method for handling when the fixed final check box is toggled.
+     * 
+     * @param checked
+     *            whether or not the check box is checked.
+     */
+    private void handleFixedFinal(boolean checked) {
+        // Enable or disable the text boxes as necessary.
+
+        textFinalArea.setEnabled(!checked);
+        textFinalCarlon.setEnabled(!checked);
+        textFinalExtent.setEnabled(!checked);
+
+        textFinalMagclass.setEnabled(!checked);
+        textFinalNumspots.setEnabled(!checked);
+        textFinalObservationTime.setEnabled(!checked);
+        textFinalObservatory.setEnabled(!checked);
+        textFinalRegion.setEnabled(!checked);
+
+        textFinalReportLocation.setEnabled(!checked);
+        textFinalSpotclass.setEnabled(!checked);
+
+        textFinal00ZLocation.setEnabled(!checked);
+
+        if (checked) {
+            try {
+                // Build RegionConsensus object
+                RegionConsensus consensus = new RegionConsensus();
+                consensus.setObservationTime(System.currentTimeMillis());
+
+                consensus.setArea(Integer.parseInt(textFinalArea.getText()));
+                consensus
+                        .setCarlon(Integer.parseInt(textFinalCarlon.getText()));
+                consensus
+                        .setExtent(Integer.parseInt(textFinalExtent.getText()));
+                consensus.setMagclass(textFinalMagclass.getText());
+                consensus.setNumspots(
+                        Integer.parseInt(textFinalNumspots.getText()));
+                consensus.setObservatory(textFinalObservatory.getText());
+                consensus
+                        .setRegion(Integer.parseInt(textFinalRegion.getText()));
+                consensus.setReportLocation(textFinalReportLocation.getText());
+                consensus.setSpotClass(textFinalSpotclass.getText());
+                consensus.setReport00ZLocation(textFinal00ZLocation.getText());
+
+                // Submit to server.
+                EditRegionsServerUtil.saveTodaysFinal(consensus);
+            } catch (EditedRegionsException e) {
+                statusHandler.handle(Priority.PROBLEM, e.getLocalizedMessage(),
+                        e);
+            }
+        }
 
     }
 
