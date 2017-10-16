@@ -131,8 +131,7 @@ public class GetConsensusCommand extends BaseCommand {
      * 
      * @see
      * gov.noaa.nws.ncep.edex.plugin.editedevents.commands.intf.ICommand#isValid
-     * () TODO - do we really need to validate the request here... TODO - the
-     * request should be validated before adding it to the command
+     * ()
      */
     @Override
     public boolean isValid() {
@@ -337,7 +336,6 @@ public class GetConsensusCommand extends BaseCommand {
 
     }
 
-    // TODO complete this stub
     private GetConsensusTodaysResults computeTodaysConsensus(Calendar date,
             List<RegionReport> reports) {
         GetConsensusTodaysResults results = new GetConsensusTodaysResults();
@@ -348,13 +346,11 @@ public class GetConsensusCommand extends BaseCommand {
         }
 
         int regionId = 0;
-
         int latitudeSum = 0;
         int longitudeSum = 0;
         int carlonSum = 0;
         int extentSum = 0;
         int areaSum = 0;
-
         int zurich = 0;
         int penumbra = 0;
         int compact = 0;
