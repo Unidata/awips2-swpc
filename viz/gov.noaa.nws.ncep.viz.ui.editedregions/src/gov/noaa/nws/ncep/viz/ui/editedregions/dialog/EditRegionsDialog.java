@@ -376,7 +376,7 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
         textTodaysMagclass = createConsensusTextControl(gridComp, true);
 
         new Label(gridComp, SWT.LEFT).setText("Today's Final");
-        textFinalObservationTime = createConsensusTextControl(gridComp, false);
+        textFinalObservationTime = createConsensusTextControl(gridComp, true);
         textFinalObservatory = createConsensusTextControl(gridComp, false);
         textFinalRegion = createConsensusTextControl(gridComp, false);
         textFinalReportLocation = createConsensusTextControl(gridComp, false);
@@ -419,7 +419,6 @@ public class EditRegionsDialog extends Dialog { // implements IEventsObserver {
 
         textFinalMagclass.setEnabled(!checked);
         textFinalNumspots.setEnabled(!checked);
-        textFinalObservationTime.setEnabled(!checked);
         textFinalObservatory.setEnabled(!checked);
         textFinalRegion.setEnabled(!checked);
 
