@@ -184,6 +184,7 @@ public class EnterRegionReportDialog extends Dialog {
         txtArea.setText(convertToString(report.getArea()));
         txtSpotClass.setText(convertToString(report.getSpotclass()));
         txtNumspots.setText(convertToString(report.getNumspot()));
+        selectItem(cmbMagclass, report.getMagclass());
     }
 
     /**
