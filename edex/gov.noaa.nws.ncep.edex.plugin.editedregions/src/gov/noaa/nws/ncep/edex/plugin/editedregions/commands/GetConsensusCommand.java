@@ -348,6 +348,7 @@ public class GetConsensusCommand extends BaseCommand {
         int regionId = 0;
         int latitudeSum = 0;
         int longitudeSum = 0;
+        int reportLongitudeSum = 0;
         int carlonSum = 0;
         int extentSum = 0;
         int areaSum = 0;
@@ -360,6 +361,7 @@ public class GetConsensusCommand extends BaseCommand {
         for (RegionReport report : reports) {
             latitudeSum += report.getLatitude();
             longitudeSum += report.getLongitude();
+            reportLongitudeSum += report.getReportLongitude();
             carlonSum += report.getCarlon();
             extentSum += report.getExtent();
             areaSum += report.getArea();
@@ -378,7 +380,7 @@ public class GetConsensusCommand extends BaseCommand {
         results.setReportLocation(
                 getLocation(latitudeSum / count, longitudeSum / count));
         results.setReport00ZLocation(
-                getLocation(latitudeSum / count, carlonSum / count));
+                getLocation(latitudeSum / count, reportLongitudeSum / count));
         results.setCarlon(carlonSum / count);
         results.setExtent(extentSum / count);
         results.setArea(areaSum / count);
