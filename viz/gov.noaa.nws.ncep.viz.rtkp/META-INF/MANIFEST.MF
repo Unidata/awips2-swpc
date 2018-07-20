@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.core.runtime,
  gov.noaa.nws.ncep.viz.rsc.timeseries
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: com.raytheon.uf.viz.d2d.core,
+Import-Package: com.raytheon.uf.viz.core.rsc.groups,
+ com.raytheon.uf.viz.d2d.core,
  com.raytheon.uf.viz.d2d.ui,
  com.raytheon.uf.viz.xy.graph,
  gov.noaa.nws.ncep.viz.common.display,

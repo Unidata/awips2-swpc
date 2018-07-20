@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.core.runtime,
  com.raytheon.uf.viz.xy.timeseries
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Import-Package: gov.noaa.nws.ncep.common.dataplugin.geomag,
+Import-Package: com.raytheon.uf.viz.d2d.core.procedures,
+ gov.noaa.nws.ncep.common.dataplugin.geomag,
  gov.noaa.nws.ncep.common.dataplugin.geomag.calculation,
  gov.noaa.nws.ncep.common.dataplugin.geomag.exception,
  gov.noaa.nws.ncep.common.dataplugin.geomag.request,
