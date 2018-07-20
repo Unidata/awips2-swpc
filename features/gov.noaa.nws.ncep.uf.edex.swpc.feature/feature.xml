@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="gov.noaa.nws.ncep.swpc.edex.feature"
+      id="gov.noaa.nws.ncep.uf.edex.swpc.feature"
       label="NCEP SWPC EDEX plugin Feature"
       version="1.0.0.qualifier">
 
@@ -15,6 +15,44 @@
    <license url="http://www.example.com/license">
       [Enter License Description here.]
    </license>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.geomag"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+       
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.ghcd"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.solarimage"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+  <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.editedevents"
+         download-size="0" 
+         install-size="0"
+         version="0.0.0" 
+         unpack="false"/>
+  <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.editedregions"
+         download-size="0" 
+         install-size="0"
+         version="0.0.0" 
+         unpack="false"/>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.swpcrefdb"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="gov.noaa.nws.ncep.edex.plugin.geomag"
