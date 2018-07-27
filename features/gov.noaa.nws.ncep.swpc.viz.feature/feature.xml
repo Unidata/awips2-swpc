@@ -21,9 +21,46 @@
       <import feature="com.raytheon.uf.viz.common.core.feature" version="1.0.0.qualifier"/>
       <import feature="com.raytheon.uf.viz.ncep.core.feature" version="1.0.0.qualifier"/>
       <import feature="com.raytheon.uf.viz.ncep.dataplugins.feature" version="1.0.0.qualifier"/>
-      <import feature="gov.noaa.nws.ncep.swpc.dataplugins.feature" version="1.0.0.qualifier"/>
    </requires>
 
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.geomag"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+       
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.ghcd"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.solarimage"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+  <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.editedevents"
+         download-size="0" 
+         install-size="0"
+         version="0.0.0" 
+         unpack="false"/>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.dataplugin.editedregions"
+         download-size="0" 
+         install-size="0"
+         version="0.0.0" 
+         unpack="false"/>
+
+   <plugin
+         id="gov.noaa.nws.ncep.common.swpcrefdb"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
    <plugin
          id="gov.noaa.nws.ncep.viz.rsc.ghcd"
          download-size="0"
