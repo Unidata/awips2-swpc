@@ -5,7 +5,7 @@ Bundle-SymbolicName: gov.noaa.nws.ncep.common.swpcrefdb
 Bundle-Version: 1.0.0.qualifier
 Require-Bundle: com.raytheon.edex.common;bundle-version="1.12.1174",
  javax.persistence;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: com.raytheon.uf.common.serialization.comm
 Export-Package: gov.noaa.nws.ncep.common.swpcrefdb,

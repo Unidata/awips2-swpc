@@ -14,7 +14,7 @@ Require-Bundle: com.raytheon.viz.ui,
  com.raytheon.viz.ui;bundle-version="1.12.1174",
  com.raytheon.uf.common.dataplugin;bundle-version="1.14.0"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.raytheon.uf.viz.core.requests,
  gov.noaa.nws.ncep.viz.ui.display
 

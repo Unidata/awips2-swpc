@@ -4,7 +4,7 @@ Bundle-Name: Swpcrefdb
 Bundle-SymbolicName: gov.noaa.nws.ncep.edex.swpcrefdb
 Bundle-Version: 1.0.0.qualifier
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
  com.raytheon.edex.common;bundle-version="1.12.1174",
  gov.noaa.nws.ncep.common.swpcrefdb
